@@ -400,7 +400,7 @@ async function openForm(kind, record = null) {
       if (type === 'client-select' || type === 'contract-select') {
         choices.forEach((choice) => {
           const option = add(input, 'option');
-          option.value = type === 'client-select' ? choice.id : choice.id;
+          option.value = choice.id;
           option.textContent = type === 'client-select'
             ? `${choice.company} · ${choice.rut || choice.email}`
             : `${choice.number} · ${choice.title}`;

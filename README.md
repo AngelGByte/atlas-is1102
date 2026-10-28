@@ -64,33 +64,46 @@ Si modificas la estructura de `db/init.sql` luego de crear el volumen, la inicia
 Instala dependencias para desarrollo una sola vez:
 
 ```powershell
-npm install
-npm test
-npm run test:unit
+npm.cmd install
+npm.cmd test
+npm.cmd run test:unit
 ```
 
 La integración necesita la base levantada y apunta a una base de pruebas aislada. En PowerShell:
 
 ```powershell
-$env:TEST_DATABASE_URL = "postgres://atlas:atlas-local-only@127.0.0.1:15432/atlas"
-npm run test:integration
+$dbUser = (docker compose exec -T db printenv POSTGRES_USER).Trim()
+$dbPassword = (docker compose exec -T db printenv POSTGRES_PASSWORD).Trim()
+$userEncoded = [uri]::EscapeDataString($dbUser)
+$passwordEncoded = [uri]::EscapeDataString($dbPassword)
+$env:TEST_DATABASE_URL = "postgres://${userEncoded}:${passwordEncoded}@127.0.0.1:15432/atlas"
+npm.cmd run test:integration
+Remove-Item Env:TEST_DATABASE_URL
 ```
 
-La prueba crea un usuario y un cliente temporales y los elimina al finalizar; no la ejecutes contra datos reales o una base compartida. Si cambiaste claves en `.env`, actualiza la URL de prueba. `npm run test:coverage` genera el reporte `coverage/lcov.info`; para incluir la integración en el reporte, define primero `TEST_DATABASE_URL`. Conserva capturas/logs de la ejecución para tu informe. Un test omitido por falta de `TEST_DATABASE_URL` no equivale a una prueba aprobada.
+La prueba crea un usuario y un cliente temporales y los elimina al finalizar; no la ejecutes contra datos reales o una base compartida. Si cambiaste claves en `.env`, actualiza la URL de prueba. `npm.cmd run test:coverage` genera el reporte `coverage/lcov.info`; para incluir la integración en el reporte, define primero `TEST_DATABASE_URL`. Conserva capturas/logs de la ejecución para tu informe. Un test omitido por falta de `TEST_DATABASE_URL` no equivale a una prueba aprobada.
 
 ## Inspección SonarQube de acuerdo con el material del curso
 
-1. Inicia SonarQube local y verifica en el navegador que esté operativo en `http://localhost:9000`.
-2. Crea un proyecto local llamado `atlas-is1102` y genera un token de análisis desde SonarQube.
-3. En una terminal, ve a la carpeta del proyecto e instala dependencias; inicia cobertura con `npm run test:coverage`.
-4. Descarga/instala SonarScanner compatible con tu plataforma, agrega su carpeta `bin` al `PATH` y verifica `java -version` (JDK 17) y `sonar-scanner --version`.
+1. Inicia el servidor SonarQube de laboratorio desde la raíz del proyecto:
+
+   ```powershell
+   docker compose --profile analysis up -d sonarqube
+   docker compose ps
+   ```
+
+   Espera a que termine el arranque y verifica <http://localhost:9000>. El primer inicio puede tardar varios minutos. La edición Community usa almacenamiento local de laboratorio; los volúmenes del proyecto conservan sus datos.
+2. Inicia sesión con `admin` / `admin` y cambia la contraseña cuando SonarQube lo solicite. Crea un proyecto local llamado `atlas-is1102` y genera un token de análisis. El token es secreto: no lo pegues en el repositorio, capturas ni informe.
+3. En otra terminal, ve a la carpeta del proyecto e instala dependencias; inicia cobertura con `npm.cmd run test:coverage`. Para incorporar la prueba de integración al reporte, configura `TEST_DATABASE_URL` como se indica arriba antes de ejecutar cobertura.
+4. Descarga el SonarScanner CLI para Windows x64 desde la [documentación oficial de SonarScanner](https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/scanners/sonarscanner/), agrega su carpeta `bin` al `PATH` y verifica `sonar-scanner --version`. El JDK 17 está instalado en esta máquina; usa la versión de scanner indicada por el asistente de SonarQube si el servidor solicita otra compatible.
 5. Ejecuta el comando mostrado por la interfaz de SonarQube. Alternativamente, configura `SONAR_HOST_URL` y `SONAR_TOKEN` en la sesión (no los guardes en el repositorio) y ejecuta:
 
    ```powershell
-   sonar-scanner "-Dsonar.host.url=$env:SONAR_HOST_URL" "-Dsonar.token=$env:SONAR_TOKEN"
+   sonar-scanner "-Dsonar.host.url=$env:SONAR_HOST_URL" "-Dsonar.token=$env:SONAR_TOKEN" "-Dsonar.userHome=$env:TEMP\atlas-sonar-cache"
    ```
 
 6. Guarda evidencia legible de la pantalla de resumen y registra bugs, vulnerabilidades, hotspots, code smells y cobertura en tu bitácora. El análisis solo produce resultados al ejecutarlo: este repositorio no contiene cifras de Sonar inventadas.
+7. Para detener SonarQube sin borrar los resultados: `docker compose --profile analysis stop sonarqube`. No uses `docker compose down -v` si deseas conservar análisis y base de datos del laboratorio.
 
 ## Evidencias e informe
 

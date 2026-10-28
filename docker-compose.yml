@@ -40,5 +40,24 @@ services:
       retries: 10
     restart: unless-stopped
 
+  sonarqube:
+    image: sonarqube:community
+    profiles: ["analysis"]
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - atlas-sonarqube-data:/opt/sonarqube/data
+      - atlas-sonarqube-extensions:/opt/sonarqube/extensions
+      - atlas-sonarqube-logs:/opt/sonarqube/logs
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 2g
+    restart: unless-stopped
+
 volumes:
   atlas-data:
+  atlas-sonarqube-data:
+  atlas-sonarqube-extensions:
+  atlas-sonarqube-logs:

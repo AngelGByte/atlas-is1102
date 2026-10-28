@@ -3,6 +3,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
+COPY db ./db
 COPY src ./src
 COPY public ./public
 USER node
