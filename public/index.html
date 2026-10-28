@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153a5b">
+  <title>Atlas | Gestión de clientes y contratos</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main id="login-screen" class="login-layout">
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="brand-mark" aria-hidden="true">A</div>
+      <p class="eyebrow">CREALAB · GESTIÓN EMPRESARIAL</p>
+      <h1 id="login-title">Bienvenido a Atlas</h1>
+      <p class="muted">Administra clientes, contratos y documentos desde un solo lugar.</p>
+      <form id="login-form" class="form-stack">
+        <label for="login-email">Correo electrónico</label>
+        <input id="login-email" name="email" type="email" autocomplete="username" required maxlength="254">
+        <label for="login-password">Contraseña</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="128">
+        <button class="button primary full-width" type="submit">Iniciar sesión</button>
+        <p id="login-error" class="form-error" role="alert"></p>
+      </form>
+      <p class="demo-hint">El acceso inicial se configura con <code>ADMIN_EMAIL</code> y <code>ADMIN_PASSWORD</code> al iniciar la base de datos.</p>
+    </section>
+  </main>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Atlas, ir al inicio">
+        <span class="brand-mark small" aria-hidden="true">A</span>
+        <span>atlas<span class="brand-dot">.</span></span>
+      </a>
+      <p class="nav-caption">ESPACIO DE TRABAJO</p>
+      <nav id="main-nav" aria-label="Navegación principal">
+        <button class="nav-item active" data-view="dashboard"><span aria-hidden="true">◫</span> Resumen</button>
+        <button class="nav-item" data-view="clients"><span aria-hidden="true">◉</span> Clientes</button>
+        <button class="nav-item" data-view="contracts"><span aria-hidden="true">▤</span> Contratos</button>
+        <button class="nav-item" data-view="documents"><span aria-hidden="true">▧</span> Documentos</button>
+        <button class="nav-item admin-only" data-view="users"><span aria-hidden="true">♙</span> Usuarios</button>
+        <button class="nav-item admin-only" data-view="audit"><span aria-hidden="true">◷</span> Auditoría</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="security-note"><span class="status-dot"></span><span>Entorno protegido<br><small>Sesión cifrada</small></span></div>
+        <button id="logout-button" class="logout-button">Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <section class="content">
+      <header class="topbar">
+        <button id="menu-button" class="icon-button mobile-menu" aria-label="Abrir menú">☰</button>
+        <div>
+          <p class="eyebrow" id="view-kicker">PANEL DE CONTROL</p>
+          <h1 id="view-title">Resumen</h1>
+        </div>
+        <div class="profile">
+          <span id="profile-name">Usuario</span>
+          <span id="profile-role" class="role-badge">Administrador</span>
+          <span class="avatar" id="profile-avatar" aria-hidden="true">A</span>
+        </div>
+      </header>
+      <div id="notice" class="notice hidden" role="status"></div>
+      <main id="view-content" class="view-content" tabindex="-1"></main>
+      <footer>Atlas · Sistema de gestión · Datos de demostración</footer>
+    </section>
+  </div>
+
+  <dialog id="record-dialog" class="record-dialog" aria-labelledby="dialog-title">
+    <form id="record-form" method="dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">GESTIÓN ATLAS</p><h2 id="dialog-title">Nuevo registro</h2></div>
+        <button type="button" class="icon-button" id="dialog-close" aria-label="Cerrar formulario">×</button>
+      </div>
+      <div id="form-fields" class="form-grid"></div>
+      <p id="dialog-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" class="button secondary" id="dialog-cancel">Cancelar</button>
+        <button type="submit" class="button primary" id="dialog-submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
