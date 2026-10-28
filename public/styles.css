@@ -8,7 +8,6 @@
   --line: #e7ebef;
   --canvas: #f5f7fa;
   --white: #fff;
-  --green: #238363;
   --red: #bd4d4d;
   font-family: "Segoe UI", Arial, sans-serif;
 }
@@ -37,7 +36,6 @@ textarea { min-height: 92px; resize: vertical; }
 .button.primary { background: var(--navy); color: white; }
 .button.primary:hover { background: #204e73; }
 .button.secondary { background: #edf1f4; color: #415164; }
-.button.danger { background: #fff0ef; color: var(--red); }
 .full-width { width: 100%; margin-top: 8px; min-height: 46px; }
 .form-error { color: var(--red); font-size: 12px; min-height: 16px; margin: 0; }
 .demo-hint { color: var(--muted); font-size: 11px; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); line-height: 1.7; }

@@ -244,7 +244,6 @@ app.get('/api/summary', asyncRoute(async (req, res) => {
     `SELECT
        (SELECT COUNT(*)::int FROM clients) AS clients,
        (SELECT COUNT(*)::int FROM contracts) AS contracts,
-       (SELECT COUNT(*)::int FROM documents) AS documents,
        (SELECT COUNT(*)::int FROM contracts WHERE status = 'activo') AS active_contracts,
        (SELECT COUNT(*)::int FROM clients WHERE risk_level = 'alto') AS high_risk_clients`
   );
@@ -442,6 +441,16 @@ app.post('/api/users', requireAdmin, asyncRoute(async (req, res) => {
 
 app.patch('/api/users/:id', requireAdmin, asyncRoute(async (req, res) => {
   const input = parse(userUpdateSchema, req.body);
+  if (Number(req.params.id) === req.auth.id && input.role && input.role !== req.auth.role) {
+    const error = new Error('No puedes cambiar tu propio rol.');
+    error.status = 400;
+    throw error;
+  }
+  if (Number(req.params.id) === req.auth.id && input.active === false) {
+    const error = new Error('No puedes desactivar tu propia cuenta.');
+    error.status = 400;
+    throw error;
+  }
   const updated = await inTransaction(async (db) => {
     const result = await db.query(
       `UPDATE users SET name=COALESCE($1,name), role=COALESCE($2,role),
@@ -452,16 +461,6 @@ app.patch('/api/users/:id', requireAdmin, asyncRoute(async (req, res) => {
     if (!result.rowCount) {
       const error = new Error('Usuario no encontrado.');
       error.status = 404;
-      throw error;
-    }
-    if (Number(req.params.id) === req.auth.id && input.role && input.role !== result.rows[0].role) {
-      const error = new Error('No puedes cambiar tu propio rol.');
-      error.status = 400;
-      throw error;
-    }
-    if (Number(req.params.id) === req.auth.id && result.rows[0].active === false) {
-      const error = new Error('No puedes desactivar tu propia cuenta.');
-      error.status = 400;
       throw error;
     }
     await recordAudit(db, req, 'update', 'users', result.rows[0].id, { role: result.rows[0].role });

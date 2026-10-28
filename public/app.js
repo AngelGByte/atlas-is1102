@@ -198,17 +198,6 @@ function renderTable(kind, records) {
         pill(record.riskLevel),
         pill(record.status),
         record.bankAccountLast4 ? `•••• ${record.bankAccountLast4}` : 'No registrada'
-      ],
-      fields: [
-        ['name', 'Nombre de contacto', 'text', true],
-        ['company', 'Empresa', 'text', true],
-        ['rut', 'RUT', 'text'],
-        ['email', 'Correo electrónico', 'email', true],
-        ['phone', 'Teléfono', 'tel'],
-        ['riskLevel', 'Nivel de riesgo', 'select', true, ['bajo', 'medio', 'alto']],
-        ['status', 'Estado', 'select', true, ['activo', 'inactivo']],
-        ['bankAccount', 'Cuenta bancaria (se cifra; solo últimos 4 dígitos visibles)', 'text', false, null, true],
-        ['notes', 'Observaciones', 'textarea', false, null, true]
       ]
     },
     contracts: {
@@ -220,16 +209,6 @@ function renderTable(kind, records) {
         `${formatDate(record.startDate)} — ${formatDate(record.endDate)}`,
         formatCurrency(record.value),
         pill(record.status)
-      ],
-      fields: [
-        ['clientId', 'Cliente', 'client-select', true],
-        ['number', 'Número de contrato', 'text', true],
-        ['title', 'Título', 'text', true, null, true],
-        ['value', 'Monto en pesos chilenos', 'number', true],
-        ['status', 'Estado', 'select', true, ['pendiente', 'activo', 'vencido', 'terminado']],
-        ['startDate', 'Fecha de inicio', 'date', true],
-        ['endDate', 'Fecha de término', 'date', true],
-        ['manager', 'Responsable', 'text', true]
       ]
     },
     documents: {
@@ -241,14 +220,6 @@ function renderTable(kind, records) {
         record.category,
         record.fileName || 'Sin archivo',
         pill(record.status)
-      ],
-      fields: [
-        ['contractId', 'Contrato asociado', 'contract-select', true],
-        ['name', 'Nombre del documento', 'text', true, null, true],
-        ['category', 'Categoría', 'text', true],
-        ['fileName', 'Nombre del archivo (referencia)', 'text'],
-        ['status', 'Estado', 'select', true, ['pendiente', 'aprobado', 'rechazado']],
-        ['notes', 'Observaciones', 'textarea', false, null, true]
       ]
     },
     users: {
@@ -260,13 +231,6 @@ function renderTable(kind, records) {
         pill(record.role),
         pill(record.active ? 'activo' : 'inactivo'),
         formatDate(record.createdAt)
-      ],
-      fields: [
-        ['name', 'Nombre completo', 'text', true],
-        ['email', 'Correo electrónico', 'email', true],
-        ['password', 'Contraseña inicial', 'password', true, null, false, '12 caracteres mínimo, mayúscula, minúscula, número y símbolo'],
-        ['role', 'Rol', 'select', true, ['admin', 'editor', 'viewer']],
-        ['active', 'Cuenta activa', 'select', true, ['true', 'false']]
       ]
     },
     audit: {
