@@ -1,0 +1,4 @@
+CP-08 data verification for GET /api/clients
+Database: atlas (local Docker PostgreSQL)
+Query: SELECT COUNT(*) AS client_count FROM clients;
+Result: 500

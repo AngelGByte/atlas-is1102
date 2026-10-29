@@ -8,8 +8,15 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS companies (
+  id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(180) NOT NULL UNIQUE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS clients (
   id BIGSERIAL PRIMARY KEY,
+  empresa_id BIGINT REFERENCES companies(id) ON DELETE RESTRICT,
   name_enc TEXT NOT NULL,
   company_enc TEXT NOT NULL,
   rut_enc TEXT,
@@ -22,6 +29,21 @@ CREATE TABLE IF NOT EXISTS clients (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE clients ADD COLUMN IF NOT EXISTS empresa_id BIGINT;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_constraint
+    WHERE conname = 'clients_empresa_id_fkey'
+  ) THEN
+    ALTER TABLE clients
+      ADD CONSTRAINT clients_empresa_id_fkey
+      FOREIGN KEY (empresa_id) REFERENCES companies(id) ON DELETE RESTRICT;
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS contracts (
   id BIGSERIAL PRIMARY KEY,
@@ -62,5 +84,6 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 );
 
 CREATE INDEX IF NOT EXISTS idx_contracts_client_id ON contracts(client_id);
+CREATE INDEX IF NOT EXISTS idx_clients_empresa_id ON clients(empresa_id);
 CREATE INDEX IF NOT EXISTS idx_documents_contract_id ON documents(contract_id);
 CREATE INDEX IF NOT EXISTS idx_audit_logs_created_at ON audit_logs(created_at DESC);

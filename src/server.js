@@ -86,6 +86,16 @@ async function initializeDatabase() {
     );
   }
 
+  const defaultCompany = await pool.query(
+    `INSERT INTO companies (name) VALUES ('Empresa Atlas')
+     ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name
+     RETURNING id`
+  );
+  await pool.query(
+    'UPDATE clients SET empresa_id = $1 WHERE empresa_id IS NULL',
+    [defaultCompany.rows[0].id]
+  );
+
   const counts = await pool.query('SELECT COUNT(*)::int AS count FROM clients');
   if (counts.rows[0].count === 0) {
     await seedDemoData();
@@ -96,11 +106,14 @@ async function seedDemoData() {
   const db = await pool.connect();
   try {
     await db.query('BEGIN');
+    const company = await db.query('SELECT id FROM companies ORDER BY id LIMIT 1');
+    const companyId = company.rows[0].id;
     const clients = await db.query(
-      `INSERT INTO clients (name_enc, company_enc, rut_enc, email_enc, phone_enc, risk_level, notes_enc)
-       VALUES ($1,$2,$3,$4,$5,'medio',$6), ($7,$8,$9,$10,$11,'bajo',$12)
+      `INSERT INTO clients (empresa_id, name_enc, company_enc, rut_enc, email_enc, phone_enc, risk_level, notes_enc)
+       VALUES ($1,$2,$3,$4,$5,$6,'medio',$7), ($1,$8,$9,$10,$11,$12,'bajo',$13)
        RETURNING id`,
       [
+        companyId,
         encryptValue('Contacto CreaLab'), encryptValue('CreaLab Spa'), encryptValue('76.123.456-7'),
         encryptValue('contacto@crealab.cl'), encryptValue('+56912345678'), encryptValue('Cliente de demostración'),
         encryptValue('Contacto Muebles Norte'), encryptValue('Muebles Norte'), encryptValue('77.456.789-0'),
@@ -128,6 +141,11 @@ async function seedDemoData() {
   } finally {
     db.release();
   }
+}
+
+async function getDefaultCompanyId(db = pool) {
+  const result = await db.query('SELECT id FROM companies ORDER BY id LIMIT 1');
+  return result.rows[0].id;
 }
 
 const authenticate = asyncRoute(async (req, res, next) => {
@@ -255,14 +273,23 @@ app.get('/api/clients', asyncRoute(async (req, res) => {
   res.json(result.rows.map(safeClient));
 }));
 
+app.get('/api/empresas/:id/clients', asyncRoute(async (req, res) => {
+  const result = await pool.query(
+    'SELECT * FROM clients WHERE empresa_id = $1 ORDER BY created_at DESC',
+    [req.params.id]
+  );
+  res.json(result.rows.map(safeClient));
+}));
+
 app.post('/api/clients', requireAdmin, asyncRoute(async (req, res) => {
   const input = parse(clientSchema, req.body);
   const encrypted = input.bankAccount ? encryptValue(input.bankAccount.replace(/[ -]/g, '')) : null;
   const created = await inTransaction(async (db) => {
+    const companyId = await getDefaultCompanyId(db);
     const result = await db.query(
-      `INSERT INTO clients (name_enc, company_enc, rut_enc, email_enc, phone_enc, risk_level, status, notes_enc, bank_account_enc)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
-      [encryptValue(input.name), encryptValue(input.company), encryptValue(input.rut),
+      `INSERT INTO clients (empresa_id, name_enc, company_enc, rut_enc, email_enc, phone_enc, risk_level, status, notes_enc, bank_account_enc)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+      [companyId, encryptValue(input.name), encryptValue(input.company), encryptValue(input.rut),
         encryptValue(input.email), encryptValue(input.phone), input.riskLevel,
         input.status, encryptValue(input.notes), encrypted]
     );

@@ -1,0 +1,9 @@
+CP-08 local data verification
+Database: atlas (local Docker PostgreSQL)
+Query: SELECT COUNT(*) AS client_count FROM clients;
+Result: 500
+
+Query: SELECT COUNT(*) AS empresa_client_count
+       FROM clients
+       WHERE empresa_id = 1;
+Result: 500

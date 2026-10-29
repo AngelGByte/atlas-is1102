@@ -1,0 +1,96 @@
+﻿
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /scripts/cp08.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 40s max duration (incl. graceful stop):
+              * default: 1 looping VUs for 10s (gracefulStop: 30s)
+
+
+running (01.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+default   [  10% ] 1 VUs  01.0s/10s
+
+running (02.0s), 1/1 VUs, 1 complete and 0 interrupted iterations
+default   [  20% ] 1 VUs  02.0s/10s
+
+running (03.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+default   [  30% ] 1 VUs  03.0s/10s
+
+running (04.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+default   [  40% ] 1 VUs  04.0s/10s
+
+running (05.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+default   [  50% ] 1 VUs  05.0s/10s
+
+running (06.0s), 1/1 VUs, 5 complete and 0 interrupted iterations
+default   [  60% ] 1 VUs  06.0s/10s
+
+running (07.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+default   [  70% ] 1 VUs  07.0s/10s
+
+running (08.0s), 1/1 VUs, 7 complete and 0 interrupted iterations
+default   [  80% ] 1 VUs  08.0s/10s
+
+running (09.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+default   [  90% ] 1 VUs  09.0s/10s
+
+running (10.0s), 1/1 VUs, 9 complete and 0 interrupted iterations
+default   [ 100% ] 1 VUs  10.0s/10s
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✗ 'rate>0.99' rate=0.00%
+
+    http_req_duration
+    ✓ 'p(95)<300' p(95)=2.7ms
+
+    http_req_failed
+    ✗ 'rate<0.01' rate=100.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 10      0.996315/s
+    checks_succeeded...: 0.00%   0 out of 10
+    checks_failed......: 100.00% 10 out of 10
+
+    ✗ respuesta HTTP 200
+      ↳  0% — ✓ 0 / ✗ 10
+
+    HTTP
+    http_req_duration....: avg=2.5ms min=2.26ms med=2.49ms max=2.78ms p(90)=2.63ms p(95)=2.7ms
+    http_req_failed......: 100.00% 10 out of 10
+    http_reqs............: 10      0.996315/s
+
+    EXECUTION
+    iteration_duration...: avg=1s    min=1s     med=1s     max=1s     p(90)=1s     p(95)=1s   
+    iterations...........: 10      0.996315/s
+    vus..................: 1       min=1        max=1
+    vus_max..............: 1       min=1        max=1
+
+    NETWORK
+    data_received........: 9.2 kB  919 B/s
+    data_sent............: 3.6 kB  362 B/s
+
+
+
+
+running (10.0s), 0/1 VUs, 10 complete and 0 interrupted iterations
+default ✓ [ 100% ] 1 VUs  10s
+docker : time="2026-10-29T00:30:15Z" level=error msg="thresholds on metrics 'checks, http_req_failed' have been 
+crossed"
+En línea: 2 Carácter: 335
++ ... moke.txt'); docker run --rm -i -v "${scriptPath}:/scripts/cp08.js:ro" ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2026-10-2...e been crossed":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

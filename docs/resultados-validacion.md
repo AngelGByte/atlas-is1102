@@ -32,7 +32,26 @@ Durante el primer analisis se detecto una condicion redundante en una lista desp
 
 ## Alcance pendiente
 
-Estos resultados no acreditan pruebas de TLS/HTTPS, rendimiento o carga, accesibilidad, restauracion de respaldos ni cumplimiento normativo. Deben ejecutarse y documentarse por separado antes de afirmar que esos requisitos estan aprobados. La gestion documental almacena referencias y metadatos, no archivos.
+Estos resultados no acreditan pruebas de TLS/HTTPS, accesibilidad, restauracion de respaldos ni cumplimiento normativo. Deben ejecutarse y documentarse por separado antes de afirmar que esos requisitos estan aprobados. La gestion documental almacena referencias y metadatos, no archivos.
+
+## CP-08 — Prueba de rendimiento
+
+**Estado: APROBADO.**
+
+- Se implementó la relación `clients.empresa_id` con la tabla `companies` y el endpoint protegido `GET /api/empresas/:id/clients`.
+- La base local contiene 500 clientes generados exclusivamente para la prueba en `empresa_id=1`. La consulta reproducible esta en [`docs/cp08-evidence.sql`](./cp08-evidence.sql) y su resultado en [`docs/cp08-sql-result.txt`](./cp08-sql-result.txt).
+- La comprobación funcional respondió `200 OK` y devolvió `500` clientes para `GET /api/empresas/1/clients`.
+- El archivo [`docs/cp08-endpoint-smoke.txt`](./cp08-endpoint-smoke.txt) corresponde a un smoke test preliminar fallido con 1 VU durante 10 segundos; se conserva como antecedente y no como evidencia de aprobación.
+- [`cp08.js`](../cp08.js) ejecutó 50 VU durante 5 minutos, con ramp-up de 30 segundos y ramp-down de 30 segundos.
+- Resultado k6: código de salida `0`, 14.885 iteraciones, `http_req_duration p(95)=213.65 ms`, `http_req_failed=0 %` y `checks=100 %`.
+- Se cumplieron los umbrales: P95 menor a 300 ms, errores HTTP menores a 1 % y checks mayores a 99 %. La salida completa sin credenciales está en [`docs/cp08-result.txt`](./cp08-result.txt).
+
+### Ejecución solicitada sobre `GET /api/clients`
+
+- La verificación funcional respondió `200 OK` y devolvió `500` clientes. La consulta y el resultado están en [`docs/cp08-clients-evidence.sql`](./cp08-clients-evidence.sql) y [`docs/cp08-clients-sql-result.txt`](./cp08-clients-sql-result.txt).
+- La configuración específica está en [`cp08-clients.js`](../cp08-clients.js), con 50 VU durante 5 minutos, más 30 segundos de subida y 30 segundos de descenso.
+- Resultado final k6: código de salida `0`, 14.528 iteraciones, `http_req_duration p(95)=244.95 ms`, `http_req_failed=0 %` y `checks=100 %`.
+- Esta es la evidencia principal para el requisito que solicita explícitamente `GET /api/clients`; el resumen completo está en [`docs/cp08-clients-result.txt`](./cp08-clients-result.txt).
 
 ## Evidencia para el informe
 
