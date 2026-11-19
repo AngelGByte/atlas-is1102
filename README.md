@@ -69,6 +69,18 @@ npm.cmd test
 npm.cmd run test:unit
 ```
 
+La suite equivalente en Vitest se ejecuta con:
+
+```powershell
+npm.cmd run test:vitest
+```
+
+Para ejecutar todo el conjunto local y la auditoría de dependencias:
+
+```powershell
+npm.cmd run quality
+```
+
 La integración necesita la base levantada y apunta a una base de pruebas aislada. En PowerShell:
 
 ```powershell
@@ -80,6 +92,28 @@ $env:TEST_DATABASE_URL = "postgres://${userEncoded}:${passwordEncoded}@127.0.0.1
 npm.cmd run test:integration
 Remove-Item Env:TEST_DATABASE_URL
 ```
+
+## Pruebas de carga con JMeter
+
+El plan reproducible para login y consulta de clientes está en
+[`jmeter/atlas-load-test.jmx`](./jmeter/atlas-load-test.jmx), con instrucciones en
+[`jmeter/README.md`](./jmeter/README.md). La prueba debe ejecutarse contra datos sintéticos
+y una instancia de laboratorio. No se deben guardar contraseñas, tokens ni resultados con
+datos personales en el repositorio.
+
+## Automatización y extensiones
+
+El workflow [`ci.yml`](./.github/workflows/ci.yml) ejecuta las pruebas y `npm audit` en cada
+push a `main` y pull request. Las extensiones sugeridas para VS Code están en
+[`extensions.json`](./.vscode/extensions.json): Vitest Explorer, SonarLint, Docker, ESLint
+y YAML.
+
+La matriz de requisitos y la lista de evidencias para el informe y la presentación están en
+[`docs/entregables-ep5.md`](./docs/entregables-ep5.md). La auditoría configurada bloquea
+vulnerabilidades altas y críticas; la auditoría completa puede mostrar vulnerabilidades
+moderadas transitorias asociadas a c8, que deben registrarse y revisarse antes de publicar.
+
+El informe técnico completo está en [`docs/informe-ep5.md`](./docs/informe-ep5.md).
 
 La prueba crea un usuario y un cliente temporales y los elimina al finalizar; no la ejecutes contra datos reales o una base compartida. Si cambiaste claves en `.env`, actualiza la URL de prueba. `npm.cmd run test:coverage` genera el reporte `coverage/lcov.info`; para incluir la integración en el reporte, define primero `TEST_DATABASE_URL`. Conserva capturas/logs de la ejecución para tu informe. Un test omitido por falta de `TEST_DATABASE_URL` no equivale a una prueba aprobada.
 
