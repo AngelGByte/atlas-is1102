@@ -114,6 +114,8 @@ vulnerabilidades altas y críticas; la auditoría completa puede mostrar vulnera
 moderadas transitorias asociadas a c8, que deben registrarse y revisarse antes de publicar.
 
 El informe técnico completo está en [`docs/informe-ep5.md`](./docs/informe-ep5.md).
+La versión Word consolidada para la entrega final está en
+[`docs/Informe_Final_EP5_Atlas.docx`](./docs/Informe_Final_EP5_Atlas.docx).
 
 La prueba crea un usuario y un cliente temporales y los elimina al finalizar; no la ejecutes contra datos reales o una base compartida. Si cambiaste claves en `.env`, actualiza la URL de prueba. `npm.cmd run test:coverage` genera el reporte `coverage/lcov.info`; para incluir la integración en el reporte, define primero `TEST_DATABASE_URL`. Conserva capturas/logs de la ejecución para tu informe. Un test omitido por falta de `TEST_DATABASE_URL` no equivale a una prueba aprobada.
 
