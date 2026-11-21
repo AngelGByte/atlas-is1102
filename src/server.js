@@ -14,6 +14,9 @@ const MAX_CLIENTS_LIMIT = 200;
 const databasePoolMax = Number(process.env.PG_POOL_MAX || 10);
 const {
   clientSchema,
+  clientBlockSchema,
+  clientOppositionResolutionSchema,
+  clientOppositionSchema,
   contractSchema,
   documentSchema,
   parse,
@@ -41,8 +44,21 @@ const safeClient = (row) => ({
   status: row.status,
   notes: decryptValue(row.notes_enc) || '',
   bankAccountLast4: row.bank_account_enc ? decryptValue(row.bank_account_enc).slice(-4) : '',
+  blocked: row.blocked,
+  blockedAt: row.blocked ? row.blocked_at : null,
+  blockedReason: row.blocked ? row.blocked_reason : null,
   createdAt: row.created_at,
   updatedAt: row.updated_at
+});
+const safeOpposition = (row) => ({
+  id: row.id,
+  clientId: row.client_id,
+  reason: row.reason,
+  status: row.status,
+  resolutionReason: row.resolution_reason,
+  requestedAt: row.requested_at,
+  updatedAt: row.updated_at,
+  resolvedAt: row.resolved_at
 });
 const safeContract = (row) => ({
   id: row.id,
@@ -245,17 +261,33 @@ async function inTransaction(handler) {
   }
 }
 
+async function assertClientEditable(db, clientId) {
+  const result = await db.query('SELECT blocked FROM clients WHERE id=$1 FOR UPDATE', [clientId]);
+  if (!result.rowCount) {
+    const error = new Error('Cliente no encontrado.');
+    error.status = 404;
+    throw error;
+  }
+  if (result.rows[0].blocked) {
+    const error = new Error('Cliente bloqueado; desbloquéelo explícitamente antes de modificarlo.');
+    error.status = 409;
+    throw error;
+  }
+}
+
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(express.json({ limit: '100kb', type: 'application/json' }));
 app.use(express.static(path.join(__dirname, '..', 'public'), { index: false, maxAge: '1h' }));
 
-app.param('id', (req, res, next, id) => {
+const validateNumericId = (req, res, next, id) => {
   if (!/^\d{1,18}$/.test(id)) {
     return res.status(400).json({ message: 'Identificador inválido.' });
   }
   return next();
-});
+};
+app.param('id', validateNumericId);
+app.param('oppositionId', validateNumericId);
 
 app.get('/api/health', asyncRoute(async (req, res) => {
   await pool.query('SELECT 1');
@@ -309,10 +341,10 @@ app.use('/api', authenticate);
 app.get('/api/summary', asyncRoute(async (req, res) => {
   const result = await pool.query(
     `SELECT
-       (SELECT COUNT(*)::int FROM clients) AS clients,
+       (SELECT COUNT(*)::int FROM clients WHERE blocked=FALSE) AS clients,
        (SELECT COUNT(*)::int FROM contracts) AS contracts,
        (SELECT COUNT(*)::int FROM contracts WHERE status = 'activo') AS active_contracts,
-       (SELECT COUNT(*)::int FROM clients WHERE risk_level = 'alto') AS high_risk_clients`
+       (SELECT COUNT(*)::int FROM clients WHERE risk_level = 'alto' AND blocked=FALSE) AS high_risk_clients`
   );
   res.json(result.rows[0]);
 }));
@@ -322,10 +354,21 @@ app.get('/api/clients', asyncRoute(async (req, res) => {
   if (!pagination) {
     return res.status(400).json({ message: 'Parámetros de paginación inválidos.' });
   }
-  const totalResult = await pool.query('SELECT COUNT(*)::int AS total FROM clients');
+  const includeBlockedValue = req.query.includeBlocked;
+  if (includeBlockedValue !== undefined && !['true', 'false'].includes(includeBlockedValue)) {
+    return res.status(400).json({ message: 'Parámetro includeBlocked inválido.' });
+  }
+  const includeBlocked = includeBlockedValue === 'true';
+  if (includeBlocked && req.auth.role !== 'admin') {
+    return res.status(403).json({ message: 'Solo el administrador puede incluir clientes bloqueados.' });
+  }
+  const clientFilter = includeBlocked ? '' : ' WHERE blocked=FALSE';
+  const totalResult = await pool.query(
+    `SELECT COUNT(*)::int AS total FROM clients${clientFilter}`
+  );
   const total = totalResult.rows[0].total;
   const result = await pool.query(
-    `SELECT * FROM clients
+    `SELECT * FROM clients${clientFilter}
      ORDER BY created_at DESC, id DESC
      LIMIT $1 OFFSET $2`,
     [pagination.limit, pagination.offset]
@@ -375,9 +418,114 @@ app.get('/api/clients/:id/export', requireAdmin, asyncRoute(async (req, res) => 
   res.json({ exportedAt: new Date().toISOString(), ...exported });
 }));
 
+app.post('/api/clients/:id/opposition', requireAdmin, asyncRoute(async (req, res) => {
+  const input = parse(clientOppositionSchema, req.body);
+  const opposition = await inTransaction(async (db) => {
+    const client = await db.query('SELECT id FROM clients WHERE id=$1 FOR UPDATE', [req.params.id]);
+    if (!client.rowCount) {
+      const error = new Error('Cliente no encontrado.');
+      error.status = 404;
+      throw error;
+    }
+    const result = await db.query(
+      `INSERT INTO client_oppositions (client_id, requested_by, reason)
+       VALUES ($1, $2, $3) RETURNING *`,
+      [req.params.id, req.auth.id, input.reason]
+    );
+    await recordAudit(db, req, 'opposition_create', 'client_oppositions', result.rows[0].id, {
+      clientId: Number(req.params.id),
+      status: result.rows[0].status
+    });
+    return result.rows[0];
+  });
+  res.status(201).json(safeOpposition(opposition));
+}));
+
+app.patch('/api/clients/:id/oppositions/:oppositionId', requireAdmin, asyncRoute(async (req, res) => {
+  const input = parse(clientOppositionResolutionSchema, req.body);
+  const opposition = await inTransaction(async (db) => {
+    const result = await db.query(
+      `UPDATE client_oppositions
+       SET status=$1, resolution_reason=$2, resolved_by=$3, resolved_at=NOW(), updated_at=NOW()
+       WHERE id=$4 AND client_id=$5 AND status='pendiente'
+       RETURNING *`,
+      [input.status, input.resolutionReason, req.auth.id, req.params.oppositionId, req.params.id]
+    );
+    if (!result.rowCount) {
+      const existing = await db.query(
+        'SELECT status FROM client_oppositions WHERE id=$1 AND client_id=$2',
+        [req.params.oppositionId, req.params.id]
+      );
+      if (!existing.rowCount) {
+        const error = new Error('Solicitud de oposición no encontrada.');
+        error.status = 404;
+        throw error;
+      }
+      const error = new Error('La solicitud de oposición ya fue resuelta.');
+      error.status = 409;
+      throw error;
+    }
+    await recordAudit(db, req, 'opposition_resolve', 'client_oppositions', result.rows[0].id, {
+      clientId: Number(req.params.id),
+      status: input.status
+    });
+    return result.rows[0];
+  });
+  res.json(safeOpposition(opposition));
+}));
+
+app.patch('/api/clients/:id/block', requireAdmin, asyncRoute(async (req, res) => {
+  const input = parse(clientBlockSchema, req.body);
+  const blocked = await inTransaction(async (db) => {
+    const result = await db.query(
+      `UPDATE clients SET blocked=TRUE, blocked_at=NOW(), blocked_reason=$1, updated_at=NOW()
+       WHERE id=$2 AND blocked=FALSE RETURNING *`,
+      [input.reason, req.params.id]
+    );
+    if (!result.rowCount) {
+      const existing = await db.query('SELECT blocked FROM clients WHERE id=$1', [req.params.id]);
+      if (!existing.rowCount) {
+        const error = new Error('Cliente no encontrado.');
+        error.status = 404;
+        throw error;
+      }
+      const error = new Error('El cliente ya está bloqueado.');
+      error.status = 409;
+      throw error;
+    }
+    await recordAudit(db, req, 'block', 'clients', result.rows[0].id, { blocked: true });
+    return result.rows[0];
+  });
+  res.json(safeClient(blocked));
+}));
+
+app.patch('/api/clients/:id/unblock', requireAdmin, asyncRoute(async (req, res) => {
+  const unblocked = await inTransaction(async (db) => {
+    const result = await db.query(
+      `UPDATE clients SET blocked=FALSE, blocked_at=NULL, blocked_reason=NULL, updated_at=NOW()
+       WHERE id=$1 AND blocked=TRUE RETURNING *`,
+      [req.params.id]
+    );
+    if (!result.rowCount) {
+      const existing = await db.query('SELECT id FROM clients WHERE id=$1', [req.params.id]);
+      if (!existing.rowCount) {
+        const error = new Error('Cliente no encontrado.');
+        error.status = 404;
+        throw error;
+      }
+      const error = new Error('El cliente no está bloqueado.');
+      error.status = 409;
+      throw error;
+    }
+    await recordAudit(db, req, 'unblock', 'clients', result.rows[0].id, { blocked: false });
+    return result.rows[0];
+  });
+  res.json(safeClient(unblocked));
+}));
+
 app.get('/api/empresas/:id/clients', asyncRoute(async (req, res) => {
   const result = await pool.query(
-    'SELECT * FROM clients WHERE empresa_id = $1 ORDER BY created_at DESC',
+    'SELECT * FROM clients WHERE empresa_id = $1 AND blocked=FALSE ORDER BY created_at DESC',
     [req.params.id]
   );
   res.json(result.rows.map(safeClient));
@@ -405,6 +553,7 @@ app.put('/api/clients/:id', requireAdmin, asyncRoute(async (req, res) => {
   const input = parse(clientSchema, req.body);
   const encrypted = input.bankAccount ? encryptValue(input.bankAccount.replace(/[ -]/g, '')) : undefined;
   const updated = await inTransaction(async (db) => {
+    await assertClientEditable(db, req.params.id);
     const result = await db.query(
       `UPDATE clients SET name_enc=$1, company_enc=$2, rut_enc=$3, email_enc=$4, phone_enc=$5, risk_level=$6,
        status=$7, notes_enc=$8, bank_account_enc=COALESCE($9, bank_account_enc), updated_at=NOW()
@@ -426,6 +575,7 @@ app.put('/api/clients/:id', requireAdmin, asyncRoute(async (req, res) => {
 
 app.delete('/api/clients/:id', requireAdmin, asyncRoute(async (req, res) => {
   await inTransaction(async (db) => {
+    await assertClientEditable(db, req.params.id);
     const result = await db.query('DELETE FROM clients WHERE id=$1 RETURNING id', [req.params.id]);
     if (!result.rowCount) {
       const error = new Error('Cliente no encontrado.');

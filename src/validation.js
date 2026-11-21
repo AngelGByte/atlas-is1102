@@ -23,6 +23,19 @@ const clientSchema = z.object({
   ).optional()
 });
 
+const clientOppositionSchema = z.object({
+  reason: text(1000)
+});
+
+const clientOppositionResolutionSchema = z.object({
+  status: z.enum(['aceptada', 'rechazada']),
+  resolutionReason: text(1000)
+});
+
+const clientBlockSchema = z.object({
+  reason: text(1000)
+});
+
 const contractSchema = z.object({
   clientId: z.coerce.number().int().positive(),
   number: text(40),
@@ -75,6 +88,9 @@ function parse(schema, input) {
 
 module.exports = {
   clientSchema,
+  clientBlockSchema,
+  clientOppositionResolutionSchema,
+  clientOppositionSchema,
   contractSchema,
   documentSchema,
   parse,

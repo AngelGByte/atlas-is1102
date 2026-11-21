@@ -80,6 +80,11 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     ['get', '/api/empresas/invalid/clients'],
     ['put', '/api/clients/invalid', {}],
     ['delete', '/api/clients/invalid'],
+    ['post', '/api/clients/invalid/opposition', {}],
+    ['patch', '/api/clients/invalid/oppositions/1', {}],
+    ['patch', '/api/clients/1/oppositions/invalid', {}],
+    ['patch', '/api/clients/invalid/block', {}],
+    ['patch', '/api/clients/invalid/unblock', {}],
     ['put', '/api/contracts/invalid', {}],
     ['delete', '/api/contracts/invalid'],
     ['put', '/api/documents/invalid', {}],
@@ -122,6 +127,7 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   t.after(async () => {
     if (documentId) await pool.query('DELETE FROM documents WHERE id=$1', [documentId]);
     if (contractId) await pool.query('DELETE FROM contracts WHERE id=$1', [contractId]);
+    if (clientId) await pool.query('DELETE FROM client_oppositions WHERE client_id=$1', [clientId]);
     if (clientId) await pool.query('DELETE FROM clients WHERE id=$1', [clientId]);
     if (createdEmail) await pool.query('DELETE FROM users WHERE email=$1', [createdEmail]);
     await pool.end();
@@ -148,6 +154,58 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   assert.equal(createClient.status, 201);
   clientId = createClient.body.id;
   assert.equal(createClient.body.bankAccountLast4, '7890');
+  assert.equal(createClient.body.blocked, false);
+
+  const invalidOpposition = await request(app).post(`/api/clients/${clientId}/opposition`)
+    .set('Authorization', `Bearer ${adminToken}`)
+    .send({ reason: ' ' });
+  assert.equal(invalidOpposition.status, 400);
+  const missingOppositionClient = await request(app).post('/api/clients/999999999999999999/opposition')
+    .set('Authorization', `Bearer ${adminToken}`)
+    .send({ reason: 'Solicitud de prueba' });
+  assert.equal(missingOppositionClient.status, 404);
+  const createOpposition = await request(app).post(`/api/clients/${clientId}/opposition`)
+    .set('Authorization', `Bearer ${adminToken}`)
+    .send({ reason: 'Solicita no recibir comunicaciones comerciales.' });
+  assert.equal(createOpposition.status, 201);
+  assert.equal(createOpposition.body.clientId, clientId);
+  assert.equal(createOpposition.body.status, 'pendiente');
+  assert.ok(createOpposition.body.requestedAt);
+  assert.equal(createOpposition.body.reason, 'Solicita no recibir comunicaciones comerciales.');
+  const oppositionId = createOpposition.body.id;
+  const invalidOppositionResolution = await request(app).patch(
+    `/api/clients/${clientId}/oppositions/${oppositionId}`
+  ).set('Authorization', `Bearer ${adminToken}`)
+    .send({ status: 'pendiente', resolutionReason: 'Decisión no válida.' });
+  assert.equal(invalidOppositionResolution.status, 400);
+  const missingOpposition = await request(app).patch(
+    `/api/clients/${clientId}/oppositions/999999999999999999`
+  ).set('Authorization', `Bearer ${adminToken}`)
+    .send({ status: 'aceptada', resolutionReason: 'No existe.' });
+  assert.equal(missingOpposition.status, 404);
+  const resolveOpposition = await request(app).patch(
+    `/api/clients/${clientId}/oppositions/${oppositionId}`
+  ).set('Authorization', `Bearer ${adminToken}`)
+    .send({ status: 'aceptada', resolutionReason: 'Se aplicó la restricción solicitada.' });
+  assert.equal(resolveOpposition.status, 200);
+  assert.equal(resolveOpposition.body.status, 'aceptada');
+  assert.ok(resolveOpposition.body.resolvedAt);
+  assert.equal(resolveOpposition.body.resolutionReason, 'Se aplicó la restricción solicitada.');
+  const duplicateOppositionResolution = await request(app).patch(
+    `/api/clients/${clientId}/oppositions/${oppositionId}`
+  ).set('Authorization', `Bearer ${adminToken}`)
+    .send({ status: 'rechazada', resolutionReason: 'No se debe sobrescribir.' });
+  assert.equal(duplicateOppositionResolution.status, 409);
+  const oppositionAudit = await pool.query(
+    `SELECT action, entity_id, details FROM audit_logs
+     WHERE entity='client_oppositions' AND entity_id=$1 ORDER BY id`,
+    [oppositionId]
+  );
+  assert.deepEqual(oppositionAudit.rows.map((row) => row.action), [
+    'opposition_create',
+    'opposition_resolve'
+  ]);
+  assert.equal(oppositionAudit.rows[1].details.status, 'aceptada');
 
   const invalidClient = await request(app).post('/api/clients')
     .set('Authorization', `Bearer ${adminToken}`)
@@ -209,6 +267,22 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     password: 'Integration2026!'
   });
   assert.equal(editorLogin.status, 200);
+  const forbiddenOpposition = await request(app).post(`/api/clients/${clientId}/opposition`)
+    .set('Authorization', `Bearer ${editorLogin.body.token}`)
+    .send({ reason: 'No autorizado.' });
+  assert.equal(forbiddenOpposition.status, 403);
+  const forbiddenOppositionResolution = await request(app).patch(
+    `/api/clients/${clientId}/oppositions/${oppositionId}`
+  ).set('Authorization', `Bearer ${editorLogin.body.token}`)
+    .send({ status: 'rechazada', resolutionReason: 'No autorizado.' });
+  assert.equal(forbiddenOppositionResolution.status, 403);
+  const forbiddenBlock = await request(app).patch(`/api/clients/${clientId}/block`)
+    .set('Authorization', `Bearer ${editorLogin.body.token}`)
+    .send({ reason: 'No autorizado.' });
+  assert.equal(forbiddenBlock.status, 403);
+  const forbiddenUnblock = await request(app).patch(`/api/clients/${clientId}/unblock`)
+    .set('Authorization', `Bearer ${editorLogin.body.token}`);
+  assert.equal(forbiddenUnblock.status, 403);
   const forbidden = await request(app).post('/api/clients')
     .set('Authorization', `Bearer ${editorLogin.body.token}`)
     .send({ name: 'No permitido', company: 'Empresa', email: 'blocked@example.cl' });
@@ -304,6 +378,87 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     assert.equal(updateClient.status, 200);
     assert.equal(updateClient.body.bankAccountLast4, '7890');
 
+    const invalidBlock = await request(app).patch(`/api/clients/${clientId}/block`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ reason: '' });
+    assert.equal(invalidBlock.status, 400);
+    const missingBlock = await request(app).patch('/api/clients/999999999999999999/block')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ reason: 'Motivo de prueba.' });
+    assert.equal(missingBlock.status, 404);
+    const missingUnblock = await request(app).patch('/api/clients/999999999999999999/unblock')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(missingUnblock.status, 404);
+    const blockedClient = await request(app).patch(`/api/clients/${clientId}/block`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ reason: 'Revisión administrativa solicitada.' });
+    assert.equal(blockedClient.status, 200);
+    assert.equal(blockedClient.body.blocked, true);
+    assert.equal(blockedClient.body.blockedReason, 'Revisión administrativa solicitada.');
+    assert.ok(blockedClient.body.blockedAt);
+    const defaultListWithBlocked = await request(app).get('/api/clients?limit=200&page=1')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(defaultListWithBlocked.body.some((client) => client.id === clientId), false);
+    const unblockedClientCount = await pool.query(
+      'SELECT COUNT(*)::int AS total FROM clients WHERE blocked=FALSE'
+    );
+    assert.equal(Number(defaultListWithBlocked.headers['x-total-count']), unblockedClientCount.rows[0].total);
+    const includeBlockedList = await request(app).get('/api/clients?includeBlocked=true')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(includeBlockedList.status, 200);
+    assert.equal(includeBlockedList.body.some((client) => client.id === clientId && client.blocked), true);
+    const editorIncludeBlocked = await request(app).get('/api/clients?includeBlocked=true')
+      .set('Authorization', `Bearer ${editorLogin.body.token}`);
+    assert.equal(editorIncludeBlocked.status, 403);
+    const invalidIncludeBlocked = await request(app).get('/api/clients?includeBlocked=yes')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(invalidIncludeBlocked.status, 400);
+    const blockedUpdate = await request(app).put(`/api/clients/${clientId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        name: 'Cliente bloqueado',
+        company: 'Prueba automatizada',
+        email: `client-${Date.now()}@example.cl`,
+        riskLevel: 'medio'
+      });
+    assert.equal(blockedUpdate.status, 409);
+    const blockedDelete = await request(app).delete(`/api/clients/${clientId}`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(blockedDelete.status, 409);
+    const blockedExport = await request(app).get(`/api/clients/${clientId}/export`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(blockedExport.status, 200);
+    const blockAudit = await pool.query(
+      `SELECT action FROM audit_logs
+       WHERE entity='clients' AND entity_id=$1 AND action='block'`,
+      [clientId]
+    );
+    assert.equal(blockAudit.rowCount, 1);
+    const unblockedClient = await request(app).patch(`/api/clients/${clientId}/unblock`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(unblockedClient.status, 200);
+    assert.equal(unblockedClient.body.blocked, false);
+    assert.equal(unblockedClient.body.blockedAt, null);
+    assert.equal(unblockedClient.body.blockedReason, null);
+    const duplicateUnblock = await request(app).patch(`/api/clients/${clientId}/unblock`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(duplicateUnblock.status, 409);
+    const unblockedUpdate = await request(app).put(`/api/clients/${clientId}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        name: 'Cliente integración desbloqueado',
+        company: 'Prueba automatizada',
+        email: `client-${Date.now()}@example.cl`,
+        riskLevel: 'medio'
+      });
+    assert.equal(unblockedUpdate.status, 200);
+    const blockAuditEvents = await pool.query(
+      `SELECT action FROM audit_logs
+       WHERE entity='clients' AND entity_id=$1 AND action IN ('block', 'unblock') ORDER BY id`,
+      [clientId]
+    );
+    assert.deepEqual(blockAuditEvents.rows.map((row) => row.action), ['block', 'unblock']);
+
     const audit = await request(app).get('/api/audit').set('Authorization', `Bearer ${adminToken}`);
     assert.equal(audit.status, 200);
     assert.ok(audit.body.some((entry) => entry.entity === 'clients' && entry.entity_id === clientId));
@@ -316,6 +471,7 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     assert.equal((await request(app).delete(`/api/contracts/${contractId}`)
       .set('Authorization', `Bearer ${adminToken}`)).status, 204);
     contractId = null;
+    await pool.query('DELETE FROM client_oppositions WHERE client_id=$1', [clientId]);
     assert.equal((await request(app).delete(`/api/clients/${clientId}`)
       .set('Authorization', `Bearer ${adminToken}`)).status, 204);
     clientId = null;

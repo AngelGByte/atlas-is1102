@@ -84,8 +84,19 @@ administradores autenticados; no reemplaza el canal de solicitud del titular ni 
 titular acceder directamente al sistema. La cuenta bancaria se entrega enmascarada. Las rutas
 administrativas `PUT /api/clients/:id` y `DELETE /api/clients/:id` permiten modificar o
 eliminar clientes, respectivamente; no registran una solicitud del titular, y la eliminación
-puede estar impedida por relaciones de contratos. El prototipo no implementa flujos
-específicos para oposición o bloqueo. Estas capacidades y brechas se detallan en
+puede estar impedida por relaciones de contratos o solicitudes de oposición asociadas.
+
+El prototipo incorpora un registro administrativo de oposición mediante
+`POST /api/clients/:id/opposition` y su resolución mediante
+`PATCH /api/clients/:id/oppositions/:oppositionId`, con motivo, estado, fechas y auditoría.
+También permite bloquear y desbloquear administrativamente mediante
+`PATCH /api/clients/:id/block` y `PATCH /api/clients/:id/unblock`. Un cliente bloqueado se
+excluye de listados y resúmenes por defecto, no puede modificarse ni eliminarse hasta su
+desbloqueo explícito y sigue disponible para exportación administrativa. Solo un administrador
+puede ejecutar estos flujos o incluir bloqueados en el listado. Son capacidades técnicas
+parciales: no habilitan solicitudes directas del titular, verificación de identidad, evaluación
+jurídica, comunicación de la decisión ni control integral de todos los tratamientos. Estas
+brechas se detallan en
 [`matriz-cumplimiento-datos.md`](./matriz-cumplimiento-datos.md).
 
 ## 7. Incidentes y notificación de brechas

@@ -26,11 +26,17 @@ CREATE TABLE IF NOT EXISTS clients (
   status VARCHAR(16) NOT NULL DEFAULT 'activo' CHECK (status IN ('activo', 'inactivo')),
   notes_enc TEXT,
   bank_account_enc TEXT,
+  blocked BOOLEAN NOT NULL DEFAULT FALSE,
+  blocked_at TIMESTAMPTZ,
+  blocked_reason TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE clients ADD COLUMN IF NOT EXISTS empresa_id BIGINT;
+ALTER TABLE clients ADD COLUMN IF NOT EXISTS blocked BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE clients ADD COLUMN IF NOT EXISTS blocked_at TIMESTAMPTZ;
+ALTER TABLE clients ADD COLUMN IF NOT EXISTS blocked_reason TEXT;
 
 DO $$
 BEGIN
@@ -44,6 +50,24 @@ BEGIN
       FOREIGN KEY (empresa_id) REFERENCES companies(id) ON DELETE RESTRICT;
   END IF;
 END $$;
+
+CREATE TABLE IF NOT EXISTS client_oppositions (
+  id BIGSERIAL PRIMARY KEY,
+  client_id BIGINT NOT NULL REFERENCES clients(id) ON DELETE RESTRICT,
+  requested_by BIGINT REFERENCES users(id) ON DELETE SET NULL,
+  resolved_by BIGINT REFERENCES users(id) ON DELETE SET NULL,
+  reason VARCHAR(1000) NOT NULL,
+  status VARCHAR(16) NOT NULL DEFAULT 'pendiente'
+    CHECK (status IN ('pendiente', 'aceptada', 'rechazada')),
+  resolution_reason VARCHAR(1000),
+  requested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  resolved_at TIMESTAMPTZ,
+  CHECK (
+    (status = 'pendiente' AND resolved_at IS NULL AND resolved_by IS NULL) OR
+    (status IN ('aceptada', 'rechazada') AND resolved_at IS NOT NULL AND resolved_by IS NOT NULL)
+  )
+);
 
 CREATE TABLE IF NOT EXISTS contracts (
   id BIGSERIAL PRIMARY KEY,
