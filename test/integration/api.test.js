@@ -5,6 +5,12 @@ require('dotenv').config();
 
 const configured = Boolean(process.env.TEST_DATABASE_URL);
 
+if (process.env.CI === 'true' && !configured) {
+  test('la integración requiere TEST_DATABASE_URL en CI', () => {
+    assert.ok(configured, 'TEST_DATABASE_URL debe apuntar al servicio PostgreSQL de CI.');
+  });
+}
+
 test('API CRUD, roles, data protection and audit trail', { skip: !configured }, async (t) => {
   process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
   process.env.JWT_SECRET = process.env.JWT_SECRET || 'integration-test-jwt-secret-2026';

@@ -103,15 +103,21 @@ datos personales en el repositorio.
 
 ## Automatización y extensiones
 
-El workflow [`ci.yml`](./.github/workflows/ci.yml) ejecuta las pruebas y `npm audit` en cada
-push a `main` y pull request. Las extensiones sugeridas para VS Code están en
+El workflow [`ci.yml`](./.github/workflows/ci.yml) ejecuta las pruebas Node/Vitest, las
+pruebas dinámicas de seguridad, cobertura c8, auditoría de dependencias de producción y
+Gitleaks en jobs separados; Node y cobertura usan PostgreSQL 16 e inicializan el esquema
+desde `db/init.sql`. La integración falla en CI si falta `TEST_DATABASE_URL`, en vez de
+quedar omitida. La cobertura exige al menos 70 % en líneas, funciones, ramas y sentencias,
+y publica `coverage/` como artefacto. Para habilitar Sonar, configure como secretos del
+repositorio `SONAR_HOST_URL`, `SONAR_TOKEN` y `SONAR_PROJECT_KEY`; para SonarCloud configure
+además `SONAR_ORGANIZATION`. Mientras falte la configuración, el job lo informa y omite el
+análisis, sin guardar tokens en el repositorio. Las extensiones sugeridas para VS Code están en
 [`extensions.json`](./.vscode/extensions.json): Vitest Explorer, SonarLint, Docker, ESLint
 y YAML.
 
 La matriz de requisitos y la lista de evidencias para el informe y la presentación están en
-[`docs/entregables-ep5.md`](./docs/entregables-ep5.md). La auditoría configurada bloquea
-vulnerabilidades altas y críticas; la auditoría completa puede mostrar vulnerabilidades
-moderadas transitorias asociadas a c8, que deben registrarse y revisarse antes de publicar.
+[`docs/entregables-ep5.md`](./docs/entregables-ep5.md). La auditoría de producción bloquea
+vulnerabilidades altas y críticas; `npm audit` evalúa también las dependencias de desarrollo.
 
 El informe técnico completo está en [`docs/informe-ep5.md`](./docs/informe-ep5.md).
 La versión Word consolidada para la entrega final está en

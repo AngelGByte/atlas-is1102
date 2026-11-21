@@ -2,20 +2,179 @@ name: Atlas quality checks
 
 on:
   push:
-    branches: [main]
+    branches: [main, ep5-cierre-defectos]
   pull_request:
 
 permissions:
   contents: read
 
+env:
+  NODE_VERSION: 22
+  TEST_DATABASE_URL: postgres://atlas:atlas-ci-only-password@localhost:5432/atlas_test
+  DATABASE_URL: postgres://atlas:atlas-ci-only-password@localhost:5432/atlas_test
+  JWT_SECRET: ci-only-jwt-secret-not-for-production-2026
+  DATA_ENCRYPTION_SECRET: ci-only-encryption-secret-2026
+  ADMIN_EMAIL: admin@atlas.cl
+  ADMIN_PASSWORD: AtlasAdmin2026!
+
 jobs:
   test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: atlas_test
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas-ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U atlas -d atlas_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Inicializar esquema PostgreSQL
+        run: >-
+          node -e "const {initializeDatabase,pool}=require('./src/server');
+          initializeDatabase().then(()=>pool.end(),async e=>{console.error(e);await pool.end();process.exitCode=1;})"
+      - name: Pruebas Node.js e integración obligatoria
+        run: npm test
+      - name: Pruebas Vitest
+        run: npm run test:vitest
+
+  security:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: atlas_test
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas-ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U atlas -d atlas_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Pruebas dinámicas de seguridad
+        run: npm run test:security
+
+  coverage:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: atlas_test
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas-ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U atlas -d atlas_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Inicializar esquema PostgreSQL
+        run: >-
+          node -e "const {initializeDatabase,pool}=require('./src/server');
+          initializeDatabase().then(()=>pool.end(),async e=>{console.error(e);await pool.end();process.exitCode=1;})"
+      - name: Ejecutar pruebas y exigir cobertura mínima de 70 %
+        run: npm run test:coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cobertura-c8
+          path: coverage/
+          if-no-files-found: warn
+          retention-days: 14
+
+  dependency-audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
       - run: npm ci
-      - run: npm run quality
+      - name: Auditar dependencias de producción
+        run: npm audit --omit=dev --audit-level=high
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sonar:
+    runs-on: ubuntu-latest
+    needs: coverage
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: cobertura-c8
+          path: coverage
+      - name: Informar configuración Sonar pendiente
+        if: env.SONAR_TOKEN == '' || env.SONAR_HOST_URL == '' || env.SONAR_PROJECT_KEY == ''
+        run: echo "Análisis Sonar omitido; configure SONAR_HOST_URL, SONAR_TOKEN y SONAR_PROJECT_KEY en los secretos del repositorio." >> "$GITHUB_STEP_SUMMARY"
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      - name: Analizar con SonarCloud
+        if: env.SONAR_HOST_URL == 'https://sonarcloud.io' && env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != '' && env.SONAR_ORGANIZATION != ''
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+        with:
+          args: >-
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      - name: Analizar con SonarQube Server
+        if: env.SONAR_HOST_URL != '' && env.SONAR_HOST_URL != 'https://sonarcloud.io' && env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != ''
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        with:
+          args: >-
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
