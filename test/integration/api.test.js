@@ -17,7 +17,7 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   process.env.JWT_SECRET = process.env.JWT_SECRET || 'integration-test-jwt-secret-2026';
   process.env.DATA_ENCRYPTION_SECRET = process.env.DATA_ENCRYPTION_SECRET || 'integration-test-encryption-secret-2026';
   process.env.ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@atlas.cl';
-  process.env.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'AtlasAdmin2026!';
+  process.env.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'integration-admin-password-2026';
 
   const { app, initializeDatabase, pool } = require('../../src/server');
   await initializeDatabase();

@@ -12,6 +12,17 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
 - Interfaz adaptable, etiquetas de formulario y renderizado de contenido mediante nodos de texto para evitar ejecutar entradas como HTML.
 - Pruebas unitarias e integración, cobertura LCOV para SonarQube, Docker Compose y matriz inicial de casos en [`docs/casos-prueba.md`](./docs/casos-prueba.md).
 
+## Cierre EP5 - estado 2026-11-21
+
+El cierre actual confirma 9/9 pruebas Node, 4/4 Vitest, 19/19 controles dinámicos de seguridad,
+6/6 pruebas de accesibilidad y cobertura c8 de 79.89 % líneas, 75.88 % ramas y 85.71 % funciones.
+La ejecución actual no acredita carga ni TLS completos: k6/JMeter no produjeron una corrida válida
+por puerto/autenticación y los puertos 8080/8443 no estaban publicados. Trivy reportó 10 HIGH y
+Gitleaks conservó dos hallazgos históricos redactados sobre marcadores de secretos. Sonar quedó
+bloqueado por secretos no configurados. La evidencia detallada está en
+[`docs/evidencias/README.md`](./docs/evidencias/README.md), [`docs/resultados-validacion.md`](./docs/resultados-validacion.md)
+y [`docs/CHANGELOG-EP5.md`](./docs/CHANGELOG-EP5.md).
+
 ## Requisitos para ejecutar
 
 - Docker Desktop instalado e iniciado.
@@ -37,7 +48,7 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
    docker compose ps
    ```
 
-6. Abre <http://localhost:3333>. Credencial local inicial predeterminada: `admin@atlas.cl` / `AtlasAdmin2026!`. Si cambias `ADMIN_EMAIL`/`ADMIN_PASSWORD`, hazlo antes del primer inicio de la base; el usuario semilla no se sobrescribe en cada arranque.
+6. Abre <http://localhost:3333> con la credencial configurada mediante `ADMIN_EMAIL` y `ADMIN_PASSWORD` en `.env`. No hay contraseña predeterminada. Si cambias estas variables, hazlo antes del primer inicio de la base; el usuario semilla no se sobrescribe en cada arranque.
 7. El endpoint de salud es <http://localhost:3333/api/health>. PostgreSQL se expone solo en `127.0.0.1:15432` para el laboratorio.
 8. Para detener los servicios conserva los datos: `docker compose down`. Para borrar la base de datos de laboratorio y sus datos definitivamente: `docker compose down -v` (acción destructiva).
 

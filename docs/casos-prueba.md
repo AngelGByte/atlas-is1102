@@ -23,6 +23,31 @@ Los casos están diseñados para el Sistema Atlas descrito en la primera entrega
 | CP-SEG-05 | Alta | NFR-SEG-8 | Datos sintéticos; revisión de flujo de tratamiento | Revisar campos recogidos, finalidad, acceso por rol, retención y registros | Solo se almacenan datos necesarios; acceso y auditoría son verificables; documentar brechas legales pendientes | Cumplimiento / revisión |
 | CP-DIS-01 | Media | NFR-DIS-1, NFR-DIS-2 | Ventana de observación y entorno estable | Registrar disponibilidad; simular parada/mantenimiento siguiendo autorización y revisar recuperación | Comparar medición con 99,5% mensual y ventana de mantenimiento definida en ERS; no inferir cumplimiento desde prueba breve | Disponibilidad / recuperación |
 
+## Estado de cierre EP5 - 2026-11-21
+
+Los resultados históricos anteriores se conservan; este cierre distingue la ejecución actual.
+
+| ID | Estado real | Evidencia actual |
+|---|---|---|
+| CP-AUT-01 | Aprobado | `EP5-npm-test-2026-11-21.txt`; 9/9 pruebas Node |
+| CP-AUT-02 | Aprobado | `EP5-security-2026-11-21.txt`; controles S-11 a S-13 |
+| CP-CLI-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-CLI-02 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-CLI-03 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-ROL-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-ROL-02 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-AUD-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-CTO-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
+| CP-DOC-01 | Aprobado | Suite histórica de integración ya conservada |
+| CP-UI-01 | Aprobado | `EP5-accessibility-2026-11-21.txt`; 6/6 pruebas Playwright |
+| CP-PERF-01 | No logrado | Corridas k6/JMeter sin una métrica válida porque los intentos sin puerto correcto o autenticación fallida no representan rendimiento |
+| CP-SEG-01 | Parcial | TLS 1/3 en `EP5-tls-2026-11-21.txt`; faltan puertos 8080/8443 |
+| CP-SEG-02 | Aprobado | Configuración sin contraseña predeterminada; `EP5-npm-test-2026-11-21.txt` |
+| CP-SEG-03 | Aprobado | `EP5-security-2026-11-21.txt`; 19/19 |
+| CP-SEG-04 | Históricamente aprobado | `12-DEF-12-respaldo-2026-11-21.txt`; no repetir este cierre |
+| CP-SEG-05 | Históricamente aprobado | Revisión documental conservada |
+| CP-DIS-01 | Bloqueado | No existe una ventana de observación ni una medición autorizada de disponibilidad |
+
 ## Registro de ejecución (completar en el laboratorio)
 
 Para cada fila registra fecha/hora, navegador/versión, sistema operativo, versión de base de datos, build, pasos exactos, resultado obtenido, estado `Aprobado / Falla / Bloqueado`, ID de defecto y nombre/ruta de la captura o log. No marques un caso como aprobado hasta comparar evidencia con su criterio de aceptación.

@@ -56,3 +56,19 @@ Estos resultados no acreditan pruebas de TLS/HTTPS, accesibilidad, restauracion 
 ## Evidencia para el informe
 
 El dashboard local esta disponible en <http://localhost:9000/dashboard?id=atlas-is1102>. Guardar una captura legible del resumen y adjuntarla al informe junto con la fecha y las medidas anteriores. No incluir tokens, contrasenas, datos personales ni respaldos con datos del laboratorio en las capturas.
+
+## Cierre nuevo ejecutado el 2026-11-21
+
+Estas cifras corresponden a esta ejecución y no sustituyen ni reescriben las cifras históricas.
+
+- Nodo: 9 pruebas aprobadas, 0 fallidas, 0 omitidas.
+- Vitest: 4/4 aprobadas.
+- Seguridad dinámica: 19/19 aprobadas.
+- Accesibilidad: 6/6 aprobadas después de instalar Chromium.
+- Cobertura c8: statements/lines 79.89 %, branches 75.88 %, functions 85.71 %. Supera el mínimo 70 % configurado.
+- Auditoría de producción: 0 vulnerabilidades reportadas por `npm audit --omit=dev`.
+- TLS: 1/3; HTTPS y HTTP no están publicados en 8443/8080, por lo que no se aprobaron los dos casos conectados.
+- Trivy: 10 hallazgos HIGH, 0 CRITICAL en la última imagen, sin evidencia de corrección verificable mediante actualización compatible. `npm audit --omit=dev` sigue en cero.
+- Gitleaks: dos hallazgos históricos permanecen en el commit `c3e3d4a` sobre marcadores de `.env.example`; fueron redactados en el reporte. La contraseña predeterminada fue eliminada del código actual.
+- Sonar: bloqueado porque no hay secretos `SONAR_HOST_URL`, `SONAR_TOKEN`, `SONAR_PROJECT_KEY` configurados.
+- Defecto de carga: k6 fue ejecutado inicialmente contra el puerto incorrecto y JMeter respondió 401; no se publicarán métricas como válidas. El límite de login alcanzó 429 y bloqueó nuevas autenticaciones durante 15 minutos. Los 500 clientes sintéticos fueron eliminados sin contratos asociados.

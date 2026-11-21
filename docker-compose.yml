@@ -27,7 +27,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env antes de iniciar Atlas}
       DATA_ENCRYPTION_SECRET: ${DATA_ENCRYPTION_SECRET:?Define DATA_ENCRYPTION_SECRET en .env antes de iniciar Atlas}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@atlas.cl}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-AtlasAdmin2026!}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Define ADMIN_PASSWORD en .env antes de iniciar Atlas}
     ports:
       - "127.0.0.1:3333:3000"
     depends_on:

@@ -15,7 +15,7 @@ env:
   JWT_SECRET: ci-only-jwt-secret-not-for-production-2026
   DATA_ENCRYPTION_SECRET: ci-only-encryption-secret-2026
   ADMIN_EMAIL: admin@atlas.cl
-  ADMIN_PASSWORD: AtlasAdmin2026!
+  ADMIN_PASSWORD: ci-only-admin-password-2026
 
 jobs:
   test:

@@ -1,0 +1,15 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1795282974266,44,Listar clientes,401,Unauthorized,Usuarios concurrentes 1-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",903,187,2,2,http://localhost:3333/api/clients,39,0,28
+1795282974266,44,Listar clientes,401,Unauthorized,Usuarios concurrentes 1-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",903,187,2,2,http://localhost:3333/api/clients,39,0,28

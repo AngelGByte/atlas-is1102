@@ -67,6 +67,9 @@ function requireConfiguration() {
   if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 24) {
     throw new Error('JWT_SECRET must contain at least 24 characters.');
   }
+  if (!process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD.length < 12) {
+    throw new Error('ADMIN_PASSWORD must contain at least 12 characters.');
+  }
   getEncryptionKey();
 }
 
@@ -74,7 +77,8 @@ async function initializeDatabase() {
   const schema = await fs.readFile(path.join(__dirname, '..', 'db', 'init.sql'), 'utf8');
   await pool.query(schema);
   const email = process.env.ADMIN_EMAIL || 'admin@atlas.cl';
-  const password = process.env.ADMIN_PASSWORD || 'AtlasAdmin2026!';
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) throw new Error('ADMIN_PASSWORD is required.');
   if (password.length < 12) throw new Error('ADMIN_PASSWORD must contain at least 12 characters.');
 
   const existing = await pool.query('SELECT id FROM users WHERE email = $1', [email.toLowerCase()]);
@@ -575,7 +579,6 @@ async function start() {
        process.env.JWT_SECRET.startsWith('replace-this') ||
        process.env.DATA_ENCRYPTION_SECRET === 'local-demo-encryption-only-change' ||
        process.env.DATA_ENCRYPTION_SECRET.startsWith('replace-this') ||
-       process.env.ADMIN_PASSWORD === 'AtlasAdmin2026!' ||
        process.env.POSTGRES_PASSWORD === 'atlas-local-only')) {
     throw new Error('Production requires unique JWT_SECRET and DATA_ENCRYPTION_SECRET values.');
   }
