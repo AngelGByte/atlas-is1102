@@ -85,7 +85,7 @@ durante la regresión; las corridas de carga usaron 500 clientes sintéticos, si
 - `npm audit` y `npm audit --omit=dev`: 0 vulnerabilidades, código 0 en ambas.
 - Imagen final: build correcto; Trivy con `--severity HIGH,CRITICAL --exit-code 1`: 0 HIGH y 0 CRITICAL, código 0. Se retiraron npm/npx del runtime.
 - SonarQube/SonarCloud: no ejecutado. No están configurados los secretos o variables de servicio requeridos. Por tanto, no se puede afirmar que los hallazgos anteriores sobre contraseña predeterminada o `--ignore-scripts` hayan desaparecido de Sonar.
-- GitHub Actions: [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) validó el commit de código `ee12d35` con conclusión `success`; la ejecución posterior [44937788677](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677) también terminó `success` para `283b36d`. En ambas aprobaron test, coverage, security, dependency-audit y gitleaks. Sonar indicó configuración pendiente y omitió sus pasos de análisis; no se ejecutó Sonar ni Quality Gate.
+- GitHub Actions: [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) validó el commit de código `ee12d35`; [44937788677](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677) validó `283b36d`; y [44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682) validó `aad4e43`. Las tres ejecuciones terminaron `success`; en la última aprobaron test, coverage, security, dependency-audit y gitleaks. Sonar indicó configuración pendiente y omitió sus pasos de análisis; no se ejecutó Sonar ni Quality Gate.
 - No se imprimió ni archivó ningún token de carga. El detalle del workflow está en [`EP5-actions-final-2026-11-21.txt`](./evidencias/EP5-actions-final-2026-11-21.txt).
 
 ### Carga y diagnóstico
@@ -117,7 +117,7 @@ aisló arranque en frío frente a caliente. La causa histórica queda indetermin
 | DEF-04 | Hecho | Parser JSON responde de forma genérica; Node 9/9 y seguridad 19/19. |
 | DEF-05 | Hecho | Regresión de cifrado y datos sensibles aprobada en Node. |
 | DEF-06 | Hecho | Cobertura y auditoría actuales superan umbral; c8 79.89/75.88/85.71 y npm audit 0. |
-| DEF-07 | Hecho | Los workflows para `ee12d35` y `283b36d` fueron verdes: [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) y [44937788677](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677); los jobs de test, cobertura, seguridad, auditoría y Gitleaks aprobaron. |
+| DEF-07 | Hecho | Los workflows para `ee12d35`, `283b36d` y `aad4e43` fueron verdes; el último [44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682) aprobó test, cobertura, seguridad, auditoría y Gitleaks. |
 | DEF-08 | Hecho | TLS 3/3 en el stack local aislado; código 0. |
 | DEF-09 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |
 | DEF-10 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |

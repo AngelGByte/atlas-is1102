@@ -12,6 +12,6 @@
 - Reconstruida la imagen retirando npm/npx del runtime; Trivy final: 0 HIGH y 0 CRITICAL.
 - TLS en stack aislado: 3/3; Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19, accesibilidad 6/6.
 - Cobertura c8 final: 79.89 % statements/lines, 75.88 % branches y 85.71 % functions; ambas auditorías npm reportaron 0 vulnerabilidades.
-- GitHub Actions: los runs [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) (`ee12d35`) y [44937788677](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677) (`283b36d`) concluyeron success; test, coverage, security, dependency-audit y gitleaks aprobaron. Sonar informó configuración pendiente y omitió sus pasos de análisis.
+- GitHub Actions: los runs [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) (`ee12d35`), [44937788677](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677) (`283b36d`) y [44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682) (`aad4e43`) concluyeron success; test, coverage, security, dependency-audit y gitleaks aprobaron. Sonar informó configuración pendiente y omitió sus pasos de análisis.
 - Sonar permanece bloqueado por secretos/servicio ausentes; no se atribuye la desaparición de hallazgos de Sonar.
 - Las salidas, fechas, comandos, códigos de salida y límites históricos están indexados en [`docs/evidencias/README.md`](./evidencias/README.md).

@@ -21,3 +21,15 @@ Jobs: test, dependency-audit, security, gitleaks, coverage y sonar terminaron co
 En ambos runs, el job sonar aprobó el paso "Informar configuración Sonar pendiente", pero los
 pasos "Analizar con SonarCloud" y "Analizar con SonarQube Server" fueron skipped. No se ejecutó
 análisis Sonar ni Quality Gate al faltar la configuración/credenciales requeridas.
+
+## Último commit de este cierre
+
+Consulta: 2026-11-21
+Comando: gh run view 44937958682 --json status,conclusion,url,headSha,jobs
+URL: https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682
+Head SHA: aad4e4390ec17a3327fab9d0ed9da7cfb5840009
+Estado: completed
+Conclusión: success
+Jobs: security, test, gitleaks, dependency-audit, coverage y sonar terminaron con conclusión success.
+El paso "Informar configuración Sonar pendiente" aprobó; los pasos "Analizar con SonarCloud" y
+"Analizar con SonarQube Server" fueron skipped. No se ejecutó análisis Sonar ni Quality Gate.
