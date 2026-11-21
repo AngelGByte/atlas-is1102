@@ -25,27 +25,29 @@ Los casos están diseñados para el Sistema Atlas descrito en la primera entrega
 
 ## Estado de cierre EP5 - 2026-11-21
 
-Los resultados históricos anteriores se conservan; este cierre distingue la ejecución actual.
+Los resultados históricos permanecen en sus informes originales. Esta tabla refleja la regresión
+actual sobre PostgreSQL de laboratorio; los casos que requieren una medición más amplia se marcan
+parciales aunque las pruebas automatizadas relacionadas hayan pasado.
 
 | ID | Estado real | Evidencia actual |
 |---|---|---|
-| CP-AUT-01 | Aprobado | `EP5-npm-test-2026-11-21.txt`; 9/9 pruebas Node |
-| CP-AUT-02 | Aprobado | `EP5-security-2026-11-21.txt`; controles S-11 a S-13 |
-| CP-CLI-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-CLI-02 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-CLI-03 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-ROL-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-ROL-02 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-AUD-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-CTO-01 | Aprobado | `EP5-npm-test-2026-11-21.txt` |
-| CP-DOC-01 | Aprobado | Suite histórica de integración ya conservada |
-| CP-UI-01 | Aprobado | `EP5-accessibility-2026-11-21.txt`; 6/6 pruebas Playwright |
-| CP-PERF-01 | No logrado | Corridas k6/JMeter sin una métrica válida porque los intentos sin puerto correcto o autenticación fallida no representan rendimiento |
-| CP-SEG-01 | Parcial | TLS 1/3 en `EP5-tls-2026-11-21.txt`; faltan puertos 8080/8443 |
-| CP-SEG-02 | Aprobado | Configuración sin contraseña predeterminada; `EP5-npm-test-2026-11-21.txt` |
-| CP-SEG-03 | Aprobado | `EP5-security-2026-11-21.txt`; 19/19 |
-| CP-SEG-04 | Históricamente aprobado | `12-DEF-12-respaldo-2026-11-21.txt`; no repetir este cierre |
-| CP-SEG-05 | Históricamente aprobado | Revisión documental conservada |
+| CP-AUT-01 | Aprobado | [`EP5-regresiones-final-2026-11-21.txt`](./evidencias/EP5-regresiones-final-2026-11-21.txt), Node 9/9 |
+| CP-AUT-02 | Aprobado | Pruebas de login inválido y respuesta genérica en integración; mismo archivo |
+| CP-CLI-01 | Aprobado | Pruebas de API CRUD; mismo archivo |
+| CP-CLI-02 | Aprobado | Cifrado y enmascaramiento en integración; mismo archivo |
+| CP-CLI-03 | Aprobado | Validación de correo y límites de datos; mismo archivo |
+| CP-ROL-01 | Aprobado | Editor sin permisos de escritura; mismo archivo |
+| CP-ROL-02 | Aprobado | Desactivación y revocación del token del editor; mismo archivo |
+| CP-AUD-01 | Aprobado | Auditoría de clientes, contratos y documentos; mismo archivo |
+| CP-CTO-01 | Aprobado | Valor cero y límites de fechas; mismo archivo |
+| CP-DOC-01 | Aprobado | Creación, actualización y borrado de documento en integración; mismo archivo |
+| CP-UI-01 | Parcial | [`EP5-regresiones-final-2026-11-21.txt`](./evidencias/EP5-regresiones-final-2026-11-21.txt), 6/6 en 1280x800 y 390x844. El requisito de 320 px no se cubrió en esta suite. Capturas nuevas en [`evidencias/ui/retest-2026-11-21-final/`](./evidencias/ui/retest-2026-11-21-final/) |
+| CP-PERF-01 | No aprobado | Corridas válidas sin errores, pero P95 supera 300 ms a 200 usuarios; detalles en [`carga/07-resumen-carga-2026-11-21.txt`](./evidencias/carga/07-resumen-carga-2026-11-21.txt) |
+| CP-SEG-01 | Aprobado en laboratorio | TLS 3/3 con CA local en [`EP5-tls-final-2026-11-21.txt`](./evidencias/EP5-tls-final-2026-11-21.txt); no acredita certificado público |
+| CP-SEG-02 | Parcial | Pasan pruebas de política de contraseña; no se repitió inspección independiente de hashes persistidos en esta corrida |
+| CP-SEG-03 | Aprobado | Seguridad dinámica 19/19 y regresión de API; [`EP5-regresiones-final-2026-11-21.txt`](./evidencias/EP5-regresiones-final-2026-11-21.txt) |
+| CP-SEG-04 | Aprobado histórico, no reejecutado | Evidencia previa [`12-DEF-12-respaldo-2026-11-21.txt`](./evidencias/12-DEF-12-respaldo-2026-11-21.txt) |
+| CP-SEG-05 | Revisión documental histórica | Sin nueva verificación de tratamiento de datos en esta corrida |
 | CP-DIS-01 | Bloqueado | No existe una ventana de observación ni una medición autorizada de disponibilidad |
 
 ## Registro de ejecución (completar en el laboratorio)

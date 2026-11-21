@@ -3,7 +3,9 @@ const { expect, test } = require('@playwright/test');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const evidenceDirectory = path.resolve(__dirname, '../../docs/evidencias/ui');
+const evidenceDirectory = process.env.ATLAS_ACCESSIBILITY_EVIDENCE_DIR
+  ? path.resolve(process.env.ATLAS_ACCESSIBILITY_EVIDENCE_DIR)
+  : path.resolve(__dirname, '../../docs/evidencias/ui');
 
 test.beforeAll(() => {
   fs.mkdirSync(evidenceDirectory, { recursive: true });

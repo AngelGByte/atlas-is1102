@@ -1,0 +1,17 @@
+﻿Comando: npm.cmd run test:tls
+
+> atlas-management-system@1.0.0 test:tls
+> node --test test/security/tls.test.js
+
+✔ la configuración TLS no publica puertos de aplicación o base de datos (483.9318ms)
+✔ HTTPS responde 200 en /api/health y publica HSTS (188.522ms)
+✔ HTTP redirige a la URL HTTPS de laboratorio (10.8948ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 840.1868
+Código de salida: 0

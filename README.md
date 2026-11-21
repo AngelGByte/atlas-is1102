@@ -14,12 +14,21 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
 
 ## Cierre EP5 - estado 2026-11-21
 
-El cierre actual confirma 9/9 pruebas Node, 4/4 Vitest, 19/19 controles dinámicos de seguridad,
-6/6 pruebas de accesibilidad y cobertura c8 de 79.89 % líneas, 75.88 % ramas y 85.71 % funciones.
-La ejecución actual no acredita carga ni TLS completos: k6/JMeter no produjeron una corrida válida
-por puerto/autenticación y los puertos 8080/8443 no estaban publicados. Trivy reportó 10 HIGH y
-Gitleaks conservó dos hallazgos históricos redactados sobre marcadores de secretos. Sonar quedó
-bloqueado por secretos no configurados. La evidencia detallada está en
+La regresión final confirma 9/9 pruebas Node (0 omitidas), 4/4 Vitest, 19/19 verificaciones
+dinámicas de seguridad, 6/6 pruebas Playwright/axe, cobertura c8 de 79.89 % en líneas/sentencias,
+75.88 % en ramas y 85.71 % en funciones, y 0 vulnerabilidades en ambas auditorías npm.
+TLS pasó 3/3 en el stack local aislado. Las cargas fueron válidas contra 500 clientes sintéticos:
+k6 registró P95 de 1.190 ms con 50 VU y 7.700 ms con 200 VU; JMeter registró 70 ms con 50
+usuarios y 7.894 ms con 200. Por tanto, el objetivo P95 <300 ms no se cumple a 200 usuarios en
+ninguna herramienta. Los datos sintéticos se limpiaron al finalizar.
+
+La imagen final reconstruida pasó Trivy con 0 HIGH y 0 CRITICAL después de retirar npm/npx del
+runtime. Sonar no se ejecutó porque faltan las credenciales/variables de servicio; el hallazgo
+original de Sonar sobre `--ignore-scripts` no se considera resuelto sin un análisis real. La
+última ejecución conocida de GitHub Actions anterior a estos cambios fue la
+[44931959132](https://github.com/AngelGByte/atlas-is1102/actions/runs/44931959132); la ejecución
+disparada por el push de este cierre debe consultarse en la entrega. La evidencia nueva, separada
+de los resultados históricos, está en
 [`docs/evidencias/README.md`](./docs/evidencias/README.md), [`docs/resultados-validacion.md`](./docs/resultados-validacion.md)
 y [`docs/CHANGELOG-EP5.md`](./docs/CHANGELOG-EP5.md).
 
