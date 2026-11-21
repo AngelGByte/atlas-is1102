@@ -13,7 +13,7 @@
     "test:vitest": "vitest run --config vitest.config.mjs",
     "test:security": "node test/security/run.js",
     "test:tls": "node --test test/security/tls.test.js",
-    "test:backup": "bash scripts/backup-restore-test.sh",
+    "test:backup": "node scripts/backup-restore-test.js",
     "test:accessibility": "playwright test",
     "retention:purge": "node scripts/retention-purge.js",
     "test:all": "npm run test && npm run test:vitest",

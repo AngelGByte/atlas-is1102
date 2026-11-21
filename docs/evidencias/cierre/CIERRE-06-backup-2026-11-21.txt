@@ -1,0 +1,19 @@
+CIERRE-06 backup portable
+Local date: 2026-11-21 18:24:05 -03:00
+Initial attempt: exit code 1 because the previous npm script required bash, unavailable in WSL; package script was changed to Node.js.
+Command: PG_CONTAINER=atlas-cierre-postgres PGUSER=ep5_test PGDATABASE=atlas_cierre04_test npm.cmd run test:backup
+Exit code: 0
+
+
+> atlas-management-system@1.0.0 test:backup
+> node scripts/backup-restore-test.js
+
+OK tabla audit_logs: 141 registros
+OK tabla client_oppositions: 0 registros
+OK tabla clients: 2 registros
+OK tabla companies: 1 registros
+OK tabla contracts: 2 registros
+OK tabla documents: 2 registros
+OK tabla users: 1 registros
+OK hash de users coincide (valor omitido).
+OK: respaldo y restauración verificados (container).
