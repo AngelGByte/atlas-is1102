@@ -16,3 +16,4 @@ Toda evidencia incluye fecha, comando o suite y resultado real. Los resultados a
 | TLS | `npm.cmd run test:tls` | 2026-11-21 | 1/3; puertos 8080/8443 ausentes | `EP5-tls-2026-11-21.txt` |
 | Cobertura | `npm.cmd run test:coverage` | 2026-11-21 | líneas 79.89 %, ramas 75.88 %, funciones 85.71 % | `EP5-coverage-2026-11-21.txt` |
 | Accesibilidad | `npm.cmd run test:accessibility` | 2026-11-21 | 6/6 | `EP5-accessibility-2026-11-21.txt` |
+| GitHub Actions | Push de `c1d257d` | 2026-11-21 | Verde: test, coverage, security, dependency-audit y gitleaks; Sonar omitido por secretos | https://github.com/AngelGByte/atlas-is1102/actions/runs/44931959132 |

@@ -72,3 +72,4 @@ Estas cifras corresponden a esta ejecución y no sustituyen ni reescriben las ci
 - Gitleaks: dos hallazgos históricos permanecen en el commit `c3e3d4a` sobre marcadores de `.env.example`; fueron redactados en el reporte. La contraseña predeterminada fue eliminada del código actual.
 - Sonar: bloqueado porque no hay secretos `SONAR_HOST_URL`, `SONAR_TOKEN`, `SONAR_PROJECT_KEY` configurados.
 - Defecto de carga: k6 fue ejecutado inicialmente contra el puerto incorrecto y JMeter respondió 401; no se publicarán métricas como válidas. El límite de login alcanzó 429 y bloqueó nuevas autenticaciones durante 15 minutos. Los 500 clientes sintéticos fueron eliminados sin contratos asociados.
+- GitHub Actions: ejecución verde de `main` en https://github.com/AngelGByte/atlas-is1102/actions/runs/44931959132. Los jobs test, coverage, security, dependency-audit y gitleaks aprobaron; sonar quedó registrado como omitido por secretos no configurados.
