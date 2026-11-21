@@ -1,0 +1,27 @@
+CIERRE-02 - SonarQube
+Fecha de consulta: 2026-11-21
+
+Comando: curl.exe -sS --max-time 8 http://127.0.0.1:9000/api/system/status
+Salida: {"version":"26.10.0.133078","status":"UP"}
+Codigo de salida: 0
+
+Comando: consultar presencia de SONAR_HOST_URL, SONAR_TOKEN, SONAR_PROJECT_KEY y SONAR_ORGANIZATION en el entorno local (sin leer valores)
+Salida:
+SONAR_HOST_URL=unset
+SONAR_TOKEN=unset
+SONAR_PROJECT_KEY=unset
+SONAR_ORGANIZATION=unset
+
+Comando: gh secret list --repo AngelGByte/atlas-is1102 --json name --jq '.[].name'
+Salida: vacia; no se devolvieron nombres de secretos
+Codigo de salida: 0
+
+Resultado: no se ejecuto SonarScanner. Aunque el servicio local esta UP, no hay token
+ni clave de proyecto configurados y no se dispone de credenciales autorizadas para
+crear un token. No se consultaron valores de secretos ni se probaron credenciales
+predeterminadas. No hay issues ni Quality Gate nuevos; no puede confirmarse si los
+hallazgos de credenciales por defecto o npm ci sin --ignore-scripts desaparecieron.
+
+El workflow fue inspeccionado en .github/workflows/ci.yml, job sonar: el paso de resumen
+escribe "Sonar: OMITIDO", enumera los secretos faltantes y aclara que la omision no
+equivale a un Quality Gate aprobado. Esta inspeccion no se presenta como ejecucion.
