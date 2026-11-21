@@ -105,6 +105,18 @@ La suite equivalente en Vitest se ejecuta con:
 npm.cmd run test:vitest
 ```
 
+Las pruebas dinámicas requieren `DATABASE_URL`, `JWT_SECRET`,
+`DATA_ENCRYPTION_SECRET`, `ADMIN_EMAIL` y `ADMIN_PASSWORD` configurados para una base
+aislada. Ejecute `npm.cmd run test:security` para las verificaciones HTTP y
+`npm.cmd run test:tls` mientras la pila TLS de laboratorio esté activa. El endpoint
+administrativo `GET /api/clients/:id/export` entrega datos estructurados del titular,
+con cuenta bancaria enmascarada y auditoría; la política académica describe su alcance.
+
+La retención de auditoría se ejecuta con `npm.cmd run retention:purge`. Configure
+`DATABASE_URL` y, opcionalmente, `AUDIT_RETENTION_DAYS` como entero positivo; el valor
+predeterminado es 365 días. La depuración elimina solo auditorías vencidas y registra el
+resultado de la operación.
+
 Para ejecutar todo el conjunto local y la auditoría de dependencias:
 
 ```powershell
@@ -148,6 +160,9 @@ y YAML.
 La matriz de requisitos y la lista de evidencias para el informe y la presentación están en
 [`docs/entregables-ep5.md`](./docs/entregables-ep5.md). La auditoría de producción bloquea
 vulnerabilidades altas y críticas; `npm audit` evalúa también las dependencias de desarrollo.
+La política de privacidad para el prototipo está en
+[`docs/politica-privacidad.md`](./docs/politica-privacidad.md) y se identifica expresamente
+como borrador académico sujeto a revisión antes de tratar datos reales.
 
 El informe técnico completo está en [`docs/informe-ep5.md`](./docs/informe-ep5.md).
 La versión Word consolidada para la entrega final está en

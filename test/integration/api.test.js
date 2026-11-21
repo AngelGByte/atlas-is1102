@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { spawnSync } = require('node:child_process');
 const request = require('supertest');
 require('dotenv').config();
 
@@ -157,6 +158,9 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     const editorRead = await request(app).get('/api/clients')
       .set('Authorization', `Bearer ${editorLogin.body.token}`);
     assert.equal(editorRead.status, 200);
+    const forbiddenExport = await request(app).get(`/api/clients/${clientId}/export`)
+      .set('Authorization', `Bearer ${editorLogin.body.token}`);
+    assert.equal(forbiddenExport.status, 403);
 
     const contractNumber = `AT-IT-${Date.now()}`;
     const createContract = await request(app).post('/api/contracts')
@@ -200,6 +204,23 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
       });
     assert.equal(createDocument.status, 201);
     documentId = createDocument.body.id;
+
+    const dataExport = await request(app).get(`/api/clients/${clientId}/export`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(dataExport.status, 200);
+    assert.equal(dataExport.body.dataSubject.id, clientId);
+    assert.equal(dataExport.body.dataSubject.bankAccountLast4, '7890');
+    assert.equal(dataExport.body.contracts.some((contract) => contract.id === contractId), true);
+    assert.equal(dataExport.body.documents.some((document) => document.id === documentId), true);
+    assert.equal(JSON.stringify(dataExport.body).includes('001234567890'), false);
+    const exportAudit = await pool.query(
+      `SELECT action, entity, entity_id, details FROM audit_logs
+       WHERE actor_id=$1 AND action='export' AND entity='clients' AND entity_id=$2
+       ORDER BY created_at DESC LIMIT 1`,
+      [adminLogin.body.user.id, clientId]
+    );
+    assert.equal(exportAudit.rowCount, 1);
+    assert.equal(exportAudit.rows[0].details.format, 'json');
 
     const updateDocument = await request(app).put(`/api/documents/${documentId}`)
       .set('Authorization', `Bearer ${adminToken}`)
@@ -247,4 +268,30 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   const revokedRequest = await request(app).get('/api/clients')
     .set('Authorization', `Bearer ${editorLogin.body.token}`);
   assert.equal(revokedRequest.status, 401);
+
+  const oldAuditEmail = `retention-${Date.now()}@example.cl`;
+  await pool.query(
+    `INSERT INTO audit_logs (actor_email, action, entity, details, created_at)
+     VALUES ($1, 'update', 'clients', '{}', NOW() - INTERVAL '2 days')`,
+    [oldAuditEmail]
+  );
+  const purge = spawnSync(process.execPath, ['scripts/retention-purge.js'], {
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      DATABASE_URL: process.env.TEST_DATABASE_URL,
+      AUDIT_RETENTION_DAYS: '1'
+    }
+  });
+  assert.equal(purge.status, 0, purge.stderr || purge.stdout);
+  const deletedAudit = await pool.query('SELECT id FROM audit_logs WHERE actor_email=$1', [oldAuditEmail]);
+  assert.equal(deletedAudit.rowCount, 0);
+  const purgeAudit = await pool.query(
+    `SELECT details FROM audit_logs
+     WHERE actor_email='sistema-retencion@atlas.local' AND action='purge'
+     ORDER BY created_at DESC LIMIT 1`
+  );
+  assert.ok(purgeAudit.rows.length > 0);
+  assert.equal(purgeAudit.rows[0].details.retentionDays, 1);
+  assert.ok(purgeAudit.rows[0].details.deletedCount >= 1);
 });

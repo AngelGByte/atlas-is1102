@@ -1,0 +1,141 @@
+DEF-10 — portabilidad y retención
+Fecha: 
+2026-11-21T13:39:47-03:00
+PostgreSQL 16 de pruebas con datos sintéticos.
+
+Comando: npm test
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (3.6887ms)
+✔ detects changed encrypted data and a wrong key (0.6929ms)
+✔ requires a sufficiently long encryption secret (0.2758ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:46:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2291.5488ms)
+✔ accepts a valid client and normalizes its email (3.8874ms)
+✔ rejects invalid client emails and oversized values (1.5203ms)
+✔ uses boundary checks for contract values and date order (3.5086ms)
+✔ enforces the documented password composition rules (1.0648ms)
+✔ rejects malformed or out-of-range bank account values (0.3391ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2645.5577
+
+Código de salida: 0
+
+Comando: npm run test:vitest
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/.copilot/chats/bc161b48-539d-4eb7-be46-d3b2d0e6c2e7/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:39:51
+   Duration  496ms (import 85%, transform 5%, tests 5%, worker 4%)
+
+
+Código de salida: 0
+
+Comando: npm run test:coverage
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --check-coverage --lines 70 --functions 70 --branches 70 --statements 70 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (4.5519ms)
+✔ detects changed encrypted data and a wrong key (1.2738ms)
+✔ requires a sufficiently long encryption secret (0.3978ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:46:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2912.4328ms)
+✔ accepts a valid client and normalizes its email (5.4348ms)
+✔ rejects invalid client emails and oversized values (2.2208ms)
+✔ uses boundary checks for contract values and date order (4.2064ms)
+✔ enforces the documented password composition rules (1.5011ms)
+✔ rejects malformed or out-of-range bank account values (0.2887ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3324.146
+---------------------|---------|----------|---------|---------|-------------------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                   
+---------------------|---------|----------|---------|---------|-------------------------------------
+All files            |   79.89 |    75.71 |      85 |   79.89 |                                     
+ scripts             |   82.69 |    42.85 |     100 |   82.69 |                                     
+  retention-purge.js |   82.69 |    42.85 |     100 |   82.69 | 6-8,17-18,40-41,49-50               
+ src                 |   79.69 |    77.44 |   84.21 |   79.69 |                                     
+  crypto.js          |   94.87 |    92.85 |     100 |   94.87 | 24-25                               
+  server.js          |   75.84 |    72.89 |   76.92 |   75.84 | ...-483,530-533,551,569-583,586-590 
+  validation.js      |     100 |      100 |     100 |     100 |                                     
+---------------------|---------|----------|---------|---------|-------------------------------------
+
+Código de salida: 0
+
+Comando: npm run test:security
+
+> atlas-management-system@1.0.0 test:security
+> node test/security/run.js
+
+APROBADO S-00: el endpoint de salud responde 200
+APROBADO S-01: X-Content-Type-Options es nosniff
+APROBADO S-02: la política CSP está presente
+APROBADO S-03: la respuesta no expone X-Powered-By
+APROBADO S-04: X-Frame-Options es SAMEORIGIN
+APROBADO S-05: Strict-Transport-Security está presente
+APROBADO S-06: una solicitud protegida sin token responde 401
+APROBADO S-07: un token malformado responde 401
+APROBADO S-08: un JWT con firma falsa responde 401
+APROBADO S-09: un JWT con algoritmo none responde 401
+APROBADO S-10: un JWT expirado responde 401
+APROBADO S-11: la inyección SQL en login no autentica
+APROBADO S-12: un objeto en el correo de login responde 400
+APROBADO S-13: el JSON malformado responde 400 sin detalles del parser
+APROBADO S-14: un cuerpo de 150 KB responde 413 sin detalles internos
+APROBADO S-15: un valor SQL en un parámetro de ruta responde 4xx
+APROBADO S-16: el payload XSS se conserva como texto y la cuenta se enmascara
+APROBADO S-17: la API declara application/json
+APROBADO S-18: el límite de login rechaza el intento 11 con 429
+Resumen: 19/19 verificaciones aprobadas; 0 fallidas.
+
+Código de salida: 0
+
+Comando: npm audit --omit=dev --audit-level=high
+found 0 vulnerabilities
+
+Código de salida: 0

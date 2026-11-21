@@ -280,6 +280,40 @@ app.get('/api/clients', asyncRoute(async (req, res) => {
   res.json(result.rows.map(safeClient));
 }));
 
+app.get('/api/clients/:id/export', requireAdmin, asyncRoute(async (req, res) => {
+  const exported = await inTransaction(async (db) => {
+    const client = await db.query('SELECT * FROM clients WHERE id=$1', [req.params.id]);
+    if (!client.rowCount) {
+      const error = new Error('Cliente no encontrado.');
+      error.status = 404;
+      throw error;
+    }
+    const contracts = await db.query(
+      `SELECT c.*, cl.company_enc AS client_name FROM contracts c
+       JOIN clients cl ON cl.id=c.client_id
+       WHERE c.client_id=$1 ORDER BY c.created_at`,
+      [req.params.id]
+    );
+    const documents = await db.query(
+      `SELECT d.*, c.number AS contract_number FROM documents d
+       JOIN contracts c ON c.id=d.contract_id
+       WHERE c.client_id=$1 ORDER BY d.created_at`,
+      [req.params.id]
+    );
+    await recordAudit(db, req, 'export', 'clients', client.rows[0].id, {
+      format: 'json',
+      contractCount: contracts.rowCount,
+      documentCount: documents.rowCount
+    });
+    return {
+      dataSubject: safeClient(client.rows[0]),
+      contracts: contracts.rows.map(safeContract),
+      documents: documents.rows.map(safeDocument)
+    };
+  });
+  res.json({ exportedAt: new Date().toISOString(), ...exported });
+}));
+
 app.get('/api/empresas/:id/clients', asyncRoute(async (req, res) => {
   const result = await pool.query(
     'SELECT * FROM clients WHERE empresa_id = $1 ORDER BY created_at DESC',
