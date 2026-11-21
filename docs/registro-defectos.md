@@ -8,7 +8,7 @@
 | DEF-04 | Errores del analizador JSON exponían detalle interno | Tratamiento insuficiente de parser | Respuesta genérica 400 | 0ab36fd | Seguridad S-13 |
 | DEF-05 | Posible problema de integridad del cifrado | Prueba/corrección de bit invertido | Se corrigió el cifrado y regresión asociada | df01ae9 | 9/9 Node |
 | DEF-06 | Cobertura antigua y dependencias vulnerables | Herramienta desactualizada | c8 actualizado y auditoría de dependencias | 6804a51 | c8 final: 79.89 % líneas/sentencias, 75.88 % ramas, 85.71 % funciones; `npm audit` y `npm audit --omit=dev` reportaron 0 |
-| DEF-07 | Calidad no integrada | Falta de CI | PostgreSQL y pruebas en GitHub Actions | 3e24cea, 4a00585 | Workflow 44931959132 aprobó test, coverage, security, dependency-audit y gitleaks; ejecución del push actual pendiente de verificar |
+| DEF-07 | Calidad no integrada | Falta de CI | PostgreSQL y pruebas en GitHub Actions | 3e24cea, 4a00585 | Workflow del cierre [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) aprobó test, coverage, security, dependency-audit y gitleaks |
 | DEF-08 | Comunicación sin TLS completo | Proxy HTTP no configurado | Caddyfile y compose TLS preparados | 2dd4dc0 | TLS 3/3 en el stack local aislado; [`EP5-tls-final-2026-11-21.txt`](./evidencias/EP5-tls-final-2026-11-21.txt) |
 
 Las evidencias de la regresión final y las limitaciones de las corridas están en

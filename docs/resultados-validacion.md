@@ -85,7 +85,8 @@ durante la regresión; las corridas de carga usaron 500 clientes sintéticos, si
 - `npm audit` y `npm audit --omit=dev`: 0 vulnerabilidades, código 0 en ambas.
 - Imagen final: build correcto; Trivy con `--severity HIGH,CRITICAL --exit-code 1`: 0 HIGH y 0 CRITICAL, código 0. Se retiraron npm/npx del runtime.
 - SonarQube/SonarCloud: no ejecutado. No están configurados los secretos o variables de servicio requeridos. Por tanto, no se puede afirmar que los hallazgos anteriores sobre contraseña predeterminada o `--ignore-scripts` hayan desaparecido de Sonar.
-- Gitleaks: resultado actual de GitHub Actions pendiente de la ejecución disparada por el push de este cierre. No se imprimió ni archivó ningún token de carga.
+- GitHub Actions para `ee12d35`: [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638), conclusión `success`; test, coverage, security, dependency-audit y gitleaks aprobaron. El job sonar indicó configuración pendiente y omitió los dos pasos de análisis; no se ejecutó Sonar ni Quality Gate.
+- No se imprimió ni archivó ningún token de carga. El detalle del workflow está en [`EP5-actions-final-2026-11-21.txt`](./evidencias/EP5-actions-final-2026-11-21.txt).
 
 ### Carga y diagnóstico
 
@@ -116,7 +117,7 @@ aisló arranque en frío frente a caliente. La causa histórica queda indetermin
 | DEF-04 | Hecho | Parser JSON responde de forma genérica; Node 9/9 y seguridad 19/19. |
 | DEF-05 | Hecho | Regresión de cifrado y datos sensibles aprobada en Node. |
 | DEF-06 | Hecho | Cobertura y auditoría actuales superan umbral; c8 79.89/75.88/85.71 y npm audit 0. |
-| DEF-07 | Hecho históricamente; nuevo run pendiente | La ejecución 44931959132 fue verde; aún no hay URL/resultado del workflow para este push. |
+| DEF-07 | Hecho | El workflow para `ee12d35` fue verde: [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638); jobs de test, cobertura, seguridad, auditoría y Gitleaks aprobaron. |
 | DEF-08 | Hecho | TLS 3/3 en el stack local aislado; código 0. |
 | DEF-09 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |
 | DEF-10 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |
@@ -124,4 +125,4 @@ aisló arranque en frío frente a caliente. La causa histórica queda indetermin
 | DEF-12 | Hecho y revalidado | Accesibilidad Playwright/axe 6/6; código 0. |
 | DEF-13 | Parcial | Corridas válidas y reproducibles; el P95 <300 ms se incumple a 200 usuarios. |
 | DEF-14 | Hecho | Imagen reconstruida; Trivy 0 HIGH/CRITICAL, código 0. |
-| DEF-15 | Parcial / bloqueado | Sonar no ejecutado por credenciales ausentes; ejecución Gitleaks de este push pendiente de Actions. |
+| DEF-15 | Parcial / bloqueado | Gitleaks aprobó en Actions; Sonar quedó pendiente y ambos pasos de análisis fueron omitidos por falta de configuración/credenciales. |

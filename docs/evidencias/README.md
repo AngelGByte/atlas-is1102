@@ -24,7 +24,7 @@ capturas ni comandos archivados; los marcadores `<token efímero>` son redaccion
 | Accesibilidad | `npm.cmd run test:accessibility`, capturas en `docs/evidencias/ui/retest-2026-11-21-final` | 2026-11-21 | 6/6; código 0 | [`EP5-regresiones-final-2026-11-21.txt`](./EP5-regresiones-final-2026-11-21.txt), [capturas](./ui/retest-2026-11-21-final/) |
 | Auditoría npm | `npm.cmd audit` y `npm.cmd audit --omit=dev` | 2026-11-21 | 0 vulnerabilidades en ambas; código 0 | [`EP5-regresiones-final-2026-11-21.txt`](./EP5-regresiones-final-2026-11-21.txt) |
 | Sonar | No ejecutado: faltan secretos/servicio | 2026-11-21 | Bloqueado; no se simula Quality Gate ni resolución del hallazgo `--ignore-scripts` | Sin reporte |
-| GitHub Actions | Push de este cierre | Pendiente | Registrar URL y resultado real una vez finalice el workflow; la última ejecución histórica es [44931959132](https://github.com/AngelGByte/atlas-is1102/actions/runs/44931959132) | Sin URL nueva aún |
+| GitHub Actions | `gh run view 44937594638 --json status,conclusion,url,headSha,jobs` | 2026-11-21 | Run `ee12d35` completado con conclusión success: test, coverage, security, dependency-audit y gitleaks aprobaron. Job sonar terminó success al informar configuración pendiente; ambos pasos de análisis fueron skipped. | [`EP5-actions-final-2026-11-21.txt`](./EP5-actions-final-2026-11-21.txt); [run](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) |
 
 Las salidas preliminares con puerto incorrecto, 401 o token pasado como propiedad de JMeter se
 mantienen como antecedentes, pero no son las métricas finales. No deben citarse como aprobaciones.
