@@ -1,0 +1,49 @@
+Start: 2026-11-21 17:16:45 -03:00
+Command: k6 run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js; BASE_URL=http://127.0.0.1:3334; VUS=50; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; TOKEN=<process environment redacted>
+Data: 500 synthetic + 2 demo clients (502 total); synthetic company has no contracts. Limit=50, think time=1000ms, ramp-up=30s, 60s steady-state; k6 also ramps down 30s.
+Login: HTTP 200; token not saved.
+
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.99' rate=100.00%
+
+    http_req_duration
+    ✓ 'p(95)<300' p(95)=97.86ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 4374    36.351501/s
+    checks_succeeded...: 100.00% 4374 out of 4374
+    checks_failed......: 0.00%   0 out of 4374
+
+    ✓ respuesta HTTP 200
+
+    HTTP
+    http_req_duration..............: avg=36.14ms min=4.95ms med=18.34ms max=778.65ms p(90)=64.51ms p(95)=97.86ms p(99)=408.46ms
+      { expected_response:true }...: avg=36.14ms min=4.95ms med=18.34ms max=778.65ms p(90)=64.51ms p(95)=97.86ms p(99)=408.46ms
+    http_req_failed................: 0.00%  0 out of 4374
+    http_reqs......................: 4374   36.351501/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.03s   min=1s     med=1.01s   max=1.78s    p(90)=1.06s   p(95)=1.1s    p(99)=1.41s   
+    iterations.....................: 4374   36.351501/s
+    vus............................: 2      min=2         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 88 MB  735 kB/s
+    data_sent......................: 1.6 MB 13 kB/s
+
+
+
+
+Application Node process CPU (percent of one core, incremental): 34.3%; elapsed=121.2s.
+
+Exit code: 0

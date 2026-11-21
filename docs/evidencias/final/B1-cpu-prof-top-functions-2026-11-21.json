@@ -1,0 +1,122 @@
+[
+  {
+    "functionName": "(idle)",
+    "hitCount": 20,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "(anonymous)",
+    "hitCount": 8,
+    "url": "node:internal/dns/utils",
+    "lineNumber": 91
+  },
+  {
+    "functionName": "createCipherBase",
+    "hitCount": 6,
+    "url": "node:internal/crypto/cipher",
+    "lineNumber": 124
+  },
+  {
+    "functionName": "(garbage collector)",
+    "hitCount": 4,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "getEncryptionKey",
+    "hitCount": 4,
+    "url": "file:///C:/Users/rpg72/atlas-is1102/src/crypto.js",
+    "lineNumber": 2
+  },
+  {
+    "functionName": "readFileUtf8",
+    "hitCount": 3,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "main",
+    "hitCount": 3,
+    "url": "file:///C:/Users/rpg72/atlas-is1102/scripts/profile-clients.js",
+    "lineNumber": 32
+  },
+  {
+    "functionName": "decryptValue",
+    "hitCount": 3,
+    "url": "file:///C:/Users/rpg72/atlas-is1102/src/crypto.js",
+    "lineNumber": 19
+  },
+  {
+    "functionName": "digest",
+    "hitCount": 3,
+    "url": "node:internal/crypto/hash",
+    "lineNumber": 203
+  },
+  {
+    "functionName": "compileForInternalLoader",
+    "hitCount": 2,
+    "url": "node:internal/bootstrap/realm",
+    "lineNumber": 382
+  },
+  {
+    "functionName": "readFileUtf8",
+    "hitCount": 2,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "readFileUtf8",
+    "hitCount": 2,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "readFileUtf8",
+    "hitCount": 2,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "update",
+    "hitCount": 2,
+    "url": "node:internal/crypto/cipher",
+    "lineNumber": 184
+  },
+  {
+    "functionName": "parseDate",
+    "hitCount": 2,
+    "url": "file:///C:/Users/rpg72/atlas-is1102/node_modules/postgres-date/index.js",
+    "lineNumber": 7
+  },
+  {
+    "functionName": "defineReplaceableLazyAttribute",
+    "hitCount": 1,
+    "url": "node:internal/util",
+    "lineNumber": 630
+  },
+  {
+    "functionName": "wrappedFn",
+    "hitCount": 1,
+    "url": "node:internal/errors",
+    "lineNumber": 537
+  },
+  {
+    "functionName": "getNearestParentPackageJSONType",
+    "hitCount": 1,
+    "url": "",
+    "lineNumber": -1
+  },
+  {
+    "functionName": "resolvePackageTargetString",
+    "hitCount": 1,
+    "url": "node:internal/modules/esm/resolve",
+    "lineNumber": 376
+  },
+  {
+    "functionName": "lstat",
+    "hitCount": 1,
+    "url": "",
+    "lineNumber": -1
+  }
+]

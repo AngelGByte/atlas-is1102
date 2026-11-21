@@ -1,0 +1,26 @@
+Start: 2026-11-21 17:22:29 -03:00
+Command: java -jar C:\Users\rpg72\AppData\Local\Programs\JMeter\bin\ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l C:\Users\rpg72\atlas-is1102\docs\evidencias\final\B1-jmeter-page-200-2026-11-21.jtl -JBASE_HOST=127.0.0.1 -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50 -JPAGES=11; TOKEN=<process environment redacted>
+Data: 500 synthetic + 2 demo clients (502 total); synthetic company has no contracts. Limit=50, think time=1000ms, ramp-up=30s, 60s steady-state; k6 also ramps down 30s.
+Login: HTTP 200; token not saved.
+
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using jmeter/atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 17:22:32 CLST (1795292552202)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +      1 in 00:00:01 =    0,7/s Avg:    26 Min:    26 Max:    26 Err:     0 (0,00%) Active: 10 Started: 10 Finished: 0
+summary +   1337 in 00:00:25 =   54,2/s Avg:   550 Min:     9 Max:  2101 Err:     0 (0,00%) Active: 175 Started: 175 Finished: 0
+summary =   1338 in 00:00:26 =   51,2/s Avg:   550 Min:     9 Max:  2101 Err:     0 (0,00%)
+summary +   2964 in 00:00:30 =   98,8/s Avg:  1011 Min:   296 Max:  2827 Err:     0 (0,00%) Active: 200 Started: 200 Finished: 0
+summary =   4302 in 00:00:56 =   76,6/s Avg:   868 Min:     9 Max:  2827 Err:     0 (0,00%)
+summary +   1498 in 00:00:12 =  125,8/s Avg:   554 Min:     4 Max:  1026 Err:     1 (0,07%) Active: 0 Started: 200 Finished: 200
+summary =   5800 in 00:01:08 =   85,2/s Avg:   787 Min:     4 Max:  2827 Err:     1 (0,02%)
+Tidying up ...    @ 2026 Nov 21 17:23:41 CLST (1795292621912)
+... end of run
+
+Application Node process CPU (percent of one core, incremental): 70.2%; elapsed=73.7s.
+JTL samples=5800; errors=1; throughput=87.09 req/s; P95=2294 ms; P99=2558 ms; JWT marker in JTL=False
+Exit code: 0

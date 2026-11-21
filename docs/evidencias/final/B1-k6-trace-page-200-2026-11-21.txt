@@ -1,0 +1,5 @@
+Start: 2026-11-21 17:30:43 -03:00
+Command: k6 run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js; BASE_URL=http://127.0.0.1:3335; VUS=200; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; TOKEN=<process environment redacted>.
+Instrumentation: node --trace-gc scripts/perf-observer.js; one-second pool/CPU/RSS sampling; same 502 clients on isolated DB.
+Login: failed; HTTP=401; no retry.
+Exit code: 1

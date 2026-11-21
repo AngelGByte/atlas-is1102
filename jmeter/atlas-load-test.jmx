@@ -19,23 +19,43 @@
             <stringProp name="Argument.name">TOKEN</stringProp>
             <stringProp name="Argument.value">${__groovy(System.getenv('TOKEN'))}</stringProp>
           </elementProp>
+          <elementProp name="LIST_MODE" elementType="Argument">
+            <stringProp name="Argument.name">LIST_MODE</stringProp>
+            <stringProp name="Argument.value">${__P(LIST_MODE,page)}</stringProp>
+          </elementProp>
+          <elementProp name="LIMIT" elementType="Argument">
+            <stringProp name="Argument.name">LIMIT</stringProp>
+            <stringProp name="Argument.value">${__P(LIMIT,50)}</stringProp>
+          </elementProp>
+          <elementProp name="PAGE" elementType="Argument">
+            <stringProp name="Argument.name">PAGE</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+          </elementProp>
+          <elementProp name="PAGES" elementType="Argument">
+            <stringProp name="Argument.name">PAGES</stringProp>
+            <stringProp name="Argument.value">${__P(PAGES,3)}</stringProp>
+          </elementProp>
         </collectionProp>
       </elementProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Think time" enabled="true">
+        <stringProp name="ConstantTimer.delay">${__P(THINK_TIME_MS,1000)}</stringProp>
+      </ConstantTimer>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Usuarios concurrentes" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${__P(LOOPS,10)}</stringProp>
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">${__P(LOOPS,-1)}</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(USERS,10)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(USERS,50)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(RAMP_UP,30)}</stringProp>
         <longProp name="ThreadGroup.start_time">0</longProp>
         <longProp name="ThreadGroup.end_time">0</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(DURATION,0)}</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__P(DURATION,60)}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
       </ThreadGroup>
       <hashTree>
@@ -50,7 +70,7 @@
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Listar clientes" enabled="true">
           <stringProp name="HTTPSampler.domain">${BASE_HOST}</stringProp>
-          <stringProp name="HTTPSampler.path">/api/clients</stringProp>
+          <stringProp name="HTTPSampler.path">/api/clients?limit=${LIMIT}&amp;page=${PAGE}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.port">${BASE_PORT}</stringProp>
@@ -75,6 +95,20 @@
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Avanzar página completa" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">if (vars.get('LIST_MODE') == 'full') {
+  int page = Integer.parseInt(vars.get('PAGE'));
+  int pages = Integer.parseInt(vars.get('PAGES'));
+  vars.put('PAGE', page &gt;= pages ? '1' : String.valueOf(page + 1));
+} else {
+  vars.put('PAGE', '1');
+}</stringProp>
+          </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
       </hashTree>

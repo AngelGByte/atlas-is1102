@@ -1,0 +1,14 @@
+Atlas escuchando en el puerto 3335
+[7984:000002637E68E000]      180 ms: Scavenge 5.8 (6.5) -> 5.3 (7.5) MB, pooled: 0 MB, 1.11 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]      261 ms: Scavenge 6.1 (8.0) -> 5.7 (10.3) MB, pooled: 0 MB, 1.28 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]      366 ms: Scavenge 8.1 (11.2) -> 6.7 (11.3) MB, pooled: 0 MB, 1.04 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]      479 ms: Scavenge 8.3 (11.3) -> 7.2 (11.5) MB, pooled: 0 MB, 0.89 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]      599 ms: Scavenge 9.2 (12.3) -> 7.9 (16.8) MB, pooled: 0 MB, 0.82 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]      887 ms: Scavenge 12.1 (17.0) -> 9.4 (18.0) MB, pooled: 0 MB, 0.95 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]     1159 ms: Scavenge 13.8 (18.7) -> 12.5 (20.2) MB, pooled: 0 MB, 1.00 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]     1215 ms: Scavenge 15.1 (20.2) -> 13.9 (29.7) MB, pooled: 0 MB, 1.23 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[7984:000002637E68E000]     1248 ms: Mark-Compact 15.5 (30.4) -> 12.8 (30.9) MB, pooled: 0 MB, 5.01 / 0.01 ms  (+ 1.5 ms in 28 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 17 ms) (average mu = 0.995, current mu = 0.995) finalize incremental marking via task; GC in old space requested
+[7984:000002637E68E000]     9345 ms: Mark-Compact (reduce) 14.1 (31.2) -> 13.5 (16.2) MB, pooled: 0 MB, 5.16 / 0.03 ms  (+ 3.6 ms in 58 steps since start of marking, biggest step 1.1 ms, walltime since start of marking 10 ms) (average mu = 0.998, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[7984:000002637E68E000]     9957 ms: Mark-Compact (reduce) 13.5 (16.2) -> 13.5 (15.9) MB, pooled: 0 MB, 2.32 / 0.00 ms  (+ 2.8 ms in 61 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 6 ms) (average mu = 0.998, current mu = 0.992) finalize incremental marking via task; GC in old space requested
+[7984:000002637E68E000]    29228 ms: Scavenge 15.0 (16.4) -> 14.3 (17.4) MB, pooled: 0 MB, 0.98 / 0.01 ms  (average mu = 0.998, current mu = 0.992) allocation failure; 
+[7984:000002637E68E000]    29622 ms: Scavenge 14.9 (17.4) -> 14.3 (17.9) MB, pooled: 0 MB, 0.89 / 0.00 ms  (average mu = 0.998, current mu = 0.992) task; 

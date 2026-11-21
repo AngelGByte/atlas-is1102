@@ -1,0 +1,91 @@
+﻿Perfil Node.js del listado completo previo a paginación. Fecha 2026-11-21 16:38:01 -03:00. Comando: node --cpu-prof --cpu-prof-dir=docs/evidencias/final scripts/profile-clients.js --full. DATABASE_URL y clave solo en variables de proceso.
+{
+  "measuredAt": "2026-11-21T19:38:02.722Z",
+  "rows": 502,
+  "queryMs": 13.194,
+  "decryptMs": 48.762,
+  "serializeMs": 3.636,
+  "responseBytes": 193030,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 64.54,
+      "Total Cost": 65.79,
+      "Plan Rows": 502,
+      "Plan Width": 544,
+      "Actual Startup Time": 1.584,
+      "Actual Total Time": 1.615,
+      "Actual Rows": 502,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "created_at DESC"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 295,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 40,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "clients",
+          "Alias": "clients",
+          "Startup Cost": 0,
+          "Total Cost": 42.02,
+          "Plan Rows": 502,
+          "Plan Width": 544,
+          "Actual Startup Time": 0.036,
+          "Actual Total Time": 1.114,
+          "Actual Rows": 502,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 37,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 167,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 6.288,
+    "Triggers": [],
+    "Execution Time": 1.769
+  }
+}
+
+Código de salida: 0
+Fin: 2026-11-21 16:38:02 -03:00

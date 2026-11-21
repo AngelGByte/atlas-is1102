@@ -168,3 +168,28 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sidebar a:focus-visible, .sidebar button:focus-visible {
   outline-color: #ffd166;
 }
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.pagination-status {
+  margin: 0;
+  color: #536273;
+  font-size: 13px;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.pagination-buttons .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

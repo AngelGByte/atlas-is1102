@@ -1,0 +1,329 @@
+Comparación perfil SQL/descifrado/JSON, 502 clientes (500 sintéticos + 2 demo). Inicio: 2026-11-21 16:50:04 -03:00
+
+===== listado completo: node scripts/profile-clients.js --full =====
+{
+  "measuredAt": "2026-11-21T19:50:04.331Z",
+  "rows": 502,
+  "queryMs": 10.877,
+  "decryptMs": 46.318,
+  "serializeMs": 4.61,
+  "responseBytes": 193030,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 64.54,
+      "Total Cost": 65.79,
+      "Plan Rows": 502,
+      "Plan Width": 544,
+      "Actual Startup Time": 0.31,
+      "Actual Total Time": 0.333,
+      "Actual Rows": 502,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "created_at DESC"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 295,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 40,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "clients",
+          "Alias": "clients",
+          "Startup Cost": 0,
+          "Total Cost": 42.02,
+          "Plan Rows": 502,
+          "Plan Width": 544,
+          "Actual Startup Time": 0.012,
+          "Actual Total Time": 0.101,
+          "Actual Rows": 502,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 37,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 167,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 1.203,
+    "Triggers": [],
+    "Execution Time": 0.457
+  }
+}
+
+Código de salida: 0
+
+===== página 50: node scripts/profile-clients.js  =====
+{
+  "measuredAt": "2026-11-21T19:50:04.558Z",
+  "rows": 50,
+  "queryMs": 4.064,
+  "decryptMs": 8.158,
+  "serializeMs": 1.504,
+  "responseBytes": 19251,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Limit",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 58.7,
+      "Total Cost": 58.82,
+      "Plan Rows": 50,
+      "Plan Width": 544,
+      "Actual Startup Time": 0.346,
+      "Actual Total Time": 0.351,
+      "Actual Rows": 50,
+      "Actual Loops": 1,
+      "Shared Hit Blocks": 43,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Sort",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 58.7,
+          "Total Cost": 59.95,
+          "Plan Rows": 502,
+          "Plan Width": 544,
+          "Actual Startup Time": 0.345,
+          "Actual Total Time": 0.347,
+          "Actual Rows": 50,
+          "Actual Loops": 1,
+          "Sort Key": [
+            "created_at DESC",
+            "id DESC"
+          ],
+          "Sort Method": "top-N heapsort",
+          "Sort Space Used": 125,
+          "Sort Space Type": "Memory",
+          "Shared Hit Blocks": 43,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "clients",
+              "Alias": "clients",
+              "Startup Cost": 0,
+              "Total Cost": 42.02,
+              "Plan Rows": 502,
+              "Plan Width": 544,
+              "Actual Startup Time": 0.008,
+              "Actual Total Time": 0.078,
+              "Actual Rows": 502,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 37,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 168,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 1.084,
+    "Triggers": [],
+    "Execution Time": 0.426
+  }
+}
+
+Código de salida: 0
+
+===== página 200: node scripts/profile-clients.js  =====
+{
+  "measuredAt": "2026-11-21T19:50:04.844Z",
+  "rows": 200,
+  "queryMs": 8.113,
+  "decryptMs": 61.895,
+  "serializeMs": 4.27,
+  "responseBytes": 77001,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Limit",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 63.72,
+      "Total Cost": 64.22,
+      "Plan Rows": 200,
+      "Plan Width": 544,
+      "Actual Startup Time": 0.651,
+      "Actual Total Time": 0.72,
+      "Actual Rows": 200,
+      "Actual Loops": 1,
+      "Shared Hit Blocks": 43,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Sort",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 63.72,
+          "Total Cost": 64.97,
+          "Plan Rows": 502,
+          "Plan Width": 544,
+          "Actual Startup Time": 0.649,
+          "Actual Total Time": 0.665,
+          "Actual Rows": 200,
+          "Actual Loops": 1,
+          "Sort Key": [
+            "created_at DESC",
+            "id DESC"
+          ],
+          "Sort Method": "top-N heapsort",
+          "Sort Space Used": 428,
+          "Sort Space Type": "Memory",
+          "Shared Hit Blocks": 43,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "clients",
+              "Alias": "clients",
+              "Startup Cost": 0,
+              "Total Cost": 42.02,
+              "Plan Rows": 502,
+              "Plan Width": 544,
+              "Actual Startup Time": 0.016,
+              "Actual Total Time": 0.128,
+              "Actual Rows": 502,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 37,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 168,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 1.888,
+    "Triggers": [],
+    "Execution Time": 0.951
+  }
+}
+
+Código de salida: 0
+Fin: 2026-11-21 16:50:04 -03:00

@@ -1,0 +1,232 @@
+B1 diagnóstico previo a cambios; fecha 2026-11-21 16:25:44 -03:00; 502 clientes sintéticos/base de laboratorio; sin datos reales ni secretos en salida.
+
+===== Preparación de 500 clientes sintéticos =====
+Comando: node scripts/seed-load-data.js
+Inicio: 2026-11-21 16:25:44 -03:00
+OK: creados 500 clientes sintéticos.
+
+Código de salida: 0
+Fin: 2026-11-21 16:25:44 -03:00
+
+===== Perfil de listado completo (consulta actual) =====
+Comando: node scripts/profile-clients.js --full
+Inicio: 2026-11-21 16:25:44 -03:00
+{
+  "measuredAt": "2026-11-21T19:25:44.735Z",
+  "rows": 502,
+  "queryMs": 12.6,
+  "decryptMs": 48.678,
+  "serializeMs": 5.294,
+  "responseBytes": 193030,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 82.07,
+      "Total Cost": 84.02,
+      "Plan Rows": 777,
+      "Plan Width": 348,
+      "Actual Startup Time": 0.755,
+      "Actual Total Time": 0.789,
+      "Actual Rows": 502,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "created_at DESC"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 295,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 40,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "clients",
+          "Alias": "clients",
+          "Startup Cost": 0,
+          "Total Cost": 44.77,
+          "Plan Rows": 777,
+          "Plan Width": 348,
+          "Actual Startup Time": 0.083,
+          "Actual Total Time": 0.252,
+          "Actual Rows": 502,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 37,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 116,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 1.017,
+    "Triggers": [],
+    "Execution Time": 0.916
+  }
+}
+
+Código de salida: 0
+Fin: 2026-11-21 16:25:44 -03:00
+
+===== Perfil del listado paginado de referencia, 50 filas =====
+Comando: node scripts/profile-clients.js
+Inicio: 2026-11-21 16:25:44 -03:00
+{
+  "measuredAt": "2026-11-21T19:25:45.068Z",
+  "rows": 50,
+  "queryMs": 4,
+  "decryptMs": 8.102,
+  "serializeMs": 1.577,
+  "responseBytes": 19251,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Limit",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 70.58,
+      "Total Cost": 70.71,
+      "Plan Rows": 50,
+      "Plan Width": 348,
+      "Actual Startup Time": 0.409,
+      "Actual Total Time": 0.414,
+      "Actual Rows": 50,
+      "Actual Loops": 1,
+      "Shared Hit Blocks": 43,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Sort",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 70.58,
+          "Total Cost": 72.52,
+          "Plan Rows": 777,
+          "Plan Width": 348,
+          "Actual Startup Time": 0.408,
+          "Actual Total Time": 0.41,
+          "Actual Rows": 50,
+          "Actual Loops": 1,
+          "Sort Key": [
+            "created_at DESC",
+            "id DESC"
+          ],
+          "Sort Method": "top-N heapsort",
+          "Sort Space Used": 125,
+          "Sort Space Type": "Memory",
+          "Shared Hit Blocks": 43,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "clients",
+              "Alias": "clients",
+              "Startup Cost": 0,
+              "Total Cost": 44.77,
+              "Plan Rows": 777,
+              "Plan Width": 348,
+              "Actual Startup Time": 0.009,
+              "Actual Total Time": 0.091,
+              "Actual Rows": 502,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 37,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 114,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 0.715,
+    "Triggers": [],
+    "Execution Time": 0.473
+  }
+}
+
+Código de salida: 0
+Fin: 2026-11-21 16:25:45 -03:00
+
+===== Trazas GC y espera del pool bajo carga =====
+Comando: node --trace-gc scripts/perf-observer.js (120 s); k6 200 VU (90 s, salida B1-k6-trace-200-2026-11-21.txt).
+Muestras pool/CPU: 88; máximo pool total: 10; máximo waitingCount: 163; muestras con waitingCount > 0: 53; CPU acumulada en muestras user/system: 64049/9079 ms.
+Eventos GC: 260; pausa individual máxima observada en traza: 44.85 ms.
+El proceso registró eventos Scavenge y Mark-Compact; los máximos observados están en el archivo trace. La pausa máxima medida es demasiado corta para explicar por sí sola el máximo de solicitud; pool sin cola muestreada.
+Observación: redirección inicial mezcló UTF-8/UTF-16; se decodificó y conservó el contenido completo en UTF-8.
+Código de salida observer: 0; k6 trace-200: 99 (threshold P95); checks HTTP 200: 100 %; HTTP fallidos: 0 %.

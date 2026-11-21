@@ -1,0 +1,18 @@
+Fecha inicio: 2026-11-21 17:01:23 -03:00
+Comando: k6 run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js; BASE_URL=http://127.0.0.1:3334; VUS=50; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; TOKEN=<variable de proceso omitida>
+Datos: 500 clientes sintéticos + 2 demo (502 total); sin contratos en la empresa sintética. Perfil: límite 50, think time 1000 ms, rampa 30 s; 60 s de carga sostenida. En k6 hay además rampa de salida 30 s; JMeter duración 90 s desde inicio.
+Login previo único: HTTP 200; token no registrado.
+
+k6.exe : time="2026-11-21T17:01:24-03:00" level=error msg="accepts 1 arg(s), received 4: arg should either be \"-\", 
+if reading script from stdin, or a path to a script file"
+En línea: 2 Carácter: 2859
++ ...  'k6'){$out=& $k6 run --quiet --no-color --summary-trend-stats avg,mi ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2026-11-2... a script file":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+CPU proceso Node (porcentaje de un núcleo, medida incremental): 0 %; ventana 0.6 s.
+
+Código de salida: -1
+Clasificaci�n: intento no v�lido de carga; el parser de argumentos de la herramienta abort� antes de generar solicitudes. No es una medici�n ni se cuentan sus m�tricas. Se conserva la salida completa del error.

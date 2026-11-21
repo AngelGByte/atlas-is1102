@@ -9,6 +9,9 @@ const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const { decryptValue, encryptValue, getEncryptionKey } = require('./crypto');
+const DEFAULT_CLIENTS_LIMIT = 50;
+const MAX_CLIENTS_LIMIT = 200;
+const databasePoolMax = Number(process.env.PG_POOL_MAX || 10);
 const {
   clientSchema,
   contractSchema,
@@ -18,7 +21,10 @@ const {
   userUpdateSchema
 } = require('./validation');
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: databasePoolMax
+});
 const app = express();
 const asyncRoute = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
 const safeUser = ({ id, name, email, role, active, created_at }) => ({
@@ -70,7 +76,39 @@ function requireConfiguration() {
   if (!process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD.length < 12) {
     throw new Error('ADMIN_PASSWORD must contain at least 12 characters.');
   }
+  if (!Number.isSafeInteger(databasePoolMax) || databasePoolMax < 1 || databasePoolMax > 100) {
+    throw new Error('PG_POOL_MAX must be an integer between 1 and 100.');
+  }
   getEncryptionKey();
+}
+
+function getClientPagination(query) {
+  const hasPage = Object.hasOwn(query, 'page');
+  const hasOffset = Object.hasOwn(query, 'offset');
+  if (hasPage && hasOffset) return null;
+
+  const parseInteger = (value, fallback) => {
+    if (value === undefined) return fallback;
+    if (typeof value !== 'string' || !/^\d+$/.test(value)) return null;
+    const parsed = Number(value);
+    return Number.isSafeInteger(parsed) ? parsed : null;
+  };
+
+  const limit = parseInteger(query.limit, DEFAULT_CLIENTS_LIMIT);
+  if (limit === null || limit < 1 || limit > MAX_CLIENTS_LIMIT) return null;
+
+  const requestedPage = parseInteger(query.page, 1);
+  const requestedOffset = parseInteger(query.offset, 0);
+  if (requestedPage === null || requestedOffset === null || requestedPage < 1) return null;
+
+  const offset = hasPage ? (requestedPage - 1) * limit : requestedOffset;
+  if (!Number.isSafeInteger(offset)) return null;
+
+  return {
+    limit,
+    offset,
+    page: hasPage ? requestedPage : Math.floor(offset / limit) + 1
+  };
 }
 
 async function initializeDatabase() {
@@ -280,7 +318,26 @@ app.get('/api/summary', asyncRoute(async (req, res) => {
 }));
 
 app.get('/api/clients', asyncRoute(async (req, res) => {
-  const result = await pool.query('SELECT * FROM clients ORDER BY created_at DESC');
+  const pagination = getClientPagination(req.query);
+  if (!pagination) {
+    return res.status(400).json({ message: 'Parámetros de paginación inválidos.' });
+  }
+  const totalResult = await pool.query('SELECT COUNT(*)::int AS total FROM clients');
+  const total = totalResult.rows[0].total;
+  const result = await pool.query(
+    `SELECT * FROM clients
+     ORDER BY created_at DESC, id DESC
+     LIMIT $1 OFFSET $2`,
+    [pagination.limit, pagination.offset]
+  );
+  const totalPages = Math.ceil(total / pagination.limit);
+  res.set({
+    'X-Total-Count': String(total),
+    'X-Page': String(pagination.page),
+    'X-Limit': String(pagination.limit),
+    'X-Offset': String(pagination.offset),
+    'X-Total-Pages': String(totalPages)
+  });
   res.json(result.rows.map(safeClient));
 }));
 

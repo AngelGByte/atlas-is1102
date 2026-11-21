@@ -3,6 +3,9 @@ const state = {
   user: null,
   view: 'dashboard',
   records: [],
+  clientPage: 1,
+  clientLimit: 50,
+  clientPagination: { total: 0, page: 1, limit: 50, offset: 0, totalPages: 0 },
   editingId: null,
   noticeTimer: null
 };
@@ -42,6 +45,16 @@ async function api(url, options = {}) {
   if (state.token) headers.Authorization = `Bearer ${state.token}`;
   if (options.body) headers['Content-Type'] = 'application/json';
   const response = await fetch(url, { ...options, headers });
+  const totalCount = response.headers.get('X-Total-Count');
+  if (totalCount !== null) {
+    state.clientPagination = {
+      total: Number(totalCount),
+      page: Number(response.headers.get('X-Page')),
+      limit: Number(response.headers.get('X-Limit')),
+      offset: Number(response.headers.get('X-Offset')),
+      totalPages: Number(response.headers.get('X-Total-Pages'))
+    };
+  }
   if (response.status === 401 && !url.endsWith('/api/auth/login')) {
     logout('Tu sesión expiró. Vuelve a ingresar.');
     throw new Error('Sesión expirada.');
@@ -50,6 +63,18 @@ async function api(url, options = {}) {
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(data.message || `Error HTTP ${response.status}`);
   return data;
+}
+
+async function fetchAllClients() {
+  const clients = [];
+  let page = 1;
+  let currentPage;
+  do {
+    currentPage = await api(`/api/clients?limit=200&page=${page}`);
+    clients.push(...currentPage);
+    page += 1;
+  } while (currentPage.length === 200);
+  return clients;
 }
 
 function showNotice(message, isError = false) {
@@ -101,13 +126,20 @@ function navigate(view) {
 
 async function loadView() {
   if (state.view === 'dashboard') return renderDashboard();
+  if (state.view === 'clients') {
+    state.records = await api(
+      `${routes.clients}?limit=${state.clientLimit}&page=${state.clientPage}`
+    );
+    renderTable(state.view, state.records);
+    return;
+  }
   state.records = await api(routes[state.view]);
   renderTable(state.view, state.records);
 }
 
 async function renderDashboard() {
   const [summary, clients, contracts] = await Promise.all([
-    api('/api/summary'), api('/api/clients'), api('/api/contracts')
+    api('/api/summary'), api('/api/clients?limit=4&page=1'), api('/api/contracts')
   ]);
   const host = $('#view-content');
   host.replaceChildren();
@@ -256,7 +288,7 @@ function renderTable(kind, records) {
   const search = add(actions, 'input', 'search-input');
   search.type = 'search';
   search.placeholder = 'Buscar...';
-  search.setAttribute('aria-label', 'Buscar en registros');
+  search.setAttribute('aria-label', kind === 'clients' ? 'Buscar en esta página' : 'Buscar en registros');
   if (state.user.role === 'admin' && !config.readonly) {
     const create = add(actions, 'button', 'button primary', '＋ Nuevo');
     create.type = 'button';
@@ -311,6 +343,37 @@ function renderTable(kind, records) {
 
   search.addEventListener('input', () => drawRows(search.value));
   drawRows();
+
+  if (kind === 'clients') {
+    const pagination = state.clientPagination;
+    const controls = add(host, 'nav', 'pagination-controls');
+    controls.setAttribute('aria-label', 'Paginación de clientes');
+    const start = pagination.total === 0 ? 0 : pagination.offset + 1;
+    const end = Math.min(pagination.offset + records.length, pagination.total);
+    add(
+      controls,
+      'p',
+      'pagination-status',
+      `Página ${pagination.page} de ${Math.max(pagination.totalPages, 1)} · ${start}-${end} de ${pagination.total}`
+    );
+    const buttons = add(controls, 'div', 'pagination-buttons');
+    const previous = add(buttons, 'button', 'button secondary', 'Anterior');
+    previous.type = 'button';
+    previous.setAttribute('aria-label', 'Página anterior');
+    previous.disabled = pagination.page <= 1;
+    previous.addEventListener('click', () => {
+      state.clientPage = pagination.page - 1;
+      loadView().catch((error) => showNotice(error.message, true));
+    });
+    const next = add(buttons, 'button', 'button secondary', 'Siguiente');
+    next.type = 'button';
+    next.setAttribute('aria-label', 'Página siguiente');
+    next.disabled = pagination.page >= pagination.totalPages;
+    next.addEventListener('click', () => {
+      state.clientPage = pagination.page + 1;
+      loadView().catch((error) => showNotice(error.message, true));
+    });
+  }
 }
 
 function pill(value) {
@@ -347,7 +410,7 @@ async function openForm(kind, record = null) {
   fields.replaceChildren();
   const config = tableConfigForForm(kind);
   let choices = [];
-  if (kind === 'contracts') choices = await api('/api/clients');
+  if (kind === 'contracts') choices = await fetchAllClients();
   if (kind === 'documents') choices = await api('/api/contracts');
 
   config.forEach(([name, label, type, required, options, wide, hint]) => {

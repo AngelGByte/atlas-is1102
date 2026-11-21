@@ -1,0 +1,7 @@
+Date: 2026-11-21 17:27:43 -03:00
+Command: Import-Csv JTL; group by JMeter thread; order samples; calculate completed 11-page traversals as final sample end minus first sample start; nearest-rank P95/P99.
+JTL: docs\evidencias\final\B1-jmeter-full-50-2026-11-21.jtl
+JTL columns: timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+Complete traversals: 307; P95 full traversal: 10342 ms; P99: 10453 ms; pages per traversal: 11.
+Exit code: 0
+Page-order check: unique page numbers 1,2,3,4,5,6,7,8,9,10,11; first thread sequence 1,2,3,4,5,6,7,8,9,10,11; result PASS; code 0.

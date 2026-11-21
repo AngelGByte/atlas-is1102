@@ -23,6 +23,7 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3000
       DATABASE_URL: postgres://atlas:${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env antes de iniciar Atlas}@db:5432/atlas
+      PG_POOL_MAX: ${PG_POOL_MAX:-10}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env antes de iniciar Atlas}
       JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env antes de iniciar Atlas}
       DATA_ENCRYPTION_SECRET: ${DATA_ENCRYPTION_SECRET:?Define DATA_ENCRYPTION_SECRET en .env antes de iniciar Atlas}

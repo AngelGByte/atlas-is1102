@@ -1,0 +1,56 @@
+Start: 2026-11-21 17:18:47 -03:00
+Command: k6 run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js; BASE_URL=http://127.0.0.1:3334; VUS=200; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; TOKEN=<process environment redacted>
+Data: 500 synthetic + 2 demo clients (502 total); synthetic company has no contracts. Limit=50, think time=1000ms, ramp-up=30s, 60s steady-state; k6 also ramps down 30s.
+Login: HTTP 200; token not saved.
+
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.99' rate=100.00%
+
+    http_req_duration
+    ✗ 'p(95)<300' p(95)=2.95s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 8816    72.962908/s
+    checks_succeeded...: 100.00% 8816 out of 8816
+    checks_failed......: 0.00%   0 out of 8816
+
+    ✓ respuesta HTTP 200
+
+    HTTP
+    http_req_duration..............: avg=1.05s min=6.94ms med=487.05ms max=4.57s p(90)=2.65s p(95)=2.95s p(99)=4.14s
+      { expected_response:true }...: avg=1.05s min=6.94ms med=487.05ms max=4.57s p(90)=2.65s p(95)=2.95s p(99)=4.14s
+    http_req_failed................: 0.00%  0 out of 8816
+    http_reqs......................: 8816   72.962908/s
+
+    EXECUTION
+    iteration_duration.............: avg=2.06s min=1s     med=1.48s    max=5.58s p(90)=3.66s p(95)=3.96s p(99)=5.16s
+    iterations.....................: 8816   72.962908/s
+    vus............................: 4      min=4         max=200
+    vus_max........................: 200    min=200       max=200
+
+    NETWORK
+    data_received..................: 178 MB 1.5 MB/s
+    data_sent......................: 3.1 MB 26 kB/s
+
+
+
+k6.exe : time="2026-11-21T17:20:49-03:00" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+En línea: 48 Carácter: 15
++     $output = & $k6 @args 2>&1 | Out-String
++               ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2026-11-2...e been crossed":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Application Node process CPU (percent of one core, incremental): 69.9%; elapsed=121.6s.
+
+Exit code: 99

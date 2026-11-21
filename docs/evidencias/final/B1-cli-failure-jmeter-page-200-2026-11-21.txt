@@ -1,0 +1,15 @@
+Fecha inicio: 2026-11-21 17:01:27 -03:00
+Comando: java -jar "C:\Users\rpg72\AppData\Local\Programs\JMeter\bin\ApacheJMeter.jar" -n -t jmeter/atlas-load-test.jmx -l docs/evidencias/final/B1-jmeter-page-200-2026-11-21.jtl -JBASE_HOST=127.0.0.1 -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50 -JPAGES=11; TOKEN=<variable de proceso omitida>
+Datos: 500 clientes sint√©ticos + 2 demo (502 total); sin contratos en la empresa sint√©tica. Perfil: l√≠mite 50, think time 1000 ms, rampa 30 s; 60 s de carga sostenida. En k6 hay adem√°s rampa de salida 30 s; JMeter duraci√≥n 90 s desde inicio.
+Login previo √∫nico: HTTP 200; token no registrado.
+
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+An error occurred: Unknown arg: .0.0.1
+
+CPU proceso Node (porcentaje de un n√∫cleo, medida incremental): 0 %; ventana 1.2 s.
+
+C√≥digo de salida: 1
+ClasificaciÛn: intento no v·lido de carga; el parser de argumentos de la herramienta abortÛ antes de generar solicitudes. No es una mediciÛn ni se cuentan sus mÈtricas. Se conserva la salida completa del error.

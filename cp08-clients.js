@@ -3,6 +3,13 @@ import { check, sleep } from 'k6';
 
 const virtualUsers = Number(__ENV.VUS || 50);
 const holdDuration = __ENV.HOLD_DURATION || '5m';
+const baseUrl = __ENV.BASE_URL || 'http://localhost:3333';
+const listMode = __ENV.LIST_MODE || 'page';
+const pageLimit = Number(__ENV.LIMIT || 50);
+
+if (!['page', 'full'].includes(listMode) || pageLimit < 1 || pageLimit > 200) {
+  throw new Error('LIST_MODE debe ser page/full y LIMIT debe estar entre 1 y 200.');
+}
 
 export const options = {
   stages: [
@@ -18,15 +25,21 @@ export const options = {
 };
 
 export default function () {
-  const baseUrl = __ENV.BASE_URL || 'http://localhost:3333';
   const token = __ENV.TOKEN;
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-  const response = http.get(`${baseUrl}/api/clients`, { headers });
-
-  check(response, {
-    'respuesta HTTP 200': (r) => r.status === 200,
-  });
-
-  sleep(1);
+  let totalPages = 1;
+  for (let page = 1; page <= totalPages; page += 1) {
+    const response = http.get(
+      `${baseUrl}/api/clients?limit=${pageLimit}&page=${page}`,
+      { headers }
+    );
+    check(response, {
+      'respuesta HTTP 200': (r) => r.status === 200,
+    });
+    if (listMode === 'full' && page === 1) {
+      totalPages = Number(response.headers['X-Total-Pages'] || 1);
+    }
+    sleep(1);
+  }
 }

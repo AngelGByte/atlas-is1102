@@ -43,6 +43,10 @@ async function main() {
         }
         await db.query('DELETE FROM clients WHERE id = ANY($1::bigint[])', [ids]);
       }
+      await db.query(
+        'DELETE FROM companies WHERE id = $1 AND NOT EXISTS (SELECT 1 FROM clients WHERE empresa_id = $1)',
+        [companyId]
+      );
       await db.query('COMMIT');
       console.log(`OK: eliminados ${syntheticRows.length} clientes sintéticos.`);
       return;

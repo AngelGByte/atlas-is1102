@@ -1,0 +1,21 @@
+Start: 2026-11-21 17:35:02 -03:00
+Command: node scripts/seed-load-data.js --clean; DATABASE_URL and DATA_ENCRYPTION_SECRET were process-local and redacted.
+node.exe : No se pudo preparar el conjunto de carga: Unsupported state or unable to authenticate data
+En línea: 2 Carácter: 824
++ ... t-Date; $output=& node scripts/seed-load-data.js --clean 2>&1 | Out-S ...
++                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (No se pudo prep...thenticate data:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Exit code: 1
+
+Retry: 2026-11-21 17:35:43 -03:00; used DATA_ENCRYPTION_SECRET from the active Compose app, value redacted.
+Command: node scripts/seed-load-data.js --clean
+OK: eliminados 500 clientes sintéticos.
+
+Exit code: 0
+Read-only company-fixture verification:
+Synthetic company fixtures remaining: 0
+
+Verification exit code: 0
