@@ -23,13 +23,13 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
 1. Descomprime o guarda esta carpeta en una ruta local.
 2. Instala y abre Docker Desktop. Espera a que indique que el motor está activo.
 3. Abre PowerShell en la carpeta raíz del proyecto.
-4. (Recomendado) Copia `.env.example` a `.env` y reemplaza `JWT_SECRET`, `DATA_ENCRYPTION_SECRET`, `POSTGRES_PASSWORD` y `ADMIN_PASSWORD` por valores únicos antes del primer arranque. Para generar secretos aleatorios en Windows con Node:
+4. Copia `.env.example` a `.env` y reemplaza los marcadores por valores únicos antes del primer arranque. `POSTGRES_PASSWORD`, `JWT_SECRET` y `DATA_ENCRYPTION_SECRET` son obligatorios: Compose se detendrá con un mensaje claro si falta cualquiera de ellos. No guardes `.env` ni compartas sus valores. Genera secretos aleatorios en Windows con Node:
 
    ```powershell
    node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
    ```
 
-   Para mantener los valores de demostración, no publiques el entorno en Internet ni reutilices sus claves.
+   Usa un valor diferente para `JWT_SECRET` y `DATA_ENCRYPTION_SECRET`; conserva el valor de cifrado mientras haya datos cifrados en la base. No uses marcadores de `.env.example` como claves de ejecución ni expongas el entorno de laboratorio a Internet.
 5. Ejecuta:
 
    ```powershell

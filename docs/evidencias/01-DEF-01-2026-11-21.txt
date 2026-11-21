@@ -1,0 +1,25 @@
+DEF-01 — secretos obligatorios en Docker Compose
+Fecha: 
+2026-11-21T13:20:41-03:00
+
+Comando: docker compose config --quiet (sin variables obligatorias)
+Resultado: código 1 (se esperaba distinto de 0)
+docker.exe : error while interpolating services.app.environment.DATABASE_URL: required variable POSTGRES_PASSWORD is 
+missing a value: Define POSTGRES_PASSWORD en .env antes de iniciar Atlas
+En línea: 2 Carácter: 413
++ ... obligatorias)'; $missing=& docker compose config --quiet 2>&1 | Out-S ...
++                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error while int...e iniciar Atlas:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error while interpolating services.app.environment.DATA_ENCRYPTION_SECRET: required variable DATA_ENCRYPTION_SECRET is 
+missing a value: Define DATA_ENCRYPTION_SECRET en .env antes de iniciar Atlas
+error while interpolating services.app.environment.JWT_SECRET: required variable JWT_SECRET is missing a value: Define 
+JWT_SECRET en .env antes de iniciar Atlas
+error while interpolating services.app.environment.POSTGRES_PASSWORD: required variable POSTGRES_PASSWORD is missing a 
+value: Define POSTGRES_PASSWORD en .env antes de iniciar Atlas
+error while interpolating services.db.environment.POSTGRES_PASSWORD: required variable POSTGRES_PASSWORD is missing a 
+value: Define POSTGRES_PASSWORD en .env antes de iniciar Atlas
+
+Comando: docker compose config --quiet (tres variables sintéticas definidas; salida suprimida para no registrar valores)
+Resultado: código 0 (se esperaba 0)
