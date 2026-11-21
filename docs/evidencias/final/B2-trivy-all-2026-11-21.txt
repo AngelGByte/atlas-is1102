@@ -1,0 +1,20 @@
+Date: 2026-11-21 17:11:56 -03:00
+Trivy version 0.76.2; image atlas-is1102-final:2026-11-21; image ID sha256:693ee3aba6ec979af1c00dce18198a77e3653546b13f2a586d35e4869bf8bb4c.
+Command: docker run --rm --mount type=bind,source=C:/Users/rpg72/atlas-is1102,target=/work --mount type=volume,source=atlas-trivy-cache,target=/root/.cache/trivy aquasec/trivy:latest image --scanners vuln --input /work/docs/evidencias/final/B2-image-2026-11-21.tar --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --exit-code 1 --format json --output /work/docs/evidencias/final/B2-trivy-all-2026-11-21.json
+docker.exe : 2026-11-21T20:11:56Z	INFO	[vuln] Vulnerability scanning is enabled
+En línea: 10 Carácter: 11
++ $output = & docker run --rm --mount "type=bind,source=$repo,target=/w ...
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-11-21T20:1...ning is enabled:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026-11-21T20:12:02Z	INFO	Detected OS	family="alpine" version="3.24.4"
+2026-11-21T20:12:02Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=19
+2026-11-21T20:12:02Z	INFO	Number of language-specific files	num=1
+2026-11-21T20:12:02Z	INFO	[node-pkg] Detecting vulnerabilities...
+2026-11-21T20:12:02Z	WARN	Using severities from other vendors for some vulnerabilities. Read 
+https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+
+Exit code: 1
+Totals: UNKNOWN=0, LOW=4, MEDIUM=7, HIGH=0, CRITICAL=0; total=11.
+Full report summary: UNKNOWN=0, LOW=4, MEDIUM=7, HIGH=0, CRITICAL=0. Full-severity command returned 1 because --exit-code 1 applied to the supplied all-severity list; separate HIGH,CRITICAL threshold command returned 0.

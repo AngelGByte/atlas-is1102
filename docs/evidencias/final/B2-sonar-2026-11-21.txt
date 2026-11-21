@@ -1,0 +1,18 @@
+Fecha: 2026-11-21
+
+Comando: curl.exe -sS --max-time 8 http://127.0.0.1:9000/api/system/status
+Salida: {"id":"147B411E-AaGES34-lyRuZAhz_H0I","version":"26.10.0.133078","status":"UP"}
+Código de salida: 0
+
+Comando: consultar nombres de variables SONAR del entorno (sin leer ni mostrar valores)
+Salida: No SONAR environment variables configured.
+Código de salida: 0
+
+Comando: gh secret list --repo AngelGByte/atlas-is1102 (nombres solamente)
+Salida: lista vacía; no hay secretos Sonar configurados en GitHub.
+Código de salida: 0
+
+Resultado: el servidor SonarQube local responde y está UP, pero no se dispone de credenciales
+administrativas ni SONAR_TOKEN/SONAR_PROJECT_KEY. No se intentaron contraseñas predeterminadas,
+no se creó un token, y no se ejecutó SonarScanner. No hay issues ni Quality Gate nuevos; no se
+puede afirmar que hayan desaparecido los hallazgos de contraseña por defecto o --ignore-scripts.
