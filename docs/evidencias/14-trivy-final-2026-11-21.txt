@@ -1,0 +1,21 @@
+﻿Fecha: 2026-11-21T15:41:35.7799617-03:00 Comando: trivy image --severity HIGH,CRITICAL --exit-code 1 --format json --output docs/evidencias/14-trivy-final-2026-11-21.json atlas-is1102-final:2026-11-21
+trivy.exe : 2026-11-21T15:41:36-03:00	INFO	[vuln] Vulnerability scanning is enabled
+En línea: 2 Carácter: 286
++ ...  utf8 $out; & 'C:\Users\rpg72\AppData\Local\Microsoft\WinGet\Packages ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-11-21T15:4...ning is enabled:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+2026-11-21T15:41:36-03:00	INFO	[secret] Secret scanning is enabled
+2026-11-21T15:41:36-03:00	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret
+scanning
+2026-11-21T15:41:36-03:00	INFO	[secret] Please see https://trivy.dev/docs/v0.76/guide/scanner/secret#recommendation
+for faster secret detection
+2026-11-21T15:41:36-03:00	INFO	Detected OS	family="alpine" version="3.24.4"
+2026-11-21T15:41:36-03:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=19
+2026-11-21T15:41:36-03:00	INFO	Number of language-specific files	num=1
+2026-11-21T15:41:36-03:00	INFO	[node-pkg] Detecting vulnerabilities...
+2026-11-21T15:41:36-03:00	WARN	Using severities from other vendors for some vulnerabilities. Read
+https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+Código de salida: 0
+artifact=atlas-is1102-final:2026-11-21 digest=sha256:b0cd230de8350173f7669b34d220a11b312fa3a5a103995426b45b0927ce01f1 HIGH/CRITICAL=0
