@@ -1,0 +1,2 @@
+﻿Fecha inicio: 2026-11-21T15:13:53.0487642-03:00 Comando: java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-50users-valid.jtl -JBASE_HOST=localhost -JBASE_PORT=3333 -JUSERS=50 -JRAMP_UP=30 -JLOOPS=10 -JTOKEN=<token efímero> Login: exactamente uno por corrida; el token permanece en memoria y no se imprime.
+Preflight: GET /api/clients HTTP 200; login token not recorded.

@@ -1,0 +1,23 @@
+﻿Fecha inicio: 2026-11-21T15:33:30.5107952-03:00 Comando: java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-200users-final.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JLOOPS=10 -JTOKEN=<token efímero> Login: exactamente uno por corrida; el token permanece en memoria y no se imprime.
+Preflight: GET /api/clients HTTP 200; login token not recorded.
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 15:33:33 CLST (1795286013809)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +      1 in 00:00:01 =    1,2/s Avg:   277 Min:   277 Max:   277 Err:     0 (0,00%) Active: 5 Started: 5 Finished: 0
+summary +    521 in 00:00:25 =   20,9/s Avg:  3303 Min:   296 Max:  5609 Err:     0 (0,00%) Active: 167 Started: 171 Finished: 4
+summary =    522 in 00:00:26 =   20,2/s Avg:  3298 Min:   277 Max:  5609 Err:     0 (0,00%)
+summary +    713 in 00:00:30 =   23,8/s Avg:  7391 Min:  5601 Max:  8181 Err:     0 (0,00%) Active: 165 Started: 200 Finished: 35
+summary =   1235 in 00:00:56 =   22,1/s Avg:  5661 Min:   277 Max:  8181 Err:     0 (0,00%)
+summary +    727 in 00:00:30 =   24,2/s Avg:  5887 Min:  3000 Max:  7336 Err:     0 (0,00%) Active: 39 Started: 200 Finished: 161
+summary =   1962 in 00:01:26 =   22,9/s Avg:  5744 Min:   277 Max:  8181 Err:     0 (0,00%)
+summary +     38 in 00:00:02 =   24,0/s Avg:  2391 Min:  1904 Max:  3001 Err:     0 (0,00%) Active: 0 Started: 200 Finished: 200
+summary =   2000 in 00:01:27 =   22,9/s Avg:  5681 Min:   277 Max:  8181 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 15:35:01 CLST (1795286101602)
+... end of run
+Código de salida: 0
+Fecha término: 2026-11-21T15:35:03.1797103-03:00

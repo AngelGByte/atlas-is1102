@@ -1,0 +1,7 @@
+Fuente: 04-node-gc-stdout-2026-11-21.txt; traza de un proceso Node diagnóstico con --trace-gc.
+Inicio del proceso: 2026-11-21T14:58:14.8788779-03:00.
+Último evento: uptime 825657 ms; término aproximado 2026-11-21T15:12:00.5358779-03:00.
+Eventos Scavenge/Mark-Compact parseados: 2021.
+Pausa máxima observada en esa traza: 71.81 ms; suma de la primera duración registrada: 32824.09 ms.
+Las corridas de carga empezaron a las 15:18:37 (k6 50 VU), más de seis minutos después de terminar esta traza. No hay correlación temporal GC/carga y no deben calcularse métricas GC por VU a partir de este archivo.
+Este resultado no demuestra ni descarta que GC causara el máximo histórico de 4.64 s.

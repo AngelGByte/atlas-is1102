@@ -1,0 +1,3 @@
+﻿Fecha: 2026-11-21T15:18:22.8328935-03:00 Comando: node scripts/seed-load-data.js Base: DB de laboratorio aislada del stack atlas-ep5-tls; sólo datos sintéticos.
+OK: creados 500 clientes sintéticos.
+Código de salida: 0

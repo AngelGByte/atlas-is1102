@@ -1,0 +1,21 @@
+﻿Fecha inicio: 2026-11-21T15:38:13.8978080-03:00 Comando: java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-200users-groovy-env.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JLOOPS=10 TOKEN se exporta como variable de entorno efímera y se lee con __groovy(System.getenv()).
+Preflight: GET /api/clients HTTP 200; token not recorded.
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 15:38:16 CLST (1795286296266)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +    280 in 00:00:13 =   22,2/s Avg:  1422 Min:    49 Max:  2624 Err:     0 (0,00%) Active: 78 Started: 84 Finished: 6
+summary +    683 in 00:00:30 =   22,8/s Avg:  5792 Min:  2628 Max:  8079 Err:     0 (0,00%) Active: 174 Started: 200 Finished: 26
+summary =    963 in 00:00:43 =   22,6/s Avg:  4522 Min:    49 Max:  8079 Err:     0 (0,00%)
+summary +    694 in 00:00:30 =   23,1/s Avg:  7114 Min:  5724 Max:  8477 Err:     0 (0,00%) Active: 124 Started: 200 Finished: 76
+summary =   1657 in 00:01:13 =   22,8/s Avg:  5607 Min:    49 Max:  8477 Err:     0 (0,00%)
+summary +    343 in 00:00:14 =   23,8/s Avg:  4520 Min:  1794 Max:  5763 Err:     0 (0,00%) Active: 0 Started: 200 Finished: 200
+summary =   2000 in 00:01:27 =   23,0/s Avg:  5421 Min:    49 Max:  8477 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 15:39:44 CLST (1795286384446)
+... end of run
+Código de salida: 0
+Fecha término: 2026-11-21T15:39:46.0281265-03:00

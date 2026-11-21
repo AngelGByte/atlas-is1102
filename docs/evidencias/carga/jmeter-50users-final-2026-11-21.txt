@@ -1,0 +1,17 @@
+﻿Fecha inicio: 2026-11-21T15:32:49.4692754-03:00 Comando: java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-50users-final.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=50 -JRAMP_UP=30 -JLOOPS=10 -JTOKEN=<token efímero> Login: exactamente uno por corrida; el token permanece en memoria y no se imprime.
+Preflight: GET /api/clients HTTP 200; login token not recorded.
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 15:32:52 CLST (1795285972763)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +    120 in 00:00:07 =   16,9/s Avg:    48 Min:    36 Max:    97 Err:     0 (0,00%) Active: 1 Started: 12 Finished: 11
+summary +    380 in 00:00:23 =   16,7/s Avg:    44 Min:    36 Max:    96 Err:     0 (0,00%) Active: 0 Started: 50 Finished: 50
+summary =    500 in 00:00:30 =   16,7/s Avg:    45 Min:    36 Max:    97 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 15:33:22 CLST (1795286002780)
+... end of run
+Código de salida: 0
+Fecha término: 2026-11-21T15:33:24.4303783-03:00

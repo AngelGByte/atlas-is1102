@@ -1,0 +1,38 @@
+DEF-13 — resumen de corridas válidas
+Fecha: 2026-11-21 (-03:00)
+Base de laboratorio: stack aislado atlas-ep5-tls; 500 clientes sintéticos confirmados antes de las corridas.
+Login: un login por corrida; TOKEN se exportó temporalmente al proceso. El marcador <token efímero> es una redacción, no el token.
+Preflight: GET /api/clients devolvió HTTP 200 para cada prueba.
+
+Comandos reproducibles (PowerShell; TOKEN representa un valor temporal no registrado):
+
+k6 50 VU:
+$env:BASE_URL='http://localhost:3334'; $env:VUS='50'; $env:HOLD_DURATION='5m'; $env:TOKEN='<token efímero>'; & 'C:\Program Files\k6\k6.exe' run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js
+Inicio 15:18:37; término 15:24:40; salida 99 (umbral P95, no error HTTP).
+8.446 requests, 23,40 req/s, 0 errores, P95 1.190 ms, P99 1.310 ms, máximo 2.540 ms. P95 <300 ms: no cumplido.
+Salida completa: k6-50vu-final-2026-11-21.txt.
+
+k6 200 VU:
+$env:BASE_URL='http://localhost:3334'; $env:VUS='200'; $env:HOLD_DURATION='5m'; $env:TOKEN='<token efímero>'; & 'C:\Program Files\k6\k6.exe' run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js
+Inicio 15:25:44; término 15:31:46; salida 99 (umbral P95, no error HTTP).
+8.749 requests, 24,27 req/s, 0 errores, P95 7.700 ms, P99 8.030 ms, máximo 14.950 ms. P95 <300 ms: no cumplido.
+Salida completa: k6-200vu-final-2026-11-21.txt.
+
+JMeter 50 usuarios:
+$env:TOKEN='<token efímero>'; java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-50users-groovy-env.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=50 -JRAMP_UP=30 -JLOOPS=10
+El plan lee TOKEN desde el entorno usando __groovy(System.getenv('TOKEN')); no se pasa en propiedades, resultados ni logs.
+Inicio 15:37:26; término 15:38:01; salida 0. 500 muestras, 0 errores, 16,7 req/s, P95 70 ms, P99 107 ms, máximo 208 ms. P95 <300 ms: cumplido para esta carga.
+Salida completa: jmeter-50users-groovy-env-2026-11-21.txt; datos: jmeter-50users-groovy-env.jtl.
+
+JMeter 200 usuarios:
+$env:TOKEN='<token efímero>'; java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-200users-groovy-env.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JLOOPS=10
+El plan lee TOKEN desde el entorno usando __groovy(System.getenv('TOKEN')); no se pasa en propiedades, resultados ni logs.
+Inicio 15:38:13; término 15:39:46; salida 0. 2.000 muestras, 0 errores, 23,0 req/s, P95 7.894 ms, P99 7.998 ms, máximo 8.477 ms. P95 <300 ms: no cumplido.
+Salida completa: jmeter-200users-groovy-env-2026-11-21.txt; datos: jmeter-200users-groovy-env.jtl.
+
+Diagnóstico del máximo histórico de 4,64 s:
+- La traza --trace-gc registró 2.021 eventos y una pausa máxima de 71,81 ms en un proceso Node diagnóstico, pero terminó aproximadamente a las 15:12; la primera carga inició a las 15:18. No hubo captura GC concurrente y no se puede atribuir ni descartar GC como causa del outlier.
+- Durante ambas corridas la CPU del contenedor de aplicación se sostuvo cerca de 102–110 %. PostgreSQL tuvo normalmente una consulta activa y cero esperas; una muestra a 200 VU registró dos activas y una con espera. El muestreo es limitado y no midió espera de cola del pool.
+- Pool de Node observado: max=10, idleTimeoutMillis=10000; PostgreSQL max_connections=100. No hay instrumentación de espera/adquisición del pool en estas corridas.
+- No se aisló experimentalmente un arranque en frío frente a uno caliente. La causa única del máximo histórico queda indeterminada; CPU saturada es evidencia concurrente, no prueba causal.
+Fuente GC: 04-node-gc-stdout-2026-11-21.txt y 05-gc-summary-2026-11-21.txt. Telemetría: telemetria-final-50vu-2026-11-21.txt y telemetria-final-200vu-2026-11-21.txt.

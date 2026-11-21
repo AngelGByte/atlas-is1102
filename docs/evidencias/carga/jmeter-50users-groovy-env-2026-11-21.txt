@@ -1,0 +1,19 @@
+﻿Fecha inicio: 2026-11-21T15:37:26.4330899-03:00 Comando: java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-50users-groovy-env.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=50 -JRAMP_UP=30 -JLOOPS=10 TOKEN se exporta como variable de entorno efímera y se lee con __groovy(System.getenv()).
+Preflight: GET /api/clients HTTP 200; token not recorded.
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 15:37:28 CLST (1795286248874)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +      1 in 00:00:00 =    3,4/s Avg:   117 Min:   117 Max:   117 Err:     0 (0,00%) Active: 1 Started: 1 Finished: 0
+summary +    496 in 00:00:29 =   16,8/s Avg:    48 Min:    37 Max:   208 Err:     0 (0,00%) Active: 1 Started: 50 Finished: 49
+summary =    497 in 00:00:30 =   16,7/s Avg:    48 Min:    37 Max:   208 Err:     0 (0,00%)
+summary +      3 in 00:00:00 =   18,6/s Avg:    52 Min:    44 Max:    63 Err:     0 (0,00%) Active: 0 Started: 50 Finished: 50
+summary =    500 in 00:00:30 =   16,7/s Avg:    48 Min:    37 Max:   208 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 15:38:00 CLST (1795286280206)
+... end of run
+Código de salida: 0
+Fecha término: 2026-11-21T15:38:01.8066147-03:00

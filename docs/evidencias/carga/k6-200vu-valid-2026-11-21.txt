@@ -1,0 +1,51 @@
+﻿Fecha inicio: 2026-11-21T15:05:56.3360445-03:00 Comando: BASE_URL=http://localhost:3334 VUS=200 HOLD_DURATION=5m TOKEN=<token efímero> k6 run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js Login: exactamente uno por corrida; el token permanece en memoria y no se imprime.
+Preflight: GET /api/clients HTTP 200; login token not recorded.
+
+
+  █ THRESHOLDS
+
+    checks
+    ✓ 'rate>0.99' rate=100.00%
+
+    http_req_duration
+    ✗ 'p(95)<300' p(95)=7.27s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS
+
+    checks_total.......: 9068    25.142551/s
+    checks_succeeded...: 100.00% 9068 out of 9068
+    checks_failed......: 0.00%   0 out of 9068
+
+    ✓ respuesta HTTP 200
+
+    HTTP
+    http_req_duration..............: avg=6.33s min=36.93ms med=6.8s max=7.82s p(90)=7.16s p(95)=7.27s p(99)=7.47s
+      { expected_response:true }...: avg=6.33s min=36.93ms med=6.8s max=7.82s p(90)=7.16s p(95)=7.27s p(99)=7.47s
+    http_req_failed................: 0.00%  0 out of 9068
+    http_reqs......................: 9068   25.142551/s
+
+    EXECUTION
+    iteration_duration.............: avg=7.33s min=1.03s   med=7.8s max=8.82s p(90)=8.16s p(95)=8.27s p(99)=8.48s
+    iterations.....................: 9068   25.142551/s
+    vus............................: 4      min=4         max=200
+    vus_max........................: 200    min=200       max=200
+
+    NETWORK
+    data_received..................: 1.8 GB 4.9 MB/s
+    data_sent......................: 3.1 MB 8.6 kB/s
+
+
+
+k6.exe : time="2026-11-21T15:11:58-03:00" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+En línea: 2 Carácter: 1430
++ ... KEN=$token; & 'C:\Program Files\k6\k6.exe' run --quiet --no-color --s ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2026-11-2...e been crossed":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+Código de salida: 99
+Fecha término: 2026-11-21T15:11:58.2824225-03:00

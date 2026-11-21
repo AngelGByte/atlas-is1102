@@ -1,0 +1,4 @@
+﻿Fecha: 2026-11-21T15:41:01.3162276-03:00 Contratos asociados antes de limpiar: 0 Comando exacto: node scripts/seed-load-data.js --clean
+OK: eliminados 500 clientes sintéticos.
+Código de salida: 0
+Clientes sintéticos restantes: 0

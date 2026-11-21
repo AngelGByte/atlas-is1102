@@ -1,0 +1,21 @@
+﻿Fecha inicio: 2026-11-21T15:15:23.5106331-03:00 Comando: java -jar ApacheJMeter.jar -n -t jmeter/atlas-load-test.jmx -l jmeter-200users-run.jtl -JBASE_HOST=localhost -JBASE_PORT=3333 -JUSERS=200 -JRAMP_UP=30 -JLOOPS=10 -JTOKEN=<token efímero> Login: exactamente uno por corrida; el token permanece en memoria y no se imprime.
+Preflight: GET /api/clients HTTP 200; login token not recorded.
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 15:15:25 CLST (1795284925949)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +     83 in 00:00:04 =   21,1/s Avg:   503 Min:    70 Max:   879 Err:     0 (0,00%) Active: 25 Started: 27 Finished: 2
+summary +    649 in 00:00:30 =   21,6/s Avg:  4168 Min:   871 Max:  7615 Err:     0 (0,00%) Active: 181 Started: 200 Finished: 19
+summary =    732 in 00:00:34 =   21,5/s Avg:  3752 Min:    70 Max:  7615 Err:     0 (0,00%)
+summary +    678 in 00:00:30 =   22,6/s Avg:  7843 Min:  6614 Max:  9264 Err:     0 (0,00%) Active: 150 Started: 200 Finished: 50
+summary =   1410 in 00:01:04 =   22,1/s Avg:  5719 Min:    70 Max:  9264 Err:     0 (0,00%)
+summary +    590 in 00:00:25 =   23,4/s Avg:  5471 Min:  1788 Max:  6831 Err:     0 (0,00%) Active: 0 Started: 200 Finished: 200
+summary =   2000 in 00:01:29 =   22,4/s Avg:  5646 Min:    70 Max:  9264 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 15:16:55 CLST (1795285015207)
+... end of run
+Código de salida: 0
+Fecha término: 2026-11-21T15:16:56.7898735-03:00
