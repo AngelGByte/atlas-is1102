@@ -1,0 +1,92 @@
+DEF-03 — validación de parámetros :id
+Fecha: 
+2026-11-21T13:23:02-03:00
+Prueba roja previa: node --test test/integration/api.test.js, código 1; GET /api/empresas/invalid/clients produjo PostgreSQL 22P02 y HTTP 500 frente al esperado 400.
+
+Comando: node --test test/integration/api.test.js
+✔ API CRUD, roles, data protection and audit trail (2148.2288ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2456.2312
+
+Código de salida: 0
+
+Comando: npm test
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (2.4998ms)
+✔ detects changed encrypted data and a wrong key (0.692ms)
+✔ requires a sufficiently long encryption secret (0.301ms)
+✔ API CRUD, roles, data protection and audit trail (2158.457ms)
+✔ accepts a valid client and normalizes its email (4.1894ms)
+✔ rejects invalid client emails and oversized values (1.4737ms)
+✔ uses boundary checks for contract values and date order (3.7287ms)
+✔ enforces the documented password composition rules (1.067ms)
+✔ rejects malformed or out-of-range bank account values (0.3346ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2507.6614
+
+Código de salida: 0
+
+Comando: npm run test:vitest
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/.copilot/chats/bc161b48-539d-4eb7-be46-d3b2d0e6c2e7/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:23:09
+   Duration  452ms (import 85%, tests 6%, transform 5%, worker 4%)
+
+
+Código de salida: 0
+
+Comando: npm run test:coverage
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (4.4073ms)
+✔ detects changed encrypted data and a wrong key (1.0009ms)
+✔ requires a sufficiently long encryption secret (0.296ms)
+✔ API CRUD, roles, data protection and audit trail (2666.317ms)
+✔ accepts a valid client and normalizes its email (5.6318ms)
+✔ rejects invalid client emails and oversized values (1.7378ms)
+✔ uses boundary checks for contract values and date order (4.5696ms)
+✔ enforces the documented password composition rules (1.1762ms)
+✔ rejects malformed or out-of-range bank account values (0.4436ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3096.4782
+---------------|---------|----------|---------|---------|-------------------------------------------
+File           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                         
+---------------|---------|----------|---------|---------|-------------------------------------------
+All files      |   78.93 |    72.88 |   84.21 |   78.93 |                                           
+ crypto.js     |   94.87 |    92.85 |     100 |   94.87 | 24-25                                     
+ server.js     |   74.63 |     66.3 |   76.92 |   74.63 | ...35,446-449,496-499,517,529-543,546-550 
+ validation.js |     100 |      100 |     100 |     100 |                                           
+---------------|---------|----------|---------|---------|-------------------------------------------
+
+Código de salida: 0

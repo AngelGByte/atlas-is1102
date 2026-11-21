@@ -208,6 +208,13 @@ app.use(helmet());
 app.use(express.json({ limit: '100kb', type: 'application/json' }));
 app.use(express.static(path.join(__dirname, '..', 'public'), { index: false, maxAge: '1h' }));
 
+app.param('id', (req, res, next, id) => {
+  if (!/^\d{1,18}$/.test(id)) {
+    return res.status(400).json({ message: 'Identificador inválido.' });
+  }
+  return next();
+});
+
 app.get('/api/health', asyncRoute(async (req, res) => {
   await pool.query('SELECT 1');
   res.json({ status: 'ok', service: 'Atlas', time: new Date().toISOString() });

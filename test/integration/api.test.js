@@ -20,6 +20,24 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   });
   assert.equal(adminLogin.status, 200);
   const adminToken = adminLogin.body.token;
+  const invalidIdRoutes = [
+    ['get', '/api/empresas/invalid/clients'],
+    ['put', '/api/clients/invalid', {}],
+    ['delete', '/api/clients/invalid'],
+    ['put', '/api/contracts/invalid', {}],
+    ['delete', '/api/contracts/invalid'],
+    ['put', '/api/documents/invalid', {}],
+    ['delete', '/api/documents/invalid'],
+    ['patch', '/api/users/invalid', {}]
+  ];
+  for (const [method, route, body] of invalidIdRoutes) {
+    let invalidRequest = request(app)[method](route).set('Authorization', `Bearer ${adminToken}`);
+    if (body) invalidRequest = invalidRequest.send(body);
+    const invalidResponse = await invalidRequest;
+    assert.equal(invalidResponse.status, 400, route);
+    assert.deepEqual(invalidResponse.body, { message: 'Identificador inválido.' });
+  }
+
   const invalidPassword = await request(app).post('/api/auth/login')
     .send({ email: process.env.ADMIN_EMAIL, password: 'incorrecta' });
   const unknownAccount = await request(app).post('/api/auth/login')
