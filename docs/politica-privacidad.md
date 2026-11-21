@@ -4,10 +4,15 @@
 política aprobada para tratar datos personales reales. Antes de cualquier uso productivo,
 la organización responsable debe completar sus datos de contacto, validar las bases de
 licitud y revisar el texto conforme a la normativa vigente, incluida la Ley 21.719.
-La ley fue publicada el 13-12-2024 y su texto en LeyChile señala entrada en vigencia
-prevista para el 1-12-2026 (consulta: 2026-11-21). No se corroboró en fuente legislativa
-oficial el estado de una propuesta para postergarla al 15-10-2027; no se considera
-aprobada en este documento. Véase la [matriz de revisión normativa](./matriz-cumplimiento-datos.md).
+La ley fue publicada el 13-12-2024 y el texto oficial de LeyChile fija entrada en vigencia
+para el 1-12-2026 (consulta: 2026-11-21). A esa fecha no se localizó en las ediciones
+consultadas del Diario Oficial una ley que cambie esa fecha. La ficha legislativa oficial
+de la Cámara indica que el proyecto que posterga la vigencia al 15-10-2027 está en trámite
+de aprobación presidencial y la nota de la Cámara del 20-11-2026 informa que fue despachado
+a promulgación. No se verificó su publicación como ley en las ediciones consultadas; por
+tanto, no se presenta la nueva fecha como vigencia legal confirmada. Reconsultar las fuentes
+oficiales antes de tomar decisiones. Véase la
+[matriz de revisión normativa](./matriz-cumplimiento-datos.md) para fuentes y limitaciones.
 
 ## 1. Responsable y alcance
 

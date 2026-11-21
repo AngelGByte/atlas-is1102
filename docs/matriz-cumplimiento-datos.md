@@ -7,16 +7,41 @@ a un procedimiento efectivo para titulares.
 
 ## Fuente y estado temporal
 
-La Ley 21.719 fue publicada el 13-12-2024. El texto oficial disponible en LeyChile de la
-Biblioteca del Congreso Nacional indica como fecha de entrada en vigencia el
-**1-12-2026**. Consulta: **2026-11-21**. Fuente oficial:
-[Ley 21.719, LeyChile/BCN](https://www.bcn.cl/leychile/navegar?idNorma=1209272).
+La Ley 21.719 fue publicada el 13-12-2024. La ficha oficial de
+[LeyChile/BCN](https://www.bcn.cl/leychile/navegar?idNorma=1209272), consultada el
+**2026-11-21**, muestra “Entra en vigencia el 01-DIC-2026” y “Publicación: 13-DIC-2024”.
 
-Durante la búsqueda de esta revisión no se pudo corroborar en una fuente legislativa
-oficial el estado de un proyecto que movería la fecha al **15-10-2027**. Por tanto, esa
-fecha se registra como antecedente no verificado, no como una modificación aprobada ni
-como vigencia vigente. Antes de tomar decisiones de cumplimiento, el responsable debe
-consultar el historial legislativo oficial y el Diario Oficial nuevamente.
+**Estado de la postergación al 15-10-2027, consultado el 2026-11-21:**
+
+- **Tramitación oficial:** la ficha de la
+  [Cámara para el boletín 18623-07](https://www.camara.cl/legislacion/ProyectosDeLey/tramitacion.aspx?prmID=19307&prmBOLETIN=18623-07)
+  muestra el estado “Trámite de aprobación presidencial”. El historial registra el
+  oficio de ley al Ejecutivo el 17-11-2026 y la aprobación sin modificaciones por la
+  Cámara el 17-11-2026.
+- **Fuente oficial de la Cámara:** su nota del
+  [20-11-2026](https://www.camara.cl/cms/2026/11/20/datos-personales-combustibles-y-sala-cuna-en-los-temas-despachados-por-la-camara/)
+  informa que el proyecto pasó a fase de promulgación y que posterga la entrada en
+  vigencia al **15-10-2027**. Esto verifica el despacho legislativo y el texto informado,
+  no su promulgación ni publicación final.
+- **Diario Oficial:** las consultas a las ediciones del
+  [19](https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=2026-11-19),
+  [20](https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=2026-11-20)
+  y [21-11-2026](https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=2026-11-21)
+  respondieron que no existían publicaciones en esas ediciones. No se localizó en ellas la
+  publicación de la modificación. Esta búsqueda acotada no certifica que no haya sido
+  publicada en otra fecha.
+- **Prensa, como antecedente y no como fuente de vigencia:** el feed de
+  [Google Noticias sobre el proyecto](https://news.google.com/rss/search?q=%22Ley+21.719%22+%2215+de+octubre+de+2027%22+Senado+28+octubre+2026&hl=es-419&gl=CL&ceid=CL%3Aes-419)
+  mostró notas de NIVEL4 (29-10-2026) sobre la aprobación del Senado y de Diario El
+  Heraldo Linares (07-11-2026) sobre una aprobación en comisión. El historial oficial
+  consultado es la referencia para el estado legislativo.
+
+**Conclusión cautelosa:** al 21-11-2026 la Cámara informa que el proyecto fue despachado
+para promulgación y la ficha legislativa indica aprobación presidencial; no se verificó
+su publicación como ley en las ediciones consultadas del Diario Oficial. La fecha
+**15-10-2027** es el cambio aprobado y reportado por la Cámara, pero no se debe presentar
+como vigencia legal confirmada hasta verificar promulgación y publicación oficial.
+Reconsultar antes de tomar decisiones.
 
 ## Principios
 

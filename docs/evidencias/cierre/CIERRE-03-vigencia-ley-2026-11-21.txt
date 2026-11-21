@@ -1,0 +1,36 @@
+CIERRE-03 - Consulta de vigencia de la Ley 21.719
+Fecha de consulta: 2026-11-21
+
+Fuente oficial BCN/LeyChile
+URL: https://www.bcn.cl/leychile/navegar?idNorma=1209272
+Resultado visible: "Entra en vigencia el 01-DIC-2026"; "Publicacion: 13-DIC-2024".
+
+Fuente oficial de tramitacion de la Camara
+URL: https://www.camara.cl/legislacion/ProyectosDeLey/tramitacion.aspx?prmID=19307&prmBOLETIN=18623-07
+Resultado visible: boletin 18623-07; estado "Tramite de aprobacion presidencial".
+Historial visible: 17-11-2026, aprobacion sin modificaciones por la Camara y oficio de ley
+al Ejecutivo.
+
+Fuente oficial de la Camara
+URL: https://www.camara.cl/cms/2026/11/20/datos-personales-combustibles-y-sala-cuna-en-los-temas-despachados-por-la-camara/
+Publicada: 20-11-2026.
+Resultado visible: el proyecto paso a fase de promulgacion y posterga la entrada en
+vigencia al 15-10-2027.
+
+Diario Oficial consultado
+https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=2026-11-19
+https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=2026-11-20
+https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=2026-11-21
+Cada consulta devolvio: "No existen publicaciones en esta edicion en la fecha seleccionada".
+No se localizo en esas ediciones la publicacion de la modificacion; el resultado acotado
+no prueba que no haya sido publicada en otra fecha.
+
+Antecedentes de prensa, no usados como prueba de vigencia
+Feed: https://news.google.com/rss/search?q=%22Ley+21.719%22+%2215+de+octubre+de+2027%22+Senado+28+octubre+2026&hl=es-419&gl=CL&ceid=CL%3Aes-419
+Resultados: NIVEL4, 29-10-2026, informa aprobacion en el Senado; Diario El Heraldo Linares,
+07-11-2026, informa aprobacion en comision.
+
+Conclusion: al 21-11-2026 existe evidencia oficial de despacho para promulgacion y de
+aprobacion presidencial en tramite, pero no se verifico publicacion en el Diario Oficial
+en las ediciones consultadas. No se afirma que 15-10-2027 sea ya la fecha de vigencia
+legal confirmada. Reconsultar el Diario Oficial antes de tomar decisiones.
