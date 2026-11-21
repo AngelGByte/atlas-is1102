@@ -141,13 +141,23 @@ npm.cmd run test:integration
 Remove-Item Env:TEST_DATABASE_URL
 ```
 
+Las pruebas de accesibilidad usan Playwright y axe-core. Instala Chromium una vez con
+`npx.cmd playwright install chromium`; con las variables de base de datos y administrador
+configuradas, ejecuta `npm.cmd run test:accessibility`. Se analizan inicio de sesión,
+listado y formulario de clientes en 1280×800 y 390×844. Las capturas se guardan en
+[`docs/evidencias/ui/`](./docs/evidencias/ui/), sin guardar el reporte temporal del navegador.
+
 ## Pruebas de carga con JMeter
 
-El plan reproducible para login y consulta de clientes está en
+El plan reproducible para consulta de clientes con un token preautenticado está en
 [`jmeter/atlas-load-test.jmx`](./jmeter/atlas-load-test.jmx), con instrucciones en
 [`jmeter/README.md`](./jmeter/README.md). La prueba debe ejecutarse contra datos sintéticos
-y una instancia de laboratorio. No se deben guardar contraseñas, tokens ni resultados con
-datos personales en el repositorio.
+y una instancia de laboratorio. Prepara los 500 registros sintéticos con
+`node scripts/seed-load-data.js` y elimínalos después con
+`node scripts/seed-load-data.js --clean`.
+Realiza un único login por corrida y reutiliza temporalmente el token para no exceder el
+límite de 10 intentos por IP cada 15 minutos. No guardes contraseñas, tokens ni resultados
+con datos personales en el repositorio.
 
 ## Automatización y extensiones
 

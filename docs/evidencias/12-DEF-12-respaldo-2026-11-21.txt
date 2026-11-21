@@ -1,0 +1,13 @@
+敆档㩡㈠㈰ⴶㄱ㈭吱㌱㔺㨹〵〮㐸㐲㐱〭㨳〰਍潃慭摮㩯渠浰挮摭爠湵琠獥㩴慢正灵਍਍
+> atlas-management-system@1.0.0 test:backup
+> bash scripts/backup-restore-test.sh
+
+OK tabla audit_logs: 569 registros
+OK tabla clients: 2 registros
+OK tabla companies: 1 registros
+OK tabla contracts: 2 registros
+OK tabla documents: 2 registros
+OK tabla users: 1 registros
+OK hash de users: 848bbc6a0a1fab2e663eb2c07e9c6822e5e4e947333804fc90ad5bbbc72b247a
+OK: respaldo y restauración verificados.
+਍楤潧搠⁥慳楬慤›ര

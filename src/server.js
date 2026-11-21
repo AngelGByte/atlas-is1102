@@ -547,9 +547,11 @@ app.get('/api/audit', requireAdmin, asyncRoute(async (req, res) => {
 
 app.use('/api', (req, res) => res.status(404).json({ message: 'Ruta de API no encontrada.' }));
 
-app.get('/{*path}', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
+const serveFrontend = (req, res) => {
+  res.sendFile('index.html', { root: path.join(__dirname, '..', 'public') });
+};
+app.get('/', serveFrontend);
+app.get('/*path', serveFrontend);
 
 app.use((error, req, res, next) => {
   if (res.headersSent) return next(error);

@@ -1,0 +1,46 @@
+敆档㩡㈠㈰ⴶㄱ㈭吱㌱㔺㨹㤳㈮〷㔳㜹〭㨳〰਍潃慭摮㩯渠浰挮摭爠湵琠獥㩴潣敶慲敧਍਍
+> atlas-management-system@1.0.0 test:coverage
+> c8 --check-coverage --lines 70 --functions 70 --branches 70 --statements 70 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (4.6187ms)
+✔ detects changed encrypted data and a wrong key (1.2002ms)
+✔ requires a sufficiently long encryption secret (0.3036ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:53:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2964.8423ms)
+✔ accepts a valid client and normalizes its email (5.0664ms)
+✔ rejects invalid client emails and oversized values (2.7447ms)
+✔ uses boundary checks for contract values and date order (4.2933ms)
+✔ enforces the documented password composition rules (1.1021ms)
+✔ rejects malformed or out-of-range bank account values (0.2869ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3390.5502
+---------------------|---------|----------|---------|---------|-------------------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+---------------------|---------|----------|---------|---------|-------------------------------------
+All files            |   80.07 |    75.88 |   85.71 |   80.07 |
+ scripts             |   82.69 |    42.85 |     100 |   82.69 |
+  retention-purge.js |   82.69 |    42.85 |     100 |   82.69 | 6-8,17-18,40-41,49-50
+ src                 |   79.88 |    77.61 |      85 |   79.88 |
+  crypto.js          |   94.87 |    92.85 |     100 |   94.87 | 24-25
+  server.js          |   76.09 |    73.14 |   78.57 |   76.09 | ...,480-483,530-533,571-585,588-592
+  validation.js      |     100 |      100 |     100 |     100 |
+---------------------|---------|----------|---------|---------|-------------------------------------
+਍楤潧搠⁥慳楬慤›ര

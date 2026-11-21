@@ -21,6 +21,13 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
 
   const { app, initializeDatabase, pool } = require('../../src/server');
   await initializeDatabase();
+  const homepage = await request(app).get('/');
+  assert.equal(homepage.status, 200);
+  assert.match(homepage.headers['content-type'], /text\/html/);
+  assert.match(homepage.text, /<html lang="es">/);
+  const frontendRoute = await request(app).get('/clients');
+  assert.equal(frontendRoute.status, 200);
+  assert.match(frontendRoute.headers['content-type'], /text\/html/);
   const adminLogin = await request(app).post('/api/auth/login').send({
     email: process.env.ADMIN_EMAIL,
     password: process.env.ADMIN_PASSWORD

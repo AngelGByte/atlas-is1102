@@ -1,0 +1,14 @@
+敆档㩡㈠㈰ⴶㄱ㈭吱㌱㔺㨹㜳㔮㜷㤵㌵〭㨳〰਍潃慭摮㩯渠浰挮摭爠湵琠獥㩴楶整瑳਍਍
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/.copilot/chats/bc161b48-539d-4eb7-be46-d3b2d0e6c2e7/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:59:38
+   Duration  479ms (import 78%, transform 13%, tests 5%, worker 4%)
+
+਍楤潧搠⁥慳楬慤›ര
