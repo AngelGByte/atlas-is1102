@@ -1,0 +1,10 @@
+Fecha: 2026-11-21T19:04:01.6732645-03:00
+Command: npm ci --ignore-scripts
+
+added 210 packages, and audited 211 packages in 15s
+
+70 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+Exit code: 0

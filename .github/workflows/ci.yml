@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Inicializar esquema PostgreSQL
         run: >-
           node -e "const {initializeDatabase,pool}=require('./src/server');
@@ -72,7 +72,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Pruebas dinámicas de seguridad
         run: npm run test:security
 
@@ -98,7 +98,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Inicializar esquema PostgreSQL
         run: >-
           node -e "const {initializeDatabase,pool}=require('./src/server');
@@ -121,7 +121,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Auditar dependencias de producción
         run: npm audit --omit=dev --audit-level=high
 
@@ -157,9 +157,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Instalar Chromium para Playwright
-        run: npx playwright install --with-deps chromium
+        run: ./node_modules/.bin/playwright install --with-deps chromium
       - name: Ejecutar Playwright y axe
         run: npm run test:accessibility
 

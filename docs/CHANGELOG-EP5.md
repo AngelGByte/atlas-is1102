@@ -33,7 +33,7 @@ Las salidas, comandos, códigos de salida, diferencias históricas y límites es
 - CIERRE-05 midió k6 P95 56.09 ms (50 VU) y 1.73 s (200 VU), y JMeter 63 ms (50 usuarios) y 1,104 ms (200 usuarios). No se atribuye causalidad a pool/GC para el máximo histórico de 4.64 s.
 - Se limpiaron los 500 clientes sintéticos tras verificar que no tenían contratos asociados.
 - La regresión final local contra PostgreSQL obtuvo Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19 y c8 83.50/82.15/88.46 % (statements/branches/functions); códigos de salida 0.
-- Sonar sigue sin ejecutarse por falta de credenciales. El último run conocido de Actions en la rama corresponde al commit `8040a2d`; no valida los commits CIERRE posteriores.
+- SonarScanner local sigue sin ejecutarse por falta de credenciales; SonarCloud analizó automáticamente el PR y el primer Quality Gate falló. El estado y las correcciones pendientes de re-evaluación se documentan en `docs/sonar-ejecucion.md`.
 
 La evidencia fechada y los comandos completos de CIERRE-05 se listan en
 [`docs/evidencias/README.md`](./evidencias/README.md).

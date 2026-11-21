@@ -125,12 +125,16 @@ se reproduce en esta imagen; imagen/digest y base de vulnerabilidades deben cons
 comparar. No quedaron vulnerabilidades altas o críticas que requirieran corrección en este
 resultado.
 
-SonarQube local 26.10.0.133078 respondió `UP`, pero no había credenciales administrativas,
-variables locales `SONAR_*` ni secretos Sonar en GitHub. No se intentaron credenciales
-predeterminadas y no se ejecutó SonarScanner. No hay issues ni Quality Gate nuevos y no se
-puede confirmar la desaparición de los hallazgos de contraseña por defecto o `--ignore-scripts`.
-Véase [`sonar-ejecucion.md`](./sonar-ejecucion.md) y
-[`final/B2-sonar-2026-11-21.txt`](./evidencias/final/B2-sonar-2026-11-21.txt).
+SonarQube local 26.10.0.133078 respondió `UP`, pero no había credenciales administrativas ni
+token local; no se intentaron credenciales predeterminadas y no se ejecutó SonarScanner local.
+Posteriormente, la integración automática de SonarCloud analizó el PR #1 y falló el Quality
+Gate por Security Rating C y cinco issues abiertos en código nuevo (tres medios del workflow
+y dos bajos de resolución de ejecutables por `PATH`). La evidencia API está en
+[`cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json`](./evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json).
+Se corrigió la instalación del workflow para usar `--ignore-scripts` en todos los `npm ci` y
+ejecutar el Playwright local; también se justificaron las dos llamadas de herramientas fijas
+del script local. La re-evaluación queda pendiente: no se afirma aún que el Gate pase ni que los
+hallazgos hayan desaparecido. Véase [`sonar-ejecucion.md`](./sonar-ejecucion.md).
 
 ## Parte B3 — casos parciales, privacidad y disponibilidad
 

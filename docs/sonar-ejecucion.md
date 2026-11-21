@@ -1,20 +1,31 @@
 # Ejecución de SonarQube / SonarCloud
 
-## Estado de esta rama
+## Estado de SonarCloud y SonarQube local
 
-**No ejecutado por el agente; requiere ejecución humana.** El 2026-11-21 el servicio
-local respondió `UP` (SonarQube 26.10.0.133078), pero no se encontraron variables
-locales `SONAR_*`, secretos Sonar configurados en GitHub ni credenciales administrativas
-para crear un token. No se intentaron contraseñas predeterminadas. El análisis sigue
-bloqueado y no existe Quality Gate nuevo. La verificación del servicio y el bloqueo
-están en [`final/B2-sonar-2026-11-21.txt`](./evidencias/final/B2-sonar-2026-11-21.txt).
-El workflow de CI debe informar la omisión en su resumen; un job verde sin escáner no es
-un Quality Gate.
+No se ejecutó SonarScanner local: el servicio local respondió `UP` (SonarQube
+26.10.0.133078), pero no había token ni credenciales administrativas y no se intentaron
+contraseñas predeterminadas. Sin embargo, la integración automática de SonarCloud sí
+analizó el [PR #1](https://github.com/AngelGByte/atlas-is1102/pull/1), commit
+`52e78543e63c2ca3074d5c0da6eb627e8fea7852`, el 2026-11-21. El check de SonarCloud está en
+<https://sonarcloud.io/dashboard?id=AngelGByte_atlas-is1102&pullRequest=1>.
+El Quality Gate terminó `ERROR`, Security Rating C (valor 3), con cinco hallazgos abiertos
+en código nuevo: tres de severidad media en `.github/workflows/ci.yml` (instalación sin
+`--ignore-scripts` y uso de `npx`) y dos de severidad baja por búsqueda de ejecutables vía
+`PATH` en `scripts/backup-restore-test.js`. El reporte API está en
+[`evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json`](./evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json).
 
-El archivo [`sonar-project.properties`](../sonar-project.properties) está preparado y
-apunta a `coverage/lcov.info`. No hay resultados de issues, métricas ni Quality Gate
-nuevos que se puedan atribuir a esta ejecución. Los resultados históricos de
-`docs/resultados-validacion.md` no sustituyen un análisis de esta revisión.
+En esa revisión del PR no aparecieron hallazgos sobre credenciales predeterminadas en
+`docker-compose.yml` ni sobre el `Dockerfile`; sí se detectó una instalación `npm ci` del
+workflow que no restringía scripts. Se actualizó el workflow para usar `npm ci
+--ignore-scripts` y el binario local de Playwright. Los dos hallazgos de `PATH` corresponden
+a nombres de utilidades fijos en un script local de backup, sin control del ejecutable por
+entrada del usuario; se dejó la justificación junto a las llamadas. La reejecución de
+SonarCloud sobre el commit con estas correcciones queda pendiente y no se declara resuelta
+hasta consultar el nuevo resultado.
+
+El workflow de CI incluye un job propio que informa `Sonar: OMITIDO` cuando faltan secretos.
+Ese job verde solo significa que se informó la omisión; no sustituye el check independiente
+de SonarCloud ni su Quality Gate.
 
 ## Configuración requerida
 
@@ -56,7 +67,7 @@ permisos del token. No use credenciales de evaluación ni datos reales.
 2. Ejecute:
 
    ```powershell
-   npm.cmd ci
+   npm.cmd ci --ignore-scripts
    npm.cmd run test:coverage
    Test-Path .\coverage\lcov.info
    ```
@@ -93,6 +104,7 @@ permisos del token. No use credenciales de evaluación ni datos reales.
 
 El workflow de GitHub Actions ya incluye un paso de resumen que muestra `Sonar: OMITIDO`,
 enumera los secretos faltantes y aclara que la omisión no equivale a un Quality Gate
-aprobado (`.github/workflows/ci.yml`, job `sonar`). La revisión de código confirma que
-el paso existe; no sustituye una ejecución nueva. Una vez creados los secretos, revise la
-ejecución y conserve el enlace real del run junto con el Quality Gate.
+aprobado (`.github/workflows/ci.yml`, job `sonar`). En este PR el job propio informó la
+omisión, pero SonarCloud ejecutó además su integración automática y publicó un check
+independiente con Quality Gate fallido. Una vez que se complete la nueva revisión de los
+cambios, conserve el enlace real del check y su respuesta API junto con el Quality Gate.

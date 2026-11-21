@@ -41,7 +41,7 @@ function dockerComposeDatabase() {
 function requireLocalTools() {
   for (const tool of ['pg_dump', 'pg_restore', 'psql', 'createdb', 'dropdb']) {
     const locator = process.platform === 'win32' ? 'where.exe' : 'which';
-    const result = spawnSync(locator, [tool], { encoding: 'utf8', maxBuffer: 1024 * 1024 });
+    const result = spawnSync(locator, [tool], { encoding: 'utf8', maxBuffer: 1024 * 1024 }); // NOSONAR: fixed utility names are resolved only for this local backup test.
     if (result.error || result.status !== 0) {
       throw new Error(
         `Falta ${tool}; instala las herramientas cliente de PostgreSQL o define PG_CONTAINER.`
@@ -149,7 +149,7 @@ function cleanup() {
 
 function main() {
   if (process.env.PG_CONTAINER) {
-    const dockerCheck = spawnSync('docker', ['version', '--format', '{{.Server.Version}}'], {
+    const dockerCheck = spawnSync('docker', ['version', '--format', '{{.Server.Version}}'], { // NOSONAR: Docker is a fixed tool name in this local test; no user input selects the executable.
       encoding: 'utf8',
       maxBuffer: 1024 * 1024
     });

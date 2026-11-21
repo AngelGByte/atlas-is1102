@@ -54,8 +54,10 @@ sintéticos se limpiaron después de comprobar que no tenían contratos asociado
 La medición previa de accesibilidad fue Playwright/axe 9/9 en 1280x800, 390x844 y 320x700.
 TLS pasó 3/3 en Caddy de laboratorio; la restauración de respaldo se verificó con conteos y
 hash. Trivy 0.76.2 encontró 0 HIGH y 0 CRITICAL en la imagen analizada (4 LOW, 7 MEDIUM).
-Sonar no se ejecutó por falta de credenciales; no se afirma un Quality Gate ni la resolución
-de sus hallazgos. El último run disponible de Actions citado previamente,
+SonarScanner local no se ejecutó por falta de credenciales. SonarCloud sí analizó
+automáticamente el PR #1 y el primer Quality Gate falló (Security Rating C); el resultado
+pre-corrección está documentado y la re-evaluación de los cambios al workflow está pendiente.
+El último run disponible de Actions citado previamente,
 [44948089169](https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169), valida
 el commit `8040a2d`, no los commits posteriores de CIERRE-04 a CIERRE-06; el PR debe ejecutar
 checks sobre la versión publicada.
