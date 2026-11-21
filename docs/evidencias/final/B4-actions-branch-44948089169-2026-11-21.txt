@@ -1,0 +1,37 @@
+Ejecución de GitHub Actions de ep5-cierre-final
+Fecha: 2026-11-21
+Workflow: Atlas quality checks
+Run: https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169
+Commit: 8040a2d4a20a5a2395d964cd49f62862841a4b6a
+Disparador: push; inicio informado por gh run list: 2026-11-21T20:47:01Z
+
+Comando: gh run watch 44948089169 --repo AngelGByte/atlas-is1102 --exit-status
+Resultado: run completado; código de salida 0.
+
+Comando: gh run view 44948089169 --repo AngelGByte/atlas-is1102 --json databaseId,headSha,status,conclusion,url,workflowName,jobs --jq '{databaseId,headSha,status,conclusion,url,workflowName,jobs:[.jobs[]|{name,conclusion}]}'
+Código de salida: 0
+Salida resumida real:
+{
+  "databaseId": 44948089169,
+  "headSha": "8040a2d4a20a5a2395d964cd49f62862841a4b6a",
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169",
+  "workflowName": "Atlas quality checks",
+  "jobs": [
+    {"name": "accessibility", "conclusion": "success"},
+    {"name": "gitleaks", "conclusion": "success"},
+    {"name": "dependency-audit", "conclusion": "success"},
+    {"name": "security", "conclusion": "success"},
+    {"name": "test", "conclusion": "success"},
+    {"name": "backup-restore", "conclusion": "success"},
+    {"name": "tls", "conclusion": "success"},
+    {"name": "coverage", "conclusion": "success"},
+    {"name": "sonar", "conclusion": "success"}
+  ]
+}
+
+El job Sonar terminó success porque informó la omisión explícita; los pasos SonarCloud y
+SonarQube fueron skipped por falta de secretos. No hubo análisis ni Quality Gate.
+GitHub mostró avisos no bloqueantes de deprecación de Node.js 20 en acciones; fueron
+forzadas a Node.js 24 por el runner.

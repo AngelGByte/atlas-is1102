@@ -61,8 +61,10 @@ La imagen final (digest `sha256:693ee3aba6ec979af1c00dce18198a77e3653546b13f2a58
 pasó Trivy 0.76.2 con 0 HIGH y 0 CRITICAL; el informe completo encontró 4 LOW y 7 MEDIUM.
 El SonarQube local estaba disponible, pero no había credenciales para crear un token ni secretos
 Sonar en GitHub: no se ejecutó análisis ni se afirma un Quality Gate o la resolución de hallazgos.
-GitHub Actions de `main`, commit `d3970f1`, [run 44938310610](https://github.com/AngelGByte/atlas-is1102/actions/runs/44938310610),
-terminó `success`; esa ejecución no valida aún el workflow modificado en `ep5-cierre-final`.
+GitHub Actions de `ep5-cierre-final`, commit `8040a2d`, [run 44948089169](https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169),
+terminó `success`: aprobaron accessibility, gitleaks, dependency-audit, security, test,
+backup-restore, TLS y coverage. El job Sonar informó la omisión explícita y los pasos de análisis
+quedaron skipped; no representa un Quality Gate.
 
 Los comandos, salidas, fechas, códigos de salida, límites históricos y evidencias separadas están
 en [`docs/evidencias/README.md`](./docs/evidencias/README.md),

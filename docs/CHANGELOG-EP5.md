@@ -15,7 +15,7 @@
 - Cobertura c8 medida: 80.91 % líneas/sentencias, 78.44 % ramas y 86.95 % funciones. Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19, auditorías npm con 0 vulnerabilidades.
 - Trivy 0.76.2: imagen reconstruida, 0 HIGH y 0 CRITICAL; informe completo 4 LOW y 7 MEDIUM.
 - SonarQube local respondió `UP`, pero no había credenciales para crear token ni secretos Sonar; no se ejecutó el scanner ni se informa Quality Gate.
-- El workflow incorpora accesibilidad, TLS, backup/restore y omisión Sonar explícita. YAML validado localmente; el run de `main` [44938310610](https://github.com/AngelGByte/atlas-is1102/actions/runs/44938310610) aprobó jobs históricos, pero no valida el workflow nuevo de esta rama.
+- El workflow incorpora accesibilidad, TLS, backup/restore y omisión Sonar explícita. El run de esta rama [44948089169](https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169), commit `8040a2d`, aprobó todos los jobs; Sonar quedó visiblemente omitido y no produjo Quality Gate.
 - Se actualizaron los estados de los 18 casos, el registro DEF-01 a DEF-09, la política/matriz de privacidad, procedimiento de disponibilidad e índice de evidencias.
 
 Las salidas, comandos, códigos de salida, diferencias históricas y límites están en

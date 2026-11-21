@@ -152,15 +152,20 @@ Véase [`sonar-ejecucion.md`](./sonar-ejecucion.md) y
 
 ## Parte B4 — CI
 
-El run más reciente disponible de `main`, [44938310610](https://github.com/AngelGByte/atlas-is1102/actions/runs/44938310610),
-commit `d3970f1`, terminó `success` y aprobó `test`, `security`, `coverage`, `dependency-audit`
-y `gitleaks`. Es una ejecución anterior a los cambios de CI de esta rama y no los valida.
+El run histórico de `main`, [44938310610](https://github.com/AngelGByte/atlas-is1102/actions/runs/44938310610),
+commit `d3970f1`, terminó `success`; no valida esta rama. Tras publicar `ep5-cierre-final`,
+el run [44948089169](https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169)
+del commit `8040a2d4a20a5a2395d964cd49f62862841a4b6a` terminó `success` (código 0):
+`accessibility`, `gitleaks`, `dependency-audit`, `security`, `test`, `backup-restore`,
+`tls` y `coverage` aprobaron. El job `sonar` también terminó success al informar la omisión
+explícita; los pasos de análisis fueron skipped por falta de secretos y no hay Quality Gate.
+Salida y comando verificables en
+[`final/B4-actions-branch-44948089169-2026-11-21.txt`](./evidencias/final/B4-actions-branch-44948089169-2026-11-21.txt).
 
 El workflow actualizado incorpora jobs para accesibilidad, TLS y backup/restore, y marca
 explícitamente Sonar como `OMITIDO` cuando faltan secretos. La sintaxis YAML, los jobs, el
 ámbito de variables Sonar y la espera de PostgreSQL se validaron localmente; evidencia en
 [`final/B4-workflow-syntax-2026-11-21.txt`](./evidencias/final/B4-workflow-syntax-2026-11-21.txt).
-El resultado del run de `ep5-cierre-final` se documentará solo después de su ejecución real.
 
 ## Parte B5 — documentación y casos
 
