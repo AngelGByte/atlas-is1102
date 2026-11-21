@@ -22,7 +22,7 @@ En ambos runs, el job sonar aprobó el paso "Informar configuración Sonar pendi
 pasos "Analizar con SonarCloud" y "Analizar con SonarQube Server" fueron skipped. No se ejecutó
 análisis Sonar ni Quality Gate al faltar la configuración/credenciales requeridas.
 
-## Último commit de este cierre
+## Commit verificado aad4e43
 
 Consulta: 2026-11-21
 Comando: gh run view 44937958682 --json status,conclusion,url,headSha,jobs

@@ -25,7 +25,7 @@ ninguna herramienta. Los datos sintéticos se limpiaron al finalizar.
 La imagen final reconstruida pasó Trivy con 0 HIGH y 0 CRITICAL después de retirar npm/npx del
 runtime. Sonar no se ejecutó porque faltan las credenciales/variables de servicio; el hallazgo
 original de Sonar sobre `--ignore-scripts` no se considera resuelto sin un análisis real. La
-ejecución de GitHub Actions para el último commit de este cierre, `aad4e43`, fue
+ejecución de GitHub Actions para el commit `aad4e43` de este cierre fue
 [44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682): test,
 coverage, security, dependency-audit y gitleaks aprobaron. El job sonar indicó configuración
 pendiente y omitió ambos pasos de análisis; no se afirma un Quality Gate. La evidencia nueva,
