@@ -1,0 +1,25 @@
+﻿Start: 2026-11-21T18:40:57.1008309-03:00
+End: 2026-11-21T18:42:32.5074985-03:00
+Command: java -jar "C:\Users\rpg72\AppData\Local\Programs\JMeter\bin\ApacheJMeter.jar" -n -t "C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx" -l "C:\Users\rpg72\atlas-is1102\docs\evidencias\cierre\CIERRE-05-jmeter-page-200-retry1-2026-11-21.jtl" '-JBASE_HOST=127.0.0.1' '-JBASE_PORT=3339' '-JUSERS=200' '-JRAMP_UP=30' '-JDURATION=90' '-JTHINK_TIME_MS=1000' '-JLIST_MODE=page' '-JLIMIT=50' '-JPAGES=11' '-Jhttpclient.reset_state_on_thread_group_iteration=false' '-Jhttpclient4.retrycount=0'
+Login: HTTP 200; token omitted and not saved.
+Full tool output:
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 18:40:58 CLST (1795297258859)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +      1 in 00:00:01 =    0,7/s Avg:    49 Min:    49 Max:    49 Err:     0 (0,00%) Active: 10 Started: 10 Finished: 0
+summary +   2081 in 00:00:28 =   74,3/s Avg:   308 Min:     8 Max:  1279 Err:     0 (0,00%) Active: 197 Started: 197 Finished: 0
+summary =   2082 in 00:00:29 =   70,6/s Avg:   308 Min:     8 Max:  1279 Err:     0 (0,00%)
+summary +   3704 in 00:00:30 =  123,5/s Avg:   616 Min:   101 Max:  1560 Err:     0 (0,00%) Active: 200 Started: 200 Finished: 0
+summary =   5786 in 00:00:59 =   97,3/s Avg:   505 Min:     8 Max:  1560 Err:     0 (0,00%)
+summary +   4714 in 00:00:30 =  157,1/s Avg:   270 Min:    43 Max:   773 Err:     0 (0,00%) Active: 140 Started: 200 Finished: 60
+summary =  10500 in 00:01:29 =  117,4/s Avg:   400 Min:     8 Max:  1560 Err:     0 (0,00%)
+summary +    139 in 00:00:01 =  152,9/s Avg:   371 Min:   233 Max:   480 Err:     0 (0,00%) Active: 0 Started: 200 Finished: 200
+summary =  10639 in 00:01:30 =  117,7/s Avg:   399 Min:     8 Max:  1560 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 18:42:30 CLST (1795297350911)
+... end of run
+Exit code: 0

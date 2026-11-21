@@ -1,0 +1,23 @@
+﻿Start: 2026-11-21T18:39:21.5216767-03:00
+End: 2026-11-21T18:40:56.4921301-03:00
+Command: java -jar "C:\Users\rpg72\AppData\Local\Programs\JMeter\bin\ApacheJMeter.jar" -n -t "C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx" -l "C:\Users\rpg72\atlas-is1102\docs\evidencias\cierre\CIERRE-05-jmeter-page-50-retry1-2026-11-21.jtl" '-JBASE_HOST=127.0.0.1' '-JBASE_PORT=3339' '-JUSERS=50' '-JRAMP_UP=30' '-JDURATION=90' '-JTHINK_TIME_MS=1000' '-JLIST_MODE=page' '-JLIMIT=50' '-JPAGES=11' '-Jhttpclient.reset_state_on_thread_group_iteration=false' '-Jhttpclient4.retrycount=0'
+Login: HTTP 200; token omitted and not saved.
+Full tool output:
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 18:39:23 CLST (1795297163479)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +     20 in 00:00:05 =    3,8/s Avg:    18 Min:    11 Max:    82 Err:     0 (0,00%) Active: 9 Started: 9 Finished: 0
+summary +    937 in 00:00:30 =   31,3/s Avg:    41 Min:     8 Max:   672 Err:     0 (0,00%) Active: 50 Started: 50 Finished: 0
+summary =    957 in 00:00:35 =   27,2/s Avg:    41 Min:     8 Max:   672 Err:     0 (0,00%)
+summary +   1455 in 00:00:30 =   48,5/s Avg:    20 Min:     8 Max:   389 Err:     0 (0,00%) Active: 50 Started: 50 Finished: 0
+summary =   2412 in 00:01:05 =   37,0/s Avg:    28 Min:     8 Max:   672 Err:     0 (0,00%)
+summary +   1221 in 00:00:25 =   49,1/s Avg:    13 Min:     8 Max:   100 Err:     0 (0,00%) Active: 0 Started: 50 Finished: 50
+summary =   3633 in 00:01:30 =   40,3/s Avg:    23 Min:     8 Max:   672 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 18:40:54 CLST (1795297254903)
+... end of run
+Exit code: 0

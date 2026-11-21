@@ -1,0 +1,29 @@
+﻿Start: 2026-11-21T18:37:20.9249082-03:00
+End: 2026-11-21T18:37:21.3660706-03:00
+Context: concurrent k6 run at 200 VU; application pool/CPU/GC observer active.
+Output:
+SQL: EXPLAIN (ANALYZE, BUFFERS) SELECT COUNT(*)::int AS total FROM clients WHERE blocked=FALSE
+Aggregate  (cost=43.28..43.29 rows=1 width=4) (actual time=0.228..0.229 rows=1 loops=1)
+  Buffers: shared hit=37
+  ->  Seq Scan on clients  (cost=0.00..42.02 rows=502 width=0) (actual time=0.010..0.198 rows=502 loops=1)
+        Filter: (NOT blocked)
+        Buffers: shared hit=37
+Planning:
+  Buffers: shared hit=67
+Planning Time: 1.108 ms
+Execution Time: 0.328 ms
+SQL: EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM clients WHERE blocked=FALSE ORDER BY created_at DESC, id DESC LIMIT 50 OFFSET 0
+Limit  (cost=58.70..58.82 rows=50 width=585) (actual time=0.872..0.882 rows=50 loops=1)
+  Buffers: shared hit=43
+  ->  Sort  (cost=58.70..59.95 rows=502 width=585) (actual time=0.870..0.875 rows=50 loops=1)
+        Sort Key: created_at DESC, id DESC
+        Sort Method: top-N heapsort  Memory: 125kB
+        Buffers: shared hit=43
+        ->  Seq Scan on clients  (cost=0.00..42.02 rows=502 width=585) (actual time=0.010..0.255 rows=502 loops=1)
+              Filter: (NOT blocked)
+              Buffers: shared hit=37
+Planning:
+  Buffers: shared hit=111
+Planning Time: 1.200 ms
+Execution Time: 1.062 ms
+Exit code: 0

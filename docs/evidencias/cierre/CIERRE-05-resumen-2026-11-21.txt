@@ -1,0 +1,87 @@
+CIERRE-05 - Rendimiento, perfil y conexiones JMeter
+Fecha: 2026-11-21
+Rama: ep5-cierre-final
+Entorno: Windows, Node.js 22, PostgreSQL 16 aislado en 127.0.0.1:15434,
+500 clientes sintéticos sin contratos y 2 clientes de demostración.
+
+Corridas válidas (listado paginado, limit=50, think time=1 s, rampa=30 s,
+un login por corrida, token solo en variable de proceso):
+
+Herramienta | Usuarios | Muestras | Errores | P95 | P99 | Throughput de herramienta | CPU app (% de un núcleo) | pool máximo / waiting máximo | Código
+k6 | 50 VU | 4448 | 0 | 56.09 ms | 108.32 ms | 36.95 req/s | 30.6 % | 7 / 0 | 0
+k6 | 200 VU | 10343 | 0 | 1.73 s | 2.07 s | 85.66 req/s | 82.9 % | 10 / 128 | 99 por umbral P95
+JMeter Windows 5.6.3 | 50 | 3633 | 0 | 63 ms | 266 ms | 40.3 req/s | 33.6 % | 10 / 5 | 0
+JMeter Windows 5.6.3 | 200 | 10639 | 0 | 1104 ms | 1391 ms | 117.7 req/s | 87.5 % | 10 / 115 | 0
+
+Las corridas k6 completas están en CIERRE-05-k6-page-50-2026-11-21.txt y
+CIERRE-05-k6-page-200-2026-11-21.txt. Los comandos, fechas, salida completa,
+códigos de salida y logins omitidos están en esos archivos. JMeter usó
+CIERRE-05-jmeter-page-50-retry1-2026-11-21.txt y
+CIERRE-05-jmeter-page-200-retry1-2026-11-21.txt; sus JTL completos tienen los mismos
+nombres con extensión .jtl. Percentiles JMeter calculados desde todos los elapsed del
+JTL mediante rango más cercano; throughput reportado por el resumen JMeter.
+
+Conclusión de umbral: P95 <300 ms se cumple a 50 en ambas herramientas y no se cumple a
+200. La capacidad demostrada es 50 usuarios; no se midieron valores intermedios y no se
+afirma que 50 sea el máximo de capacidad.
+
+Mitigación de BindException: jmeter/atlas-load-test.jmx selecciona HttpClient4 y
+keep-alive explícito. JMeter se ejecutó en Windows con
+-Jhttpclient.reset_state_on_thread_group_iteration=false y
+-Jhttpclient4.retrycount=0 (sin ocultar fallos mediante reintentos). La corrida limpia de
+200 tuvo cero errores de conexión. Los intentos previos con la imagen Docker de JMeter
+fallaron en el parser de argumentos antes de enviar solicitudes (Unknown arg:
+.docker.internal; código 1); son intentos inválidos y no se contabilizan como carga.
+
+Equivalencia y límites de comparación: ambas cargas usaron 50 filas por solicitud,
+1 s de think time, 30 s de rampa, 60 s de carga sostenida y los mismos niveles VU/hilos.
+k6 añadió 30 s de ramp-down; JMeter duró 90 s totales. k6 accedió desde Docker por
+host.docker.internal y JMeter Windows por 127.0.0.1. El sondeo de k6 con --network host
+no pudo alcanzar el loopback Windows (archivo CIERRE-05-k6-host-network-probe-2026-11-21.txt),
+por lo que los percentiles no son una comparación de rutas de red idénticas.
+
+Telemetría bajo carga: el proceso Node se ejecutó con
+node --env-file=.env --cpu-prof --cpu-prof-dir=docs\\evidencias\\cierre
+--cpu-prof-name=CIERRE-05-cpu-2026-11-21.cpuprofile --trace-gc
+scripts\\perf-observer.js; duración configurada 720 s; código 0. El perfil está en
+CIERRE-05-cpu-2026-11-21.cpuprofile; la salida GC/pool en
+CIERRE-05-observer-2026-11-21.txt y los campos timestamp, pool total/idle/waiting y CPU
+normalizados en CIERRE-05-observer-samples-2026-11-21.csv. La captura PowerShell truncó
+solo el campo opcional rssBytes de algunas líneas JSON; los campos usados en el análisis
+están completos en el CSV. Máximos de pausa GC aproximados por ventana, alineando cada
+evento con la muestra pool precedente de 1 s: k6-50 5.63 ms, k6-200 45.48 ms,
+JMeter-50 44.56 ms y JMeter-200 31.44 ms. Eventos: CIERRE-05-gc-events-2026-11-21.csv.
+
+El perfil CPU muestreó 724.56 s, incluidos intervalos sin carga. Entre las funciones con
+mayor tiempo propio figuran createCipherBase (28.492 s), cipher update (20.830 s),
+getEncryptionKey (17.285 s), hash digest (15.393 s), cipher final (14.518 s),
+Express stringify (10.938 s), decryptValue (8.708 s) y garbage collector (7.613 s).
+Es evidencia de costo de criptografía/serialización, pero el perfil agregado no permite
+atribuir una fracción exacta a cada solicitud. No se quitaron campos de la respuesta ni
+se cambió el contrato API sin una comparación A/B que pruebe mejora.
+
+EXPLAIN ANALYZE concurrente con k6 a 200 VU, código 0
+(CIERRE-05-explain-during-load-2026-11-21.txt):
+- COUNT(*) de clientes no bloqueados: Seq Scan 502 filas; ejecución 0.328 ms.
+- Página de 50 ordenada por created_at DESC, id DESC: Seq Scan + top-N heapsort;
+  ejecución 1.062 ms, planificación 1.200 ms.
+No se agregó índice: esta muestra de 502 filas no evidencia una mejora de índice que
+justifique el cambio.
+
+Evaluación de pool: baseline PG_POOL_MAX=10 a 200 VU, k6 P95 1.73 s, CPU 82.9 %,
+waiting máximo 128 (84 muestras). Experimento separado PG_POOL_MAX=20, mismo conjunto
+de datos y carga, CIERRE-05-k6-page-200-pool20-2026-11-21.txt: 10773 solicitudes,
+0 errores, P95 1.91 s, P99 2.36 s, 89.43 req/s, CPU 77.4 %, pool 20 y waiting máximo
+120 (74 muestras), código 99 por umbral. El pool mayor redujo algo la espera muestreada,
+pero empeoró P95; se conserva el valor predeterminado 10. Es una comparación exploratoria
+de una corrida por configuración, no un benchmark repetido.
+
+Máximo atípico: la corrida nueva de k6-200 tuvo máximo HTTP 2.23 s; no reprodujo el
+máximo histórico de 4.64 s. La cola del pool y CPU elevada coinciden con la degradación,
+mientras las pausas GC observadas (máximo aproximado 45.48 ms) son mucho menores que
+el máximo HTTP. No se establece causalidad; la causa del máximo de 4.64 s sigue
+indeterminada.
+
+Limpieza: node --env-file=.env scripts\\seed-load-data.js --clean; código 0; eliminados
+500 clientes sintéticos. La consulta posterior confirmó que solo permanecen los 2 clientes
+de demostración; el script comprobó contratos antes de borrar.

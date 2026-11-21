@@ -1,0 +1,6 @@
+﻿Start: 2026-11-21T18:48:08.0877575-03:00
+End: 2026-11-21T18:48:08.3762252-03:00
+Command: node --env-file=.env scripts\seed-load-data.js --clean
+Output:
+OK: eliminados 500 clientes sintéticos.
+Exit code: 0

@@ -1,0 +1,16 @@
+﻿Start: 2026-11-21T18:38:03.8633457-03:00
+End: 2026-11-21T18:38:06.4000455-03:00
+Command: docker run --rm --env TOKEN --env JVM_ARGS='-Xms256m -Xmx768m' --add-host host.docker.internal:host-gateway --mount type=bind,source=C:\Users\rpg72\atlas-is1102\jmeter\atlas-load-test.jmx,target=/test.jmx,readonly --mount type=bind,source=C:\Users\rpg72\atlas-is1102\docs\evidencias\cierre,target=/evidence alpine/jmeter:5.6.3 -n -t /test.jmx -l /evidence/CIERRE-05-jmeter-page-200-2026-11-21.jtl -JBASE_HOST=host.docker.internal -JBASE_PORT=3339 -JUSERS=200 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50 -JPAGES=11 -Jhttpclient.reset_state_on_thread_group_iteration=false -Jhttpclient4.retrycount=0
+Login: HTTP 200; token omitted and not saved.
+Full tool output:
+START Running Jmeter on Sat Nov 21 21:38:04 UTC 2026
+JVM_ARGS=-Xmn20m -Xms80m -Xmx80m
+jmeter args=-n -t /test.jmx -l /evidence/CIERRE-05-jmeter-page-200-2026-11-21.jtl -JBASE_HOST=host .docker.internal -JBASE_PORT=3339 -JUSERS=$ 200 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=$ page -JLIMIT=50 -JPAGES=11 -Jhttpclient .reset_state_on_thread_group_iteration=false -Jhttpclient4 .retrycount=0
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Nov 21, 2026 9:38:05 PM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+An error occurred: Unknown arg: .docker.internal
+Exit code: 1

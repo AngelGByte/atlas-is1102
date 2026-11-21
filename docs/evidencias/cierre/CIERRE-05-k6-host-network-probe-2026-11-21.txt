@@ -1,0 +1,11 @@
+CIERRE-05 - Sondeo de red para equivalencia k6/JMeter
+Fecha: 2026-11-21 18:44:04 -03:00
+Comando: script k6 por stdin que solicita GET http://127.0.0.1:3339/api/health;
+docker run --rm -i --network host grafana/k6:0.54.0 run --quiet --no-color --vus 1 --iterations 1 -
+Resultado: el contenedor no comparte el loopback de Windows. k6 no pudo conectar
+(dial tcp 127.0.0.1:3339: connect: connection refused); 1 solicitud fallida, sin datos
+recibidos. Código de salida del proceso: 0.
+Clasificación: sondeo de conectividad, no es una corrida de carga ni una métrica de Atlas.
+Las corridas k6 posteriores/anteriormente registradas accedieron al host mediante
+host.docker.internal; JMeter Windows accedió directamente por 127.0.0.1. La diferencia de
+ruta de red queda como limitación al comparar sus percentiles.
