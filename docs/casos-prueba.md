@@ -23,11 +23,10 @@ Los casos están diseñados para el Sistema Atlas descrito en la primera entrega
 | CP-SEG-05 | Alta | NFR-SEG-8 | Datos sintéticos; revisión de flujo de tratamiento | Revisar campos recogidos, finalidad, acceso por rol, retención y registros | Solo se almacenan datos necesarios; acceso y auditoría son verificables; documentar brechas legales pendientes | Cumplimiento / revisión |
 | CP-DIS-01 | Media | NFR-DIS-1, NFR-DIS-2 | Ventana de observación y entorno estable | Registrar disponibilidad; simular parada/mantenimiento siguiendo autorización y revisar recuperación | Comparar medición con 99,5% mensual y ventana de mantenimiento definida en ERS; no inferir cumplimiento desde prueba breve | Disponibilidad / recuperación |
 
-## Estado de cierre EP5 - 2026-11-21
+## Estado reportado antes de esta ejecución (histórico)
 
-Los resultados históricos permanecen en sus informes originales. Esta tabla refleja la regresión
-actual sobre PostgreSQL de laboratorio; los casos que requieren una medición más amplia se marcan
-parciales aunque las pruebas automatizadas relacionadas hayan pasado.
+Se conserva esta tabla como antecedente del cierre anterior. No representa las corridas nuevas
+registradas más abajo y no debe citarse como resultado de esta ejecución.
 
 | ID | Estado real | Evidencia actual |
 |---|---|---|
@@ -49,6 +48,29 @@ parciales aunque las pruebas automatizadas relacionadas hayan pasado.
 | CP-SEG-04 | Aprobado histórico, no reejecutado | Evidencia previa [`12-DEF-12-respaldo-2026-11-21.txt`](./evidencias/12-DEF-12-respaldo-2026-11-21.txt) |
 | CP-SEG-05 | Revisión documental histórica | Sin nueva verificación de tratamiento de datos en esta corrida |
 | CP-DIS-01 | Bloqueado | No existe una ventana de observación ni una medición autorizada de disponibilidad |
+
+## Estado de ejecución actual — 2026-11-21
+
+| ID | Estado real | Evidencia de esta revisión |
+|---|---|---|
+| CP-AUT-01 | Aprobado | Login e integración Node 9/9, cero omitidas: [`final/B3-regresion-2026-11-21.txt`](./evidencias/final/B3-regresion-2026-11-21.txt). |
+| CP-AUT-02 | Aprobado | Login inválido y respuesta genérica incluidos en integración/seguridad 19/19; misma evidencia. |
+| CP-CLI-01 | Aprobado | CRUD y auditoría de clientes cubiertos en la regresión Node. |
+| CP-CLI-02 | Aprobado | Cifrado y enmascaramiento de cuenta comprobados en integración y seguridad. |
+| CP-CLI-03 | Aprobado | Validación de datos y límites probados en integración. |
+| CP-ROL-01 | Aprobado | Control de permisos por rol cubierto en integración. |
+| CP-ROL-02 | Aprobado | Desactivación y revocación de sesión cubiertas en integración. |
+| CP-AUD-01 | Aprobado | Auditoría transaccional integrada; la prueba de retención verifica además que los registros recientes se conservan. |
+| CP-CTO-01 | Aprobado | Límites y validaciones de contratos cubiertos en integración. |
+| CP-DOC-01 | Aprobado | Creación, actualización y eliminación de metadatos documentales cubiertas en integración. |
+| CP-UI-01 | Aprobado en laboratorio | Playwright/axe 9/9 a 1280×800, 390×844 y 320×700; salida [`final/B3-accessibility-2026-11-21.txt`](./evidencias/final/B3-accessibility-2026-11-21.txt), capturas legibles [`final/ui-2026-11-21-final-confirmation/`](./evidencias/final/ui-2026-11-21-final-confirmation/). |
+| CP-PERF-01 | Parcial; P95 <300 ms no se cumple a 200 usuarios | Corridas paginadas válidas con 502 filas (500 sintéticas + 2 de demostración): k6 P95 97.86 ms a 50 VU y 2.95 s a 200 VU; JMeter P95 53 ms a 50 y 2.294 s a 200 usuarios. JMeter a 200 registró 1 error de conexión `BindException` entre 5.800 muestras. Resultados y comandos: [`B1-k6-page-50-2026-11-21.txt`](./evidencias/final/B1-k6-page-50-2026-11-21.txt), [`B1-k6-page-200-2026-11-21.txt`](./evidencias/final/B1-k6-page-200-2026-11-21.txt), [`B1-jmeter-page-50-2026-11-21.txt`](./evidencias/final/B1-jmeter-page-50-2026-11-21.txt), [`B1-jmeter-page-200-2026-11-21.txt`](./evidencias/final/B1-jmeter-page-200-2026-11-21.txt); perfiles de recorrido completo en los archivos `B1-*-full-50-2026-11-21.txt`. |
+| CP-SEG-01 | Aprobado en laboratorio | TLS real con Caddy en puertos 8080/8443: 3/3, cero omitidas; [`final/B3-tls-2026-11-21.txt`](./evidencias/final/B3-tls-2026-11-21.txt). No acredita certificado público. |
+| CP-SEG-02 | Aprobado | Se verifica que el hash persistido comience por `$2` y no contenga la contraseña; no se imprime el hash. Regresión en [`final/B3-regresion-2026-11-21.txt`](./evidencias/final/B3-regresion-2026-11-21.txt). |
+| CP-SEG-03 | Aprobado | Seguridad dinámica 19/19; evidencia en [`final/B3-regresion-2026-11-21.txt`](./evidencias/final/B3-regresion-2026-11-21.txt). |
+| CP-SEG-04 | Aprobado por procedimiento equivalente | El script `npm run test:backup` no se ejecutó por limitación de Bash/WSL; `pg_dump`/`pg_restore` manual comparó conteos y SHA-256 coincidentes: [`final/B3-backup-2026-11-21.txt`](./evidencias/final/B3-backup-2026-11-21.txt). |
+| CP-SEG-05 | Parcial | Política y matriz contrastadas con el código; oposición/bloqueo y flujo del titular no están implementados. Véase [`matriz-cumplimiento-datos.md`](./matriz-cumplimiento-datos.md). |
+| CP-DIS-01 | Aprobado en ventana corta de laboratorio; no acredita SLA mensual | Observación de 1.814,2 s, 61/61 sondeos HTTPS 200 (100 % por sondeo), reinicio controlado y RTO observado de 5,5 s; [`final/B3-disponibilidad-2026-11-21.txt`](./evidencias/final/B3-disponibilidad-2026-11-21.txt). Limitado por intervalo de 30 s y muestra breve. |
 
 ## Registro de ejecución (completar en el laboratorio)
 

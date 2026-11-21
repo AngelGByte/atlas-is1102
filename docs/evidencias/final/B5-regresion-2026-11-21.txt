@@ -1,0 +1,181 @@
+Required final regression after cleanup/script and workflow/documentation changes.
+PostgreSQL: atlas-ep5-final on 127.0.0.1:15433; credentials and secrets omitted.
+
+=== npm test ===
+Start: 2026-11-21 17:37:05 -03:00
+Command: npm test
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (6.8609ms)
+✔ detects changed encrypted data and a wrong key (2.3894ms)
+✔ requires a sufficiently long encryption secret (0.6515ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:64:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:261:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:29:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (4564.9357ms)
+✔ accepts a valid client and normalizes its email (7.3557ms)
+✔ rejects invalid client emails and oversized values (3.1709ms)
+✔ uses boundary checks for contract values and date order (5.3753ms)
+✔ enforces the documented password composition rules (1.9772ms)
+✔ rejects malformed or out-of-range bank account values (1.2995ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5311.5722
+
+Exit code: 0
+
+=== npm run test:vitest ===
+Start: 2026-11-21 17:37:12 -03:00
+Command: npm run test:vitest
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  17:37:14
+   Duration  625ms (import 84%, transform 6%, tests 5%, worker 4%)
+
+
+Exit code: 0
+
+=== npm run test:security ===
+Start: 2026-11-21 17:37:15 -03:00
+Command: npm run test:security
+
+> atlas-management-system@1.0.0 test:security
+> node test/security/run.js
+
+APROBADO S-00: el endpoint de salud responde 200
+APROBADO S-01: X-Content-Type-Options es nosniff
+APROBADO S-02: la política CSP está presente
+APROBADO S-03: la respuesta no expone X-Powered-By
+APROBADO S-04: X-Frame-Options es SAMEORIGIN
+APROBADO S-05: Strict-Transport-Security está presente
+APROBADO S-06: una solicitud protegida sin token responde 401
+APROBADO S-07: un token malformado responde 401
+APROBADO S-08: un JWT con firma falsa responde 401
+APROBADO S-09: un JWT con algoritmo none responde 401
+APROBADO S-10: un JWT expirado responde 401
+APROBADO S-11: la inyección SQL en login no autentica
+APROBADO S-12: un objeto en el correo de login responde 400
+APROBADO S-13: el JSON malformado responde 400 sin detalles del parser
+APROBADO S-14: un cuerpo de 150 KB responde 413 sin detalles internos
+APROBADO S-15: un valor SQL en un parámetro de ruta responde 4xx
+APROBADO S-16: el payload XSS se conserva como texto y la cuenta se enmascara
+APROBADO S-17: la API declara application/json
+APROBADO S-18: el límite de login rechaza el intento 11 con 429
+Resumen: 19/19 verificaciones aprobadas; 0 fallidas.
+
+Exit code: 0
+
+=== npm run test:coverage ===
+Start: 2026-11-21 17:37:22 -03:00
+Command: npm run test:coverage
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --check-coverage --lines 70 --functions 70 --branches 70 --statements 70 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (6.1559ms)
+✔ detects changed encrypted data and a wrong key (1.6768ms)
+✔ requires a sufficiently long encryption secret (0.4608ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:64:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:261:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:29:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (3225.3238ms)
+✔ accepts a valid client and normalizes its email (12.1576ms)
+✔ rejects invalid client emails and oversized values (3.8114ms)
+✔ uses boundary checks for contract values and date order (8.8514ms)
+✔ enforces the documented password composition rules (2.4275ms)
+✔ rejects malformed or out-of-range bank account values (0.7597ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4055.6524
+---------------------|---------|----------|---------|---------|-------------------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                   
+---------------------|---------|----------|---------|---------|-------------------------------------
+All files            |   80.91 |    78.44 |   86.95 |   80.91 |                                     
+ scripts             |   82.69 |    42.85 |     100 |   82.69 |                                     
+  retention-purge.js |   82.69 |    42.85 |     100 |   82.69 | 6-8,17-18,40-41,49-50               
+ src                 |   80.79 |       80 |   86.36 |   80.79 |                                     
+  crypto.js          |   94.87 |    92.85 |     100 |   94.87 | 24-25                               
+  server.js          |   77.52 |    76.86 |   81.25 |   77.52 | ...,541-544,591-594,632-645,648-652 
+  validation.js      |     100 |      100 |     100 |     100 |                                     
+---------------------|---------|----------|---------|---------|-------------------------------------
+
+Exit code: 0
+
+=== npm audit ===
+Start: 2026-11-21 17:37:29 -03:00
+Command: npm audit
+found 0 vulnerabilities
+
+Exit code: 0
+
+=== npm audit --omit=dev ===
+Start: 2026-11-21 17:37:32 -03:00
+Command: npm audit --omit=dev
+found 0 vulnerabilities
+
+Exit code: 0
+
+=== Final accessibility verification ===
+Start: 2026-11-21 17:37:49 -03:00
+Command: npm.cmd run test:accessibility; ATLAS_ACCESSIBILITY_EVIDENCE_DIR=docs/evidencias/final/ui-2026-11-21-final-confirmation
+
+> atlas-management-system@1.0.0 test:accessibility
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+  ok 1 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en escritorio 1280x800 › inicio de sesión: etiquetas, contraste y foco (1.8s)
+  ok 2 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en escritorio 1280x800 › listado de clientes: tabla legible y navegación por teclado (3.3s)
+  ok 3 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en escritorio 1280x800 › formulario de cliente: campos etiquetados, foco visible y adaptación (3.6s)
+  ok 4 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil 390x844 › inicio de sesión: etiquetas, contraste y foco (974ms)
+  ok 5 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil 390x844 › listado de clientes: tabla legible y navegación por teclado (2.2s)
+  ok 6 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil 390x844 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.3s)
+  ok 7 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil estrecho 320x700 › inicio de sesión: etiquetas, contraste y foco (989ms)
+  ok 8 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil estrecho 320x700 › listado de clientes: tabla legible y navegación por teclado (2.1s)
+  ok 9 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil estrecho 320x700 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.3s)
+
+  9 passed (24.9s)
+
+Exit code: 0
+Screenshots: docs\evidencias\final\ui-2026-11-21-final-confirmation

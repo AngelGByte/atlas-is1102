@@ -12,26 +12,62 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
 - Interfaz adaptable, etiquetas de formulario y renderizado de contenido mediante nodos de texto para evitar ejecutar entradas como HTML.
 - Pruebas unitarias e integración, cobertura LCOV para SonarQube, Docker Compose y matriz inicial de casos en [`docs/casos-prueba.md`](./docs/casos-prueba.md).
 
-## Cierre EP5 - estado 2026-11-21
+## Listado paginado de clientes
 
-La regresión final confirma 9/9 pruebas Node (0 omitidas), 4/4 Vitest, 19/19 verificaciones
-dinámicas de seguridad, 6/6 pruebas Playwright/axe, cobertura c8 de 79.89 % en líneas/sentencias,
-75.88 % en ramas y 85.71 % en funciones, y 0 vulnerabilidades en ambas auditorías npm.
-TLS pasó 3/3 en el stack local aislado. Las cargas fueron válidas contra 500 clientes sintéticos:
-k6 registró P95 de 1.190 ms con 50 VU y 7.700 ms con 200 VU; JMeter registró 70 ms con 50
-usuarios y 7.894 ms con 200. Por tanto, el objetivo P95 <300 ms no se cumple a 200 usuarios en
-ninguna herramienta. Los datos sintéticos se limpiaron al finalizar.
+`GET /api/clients` conserva el cuerpo JSON como arreglo para clientes existentes, pero ahora
+devuelve 50 registros por defecto para acotar descifrado y tamaño de respuesta. Use
+`?limit=50&page=1` para paginar; el máximo es 200. También se admite `offset` en lugar de
+`page`, pero ambos parámetros no se pueden combinar. Los valores inválidos responden 400.
+La respuesta expone `X-Total-Count`, `X-Page`, `X-Limit`, `X-Offset` y `X-Total-Pages`.
+Los consumidores que necesiten todos los registros deben recorrer las páginas; la interfaz
+lo hace automáticamente donde requiere el conjunto completo. `PG_POOL_MAX` configura el pool
+de PostgreSQL (predeterminado 10, rango 1–100).
 
-La imagen final reconstruida pasó Trivy con 0 HIGH y 0 CRITICAL después de retirar npm/npx del
-runtime. Sonar no se ejecutó porque faltan las credenciales/variables de servicio; el hallazgo
-original de Sonar sobre `--ignore-scripts` no se considera resuelto sin un análisis real. La
-ejecución de GitHub Actions para el commit `aad4e43` de este cierre fue
-[44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682): test,
-coverage, security, dependency-audit y gitleaks aprobaron. El job sonar indicó configuración
-pendiente y omitió ambos pasos de análisis; no se afirma un Quality Gate. La evidencia nueva,
-separada de los resultados históricos, está en
-[`docs/evidencias/README.md`](./docs/evidencias/README.md), [`docs/resultados-validacion.md`](./docs/resultados-validacion.md)
-y [`docs/CHANGELOG-EP5.md`](./docs/CHANGELOG-EP5.md).
+## Cierre EP5 - resultados de esta revisión (2026-11-21)
+
+Regresiones medidas en esta revisión: Node 9/9 (0 omitidas), Vitest 4/4, seguridad dinámica
+19/19 y Playwright/axe 9/9 (login, listado y formulario a 1280x800, 390x844 y 320x700).
+Cobertura c8: 80.91 % líneas/sentencias, 78.44 % ramas y 86.95 % funciones. `npm audit` y
+`npm audit --omit=dev` reportaron 0 vulnerabilidades. TLS pasó 3/3 en Caddy de laboratorio y
+la restauración del respaldo se verificó con comparación de conteos y hash.
+
+Las mediciones paginadas usaron un límite de 50, 500 clientes sintéticos más 2 registros de
+demostración, 30 s de rampa, 60 s de carga sostenida y un login por corrida:
+
+| Herramienta | Usuarios | P95 | P99 | Errores | Throughput | CPU app (% de un núcleo) |
+|---|---:|---:|---:|---:|---:|---:|
+| k6 | 50 VU | 97.86 ms | 408.46 ms | 0 | 36.35 req/s | 34.3 % |
+| k6 | 200 VU | 2.95 s | 4.14 s | 0 | 72.96 req/s | 69.9 % |
+| JMeter | 50 | 53 ms | 84 ms | 0 | 41.05 req/s | 32.0 % |
+| JMeter | 200 | 2.294 s | 2.558 s | 1 error de conexión | 87.09 req/s | 70.2 % |
+
+El objetivo P95 <300 ms se cumple a 50 usuarios y no se cumple a 200 con ninguna herramienta.
+La corrida JMeter de 200 terminó con código 0, pero registró un `BindException` entre 5.800
+muestras; se informa como error, no como aprobación sin reservas. El recorrido de las 11 páginas
+completas a 50 usuarios registró P95 de 11.39 s en k6 y 10.342 s en JMeter; los percentiles
+HTTP por página fueron 40.61 ms y 32 ms, respectivamente. Los 500 registros sintéticos se
+limpiaron tras comprobar que no tenían contratos asociados.
+
+La ventana de disponibilidad de laboratorio duró 1.814,2 s: 61/61 sondeos HTTPS respondieron
+200, con un reinicio controlado y RTO observado de 5,5 s. La muestra breve no acredita un SLA
+mensual.
+
+El perfil de 502 filas midió 46.318 ms de descifrado para el listado completo y 8.158 ms para
+50 filas; el tamaño JSON fue 193.030 y 19.251 bytes, respectivamente. A 200 VU k6 midió un
+máximo de 4.57 s, cercano al máximo histórico de 4.64 s. La causa continúa indeterminada:
+la traza GC/pool no quedó correlacionada con la corrida y no se midió espera de pool bajo carga.
+
+La imagen final (digest `sha256:693ee3aba6ec979af1c00dce18198a77e3653546b13f2a586d35e4869bf8bb4c`)
+pasó Trivy 0.76.2 con 0 HIGH y 0 CRITICAL; el informe completo encontró 4 LOW y 7 MEDIUM.
+El SonarQube local estaba disponible, pero no había credenciales para crear un token ni secretos
+Sonar en GitHub: no se ejecutó análisis ni se afirma un Quality Gate o la resolución de hallazgos.
+GitHub Actions de `main`, commit `d3970f1`, [run 44938310610](https://github.com/AngelGByte/atlas-is1102/actions/runs/44938310610),
+terminó `success`; esa ejecución no valida aún el workflow modificado en `ep5-cierre-final`.
+
+Los comandos, salidas, fechas, códigos de salida, límites históricos y evidencias separadas están
+en [`docs/evidencias/README.md`](./docs/evidencias/README.md),
+[`docs/resultados-validacion.md`](./docs/resultados-validacion.md) y
+[`docs/CHANGELOG-EP5.md`](./docs/CHANGELOG-EP5.md).
 
 ## Requisitos para ejecutar
 
@@ -165,7 +201,7 @@ Remove-Item Env:TEST_DATABASE_URL
 Las pruebas de accesibilidad usan Playwright y axe-core. Instala Chromium una vez con
 `npx.cmd playwright install chromium`; con las variables de base de datos y administrador
 configuradas, ejecuta `npm.cmd run test:accessibility`. Se analizan inicio de sesión,
-listado y formulario de clientes en 1280×800 y 390×844. Las capturas se guardan en
+listado y formulario de clientes en 1280×800, 390×844 y 320×700. Las capturas se guardan en
 [`docs/evidencias/ui/`](./docs/evidencias/ui/), sin guardar el reporte temporal del navegador.
 
 ## Pruebas de carga con JMeter
@@ -183,11 +219,12 @@ con datos personales en el repositorio.
 ## Automatización y extensiones
 
 El workflow [`ci.yml`](./.github/workflows/ci.yml) ejecuta las pruebas Node/Vitest, las
-pruebas dinámicas de seguridad, cobertura c8, auditoría de dependencias de producción y
-Gitleaks en jobs separados; Node y cobertura usan PostgreSQL 16 e inicializan el esquema
-desde `db/init.sql`. La integración falla en CI si falta `TEST_DATABASE_URL`, en vez de
-quedar omitida. La cobertura exige al menos 70 % en líneas, funciones, ramas y sentencias,
-y publica `coverage/` como artefacto. Para habilitar Sonar, configure como secretos del
+pruebas dinámicas de seguridad, cobertura c8, auditoría de dependencias de producción,
+Gitleaks, accesibilidad, TLS y respaldo/restauración en jobs separados; Node y cobertura
+usan PostgreSQL 16 e inicializan el esquema desde `db/init.sql`. La integración falla en
+CI si falta `TEST_DATABASE_URL`, en vez de quedar omitida. La cobertura exige al menos 70 %
+en líneas, funciones, ramas y sentencias, y publica `coverage/` como artefacto. Para
+habilitar Sonar, configure como secretos del
 repositorio `SONAR_HOST_URL`, `SONAR_TOKEN` y `SONAR_PROJECT_KEY`; para SonarCloud configure
 además `SONAR_ORGANIZATION`. Mientras falte la configuración, el job lo informa y omite el
 análisis, sin guardar tokens en el repositorio. Las extensiones sugeridas para VS Code están en
@@ -199,7 +236,13 @@ La matriz de requisitos y la lista de evidencias para el informe y la presentaci
 vulnerabilidades altas y críticas; `npm audit` evalúa también las dependencias de desarrollo.
 La política de privacidad para el prototipo está en
 [`docs/politica-privacidad.md`](./docs/politica-privacidad.md) y se identifica expresamente
-como borrador académico sujeto a revisión antes de tratar datos reales.
+como borrador académico sujeto a revisión antes de tratar datos reales. La evaluación
+detallada de principios y derechos está en
+[`docs/matriz-cumplimiento-datos.md`](./docs/matriz-cumplimiento-datos.md); no declara
+conformidad jurídica. Sonar queda como no ejecutado si faltan credenciales o servicio; las
+instrucciones reproducibles están en [`docs/sonar-ejecucion.md`](./docs/sonar-ejecucion.md).
+El procedimiento y límites de disponibilidad están en
+[`docs/disponibilidad.md`](./docs/disponibilidad.md).
 
 El informe técnico completo está en [`docs/informe-ep5.md`](./docs/informe-ep5.md).
 La versión Word consolidada para la entrega final está en
@@ -233,7 +276,13 @@ La prueba crea un usuario y un cliente temporales y los elimina al finalizar; no
 
 Sigue la secuencia de laboratorio del material: registra versiones de SO/navegador/base de datos, verifica `docker compose ps`, ejecuta smoke test primero, y solo luego continúa con los casos. Para cada caso de [`docs/casos-prueba.md`](./docs/casos-prueba.md), anota entrada, esperado, obtenido, estado, defecto asociado y ruta de captura/log. Para cada defecto informa severidad, pasos de reproducción y requisito asociado.
 
-No uses PII real. Las credenciales y claves incluidas por defecto son únicamente de laboratorio. No se configura TLS en el enlace local HTTP, por lo que CP-SEG-01 queda pendiente en el modo local; un despliegue real debe terminar TLS en un proxy HTTPS y definir secretos fuera del código. La gestión documental almacena referencias, no archivos. Los objetivos de disponibilidad/carga deben medirse en el entorno y condiciones establecidos por el ERS antes de afirmar cumplimiento.
+No uses PII real. Compose no define credenciales productivas por defecto: exige secretos
+configurados fuera del código; los valores `ci-only` del workflow son sintéticos y solo
+para CI. El perfil HTTP local no usa TLS; el perfil Caddy fue probado en laboratorio, pero
+no acredita un certificado público. Un despliegue real debe terminar TLS en un proxy HTTPS
+y definir secretos fuera del código. La gestión documental almacena referencias, no
+archivos. Los objetivos de disponibilidad/carga deben medirse en el entorno y condiciones
+establecidos por el ERS antes de afirmar cumplimiento.
 
 ## Tecnologías
 

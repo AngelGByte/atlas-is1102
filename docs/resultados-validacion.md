@@ -1,128 +1,178 @@
-# Resultados de validacion tecnica
+# Resultados de validación técnica EP5
 
-Fecha de ejecucion: 2026-10-28
+**Fecha de revisión:** 2026-11-21  
+**Rama:** `ep5-cierre-final`  
+**Entorno:** Node.js 22, PostgreSQL 16 de laboratorio, 500 clientes sintéticos más 2 clientes
+de demostración. No se usaron datos personales reales.
 
-## Entorno y pruebas
+Los resultados de esta revisión se separan de los históricos. Cada comando, salida y código
+de salida reproducible se conserva bajo [`evidencias/README.md`](./evidencias/README.md).
 
-- Atlas y PostgreSQL se iniciaron con Docker Compose; se reconstruyo la imagen de Atlas y `/api/health` respondio `ok`.
-- Pruebas automatizadas con PostgreSQL disponible: 9 aprobadas, 0 fallidas y 0 omitidas. Incluyen integracion de inicio de sesion, roles, proteccion de datos y auditoria.
-- Cobertura de c8: 59.59 % de statements/lineas, 64.78 % de branches y 72.22 % de funciones.
-- `npm audit`: 0 vulnerabilidades reportadas.
+## Comparación con el informe anterior
 
-## Analisis SonarQube
+Los valores de la columna anterior son cifras informadas en el reporte precedente; no se
+volvieron a ejecutar durante esta revisión. La última columna sí corresponde a ejecuciones
+nuevas de esta rama.
 
-Analisis finalizado correctamente el 2026-10-28 en el proyecto `atlas-is1102`, usando SonarQube Community Build 26.10.0.133 y SonarScanner CLI 8.1.0.6389.
+| Métrica | Informe anterior | Medición actual | Diferencia / interpretación |
+|---|---:|---:|---|
+| c8 líneas/sentencias | 79.89 % | 80.91 % | +1.02 puntos porcentuales |
+| c8 ramas | 75.88 % | 78.44 % | +2.56 puntos porcentuales |
+| c8 funciones | 85.71 % | 86.95 % | +1.24 puntos porcentuales |
+| `npm test` | 9/9, 0 omitidas | 9/9, 0 omitidas | Sin cambio |
+| `npm run test:security` | 19/19 | 19/19 | Sin cambio |
+| k6, 50 VU, listado paginado P95 | 1,190 ms | 97.86 ms | Menor latencia; carga y configuración nuevas |
+| k6, 200 VU, listado paginado P95 | 7.7 s | 2.95 s | Mejora, pero incumple <300 ms |
+| JMeter, 50 usuarios, P95 | 70 ms | 53 ms | Menor latencia |
+| JMeter, 200 usuarios, P95 | 7.894 s | 2.294 s | Mejora, pero incumple <300 ms; nueva corrida tuvo 1 error de conexión |
 
-El servidor local usa una base de datos embebida de evaluacion. SonarQube advierte que esa base no debe usarse para escalar ni como almacenamiento de produccion.
+La cobertura aumentó tras incorporar pruebas de hash bcrypt, retención y paginación. El
+umbral de c8 se mantiene en 70 %: aunque la cobertura actual de ramas permite 75 %, el
+resultado histórico de ramas estaba solo 0.88 puntos sobre ese límite, un margen insuficiente
+para subirlo con seguridad. Las pruebas nuevas de carga usan `limit=50`; no son directamente
+comparables con todas las corridas históricas de listado completo.
 
-| Medida | Resultado |
-|---|---:|
-| Lineas de codigo (NCLOC) | 1266 |
-| Bugs | 0 |
-| Vulnerabilidades | 0 |
-| Security hotspots | 0 |
-| Code smells | 0 |
-| Duplicacion | 2.1 % |
-| Cobertura informada por SonarQube | 43.0 % |
-| Quality Gate | OK |
+## Parte A — reconfirmación
 
-El Quality Gate figura como `OK`, pero SonarQube informa `ignoredConditions: true` y las condiciones mostradas son de codigo nuevo. Por tanto, ese estado no significa que la cobertura total de 43.0 % cumpla por si sola un umbral general. La cobertura de SonarQube y la de c8 se conservan como medidas distintas.
+La salida completa de las cuatro regresiones, auditorías y 300 repeticiones se preservó en
+[`final/A-reconfirmacion-2026-11-21.txt`](./evidencias/final/A-reconfirmacion-2026-11-21.txt).
 
-Durante el primer analisis se detecto una condicion redundante en una lista desplegable; se simplifico y el analisis final ya no reporta bugs abiertos.
-
-## Alcance pendiente
-
-Estos resultados no acreditan pruebas de TLS/HTTPS, accesibilidad, restauracion de respaldos ni cumplimiento normativo. Deben ejecutarse y documentarse por separado antes de afirmar que esos requisitos estan aprobados. La gestion documental almacena referencias y metadatos, no archivos.
-
-## CP-08 — Prueba de rendimiento
-
-**Estado: APROBADO.**
-
-- Se implementó la relación `clients.empresa_id` con la tabla `companies` y el endpoint protegido `GET /api/empresas/:id/clients`.
-- La base local contiene 500 clientes generados exclusivamente para la prueba en `empresa_id=1`. La consulta reproducible esta en [`docs/cp08-evidence.sql`](./cp08-evidence.sql) y su resultado en [`docs/cp08-sql-result.txt`](./cp08-sql-result.txt).
-- La comprobación funcional respondió `200 OK` y devolvió `500` clientes para `GET /api/empresas/1/clients`.
-- El archivo [`docs/cp08-endpoint-smoke.txt`](./cp08-endpoint-smoke.txt) corresponde a un smoke test preliminar fallido con 1 VU durante 10 segundos; se conserva como antecedente y no como evidencia de aprobación.
-- [`cp08.js`](../cp08.js) ejecutó 50 VU durante 5 minutos, con ramp-up de 30 segundos y ramp-down de 30 segundos.
-- Resultado k6: código de salida `0`, 14.885 iteraciones, `http_req_duration p(95)=213.65 ms`, `http_req_failed=0 %` y `checks=100 %`.
-- Se cumplieron los umbrales: P95 menor a 300 ms, errores HTTP menores a 1 % y checks mayores a 99 %. La salida completa sin credenciales está en [`docs/cp08-result.txt`](./cp08-result.txt).
-
-### Ejecución solicitada sobre `GET /api/clients`
-
-- La verificación funcional respondió `200 OK` y devolvió `500` clientes. La consulta y el resultado están en [`docs/cp08-clients-evidence.sql`](./cp08-clients-evidence.sql) y [`docs/cp08-clients-sql-result.txt`](./cp08-clients-sql-result.txt).
-- La configuración específica está en [`cp08-clients.js`](../cp08-clients.js), con 50 VU durante 5 minutos, más 30 segundos de subida y 30 segundos de descenso.
-- Resultado final k6: código de salida `0`, 14.528 iteraciones, `http_req_duration p(95)=244.95 ms`, `http_req_failed=0 %` y `checks=100 %`.
-- Esta es la evidencia principal para el requisito que solicita explícitamente `GET /api/clients`; el resumen completo está en [`docs/cp08-clients-result.txt`](./cp08-clients-result.txt).
-
-## Evidencia para el informe
-
-El dashboard local esta disponible en <http://localhost:9000/dashboard?id=atlas-is1102>. Guardar una captura legible del resumen y adjuntarla al informe junto con la fecha y las medidas anteriores. No incluir tokens, contrasenas, datos personales ni respaldos con datos del laboratorio en las capturas.
-
-## Resultados anteriores al cierre final (2026-11-21)
-
-Esta sección conserva el estado documentado antes de las corridas finales: k6 usó un puerto
-incorrecto, JMeter respondió 401, TLS quedó en 1/3 y Trivy reportó 10 HIGH. Esos datos no son
-resultados de la medición final y no se reutilizan como si fueran nuevos. La última ejecución
-histórica de Actions fue
-[44931959132](https://github.com/AngelGByte/atlas-is1102/actions/runs/44931959132); sus jobs
-test, coverage, security, dependency-audit y gitleaks aprobaron, con Sonar omitido por falta de
-secretos.
-
-## Cierre final ejecutado el 2026-11-21
-
-Las evidencias actuales están fechadas y conservan sus códigos de salida en
-[`docs/evidencias/README.md`](./evidencias/README.md). PostgreSQL del stack aislado estuvo activo
-durante la regresión; las corridas de carga usaron 500 clientes sintéticos, sin contratos. Los
-500 clientes fueron eliminados después de comprobar cero contratos asociados.
-
-### Regresiones y seguridad
-
-- Node: 9/9 aprobadas, 0 fallidas, 0 omitidas; código 0.
-- Vitest: 4/4 aprobadas; código 0.
-- Seguridad dinámica: 19/19 aprobadas; código 0.
-- Playwright/axe: 6/6 aprobadas en escritorio 1280x800 y móvil 390x844; código 0. Capturas nuevas en [`docs/evidencias/ui/retest-2026-11-21-final/`](./evidencias/ui/retest-2026-11-21-final/).
-- TLS: 3/3 aprobadas contra Caddy en puertos 8080/8443 del stack aislado; código 0. Es una CA local de laboratorio, no una validación de certificado público.
-- Cobertura c8: 79.89 % statements/lines, 75.88 % branches y 85.71 % functions; umbral 70 % aprobado, código 0.
-- `npm audit` y `npm audit --omit=dev`: 0 vulnerabilidades, código 0 en ambas.
-- Imagen final: build correcto; Trivy con `--severity HIGH,CRITICAL --exit-code 1`: 0 HIGH y 0 CRITICAL, código 0. Se retiraron npm/npx del runtime.
-- SonarQube/SonarCloud: no ejecutado. No están configurados los secretos o variables de servicio requeridos. Por tanto, no se puede afirmar que los hallazgos anteriores sobre contraseña predeterminada o `--ignore-scripts` hayan desaparecido de Sonar.
-- GitHub Actions: [44937594638](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638) validó el commit de código `ee12d35`; [44937788677](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677) validó `283b36d`; y [44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682) validó `aad4e43`. Las tres ejecuciones terminaron `success`; en la última aprobaron test, coverage, security, dependency-audit y gitleaks. Sonar indicó configuración pendiente y omitió sus pasos de análisis; no se ejecutó Sonar ni Quality Gate.
-- No se imprimió ni archivó ningún token de carga. El detalle del workflow está en [`EP5-actions-final-2026-11-21.txt`](./evidencias/EP5-actions-final-2026-11-21.txt).
-
-### Carga y diagnóstico
-
-Corridas k6 contra `/api/clients`, con un login por corrida y token solo en memoria:
-
-| Herramienta | Concurrencia | Solicitudes/muestras | Errores HTTP | Throughput | P95 | P99 | Salida / umbral |
-|---|---:|---:|---:|---:|---:|---:|---|
-| k6 | 50 VU | 8.446 | 0 | 23,40 req/s | 1.190 ms | 1.310 ms | código 99 por P95; no cumple <300 ms |
-| k6 | 200 VU | 8.749 | 0 | 24,27 req/s | 7.700 ms | 8.030 ms | código 99 por P95; no cumple <300 ms |
-| JMeter | 50 usuarios | 500 | 0 | 16,7 req/s | 70 ms | 107 ms | código 0; cumple P95 <300 ms |
-| JMeter | 200 usuarios | 2.000 | 0 | 23,0 req/s | 7.894 ms | 7.998 ms | código 0; no cumple P95 <300 ms |
-
-El máximo histórico de 4,64 s no tiene causa única demostrada. En las corridas actuales la CPU
-de aplicación estuvo aproximadamente entre 102 y 110 %; PostgreSQL tuvo normalmente una consulta
-activa y cero esperas observadas, con una muestra de dos activas y una en espera. El pool tenía
-`max=10` y el servidor PostgreSQL `max_connections=100`, pero no se midió espera de adquisición
-del pool. Una traza GC separada registró una pausa máxima de 71,81 ms, pero finalizó más de seis
-minutos antes de las corridas; no es una medición bajo carga ni permite atribución. Tampoco se
-aisló arranque en frío frente a caliente. La causa histórica queda indeterminada.
-
-### Estado real de DEF-01 a DEF-15
-
-| Tarea | Estado | Motivo / evidencia |
+| Verificación | Resultado actual | Estado |
 |---|---|---|
-| DEF-01 | Hecho (histórico) | Configuración de secretos y ausencia de contraseña predeterminada implementadas en commits previos; la revalidación Sonar sigue pendiente. |
-| DEF-02 | Parcial | El build conserva `npm ci --ignore-scripts`; no se ejecutó Sonar para confirmar el hallazgo original. |
-| DEF-03 | Hecho | IDs inválidos cubiertos por integración Node; regresión final 9/9. |
-| DEF-04 | Hecho | Parser JSON responde de forma genérica; Node 9/9 y seguridad 19/19. |
-| DEF-05 | Hecho | Regresión de cifrado y datos sensibles aprobada en Node. |
-| DEF-06 | Hecho | Cobertura y auditoría actuales superan umbral; c8 79.89/75.88/85.71 y npm audit 0. |
-| DEF-07 | Hecho | Los workflows para `ee12d35`, `283b36d` y `aad4e43` fueron verdes; el último [44937958682](https://github.com/AngelGByte/atlas-is1102/actions/runs/44937958682) aprobó test, cobertura, seguridad, auditoría y Gitleaks. |
-| DEF-08 | Hecho | TLS 3/3 en el stack local aislado; código 0. |
-| DEF-09 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |
-| DEF-10 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |
-| DEF-11 | Hecho históricamente | Implementado antes de `67dbeba`; no modificado en este cierre. |
-| DEF-12 | Hecho y revalidado | Accesibilidad Playwright/axe 6/6; código 0. |
-| DEF-13 | Parcial | Corridas válidas y reproducibles; el P95 <300 ms se incumple a 200 usuarios. |
-| DEF-14 | Hecho | Imagen reconstruida; Trivy 0 HIGH/CRITICAL, código 0. |
-| DEF-15 | Parcial / bloqueado | Gitleaks aprobó en Actions; Sonar quedó pendiente y ambos pasos de análisis fueron omitidos por falta de configuración/credenciales. |
+| `npm test` | 9 aprobadas, 0 fallidas, 0 omitidas; código 0 | Reconfirmado |
+| `npm run test:vitest` | 4 aprobadas; código 0 | Reconfirmado |
+| `npm run test:security` | 19/19; código 0 | Reconfirmado |
+| `npm run test:coverage` | c8: 80.91 % statements/lines, 78.44 % branches, 86.95 % functions; umbral 70 %; código 0 | Reconfirmado |
+| `npm audit` | 0 vulnerabilidades; código 0 | Reconfirmado |
+| `npm audit --omit=dev` | 0 vulnerabilidades; código 0 | Reconfirmado |
+| `node --test test/crypto.test.js`, 300 repeticiones | 0 fallos; código final 0 | Reconfirmado |
+| `docker-compose.yml` | Secretos requeridos sin valores predeterminados (`:?...`); líneas 7, 25, 27-31 | Reconfirmado por inspección |
+| `Dockerfile` | `npm ci --omit=dev --ignore-scripts`; línea 5 | Reconfirmado por inspección |
+| Validación de `id` | `app.param('id', ...)`, `src/server.js:253` | Reconfirmado por inspección |
+| Parser JSON | `entity.parse.failed` responde mensaje genérico 400, `src/server.js:619-620` | Reconfirmado por inspección |
+| Exportación de cliente | `GET /api/clients/:id/export`, auditoría `recordAudit`, `src/server.js:344-381` | Reconfirmado por inspección |
+
+## Parte B1 — rendimiento y paginación
+
+`GET /api/clients` conserva un arreglo JSON, limita la página por defecto a 50 y permite un
+máximo de 200 mediante `limit` y `page` u `offset`; incluye cabeceras de total y mantiene un
+orden estable. La UI ofrece navegación entre páginas. Las pruebas de integración cubren
+límite, entradas inválidas, orden y total.
+
+### Perfil de 502 filas
+
+| Consulta | Filas | SQL medido | Descifrado | JSON | Tamaño JSON |
+|---|---:|---:|---:|---:|---:|
+| Completa | 502 | 10.877 ms | 46.318 ms | 4.610 ms | 193,030 bytes |
+| Página de 50 | 50 | 4.064 ms | 8.158 ms | 1.504 ms | 19,251 bytes |
+| Página de 200 | 200 | 8.113 ms | 61.895 ms | 4.270 ms | 77,001 bytes |
+
+La muestra de descifrado de 200 filas es atípica frente a las otras dos; no se atribuye a GC
+ni a arranque en frío. `EXPLAIN ANALYZE` sobre 502 filas usó secuencial scan y sort top-N.
+El tiempo de ejecución SQL del plan fue menor a 1 ms; el perfil también incluye ida y vuelta
+de consulta. No se añadió un índice porque la muestra pequeña no mostró beneficio que lo
+justifique. La configuración de pool conserva `PG_POOL_MAX=10` por defecto.
+
+### Cargas nuevas
+
+Cada perfil tuvo un único login; el token se mantuvo solo en una variable de proceso. Los
+parámetros comparables fueron 30 s de rampa, 60 s de carga sostenida, límite 50, think time
+1 s y 502 filas. k6 hizo ramp-down de 30 s; JMeter usó duración total de 90 s, incluidos
+30 s de rampa. Los comandos exactos y salidas completas se enlazan en cada fila.
+
+| Modo / herramienta | Usuarios | Muestras HTTP | Errores | Throughput | P95 HTTP | P99 HTTP | CPU app (% de un núcleo) | Código |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Paginado, k6 | 50 VU | 4,374 | 0 | 36.35 req/s | 97.86 ms | 408.46 ms | 34.3 % | 0 |
+| Paginado, k6 | 200 VU | 8,816 | 0 | 72.96 req/s | 2,950 ms | 4,140 ms | 69.9 % | 99 por umbral P95 |
+| Paginado, JMeter | 50 | 3,641 | 0 | 41.05 req/s | 53 ms | 84 ms | 32.0 % | 0 |
+| Paginado, JMeter | 200 | 5,800 | 1 `BindException` | 87.09 req/s | 2,294 ms | 2,558 ms | 70.2 % | 0 |
+| Recorrido de páginas, k6 | 50 VU | 4,708 | 0 | 37.04 req/s | 40.61 ms/página | 90.89 ms/página | 25.8 % | 0 |
+| Recorrido de páginas, JMeter | 50 | 3,650 | 0 | 41.05 req/s | 32 ms/página | 56 ms/página | 24.1 % | 0 |
+
+Para el recorrido completo de 11 páginas, k6 midió P95/P99 de iteración de 11.39/11.50 s.
+JMeter completó 307 recorridos y midió 10,342/10,453 ms P95/P99 desde el inicio de la primera
+página hasta el fin de la página 11. Los percentiles de página no equivalen a los del recorrido
+completo. Evidencia: [`B1-jmeter-full-traversal-2026-11-21.txt`](./evidencias/final/B1-jmeter-full-traversal-2026-11-21.txt).
+
+El objetivo de P95 <300 ms se cumple a 50 usuarios para páginas individuales y se incumple a
+200 en ambas herramientas. JMeter a 200 reportó una muestra `Non HTTP response code:
+java.net.BindException: Address already in use: connect`; el proceso terminó con código 0,
+pero se informa el error explícitamente. Ningún JTL incluye el prefijo característico de un JWT.
+
+Los resultados k6/JMeter difieren aunque ambas configuraciones usaron autenticación válida,
+un solo token temporal por corrida, la misma página de 50 filas y pacing de 1 s. En los datos
+se observan diferencias de throughput, modelo de concurrencia y una falla de socket de JMeter;
+no se aisló de forma independiente la reutilización keep-alive ni la distribución de conexión
+al pool. Por ello, no se atribuye la diferencia a credenciales, payload, keep-alive o pool sin
+medición que lo demuestre.
+
+El máximo de k6 en la corrida de 200 VU fue 4.57 s, próximo al máximo histórico de 4.64 s.
+Esto reproduce la magnitud, no su causa. La telemetría previa independiente registró una pausa
+GC máxima de 49.65 ms y un `pool.waitingCount` máximo de 167; terminó aproximadamente 32 minutos
+antes de las corridas k6 y no se puede asociar a ellas. El intento adicional de correlacionar
+GC/pool bajo carga no llegó a medir tráfico porque el login del proceso instrumentado recibió
+401; no se reintentó ni se reinició para eludir límites. La espera de pool durante las corridas
+k6 queda sin medición y la causa del máximo sigue **indeterminada**. Las salidas están en
+`final/B1-*`.
+
+## Parte B2 — imagen y Sonar
+
+La imagen `atlas-is1102-final:2026-11-21`, digest
+`sha256:693ee3aba6ec979af1c00dce18198a77e3653546b13f2a586d35e4869bf8bb4c`, se reconstruyó.
+Trivy 0.76.2 encontró 0 HIGH y 0 CRITICAL; el informe completo encontró 4 LOW y 7 MEDIUM.
+El escaneo con umbral HIGH/CRITICAL terminó con código 0. El reporte histórico de 10 HIGH no
+se reproduce en esta imagen; imagen/digest y base de vulnerabilidades deben considerarse al
+comparar. No quedaron vulnerabilidades altas o críticas que requirieran corrección en este
+resultado.
+
+SonarQube local 26.10.0.133078 respondió `UP`, pero no había credenciales administrativas,
+variables locales `SONAR_*` ni secretos Sonar en GitHub. No se intentaron credenciales
+predeterminadas y no se ejecutó SonarScanner. No hay issues ni Quality Gate nuevos y no se
+puede confirmar la desaparición de los hallazgos de contraseña por defecto o `--ignore-scripts`.
+Véase [`sonar-ejecucion.md`](./sonar-ejecucion.md) y
+[`final/B2-sonar-2026-11-21.txt`](./evidencias/final/B2-sonar-2026-11-21.txt).
+
+## Parte B3 — casos parciales, privacidad y disponibilidad
+
+- CP-UI-01: Playwright/axe 9/9: login, listado y formulario a 1280x800, 390x844 y 320x700.
+  Capturas legibles en [`evidencias/final/ui-2026-11-21-final-confirmation/`](./evidencias/final/ui-2026-11-21-final-confirmation/).
+- CP-SEG-02: la integración comprueba hash bcrypt `$2` y ausencia de la contraseña en el hash
+  sin imprimir el valor.
+- CP-SEG-04: backup/restore comparó conteos por tabla y SHA-256 de `users`; la restauración
+  coincidió. Salida en [`final/B3-backup-2026-11-21.txt`](./evidencias/final/B3-backup-2026-11-21.txt).
+- CP-SEG-05: política y matriz documentan código real y brechas. Oposición y bloqueo no están
+  implementados; el prototipo no se declara conforme ni apto para datos personales reales.
+- Ley 21.719: la ficha oficial de BCN/LeyChile consultada el 2026-11-21 indica vigencia
+  2026-12-01. No se corroboró en fuente legislativa oficial la propuesta de postergación al
+  2027-10-15; esa fecha permanece no verificada en
+  [`matriz-cumplimiento-datos.md`](./matriz-cumplimiento-datos.md).
+- CP-DIS-01: ventana aislada de 1.814,2 s, 61/61 respuestas HTTP 200 y reinicio controlado;
+  disponibilidad observada por sondeo 100 %, RTO 5,5 s. No acredita SLA mensual; véase
+  [`disponibilidad.md`](./disponibilidad.md).
+
+## Parte B4 — CI
+
+El run más reciente disponible de `main`, [44938310610](https://github.com/AngelGByte/atlas-is1102/actions/runs/44938310610),
+commit `d3970f1`, terminó `success` y aprobó `test`, `security`, `coverage`, `dependency-audit`
+y `gitleaks`. Es una ejecución anterior a los cambios de CI de esta rama y no los valida.
+
+El workflow actualizado incorpora jobs para accesibilidad, TLS y backup/restore, y marca
+explícitamente Sonar como `OMITIDO` cuando faltan secretos. La sintaxis YAML, los jobs, el
+ámbito de variables Sonar y la espera de PostgreSQL se validaron localmente; evidencia en
+[`final/B4-workflow-syntax-2026-11-21.txt`](./evidencias/final/B4-workflow-syntax-2026-11-21.txt).
+El resultado del run de `ep5-cierre-final` se documentará solo después de su ejecución real.
+
+## Parte B5 — documentación y casos
+
+La matriz contiene 18 casos con estados actuales e históricos separados en
+[`casos-prueba.md`](./casos-prueba.md). DEF-01 a DEF-08 registran causa, corrección, commit y
+regresión histórica; DEF-09 documenta el defecto de rendimiento en
+[`registro-defectos.md`](./registro-defectos.md). El índice de evidencias mantiene comandos,
+fechas, resultados y archivos; el changelog distingue los cambios de esta revisión.
+
+## Resultados históricos que no se atribuyen a esta ejecución
+
+El análisis SonarQube de 2026-10-28 y sus métricas se conservan únicamente como antecedente.
+También se conservan CP-08 previos de 213.65 ms y 244.95 ms, las corridas iniciales de carga,
+el máximo de 4.64 s y el reporte Trivy anterior de 10 HIGH. Ninguna de esas cifras sustituye
+las mediciones nuevas presentadas arriba.
