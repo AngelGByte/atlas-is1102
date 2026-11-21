@@ -1,18 +1,23 @@
+## Push de código
+
 Consulta: 2026-11-21
 Comando: gh run view 44937594638 --json status,conclusion,url,headSha,jobs
 URL: https://github.com/AngelGByte/atlas-is1102/actions/runs/44937594638
 Head SHA: ee12d352156217959c1ba279146bbc364e0700d5
 Estado: completed
 Conclusión: success
+Jobs: gitleaks, dependency-audit, coverage, security, test y sonar terminaron con conclusión success.
 
-Jobs:
-- gitleaks: success
-- dependency-audit: success
-- coverage: success
-- security: success
-- test: success
-- sonar: success
+## Push documental final
 
-El job sonar terminó con conclusión success porque el paso "Informar configuración Sonar pendiente"
-aprobó. Los pasos "Analizar con SonarCloud" y "Analizar con SonarQube Server" fueron skipped.
-No se ejecutó análisis Sonar ni Quality Gate, al faltar la configuración/credenciales requeridas.
+Consulta: 2026-11-21
+Comando: gh run view 44937788677 --json status,conclusion,url,headSha,jobs
+URL: https://github.com/AngelGByte/atlas-is1102/actions/runs/44937788677
+Head SHA: 283b36dedcd450db14f2fd08fb7edb4bcf2ff77d
+Estado: completed
+Conclusión: success
+Jobs: test, dependency-audit, security, gitleaks, coverage y sonar terminaron con conclusión success.
+
+En ambos runs, el job sonar aprobó el paso "Informar configuración Sonar pendiente", pero los
+pasos "Analizar con SonarCloud" y "Analizar con SonarQube Server" fueron skipped. No se ejecutó
+análisis Sonar ni Quality Gate al faltar la configuración/credenciales requeridas.
