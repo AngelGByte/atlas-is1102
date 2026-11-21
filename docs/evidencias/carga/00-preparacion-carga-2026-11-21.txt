@@ -1,0 +1,10 @@
+﻿Fecha: 2026-11-21T14:12:31.2902462-03:00
+Datos: solamente sintéticos; lote EP5 identificado por una empresa de prueba.
+Comando 1: node scripts/seed-load-data.js
+Salida:
+OK: ya existen 500 clientes sintéticos.
+Código de salida: 0
+Comando 2: docker exec atlas-is1102-db-1 psql -U atlas -d atlas -Atc "SELECT COUNT(*) FROM clients cl JOIN companies c ON c.id=cl.empresa_id WHERE c.name='Empresa sintética para carga EP5'"
+Salida:
+500
+Código de salida: 0
