@@ -36,3 +36,26 @@ característico de un JWT en los JTL revisados.
 
 El máximo histórico de 4.64 s se aproxima en k6 200 VU con 4.57 s, pero no se midieron
 conjuntamente espera de pool y pausas GC durante esa carga. Su causa continúa indeterminada.
+
+## Evidencia posterior — CIERRE-04 a CIERRE-07
+
+| Tarea | Comando / acción | Fecha | Resultado y código | Archivo |
+|---|---|---|---|---|
+| CIERRE-04 regresión | `npm test`; `npm run test:vitest`; `npm run test:security`; `npm run test:coverage` con PostgreSQL 16 | 2026-11-21 | Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19, c8 83.50/82.15/88.46 %; todos código 0 | [`cierre/CIERRE-04-regresion-2026-11-21.txt`](./cierre/CIERRE-04-regresion-2026-11-21.txt) |
+| CIERRE-05 k6 50 VU | `docker run ... grafana/k6:0.54.0 run ... cp08-clients.js`; 50 VU, `limit=50`, 30 s rampa, 60 s carga, login único | 2026-11-21 18:33–18:35 -03:00 | 4,448 solicitudes; 0 errores; P95 56.09 ms; P99 108.32 ms; 36.95 req/s; CPU 30.6 %; código 0 | [`cierre/CIERRE-05-k6-page-50-2026-11-21.txt`](./cierre/CIERRE-05-k6-page-50-2026-11-21.txt) |
+| CIERRE-05 k6 200 VU | Mismo comando, 200 VU | 2026-11-21 18:35–18:37 -03:00 | 10,343 solicitudes; 0 errores; P95 1.73 s; P99 2.07 s; 85.66 req/s; CPU 82.9 %; código 99 por incumplir el umbral | [`cierre/CIERRE-05-k6-page-200-2026-11-21.txt`](./cierre/CIERRE-05-k6-page-200-2026-11-21.txt) |
+| CIERRE-05 JMeter 50 | JMeter no GUI, HttpClient4, keep-alive, 50 hilos, 30 s rampa, 90 s duración, 1 s think time; token de entorno | 2026-11-21 18:39–18:40 -03:00 | 3,633 muestras; 0 errores; P95 63 ms; P99 266 ms; 40.3 req/s; CPU 33.6 %; código 0 | [`cierre/CIERRE-05-jmeter-page-50-retry1-2026-11-21.txt`](./cierre/CIERRE-05-jmeter-page-50-retry1-2026-11-21.txt), [JTL](./cierre/CIERRE-05-jmeter-page-50-retry1-2026-11-21.jtl) |
+| CIERRE-05 JMeter 200 | Mismo plan con 200 hilos; sin reintentos de solicitud | 2026-11-21 18:40–18:42 -03:00 | 10,639 muestras; 0 errores de conexión; P95 1,104 ms; P99 1,391 ms; 117.7 req/s; CPU 87.5 %; código 0 | [`cierre/CIERRE-05-jmeter-page-200-retry1-2026-11-21.txt`](./cierre/CIERRE-05-jmeter-page-200-retry1-2026-11-21.txt), [JTL](./cierre/CIERRE-05-jmeter-page-200-retry1-2026-11-21.jtl) |
+| CIERRE-05 perfil/telemetría | `node --env-file=.env --cpu-prof --trace-gc scripts/perf-observer.js`; `EXPLAIN ANALYZE` durante la carga | 2026-11-21 18:37–18:47 -03:00 | Pool 10: waiting máximo 128 k6/115 JMeter; pausas GC máximas aproximadas 45.48/31.44 ms; plan de página 1.062 ms. Pool 20 empeoró P95; causa de 4.64 s indeterminada | [`cierre/CIERRE-05-resumen-2026-11-21.txt`](./cierre/CIERRE-05-resumen-2026-11-21.txt), [`cierre/CIERRE-05-explain-during-load-2026-11-21.txt`](./cierre/CIERRE-05-explain-during-load-2026-11-21.txt), [`cierre/CIERRE-05-observer-samples-2026-11-21.csv`](./cierre/CIERRE-05-observer-samples-2026-11-21.csv), [perfil CPU](./cierre/CIERRE-05-cpu-2026-11-21.cpuprofile) |
+| CIERRE-05 limpieza | `node --env-file=.env scripts/seed-load-data.js --clean` | 2026-11-21 18:48 -03:00 | Código 0; eliminados 500 clientes sintéticos tras verificar ausencia de contratos | [`cierre/CIERRE-05-cleanup-2026-11-21.txt`](./cierre/CIERRE-05-cleanup-2026-11-21.txt) |
+| CIERRE-05 regresión final | `npm test`; `npm run test:vitest`; `npm run test:security`; `npm run test:coverage` con PostgreSQL 16; configuración de prueba solo en memoria | 2026-11-21 18:53–18:54 -03:00 | Node 9/9, 0 omitidas; Vitest 4/4; seguridad 19/19; c8 83.50/82.15/88.46 %; todos código 0 | [`cierre/CIERRE-05-regresion-reintento-2026-11-21.txt`](./cierre/CIERRE-05-regresion-reintento-2026-11-21.txt) |
+| CIERRE-06 respaldo portable | `npm run test:backup` | 2026-11-21 | Respaldo/restauración, conteos por tabla y hash de `users` coincidentes; código 0 | [`cierre/CIERRE-06-backup-2026-11-21.txt`](./cierre/CIERRE-06-backup-2026-11-21.txt) |
+| CIERRE-07 documentación | Revisión de resultados y actualización de README, casos, matriz de evidencia, defectos y changelog | 2026-11-21 | Resultados históricos separados de las corridas CIERRE-05; no cambia código ejecutable | Archivos de documentación enlazados en esta tabla y `docs/resultados-validacion.md` |
+
+Los intentos previos de JMeter en Docker (`CIERRE-05-jmeter-page-50-2026-11-21.txt` y
+`CIERRE-05-jmeter-page-200-2026-11-21.txt`) fallaron al parsear argumentos antes de enviar
+solicitudes (código 1) y no se usan como corridas válidas.
+
+La salida completa final de regresión se registra en
+`CIERRE-05-regresion-reintento-2026-11-21.txt`; las capturas intermedias de configuración
+fallida no se consideran resultados ni se incluyen en el índice.

@@ -23,51 +23,45 @@ Los consumidores que necesiten todos los registros deben recorrer las páginas; 
 lo hace automáticamente donde requiere el conjunto completo. `PG_POOL_MAX` configura el pool
 de PostgreSQL (predeterminado 10, rango 1–100).
 
-## Cierre EP5 - resultados de esta revisión (2026-11-21)
+## Cierre EP5 - última verificación local (2026-11-21)
 
-Regresiones medidas en esta revisión: Node 9/9 (0 omitidas), Vitest 4/4, seguridad dinámica
-19/19 y Playwright/axe 9/9 (login, listado y formulario a 1280x800, 390x844 y 320x700).
-Cobertura c8: 80.91 % líneas/sentencias, 78.44 % ramas y 86.95 % funciones. `npm audit` y
-`npm audit --omit=dev` reportaron 0 vulnerabilidades. TLS pasó 3/3 en Caddy de laboratorio y
-la restauración del respaldo se verificó con comparación de conteos y hash.
+Regresión ejecutada contra PostgreSQL 16 aislado: Node 9/9, cero omitidas; Vitest 4/4;
+seguridad dinámica 19/19; cobertura c8 83.50 % statements/lines, 82.15 % branches y
+88.46 % functions. Los comandos, salidas y códigos se conservan en
+[`docs/evidencias/cierre/CIERRE-05-regresion-reintento-2026-11-21.txt`](./docs/evidencias/cierre/CIERRE-05-regresion-reintento-2026-11-21.txt).
+Las cifras de cobertura anteriores corresponden a ejecuciones previas y no sustituyen esta
+medición.
 
-Las mediciones paginadas usaron un límite de 50, 500 clientes sintéticos más 2 registros de
-demostración, 30 s de rampa, 60 s de carga sostenida y un login por corrida:
+Las corridas de carga de CIERRE-05 usaron una página de 50 clientes, 500 clientes sintéticos
+más 2 de demostración, un login por corrida, 30 s de rampa y 60 s sostenidos. JMeter utilizó
+HttpClient4 con keep-alive y terminó sin errores de conexión en ambas cargas:
 
-| Herramienta | Usuarios | P95 | P99 | Errores | Throughput | CPU app (% de un núcleo) |
-|---|---:|---:|---:|---:|---:|---:|
-| k6 | 50 VU | 97.86 ms | 408.46 ms | 0 | 36.35 req/s | 34.3 % |
-| k6 | 200 VU | 2.95 s | 4.14 s | 0 | 72.96 req/s | 69.9 % |
-| JMeter | 50 | 53 ms | 84 ms | 0 | 41.05 req/s | 32.0 % |
-| JMeter | 200 | 2.294 s | 2.558 s | 1 error de conexión | 87.09 req/s | 70.2 % |
+| Herramienta | Usuarios | Solicitudes | P95 | P99 | Errores | Throughput | CPU app (% de un núcleo) | Código |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| k6 | 50 VU | 4,448 | 56.09 ms | 108.32 ms | 0 | 36.95 req/s | 30.6 % | 0 |
+| k6 | 200 VU | 10,343 | 1.73 s | 2.07 s | 0 | 85.66 req/s | 82.9 % | 99 por umbral P95 |
+| JMeter | 50 | 3,633 | 63 ms | 266 ms | 0 | 40.3 req/s | 33.6 % | 0 |
+| JMeter | 200 | 10,639 | 1,104 ms | 1,391 ms | 0 | 117.7 req/s | 87.5 % | 0 |
 
-El objetivo P95 <300 ms se cumple a 50 usuarios y no se cumple a 200 con ninguna herramienta.
-La corrida JMeter de 200 terminó con código 0, pero registró un `BindException` entre 5.800
-muestras; se informa como error, no como aprobación sin reservas. El recorrido de las 11 páginas
-completas a 50 usuarios registró P95 de 11.39 s en k6 y 10.342 s en JMeter; los percentiles
-HTTP por página fueron 40.61 ms y 32 ms, respectivamente. Los 500 registros sintéticos se
-limpiaron tras comprobar que no tenían contratos asociados.
+El umbral P95 <300 ms se cumple a 50 y no se cumple a 200 usuarios. 50 es el nivel probado
+que cumple; no se midieron niveles intermedios ni se afirma que sea la capacidad máxima. El
+máximo HTTP de k6 a 200 fue 2.23 s, no reproduce el máximo histórico de 4.64 s. La telemetría
+registró espera del pool y pausas GC durante las corridas, pero no demuestra causalidad; la
+causa del máximo histórico sigue indeterminada. Se comparó pool 10 y 20 en una corrida por
+configuración; pool 20 empeoró P95 y se conservó el valor predeterminado 10. Los 500 clientes
+sintéticos se limpiaron después de comprobar que no tenían contratos asociados.
 
-La ventana de disponibilidad de laboratorio duró 1.814,2 s: 61/61 sondeos HTTPS respondieron
-200, con un reinicio controlado y RTO observado de 5,5 s. La muestra breve no acredita un SLA
-mensual.
+La medición previa de accesibilidad fue Playwright/axe 9/9 en 1280x800, 390x844 y 320x700.
+TLS pasó 3/3 en Caddy de laboratorio; la restauración de respaldo se verificó con conteos y
+hash. Trivy 0.76.2 encontró 0 HIGH y 0 CRITICAL en la imagen analizada (4 LOW, 7 MEDIUM).
+Sonar no se ejecutó por falta de credenciales; no se afirma un Quality Gate ni la resolución
+de sus hallazgos. El último run disponible de Actions citado previamente,
+[44948089169](https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169), valida
+el commit `8040a2d`, no los commits posteriores de CIERRE-04 a CIERRE-06; el PR debe ejecutar
+checks sobre la versión publicada.
 
-El perfil de 502 filas midió 46.318 ms de descifrado para el listado completo y 8.158 ms para
-50 filas; el tamaño JSON fue 193.030 y 19.251 bytes, respectivamente. A 200 VU k6 midió un
-máximo de 4.57 s, cercano al máximo histórico de 4.64 s. La causa continúa indeterminada:
-la traza GC/pool no quedó correlacionada con la corrida y no se midió espera de pool bajo carga.
-
-La imagen final (digest `sha256:693ee3aba6ec979af1c00dce18198a77e3653546b13f2a586d35e4869bf8bb4c`)
-pasó Trivy 0.76.2 con 0 HIGH y 0 CRITICAL; el informe completo encontró 4 LOW y 7 MEDIUM.
-El SonarQube local estaba disponible, pero no había credenciales para crear un token ni secretos
-Sonar en GitHub: no se ejecutó análisis ni se afirma un Quality Gate o la resolución de hallazgos.
-GitHub Actions de `ep5-cierre-final`, commit `8040a2d`, [run 44948089169](https://github.com/AngelGByte/atlas-is1102/actions/runs/44948089169),
-terminó `success`: aprobaron accessibility, gitleaks, dependency-audit, security, test,
-backup-restore, TLS y coverage. El job Sonar informó la omisión explícita y los pasos de análisis
-quedaron skipped; no representa un Quality Gate.
-
-Los comandos, salidas, fechas, códigos de salida, límites históricos y evidencias separadas están
-en [`docs/evidencias/README.md`](./docs/evidencias/README.md),
+Los comandos, salidas, fechas, códigos de salida, límites históricos y evidencias están en
+[`docs/evidencias/README.md`](./docs/evidencias/README.md),
 [`docs/resultados-validacion.md`](./docs/resultados-validacion.md) y
 [`docs/CHANGELOG-EP5.md`](./docs/CHANGELOG-EP5.md).
 
@@ -101,10 +95,13 @@ en [`docs/evidencias/README.md`](./docs/evidencias/README.md),
 8. Para detener los servicios conserva los datos: `docker compose down`. Para borrar la base de datos de laboratorio y sus datos definitivamente: `docker compose down -v` (acción destructiva).
 
 Para validar automáticamente respaldo y restauración en una base desechable, inicia
-PostgreSQL y ejecuta `npm.cmd run test:backup` desde Bash/Git Bash. La prueba compara
-conteos de todas las tablas y el SHA-256 de la tabla `users`; informa `OK` o
-`DIFERENCIA`, elimina la base temporal y borra el respaldo temporal al finalizar. Detén
-las escrituras durante la ejecución y no uses esta prueba contra datos reales.
+PostgreSQL y ejecuta `npm.cmd run test:backup` desde PowerShell, CMD, Bash o Git Bash.
+El script Node selecciona Docker Compose, un contenedor indicado por `PG_CONTAINER` o
+las herramientas PostgreSQL locales (`pg_dump`, `pg_restore`, `psql`, `createdb`,
+`dropdb`) según disponibilidad. Compara conteos por tabla y un hash de `users` sin
+imprimirlo; elimina la base y el archivo temporales. Configura `PGHOST`, `PGPORT`,
+`PGUSER` y `PGPASSWORD` al usar herramientas locales. Detén las escrituras y no ejecutes
+la prueba contra datos reales o una base compartida.
 
 Para un respaldo manual de la base de prueba en PowerShell:
 

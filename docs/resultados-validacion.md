@@ -140,8 +140,9 @@ Véase [`sonar-ejecucion.md`](./sonar-ejecucion.md) y
   sin imprimir el valor.
 - CP-SEG-04: backup/restore comparó conteos por tabla y SHA-256 de `users`; la restauración
   coincidió. Salida en [`final/B3-backup-2026-11-21.txt`](./evidencias/final/B3-backup-2026-11-21.txt).
-- CP-SEG-05: política y matriz documentan código real y brechas. Oposición y bloqueo no están
-  implementados; el prototipo no se declara conforme ni apto para datos personales reales.
+- CP-SEG-05: oposición y bloqueo administrativos están implementados con auditoría y pruebas,
+  pero no existe autoservicio del titular ni un proceso integral por finalidad. El prototipo
+  no se declara conforme ni apto para datos personales reales.
 - Ley 21.719: la ficha oficial de BCN/LeyChile consultada el 2026-11-21 indica vigencia
   2026-12-01. No se corroboró en fuente legislativa oficial la propuesta de postergación al
   2027-10-15; esa fecha permanece no verificada en
@@ -181,3 +182,44 @@ El análisis SonarQube de 2026-10-28 y sus métricas se conservan únicamente co
 También se conservan CP-08 previos de 213.65 ms y 244.95 ms, las corridas iniciales de carga,
 el máximo de 4.64 s y el reporte Trivy anterior de 10 HIGH. Ninguna de esas cifras sustituye
 las mediciones nuevas presentadas arriba.
+
+## Addendum CIERRE-05 — carga y regresión posterior (2026-11-21)
+
+Las corridas JMeter nuevas usaron HttpClient4 y keep-alive y no reprodujeron `BindException`;
+no se atribuye una causa raíz al error anterior. El comando inicial con la imagen Docker no
+llegó a enviar solicitudes por un error de parseo de argumentos y se excluye de las métricas.
+
+| Herramienta | Usuarios | Muestras | Errores | Throughput | P95 | P99 | CPU app (% de un núcleo) | Código |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| k6 | 50 VU | 4,448 | 0 | 36.95 req/s | 56.09 ms | 108.32 ms | 30.6 % | 0 |
+| k6 | 200 VU | 10,343 | 0 | 85.66 req/s | 1.73 s | 2.07 s | 82.9 % | 99 por umbral P95 |
+| JMeter | 50 | 3,633 | 0 | 40.3 req/s | 63 ms | 266 ms | 33.6 % | 0 |
+| JMeter | 200 | 10,639 | 0 | 117.7 req/s | 1,104 ms | 1,391 ms | 87.5 % | 0 |
+
+El objetivo P95 <300 ms se cumple a 50 usuarios en ambas herramientas y no se cumple a 200.
+La carga fue paginada a 50 registros por solicitud. k6 incluyó 30 s de ramp-down, mientras
+JMeter tuvo 90 s totales; ambos usaron un login por corrida, token temporal y 1 s de think
+time. No se midieron niveles entre 50 y 200, por lo que 50 es el único nivel probado que
+cumple, no una capacidad máxima demostrada.
+
+La telemetría sincronizada observó CPU de hasta 82.9 % (k6) y 87.5 % (JMeter) a 200 usuarios,
+espera del pool (`waitingCount` máximo 128 y 115) y pausas GC máximas aproximadas de 45.48 ms
+y 31.44 ms, respectivamente. El perfil CPU agregado incluyó intervalos sin carga y muestra
+trabajo de cifrado/descifrado y serialización, pero no cuantifica su contribución por solicitud.
+`EXPLAIN ANALYZE` midió 1.062 ms para la página de 50 filas sobre 502 registros. El
+experimento único con pool 20 dio P95 1.91 s frente a 1.73 s con pool 10; se conserva el
+predeterminado 10. El máximo nuevo fue 2.23 s y no reprodujo el histórico de 4.64 s; aunque
+se midieron simultáneamente pool y GC, no se demuestra causalidad y el origen del máximo
+histórico sigue indeterminado.
+
+Tras CIERRE-04, los flujos administrativos de oposición/bloqueo están implementados y cubiertos
+por pruebas; su estado es parcial como derecho del titular. El caso CP-SEG-05 y la matriz
+reflejan esa limitación.
+
+La regresión posterior a CIERRE-04/05, contra PostgreSQL 16, terminó con código 0 en los
+cuatro comandos: Node 9/9 con cero omitidas; Vitest 4/4; seguridad 19/19; c8 83.50 %
+statements/lines, 82.15 % branches y 88.46 % functions. Evidencia completa:
+[`cierre/CIERRE-05-regresion-reintento-2026-11-21.txt`](./evidencias/cierre/CIERRE-05-regresion-reintento-2026-11-21.txt).
+El detalle de carga, los perfiles, EXPLAIN y limpieza está en
+[`cierre/CIERRE-05-resumen-2026-11-21.txt`](./evidencias/cierre/CIERRE-05-resumen-2026-11-21.txt)
+y el índice actualizado en [`evidencias/README.md`](./evidencias/README.md).

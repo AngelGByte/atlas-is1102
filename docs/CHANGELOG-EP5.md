@@ -1,6 +1,9 @@
 # Changelog EP5
 
-## 2026-11-21 — revisión de cierre en `ep5-cierre-final`
+## 2026-11-21 — revisión previa B1/B3 (histórica respecto de CIERRE-05)
+
+Las mediciones de carga y cobertura de esta sección corresponden a una ejecución anterior
+del mismo día. El addendum CIERRE-05 más abajo contiene las corridas posteriores y vigentes.
 
 - Añadida paginación a `GET /api/clients` con límite 50 por defecto, máximo 200, `page`/`offset`, orden estable y metadatos de total; la interfaz permite navegar páginas.
 - Los perfiles de rendimiento midieron SQL, descifrado, serialización y tamaño JSON con 502 filas. La medición confirma menor trabajo por página de 50, pero a 200 usuarios el P95 fue 2.95 s en k6 y 2.294 s en JMeter; no se cumple <300 ms.
@@ -19,4 +22,18 @@
 - Se actualizaron los estados de los 18 casos, el registro DEF-01 a DEF-09, la política/matriz de privacidad, procedimiento de disponibilidad e índice de evidencias.
 
 Las salidas, comandos, códigos de salida, diferencias históricas y límites están en
+[`docs/evidencias/README.md`](./evidencias/README.md).
+
+## 2026-11-21 — continuación CIERRE-04 a CIERRE-07
+
+- Se implementaron solicitudes administrativas de oposición con estados y auditoría, y bloqueo/desbloqueo de clientes con fecha y motivo. Permanecen como flujos parciales de atención al titular.
+- `test:backup` usa Node y puede seleccionar Docker o herramientas PostgreSQL locales; verifica conteos por tabla y hash de `users` sin imprimirlo.
+- Se documentaron las fuentes oficiales consultadas sobre la tramitación de la Ley 21.719. No se afirma que la modificación haya sido publicada como ley en el Diario Oficial a la fecha de consulta.
+- JMeter se reconfiguró con HttpClient4 y keep-alive. Las corridas repetidas a 50 y 200 usuarios terminaron sin errores de conexión; a 200 usuarios el P95 continúa sobre 300 ms.
+- CIERRE-05 midió k6 P95 56.09 ms (50 VU) y 1.73 s (200 VU), y JMeter 63 ms (50 usuarios) y 1,104 ms (200 usuarios). No se atribuye causalidad a pool/GC para el máximo histórico de 4.64 s.
+- Se limpiaron los 500 clientes sintéticos tras verificar que no tenían contratos asociados.
+- La regresión final local contra PostgreSQL obtuvo Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19 y c8 83.50/82.15/88.46 % (statements/branches/functions); códigos de salida 0.
+- Sonar sigue sin ejecutarse por falta de credenciales. El último run conocido de Actions en la rama corresponde al commit `8040a2d`; no valida los commits CIERRE posteriores.
+
+La evidencia fechada y los comandos completos de CIERRE-05 se listan en
 [`docs/evidencias/README.md`](./evidencias/README.md).
