@@ -41,7 +41,13 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
 7. El endpoint de salud es <http://localhost:3333/api/health>. PostgreSQL se expone solo en `127.0.0.1:15432` para el laboratorio.
 8. Para detener los servicios conserva los datos: `docker compose down`. Para borrar la base de datos de laboratorio y sus datos definitivamente: `docker compose down -v` (acción destructiva).
 
-Para respaldar la base de prueba en PowerShell:
+Para validar automáticamente respaldo y restauración en una base desechable, inicia
+PostgreSQL y ejecuta `npm.cmd run test:backup` desde Bash/Git Bash. La prueba compara
+conteos de todas las tablas y el SHA-256 de la tabla `users`; informa `OK` o
+`DIFERENCIA`, elimina la base temporal y borra el respaldo temporal al finalizar. Detén
+las escrituras durante la ejecución y no uses esta prueba contra datos reales.
+
+Para un respaldo manual de la base de prueba en PowerShell:
 
 ```powershell
 cmd /c "docker compose exec -T db pg_dump -U atlas atlas > atlas-backup.sql"
