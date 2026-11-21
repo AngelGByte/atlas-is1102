@@ -1,9 +1,13 @@
-# Política de privacidad — borrador académico
+# Política de privacidad — prototipo académico
 
 **Estado:** borrador para evaluación académica. No constituye asesoría jurídica ni una
 política aprobada para tratar datos personales reales. Antes de cualquier uso productivo,
 la organización responsable debe completar sus datos de contacto, validar las bases de
 licitud y revisar el texto conforme a la normativa vigente, incluida la Ley 21.719.
+La ley fue publicada el 13-12-2024 y su texto en LeyChile señala entrada en vigencia
+prevista para el 1-12-2026 (consulta: 2026-11-21). No se corroboró en fuente legislativa
+oficial el estado de una propuesta para postergarla al 15-10-2027; no se considera
+aprobada en este documento. Véase la [matriz de revisión normativa](./matriz-cumplimiento-datos.md).
 
 ## 1. Responsable y alcance
 
@@ -31,7 +35,8 @@ normativa aplicable. Este borrador no presume que una base específica sea váli
 
 El modelo contempla nombre, empresa, RUT, correo electrónico, teléfono, nivel de riesgo,
 estado y notas del cliente; datos de contratos; nombres, categorías, referencias y estados de
-documentos; y datos de cuenta de usuario. Las contraseñas se almacenan como hashes.
+documentos; y nombre, correo, rol, estado y hash de contraseña de usuarios. Las contraseñas
+no se almacenan en texto plano.
 
 La cuenta bancaria del cliente se cifra en la base de datos. Las respuestas de la API solo
 exponen sus últimos cuatro dígitos. Los registros de auditoría conservan el actor, la
@@ -64,8 +69,9 @@ deben quedar cubiertos por una política operativa.
 
 ## 6. Derechos de las personas titulares
 
-La persona titular puede solicitar acceso, rectificación, supresión, oposición y portabilidad,
-conforme a los requisitos y límites establecidos por la normativa vigente. Para ejercerlos,
+La persona titular puede solicitar acceso, rectificación, supresión, oposición, portabilidad
+y, cuando corresponda, bloqueo o restricción del tratamiento, conforme a los requisitos y
+límites establecidos por la normativa vigente. Para ejercerlos,
 deberá utilizar el canal oficial que designe la entidad responsable, acreditar razonablemente
 su identidad y señalar el derecho que desea ejercer y los datos involucrados. El canal y los
 datos de contacto están pendientes de completar; no se deben inventar direcciones ni
@@ -73,10 +79,14 @@ responsables.
 
 El responsable deberá registrar la solicitud, verificar identidad y alcance, responder dentro
 del plazo legal aplicable y conservar evidencia mínima del trámite. La ruta
-`GET /api/clients/:id/export` genera una copia estructurada para portabilidad, pero solo está
-disponible para administradores autenticados; no reemplaza el canal de solicitud del titular
-ni permite al titular acceder directamente al sistema. La cuenta bancaria se entrega
-enmascarada.
+`GET /api/clients/:id/export` genera una copia estructurada, pero solo está disponible para
+administradores autenticados; no reemplaza el canal de solicitud del titular ni permite al
+titular acceder directamente al sistema. La cuenta bancaria se entrega enmascarada. Las rutas
+administrativas `PUT /api/clients/:id` y `DELETE /api/clients/:id` permiten modificar o
+eliminar clientes, respectivamente; no registran una solicitud del titular, y la eliminación
+puede estar impedida por relaciones de contratos. El prototipo no implementa flujos
+específicos para oposición o bloqueo. Estas capacidades y brechas se detallan en
+[`matriz-cumplimiento-datos.md`](./matriz-cumplimiento-datos.md).
 
 ## 7. Incidentes y notificación de brechas
 

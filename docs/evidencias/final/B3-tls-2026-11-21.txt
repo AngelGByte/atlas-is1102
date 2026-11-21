@@ -1,0 +1,157 @@
+TLS en compose aislado atlas-ep5-tls-lab; puertos 8080/8443; salida no contiene secretos.
+Inicio: 2026-11-21 16:57:16 -03:00
+Comando: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab up --build -d
+
+docker.exe :  Image atlas-ep5-tls-lab-app Building 
+En línea: 2 Carácter: 1117
++ ... ding); $out=& docker compose -f docker-compose.tls.yml -p atlas-ep5-t ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Image atlas-ep5-tls-lab-app Building :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+#1 [internal] load local bake definitions
+#1 reading from stdin 521B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 356B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 1.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 108B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 87.14kB 0.0s done
+#6 DONE 0.0s
+
+#7 [1/7] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#7 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a 0.0s done
+#7 DONE 0.0s
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [4/7] RUN npm ci --omit=dev --ignore-scripts     && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+#9 CACHED
+
+#10 [3/7] COPY package*.json ./
+#10 CACHED
+
+#11 [5/7] COPY db ./db
+#11 CACHED
+
+#12 [6/7] COPY src ./src
+#12 DONE 0.0s
+
+#13 [7/7] COPY public ./public
+#13 DONE 0.0s
+
+#14 exporting to image
+#14 exporting layers 0.1s done
+#14 exporting manifest sha256:be8d94b51b4a0dbe740e28de1e62978b3568702eff6982caea33463570d49f8d 0.0s done
+#14 exporting config sha256:f934abbcac4520f54deecea205370675548d3264005b566a42fff4cf4a861b0c 0.0s done
+#14 exporting attestation manifest sha256:f0885ad2658549973acb83bef42d85c5268d472db153f8eab10bda0458cd17b4 0.0s done
+#14 exporting manifest list sha256:583fd1ab3f77f91dfbcc4581a9311430b335eabf800492ccb1534a233c2fd855 0.0s done
+#14 naming to docker.io/library/atlas-ep5-tls-lab-app:latest done
+#14 unpacking to docker.io/library/atlas-ep5-tls-lab-app:latest 0.1s done
+#14 DONE 0.3s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.0s
+ Image atlas-ep5-tls-lab-app Built 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-data Creating 
+ Volume atlas-ep5-tls-lab_atlas-tls-data Creating 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-config Creating 
+ Network atlas-ep5-tls-lab_default Creating 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-data Creating 
+ Volume atlas-ep5-tls-lab_atlas-tls-data Creating 
+ Network atlas-ep5-tls-lab_default Creating 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-config Creating 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-config Created 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-config Created 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-data Created 
+ Volume atlas-ep5-tls-lab_atlas-tls-caddy-data Created 
+ Volume atlas-ep5-tls-lab_atlas-tls-data Created 
+ Volume atlas-ep5-tls-lab_atlas-tls-data Created 
+ Network atlas-ep5-tls-lab_default Created 
+ Network atlas-ep5-tls-lab_default Created 
+ Container atlas-ep5-tls-lab-db-1 Creating 
+ Container atlas-ep5-tls-lab-db-1 Created 
+ Container atlas-ep5-tls-lab-app-1 Creating 
+ Container atlas-ep5-tls-lab-app-1 Created 
+ Container atlas-ep5-tls-lab-caddy-1 Creating 
+ Container atlas-ep5-tls-lab-caddy-1 Created 
+ Container atlas-ep5-tls-lab-db-1 Starting 
+ Container atlas-ep5-tls-lab-db-1 Started 
+ Container atlas-ep5-tls-lab-db-1 Waiting 
+ Container atlas-ep5-tls-lab-db-1 Healthy 
+ Container atlas-ep5-tls-lab-app-1 Starting 
+ Container atlas-ep5-tls-lab-app-1 Started 
+ Container atlas-ep5-tls-lab-app-1 Waiting 
+ Container atlas-ep5-tls-lab-app-1 Healthy 
+ Container atlas-ep5-tls-lab-caddy-1 Starting 
+ Container atlas-ep5-tls-lab-caddy-1 Started 
+
+Código de salida build/up: 0
+
+Comando: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab ps
+NAME                        IMAGE                   COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+atlas-ep5-tls-lab-app-1     atlas-ep5-tls-lab-app   "docker-entrypoint.s…"   app       18 seconds ago   Up 11 seconds (healthy)   3000/tcp
+atlas-ep5-tls-lab-caddy-1   caddy:2-alpine          "caddy run --config …"   caddy     18 seconds ago   Up Less than a second     127.0.0.1:8080->80/tcp, 127.0.0.1:8443->443/tcp
+atlas-ep5-tls-lab-db-1      postgres:16-alpine      "docker-entrypoint.s…"   db        18 seconds ago   Up 17 seconds (healthy)   5432/tcp
+
+Código: 0
+
+Fecha ejecución pruebas: 2026-11-21 16:57:46 -03:00
+Comando: npm.cmd run test:tls
+
+> atlas-management-system@1.0.0 test:tls
+> node --test test/security/tls.test.js
+
+✔ la configuración TLS no publica puertos de aplicación o base de datos (296.3159ms)
+✔ HTTPS responde 200 en /api/health y publica HSTS (134.1884ms)
+✔ HTTP redirige a la URL HTTPS de laboratorio (5.757ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 555.8338
+
+Código de salida pruebas TLS: 0
+
+Limpieza (contenedores/red; volumen conservado). Comando: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab down
+docker.exe :  Container atlas-ep5-tls-lab-caddy-1 Stopping 
+En línea: 2 Carácter: 594
++ ... ='10'; $out=& docker compose -f docker-compose.tls.yml -p atlas-ep5-t ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container atla...ddy-1 Stopping :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container atlas-ep5-tls-lab-caddy-1 Stopped 
+ Container atlas-ep5-tls-lab-caddy-1 Removing 
+ Container atlas-ep5-tls-lab-caddy-1 Removed 
+ Container atlas-ep5-tls-lab-app-1 Stopping 
+ Container atlas-ep5-tls-lab-app-1 Stopped 
+ Container atlas-ep5-tls-lab-app-1 Removing 
+ Container atlas-ep5-tls-lab-app-1 Removed 
+ Container atlas-ep5-tls-lab-db-1 Stopping 
+ Container atlas-ep5-tls-lab-db-1 Stopped 
+ Container atlas-ep5-tls-lab-db-1 Removing 
+ Container atlas-ep5-tls-lab-db-1 Removed 
+ Network atlas-ep5-tls-lab_default Removing 
+ Network atlas-ep5-tls-lab_default Removed 
+
+Código de salida limpieza: 0

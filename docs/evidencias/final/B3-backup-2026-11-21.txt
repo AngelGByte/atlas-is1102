@@ -1,0 +1,43 @@
+Copia/restauración de la base aislada atlas-ep5-final; 500 clientes sintéticos aún presentes. No se toca la base activa ni se incluyen secretos en la salida.
+Inicio: 2026-11-21 16:54:40 -03:00
+Comando: npm.cmd run test:backup
+
+
+> atlas-management-system@1.0.0 test:backup
+> bash scripts/backup-restore-test.sh
+
+npm.cmd : <3>WSL (90296 - Relay) ERROR: CreateProcessCommon:818: execvpe(/bin/bash) failed: No such file or directory
+En línea: 2 Carácter: 497
++ ... est:backup`n",$encoding); $out=& npm.cmd run test:backup 2>&1 | Out-S ...
++                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (<3>WSL (90296 -...le or directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Código de salida: 1
+Fin: 2026-11-21 16:54:41 -03:00
+
+===== Ejecución equivalente con pg_dump/pg_restore en el contenedor (PowerShell; Bash/WSL no disponible) =====
+Inicio: 2026-11-21 16:55:32 -03:00
+Backup temporal dentro de PostgreSQL: /tmp/atlas-backup-a34010e1.dump; base temporal de restauración: atlas_restore_test_a34010e1. No se copia ni registra el contenido del dump ni hashes de contraseña.
+Comando: docker compose -p atlas-ep5-final exec -T db pg_dump -Fc -U atlas -d atlas -f /tmp/atlas-backup-a34010e1.dump
+Salida: 
+Código: 0
+Comando: docker compose -p atlas-ep5-final exec -T db createdb -U atlas atlas_restore_test_a34010e1
+Salida: 
+Código: 0
+Comando: docker compose -p atlas-ep5-final exec -T db pg_restore -U atlas --no-owner --no-acl -d atlas_restore_test_a34010e1 /tmp/atlas-backup-a34010e1.dump
+Salida: 
+Código: 0
+OK tabla audit_logs: 117 registros
+OK tabla clients: 502 registros
+OK tabla companies: 2 registros
+OK tabla contracts: 2 registros
+OK tabla documents: 2 registros
+OK tabla users: 1 registros
+OK SHA-256 row_json(users): origen=5f77af1202f14f65ac5a38d2a0d9e505a397dcdc389e7a09f2cd69b36238bdf5 restaurado=5f77af1202f14f65ac5a38d2a0d9e505a397dcdc389e7a09f2cd69b36238bdf5
+OK: respaldo y restauración verificados; conteos y hash coinciden.
+Limpieza base temporal: código 0
+Limpieza dump temporal: código 0
+Código de salida equivalente: 0
+Fin: 2026-11-21 16:55:38 -03:00

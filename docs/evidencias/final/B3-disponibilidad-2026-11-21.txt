@@ -1,0 +1,312 @@
+Availability probe: isolated TLS Compose, 30 min target, 30 s interval, one intentional app restart at 15 min. Laboratory data only.
+Start: 2026-11-21 17:02:46 -03:00
+Command: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab up --build -d
+
+docker.exe :  Image atlas-ep5-tls-lab-app Building 
+En línea: 15 Carácter: 7
++ $up = & docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab ...
++       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Image atlas-ep5-tls-lab-app Building :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+#1 [internal] load local bake definitions
+#1 reading from stdin 521B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 356B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 1.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 108B 0.0s done
+#5 DONE 0.0s
+
+#6 [1/7] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#6 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#6 ...
+
+#7 [internal] load build context
+#7 transferring context: 433B 0.0s done
+#7 DONE 0.1s
+
+#6 [1/7] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#6 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a 0.1s done
+#6 DONE 0.2s
+
+#8 [6/7] COPY src ./src
+#8 CACHED
+
+#9 [4/7] RUN npm ci --omit=dev --ignore-scripts     && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+#9 CACHED
+
+#10 [2/7] WORKDIR /app
+#10 CACHED
+
+#11 [3/7] COPY package*.json ./
+#11 CACHED
+
+#12 [5/7] COPY db ./db
+#12 CACHED
+
+#13 [7/7] COPY public ./public
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers 0.0s done
+#14 exporting manifest sha256:be8d94b51b4a0dbe740e28de1e62978b3568702eff6982caea33463570d49f8d done
+#14 exporting config sha256:f934abbcac4520f54deecea205370675548d3264005b566a42fff4cf4a861b0c done
+#14 exporting attestation manifest sha256:d44b7f9378ca587a49856e5ee157a95f0d83c8a7f6b8c8ee7b7800cd69bd2beb
+#14 exporting attestation manifest sha256:d44b7f9378ca587a49856e5ee157a95f0d83c8a7f6b8c8ee7b7800cd69bd2beb 0.0s done
+#14 exporting manifest list sha256:f49643e15084288d7bab2b76f8041c823e5e931ed7d5557a9cc8845df097f929 0.0s done
+#14 naming to docker.io/library/atlas-ep5-tls-lab-app:latest done
+#14 unpacking to docker.io/library/atlas-ep5-tls-lab-app:latest 0.0s done
+#14 DONE 0.3s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.1s
+ Image atlas-ep5-tls-lab-app Built 
+ Network atlas-ep5-tls-lab_default Creating 
+ Network atlas-ep5-tls-lab_default Creating 
+ Network atlas-ep5-tls-lab_default Created 
+ Network atlas-ep5-tls-lab_default Created 
+ Container atlas-ep5-tls-lab-db-1 Creating 
+ Container atlas-ep5-tls-lab-db-1 Created 
+ Container atlas-ep5-tls-lab-app-1 Creating 
+ Container atlas-ep5-tls-lab-app-1 Created 
+ Container atlas-ep5-tls-lab-caddy-1 Creating 
+ Container atlas-ep5-tls-lab-caddy-1 Created 
+ Container atlas-ep5-tls-lab-db-1 Starting 
+ Container atlas-ep5-tls-lab-db-1 Started 
+ Container atlas-ep5-tls-lab-db-1 Waiting 
+ Container atlas-ep5-tls-lab-db-1 Healthy 
+ Container atlas-ep5-tls-lab-app-1 Starting 
+ Container atlas-ep5-tls-lab-app-1 Started 
+ Container atlas-ep5-tls-lab-app-1 Waiting 
+ Container atlas-ep5-tls-lab-app-1 Healthy 
+ Container atlas-ep5-tls-lab-caddy-1 Starting 
+ Container atlas-ep5-tls-lab-caddy-1 Started 
+
+Exit code up: 0
+Preflight attempt 1 failed before the observation window: HTTPS request to 127.0.0.1 used an IP host without SNI; Windows Schannel returned TLS exit 35. Caddy logs show automatic certificate management for localhost. A request to https://localhost:8443/api/health then returned HTTP 200 (curl exit 0). No availability measurement is attributed to the failed preflight; corrected monitor uses localhost.
+Cleanup before corrected run: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab down
+docker.exe :  Container atlas-ep5-tls-lab-caddy-1 Stopping 
+En línea: 2 Carácter: 1270
++ ... ing); $down=& docker compose -f docker-compose.tls.yml -p atlas-ep5-t ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container atla...ddy-1 Stopping :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container atlas-ep5-tls-lab-caddy-1 Stopped 
+ Container atlas-ep5-tls-lab-caddy-1 Removing 
+ Container atlas-ep5-tls-lab-caddy-1 Removed 
+ Container atlas-ep5-tls-lab-app-1 Stopping 
+ Container atlas-ep5-tls-lab-app-1 Stopped 
+ Container atlas-ep5-tls-lab-app-1 Removing 
+ Container atlas-ep5-tls-lab-app-1 Removed 
+ Container atlas-ep5-tls-lab-db-1 Stopping 
+ Container atlas-ep5-tls-lab-db-1 Stopped 
+ Container atlas-ep5-tls-lab-db-1 Removing 
+ Container atlas-ep5-tls-lab-db-1 Removed 
+ Network atlas-ep5-tls-lab_default Removing 
+ Network atlas-ep5-tls-lab_default Removed 
+
+Exit code: 0
+
+Corrected run using TLS hostname localhost.
+Start: 2026-11-21 17:05:39 -03:00
+Command: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab up --build -d
+docker.exe :  Image atlas-ep5-tls-lab-app Building 
+En línea: 15 Carácter: 7
++ $up = & docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab ...
++       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Image atlas-ep5-tls-lab-app Building :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+#1 [internal] load local bake definitions
+#1 reading from stdin 521B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 356B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.9s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 108B 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 433B 0.1s done
+#5 DONE 0.1s
+
+#6 [1/7] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#6 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a 0.1s done
+#6 DONE 0.1s
+
+#7 [6/7] COPY src ./src
+#7 CACHED
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [3/7] COPY package*.json ./
+#9 CACHED
+
+#10 [4/7] RUN npm ci --omit=dev --ignore-scripts     && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+#10 CACHED
+
+#11 [5/7] COPY db ./db
+#11 CACHED
+
+#12 [7/7] COPY public ./public
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers 0.0s done
+#13 exporting manifest sha256:be8d94b51b4a0dbe740e28de1e62978b3568702eff6982caea33463570d49f8d 0.0s done
+#13 exporting config sha256:f934abbcac4520f54deecea205370675548d3264005b566a42fff4cf4a861b0c 0.0s done
+#13 exporting attestation manifest sha256:1ebd5577a602e37575352340b3bc1b7d2c3119b5e0f22b3bdbe00b301b5c0140
+#13 exporting attestation manifest sha256:1ebd5577a602e37575352340b3bc1b7d2c3119b5e0f22b3bdbe00b301b5c0140 0.1s done
+#13 exporting manifest list sha256:a83ec5f020391f1ec2c0626c173f9701eb071b10e252ff6de4ff177cdb3d288b 0.1s done
+#13 naming to docker.io/library/atlas-ep5-tls-lab-app:latest 0.0s done
+#13 unpacking to docker.io/library/atlas-ep5-tls-lab-app:latest 0.0s done
+#13 DONE 0.5s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.1s
+ Image atlas-ep5-tls-lab-app Built 
+ Network atlas-ep5-tls-lab_default Creating 
+ Network atlas-ep5-tls-lab_default Creating 
+ Network atlas-ep5-tls-lab_default Created 
+ Network atlas-ep5-tls-lab_default Created 
+ Container atlas-ep5-tls-lab-db-1 Creating 
+ Container atlas-ep5-tls-lab-db-1 Created 
+ Container atlas-ep5-tls-lab-app-1 Creating 
+ Container atlas-ep5-tls-lab-app-1 Created 
+ Container atlas-ep5-tls-lab-caddy-1 Creating 
+ Container atlas-ep5-tls-lab-caddy-1 Created 
+ Container atlas-ep5-tls-lab-db-1 Starting 
+ Container atlas-ep5-tls-lab-db-1 Started 
+ Container atlas-ep5-tls-lab-db-1 Waiting 
+ Container atlas-ep5-tls-lab-db-1 Healthy 
+ Container atlas-ep5-tls-lab-app-1 Starting 
+ Container atlas-ep5-tls-lab-app-1 Started 
+ Container atlas-ep5-tls-lab-app-1 Waiting 
+ Container atlas-ep5-tls-lab-app-1 Healthy 
+ Container atlas-ep5-tls-lab-caddy-1 Starting 
+ Container atlas-ep5-tls-lab-caddy-1 Started 
+
+Exit code up: 0
+First healthy HTTPS probe: 200 0.043920
+Corrected observation window begins now; target duration 1800 seconds.
+[17:06:05 -03:00] HTTP=200; latency_s=0.031340; ok=True; curl_exit=0
+[17:06:35 -03:00] HTTP=200; latency_s=0.065029; ok=True; curl_exit=0
+[17:07:05 -03:00] HTTP=200; latency_s=0.043054; ok=True; curl_exit=0
+[17:07:35 -03:00] HTTP=200; latency_s=0.028786; ok=True; curl_exit=0
+[17:08:06 -03:00] HTTP=200; latency_s=0.210620; ok=True; curl_exit=0
+[17:08:36 -03:00] HTTP=200; latency_s=0.025035; ok=True; curl_exit=0
+[17:09:06 -03:00] HTTP=200; latency_s=0.026894; ok=True; curl_exit=0
+[17:09:36 -03:00] HTTP=200; latency_s=0.122182; ok=True; curl_exit=0
+[17:10:06 -03:00] HTTP=200; latency_s=0.049316; ok=True; curl_exit=0
+[17:10:36 -03:00] HTTP=200; latency_s=0.027912; ok=True; curl_exit=0
+[17:11:06 -03:00] HTTP=200; latency_s=0.124107; ok=True; curl_exit=0
+[17:11:37 -03:00] HTTP=200; latency_s=0.054374; ok=True; curl_exit=0
+[17:12:07 -03:00] HTTP=200; latency_s=0.079750; ok=True; curl_exit=0
+[17:12:37 -03:00] HTTP=200; latency_s=0.034110; ok=True; curl_exit=0
+[17:13:07 -03:00] HTTP=200; latency_s=0.291506; ok=True; curl_exit=0
+[17:13:37 -03:00] HTTP=200; latency_s=0.056367; ok=True; curl_exit=0
+[17:14:07 -03:00] HTTP=200; latency_s=0.059900; ok=True; curl_exit=0
+[17:14:37 -03:00] HTTP=200; latency_s=0.037680; ok=True; curl_exit=0
+[17:15:08 -03:00] HTTP=200; latency_s=0.645289; ok=True; curl_exit=0
+[17:15:38 -03:00] HTTP=200; latency_s=0.254988; ok=True; curl_exit=0
+[17:16:09 -03:00] HTTP=200; latency_s=0.203030; ok=True; curl_exit=0
+[17:16:39 -03:00] HTTP=200; latency_s=0.032878; ok=True; curl_exit=0
+[17:17:09 -03:00] HTTP=200; latency_s=0.051136; ok=True; curl_exit=0
+[17:17:39 -03:00] HTTP=200; latency_s=0.079172; ok=True; curl_exit=0
+[17:18:09 -03:00] HTTP=200; latency_s=0.108905; ok=True; curl_exit=0
+[17:18:39 -03:00] HTTP=200; latency_s=0.191583; ok=True; curl_exit=0
+[17:19:10 -03:00] HTTP=200; latency_s=0.058466; ok=True; curl_exit=0
+[17:19:40 -03:00] HTTP=200; latency_s=0.086388; ok=True; curl_exit=0
+[17:20:10 -03:00] HTTP=200; latency_s=0.473373; ok=True; curl_exit=0
+[17:20:41 -03:00] HTTP=200; latency_s=0.051292; ok=True; curl_exit=0
+
+[2026-11-21 17:21:11 -03:00] Command: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab restart app
+docker.exe :  Container atlas-ep5-tls-lab-app-1 Restarting 
+En línea: 35 Carácter: 22
++ ... artOutput = & docker compose -f docker-compose.tls.yml -p atlas-ep5-t ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container atla...p-1 Restarting :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container atlas-ep5-tls-lab-app-1 Started 
+
+Exit code restart: 0
+Recovery: HTTPS HTTP 200 200 0.073384; observed RTO=5.5 seconds; recovery polls=1.
+[17:21:16 -03:00] HTTP=200; latency_s=0.027132; ok=True; curl_exit=0
+[17:21:46 -03:00] HTTP=200; latency_s=0.041233; ok=True; curl_exit=0
+[17:22:17 -03:00] HTTP=200; latency_s=0.027972; ok=True; curl_exit=0
+[17:22:47 -03:00] HTTP=200; latency_s=0.045832; ok=True; curl_exit=0
+[17:23:17 -03:00] HTTP=200; latency_s=0.108435; ok=True; curl_exit=0
+[17:23:47 -03:00] HTTP=200; latency_s=0.025576; ok=True; curl_exit=0
+[17:24:17 -03:00] HTTP=200; latency_s=0.046687; ok=True; curl_exit=0
+[17:24:47 -03:00] HTTP=200; latency_s=0.029495; ok=True; curl_exit=0
+[17:25:17 -03:00] HTTP=200; latency_s=0.024683; ok=True; curl_exit=0
+[17:25:47 -03:00] HTTP=200; latency_s=0.038725; ok=True; curl_exit=0
+[17:26:17 -03:00] HTTP=200; latency_s=0.180203; ok=True; curl_exit=0
+[17:26:48 -03:00] HTTP=200; latency_s=0.024590; ok=True; curl_exit=0
+[17:27:18 -03:00] HTTP=200; latency_s=0.022965; ok=True; curl_exit=0
+[17:27:48 -03:00] HTTP=200; latency_s=0.031937; ok=True; curl_exit=0
+[17:28:18 -03:00] HTTP=200; latency_s=0.041094; ok=True; curl_exit=0
+[17:28:48 -03:00] HTTP=200; latency_s=0.204733; ok=True; curl_exit=0
+[17:29:18 -03:00] HTTP=200; latency_s=0.065867; ok=True; curl_exit=0
+[17:29:48 -03:00] HTTP=200; latency_s=0.051730; ok=True; curl_exit=0
+[17:30:18 -03:00] HTTP=200; latency_s=0.071490; ok=True; curl_exit=0
+[17:30:48 -03:00] HTTP=200; latency_s=0.039593; ok=True; curl_exit=0
+[17:31:18 -03:00] HTTP=200; latency_s=0.026114; ok=True; curl_exit=0
+[17:31:49 -03:00] HTTP=200; latency_s=0.026521; ok=True; curl_exit=0
+[17:32:19 -03:00] HTTP=200; latency_s=0.041873; ok=True; curl_exit=0
+[17:32:49 -03:00] HTTP=200; latency_s=0.085667; ok=True; curl_exit=0
+[17:33:19 -03:00] HTTP=200; latency_s=0.034145; ok=True; curl_exit=0
+[17:33:49 -03:00] HTTP=200; latency_s=0.034846; ok=True; curl_exit=0
+[17:34:19 -03:00] HTTP=200; latency_s=0.056491; ok=True; curl_exit=0
+[17:34:49 -03:00] HTTP=200; latency_s=0.044878; ok=True; curl_exit=0
+[17:35:19 -03:00] HTTP=200; latency_s=0.126745; ok=True; curl_exit=0
+[17:35:49 -03:00] HTTP=200; latency_s=0.034734; ok=True; curl_exit=0
+
+End: 2026-11-21 17:36:19 -03:00; actual_duration_s=1814.2; probes=61; HTTP_200=61; availability_by_probe=100%; observed_RTO_s=5.5; one_restart=True; monitor_exit=0.
+Limitation: short laboratory sample; probe ratio is not a monthly SLA and does not observe failures between intervals.
+
+Command: docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-lab down
+docker.exe :  Container atlas-ep5-tls-lab-caddy-1 Stopping 
+En línea: 69 Carácter: 9
++ $down = & docker compose -f docker-compose.tls.yml -p atlas-ep5-tls-l ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container atla...ddy-1 Stopping :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container atlas-ep5-tls-lab-caddy-1 Stopped 
+ Container atlas-ep5-tls-lab-caddy-1 Removing 
+ Container atlas-ep5-tls-lab-caddy-1 Removed 
+ Container atlas-ep5-tls-lab-app-1 Stopping 
+ Container atlas-ep5-tls-lab-app-1 Stopped 
+ Container atlas-ep5-tls-lab-app-1 Removing 
+ Container atlas-ep5-tls-lab-app-1 Removed 
+ Container atlas-ep5-tls-lab-db-1 Stopping 
+ Container atlas-ep5-tls-lab-db-1 Stopped 
+ Container atlas-ep5-tls-lab-db-1 Removing 
+ Container atlas-ep5-tls-lab-db-1 Removed 
+ Network atlas-ep5-tls-lab_default Removing 
+ Network atlas-ep5-tls-lab_default Removed 
+
+Exit code down: 0
