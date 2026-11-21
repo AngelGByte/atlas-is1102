@@ -1,0 +1,88 @@
+DEF-04 — sanitización de errores HTTP
+Fecha: 
+2026-11-21T13:24:05-03:00
+Prueba roja previa: JSON malformado devolvió HTTP 400 con el mensaje interno del parser "Unexpected end of JSON input"; expectativa segura no satisfecha.
+
+Comando: node --test test/integration/api.test.js
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:39:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2628.8614ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3364.4273
+
+Código de salida: 0
+
+Comando: npm test
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (3.2753ms)
+✖ detects changed encrypted data and a wrong key (1.5932ms)
+✔ requires a sufficiently long encryption secret (0.2914ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:39:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2146.1933ms)
+✔ accepts a valid client and normalizes its email (4.1907ms)
+✔ rejects invalid client emails and oversized values (1.7427ms)
+✔ uses boundary checks for contract values and date order (4.03ms)
+✔ enforces the documented password composition rules (1.2779ms)
+✔ rejects malformed or out-of-range bank account values (0.42ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2555.1085
+
+✖ failing tests:
+
+test at test\crypto.test.js:15:1
+✖ detects changed encrypted data and a wrong key (1.5932ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\crypto.test.js:19:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+Código de salida: 1

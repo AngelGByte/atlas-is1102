@@ -20,6 +20,37 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   });
   assert.equal(adminLogin.status, 200);
   const adminToken = adminLogin.body.token;
+  const malformedJson = await request(app)
+    .post('/api/auth/login')
+    .set('Content-Type', 'application/json')
+    .send('{"email":');
+  assert.equal(malformedJson.status, 400);
+  assert.deepEqual(malformedJson.body, { message: 'El cuerpo de la solicitud no es un JSON válido.' });
+  const oversizedJson = await request(app)
+    .post('/api/auth/login')
+    .set('Content-Type', 'application/json')
+    .send(`{"payload":"${'x'.repeat(150 * 1024)}"}`);
+  assert.equal(oversizedJson.status, 413);
+  assert.deepEqual(oversizedJson.body, { message: 'El cuerpo de la solicitud supera el tamaño permitido.' });
+
+  const originalPoolQuery = pool.query;
+  pool.query = function (query, ...values) {
+    if (query === 'SELECT 1') {
+      const error = new Error('detalle interno simulado');
+      error.code = 'XX000';
+      return Promise.reject(error);
+    }
+    return originalPoolQuery.call(this, query, ...values);
+  };
+  let internalError;
+  try {
+    internalError = await request(app).get('/api/health');
+  } finally {
+    pool.query = originalPoolQuery;
+  }
+  assert.equal(internalError.status, 500);
+  assert.deepEqual(internalError.body, { message: 'Ocurrió un error interno. Inténtalo nuevamente.' });
+
   const invalidIdRoutes = [
     ['get', '/api/empresas/invalid/clients'],
     ['put', '/api/clients/invalid', {}],
