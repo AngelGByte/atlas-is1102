@@ -31,7 +31,7 @@ async function checkAccessibility(page, screenshotName) {
   ).join('\n');
   await page.screenshot({
     path: path.join(evidenceDirectory, screenshotName),
-    fullPage: true
+    fullPage: false
   });
   expect(severe, report || 'No se detectaron problemas críticos o graves.').toEqual([]);
 }
@@ -47,7 +47,8 @@ async function openClients(page) {
 
 for (const viewport of [
   { name: 'escritorio 1280x800', suffix: '1280x800', size: { width: 1280, height: 800 } },
-  { name: 'móvil 390x844', suffix: '390x844', size: { width: 390, height: 844 } }
+  { name: 'móvil 390x844', suffix: '390x844', size: { width: 390, height: 844 } },
+  { name: 'móvil estrecho 320x700', suffix: '320x700', size: { width: 320, height: 700 } }
 ]) {
   test.describe(`Accesibilidad en ${viewport.name}`, () => {
     test.use({ viewport: viewport.size });
@@ -69,6 +70,17 @@ for (const viewport of [
       const focusedOutline = await page.locator(':focus-visible')
         .evaluate((element) => getComputedStyle(element).outlineWidth);
       expect(Number.parseFloat(focusedOutline)).toBeGreaterThan(0);
+      for (const selector of ['.nav-item[data-view="clients"]', '.brand']) {
+        await page.keyboard.press('Tab');
+        const element = page.locator(selector);
+        await element.focus();
+        const focusStyle = await element.evaluate((focused) => ({
+          width: getComputedStyle(focused).outlineWidth,
+          style: getComputedStyle(focused).outlineStyle
+        }));
+        expect(Number.parseFloat(focusStyle.width)).toBeGreaterThan(0);
+        expect(focusStyle.style).not.toBe('none');
+      }
       const overflowsViewport = await page.evaluate(
         () => document.documentElement.scrollWidth > window.innerWidth
       );
@@ -87,6 +99,10 @@ for (const viewport of [
       const focus = await page.locator('#dialog-submit')
         .evaluate((element) => getComputedStyle(element).outlineWidth);
       expect(Number.parseFloat(focus)).toBeGreaterThan(0);
+      const overflowsViewport = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth
+      );
+      expect(overflowsViewport).toBe(false);
       await checkAccessibility(page, `formulario-${viewport.suffix}.png`);
     });
   });

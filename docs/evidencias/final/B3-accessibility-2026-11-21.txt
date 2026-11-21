@@ -1,0 +1,51 @@
+Playwright + axe; viewports 1280x800, 390x844 y 320x700; 500 clientes sintéticos; evidencia nueva sin sobrescribir capturas previas.
+Inicio: 2026-11-21 16:51:27 -03:00
+Comando: npm.cmd run test:accessibility
+
+
+> atlas-management-system@1.0.0 test:accessibility
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+  ok 1 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en escritorio 1280x800 › inicio de sesión: etiquetas, contraste y foco (1.7s)
+  ok 2 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en escritorio 1280x800 › listado de clientes: tabla legible y navegación por teclado (3.2s)
+  ok 3 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en escritorio 1280x800 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.6s)
+  ok 4 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil 390x844 › inicio de sesión: etiquetas, contraste y foco (919ms)
+  ok 5 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil 390x844 › listado de clientes: tabla legible y navegación por teclado (2.8s)
+  ok 6 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil 390x844 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.6s)
+  ok 7 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil estrecho 320x700 › inicio de sesión: etiquetas, contraste y foco (998ms)
+  ok 8 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil estrecho 320x700 › listado de clientes: tabla legible y navegación por teclado (2.7s)
+  ok 9 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil estrecho 320x700 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.5s)
+
+  9 passed (22.7s)
+
+Código de salida: 0
+Fin: 2026-11-21 16:51:51 -03:00
+
+Repetición con capturas del viewport visible (fullPage=false), para conservar legibilidad.
+Inicio: 2026-11-21 16:52:13 -03:00
+Comando: npm.cmd run test:accessibility
+
+
+> atlas-management-system@1.0.0 test:accessibility
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+  ok 1 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en escritorio 1280x800 › inicio de sesión: etiquetas, contraste y foco (1.4s)
+  ok 2 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en escritorio 1280x800 › listado de clientes: tabla legible y navegación por teclado (2.7s)
+  ok 3 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en escritorio 1280x800 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.4s)
+  ok 4 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil 390x844 › inicio de sesión: etiquetas, contraste y foco (1.2s)
+  ok 5 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil 390x844 › listado de clientes: tabla legible y navegación por teclado (2.8s)
+  ok 6 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil 390x844 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.5s)
+  ok 7 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil estrecho 320x700 › inicio de sesión: etiquetas, contraste y foco (861ms)
+  ok 8 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil estrecho 320x700 › listado de clientes: tabla legible y navegación por teclado (2.6s)
+  ok 9 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil estrecho 320x700 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.3s)
+
+  9 passed (22.1s)
+
+Código de salida: 0
+Fin: 2026-11-21 16:52:36 -03:00
