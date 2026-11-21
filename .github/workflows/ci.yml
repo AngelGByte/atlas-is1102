@@ -2,7 +2,7 @@ name: Atlas quality checks
 
 on:
   push:
-    branches: [main, ep5-cierre-defectos]
+    branches: [main, ep5-cierre-defectos, ep5-cierre-final]
   pull_request:
 
 permissions:
@@ -135,9 +135,91 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  accessibility:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: atlas_test
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas-ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U atlas -d atlas_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Instalar Chromium para Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Ejecutar Playwright y axe
+        run: npm run test:accessibility
+
+  tls:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: atlas-ci-only-password
+      JWT_SECRET: ci-only-jwt-secret-not-for-production-2026
+      DATA_ENCRYPTION_SECRET: ci-only-encryption-secret-2026
+      ADMIN_EMAIL: admin@atlas.cl
+      ADMIN_PASSWORD: ci-only-admin-password-2026
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - name: Levantar Caddy y Atlas con TLS
+        run: docker compose -f docker-compose.tls.yml -p atlas-tls-ci up --build -d
+      - name: Ejecutar pruebas TLS
+        run: npm run test:tls
+      - name: Detener el stack TLS
+        if: always()
+        run: docker compose -f docker-compose.tls.yml -p atlas-tls-ci down
+
+  backup-restore:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: atlas-ci-only-password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Levantar PostgreSQL para respaldo/restauración
+        run: docker compose up -d db
+      - name: Esperar PostgreSQL
+        run: |
+          for attempt in $(seq 1 30); do
+            if docker compose exec -T db pg_isready -U atlas -d atlas; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "PostgreSQL no quedó disponible dentro de 60 segundos." >&2
+          exit 1
+      - name: Ejecutar pg_dump, restauración y comparación
+        run: npm run test:backup
+      - name: Detener PostgreSQL
+        if: always()
+        run: docker compose down
+
   sonar:
     runs-on: ubuntu-latest
     needs: coverage
+    env:
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -147,21 +229,24 @@ jobs:
         with:
           name: cobertura-c8
           path: coverage
-      - name: Informar configuración Sonar pendiente
-        if: env.SONAR_TOKEN == '' || env.SONAR_HOST_URL == '' || env.SONAR_PROJECT_KEY == ''
-        run: echo "Análisis Sonar omitido; configure SONAR_HOST_URL, SONAR_TOKEN y SONAR_PROJECT_KEY en los secretos del repositorio." >> "$GITHUB_STEP_SUMMARY"
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      - name: Informar omisión explícita de Sonar
+        if: env.SONAR_TOKEN == '' || env.SONAR_HOST_URL == '' || env.SONAR_PROJECT_KEY == '' || (env.SONAR_HOST_URL == 'https://sonarcloud.io' && env.SONAR_ORGANIZATION == '')
+        run: |
+          missing=""
+          [ -n "$SONAR_HOST_URL" ] || missing="$missing SONAR_HOST_URL"
+          [ -n "$SONAR_TOKEN" ] || missing="$missing SONAR_TOKEN"
+          [ -n "$SONAR_PROJECT_KEY" ] || missing="$missing SONAR_PROJECT_KEY"
+          if [ "$SONAR_HOST_URL" = "https://sonarcloud.io" ] && [ -z "$SONAR_ORGANIZATION" ]; then
+            missing="$missing SONAR_ORGANIZATION"
+          fi
+          {
+            echo "## Sonar: OMITIDO"
+            echo "No se ejecutó el análisis. Configure los secretos requeridos:$missing"
+            echo "Esta omisión no equivale a un Quality Gate aprobado."
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Analizar con SonarCloud
         if: env.SONAR_HOST_URL == 'https://sonarcloud.io' && env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != '' && env.SONAR_ORGANIZATION != ''
         uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
         with:
           args: >-
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
@@ -170,10 +255,6 @@ jobs:
       - name: Analizar con SonarQube Server
         if: env.SONAR_HOST_URL != '' && env.SONAR_HOST_URL != 'https://sonarcloud.io' && env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != ''
         uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
         with:
           args: >-
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}

@@ -1,0 +1,32 @@
+Fecha: 2026-11-21 17:09:34 -03:00
+Comando: python valida .github/workflows/ci.yml con PyYAML 6.0.4 y aserciones de jobs requeridos/estado Sonar.
+YAML parse OK; jobs=['accessibility', 'backup-restore', 'coverage', 'dependency-audit', 'gitleaks', 'security', 'sonar', 'test', 'tls']; Sonar omit status present
+
+Código de salida: 0
+
+
+Date: 2026-11-21 17:25:36 -03:00
+Command: python -c "import yaml; p=yaml.safe_load(open(\".github/workflows/ci.yml\", encoding=\"utf-8\")); jobs=p[\"jobs\"]; required={\"test\",\"security\",\"coverage\",\"dependency-audit\",\"gitleaks\",\"accessibility\",\"tls\",\"backup-restore\",\"sonar\"}; assert required <= set(jobs); assert all(k in jobs[\"sonar\"][\"env\"] for k in (\"SONAR_HOST_URL\",\"SONAR_TOKEN\",\"SONAR_PROJECT_KEY\",\"SONAR_ORGANIZATION\")); assert \"pg_isready\" in jobs[\"backup-restore\"][\"steps\"][3][\"run\"]; print(\"YAML OK; required jobs present; Sonar secrets are job-scoped; backup waits for PostgreSQL.\")"
+Output: python :   File "<string>", line 1
+En línea: 2 Carácter: 612
++ ... ; $output = python -c 'import yaml; p=yaml.safe_load(open(".github/wo ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 1:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    import yaml; p=yaml.safe_load(open(.github/workflows/ci.yml, encoding=utf-8)); jobs=p[jobs]; 
+required={test,security,coverage,dependency-audit,gitleaks,accessibility,tls,backup-restore,sonar}; assert required <= 
+set(jobs); assert all(k in jobs[sonar][env] for k in 
+(SONAR_HOST_URL,SONAR_TOKEN,SONAR_PROJECT_KEY,SONAR_ORGANIZATION)); assert pg_isready in 
+jobs[backup-restore][steps][3][run]; print(YAML
+                                       ^
+SyntaxError: invalid syntax
+
+Exit code: 1
+
+
+Date: 2026-11-21 17:25:44 -03:00
+Command: YAML validation via Python PyYAML; required jobs, job-level Sonar secrets, and backup PostgreSQL readiness asserted.
+Output: YAML OK; required jobs present; Sonar secrets are job-scoped; backup waits for PostgreSQL.
+
+Exit code: 0
