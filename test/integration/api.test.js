@@ -34,6 +34,17 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   });
   assert.equal(adminLogin.status, 200);
   const adminToken = adminLogin.body.token;
+  const storedAdmin = await pool.query(
+    'SELECT password_hash FROM users WHERE email=$1',
+    [process.env.ADMIN_EMAIL]
+  );
+  assert.equal(storedAdmin.rowCount, 1);
+  assert.ok(storedAdmin.rows[0].password_hash.startsWith('$2'), 'La contraseña debe estar en un hash bcrypt.');
+  assert.equal(
+    storedAdmin.rows[0].password_hash.includes(process.env.ADMIN_PASSWORD),
+    false,
+    'La contraseña no debe persistirse en texto plano.'
+  );
   const malformedJson = await request(app)
     .post('/api/auth/login')
     .set('Content-Type', 'application/json')
@@ -151,6 +162,47 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   assert.equal(stored.rows[0].bank_account_enc.includes('001234567890'), false);
   assert.equal(stored.rows[0].email_enc.includes('client-'), false);
   assert.equal(stored.rows[0].name_enc.includes('Cliente integración'), false);
+
+  const totalClients = await pool.query('SELECT COUNT(*)::int AS total FROM clients');
+  const orderedClientIds = await pool.query(
+    'SELECT id FROM clients ORDER BY created_at DESC, id DESC LIMIT 2'
+  );
+  const firstClientPage = await request(app).get('/api/clients?limit=1&page=1')
+    .set('Authorization', `Bearer ${adminToken}`);
+  const secondClientPage = await request(app).get('/api/clients?limit=1&offset=1')
+    .set('Authorization', `Bearer ${adminToken}`);
+  assert.equal(firstClientPage.status, 200);
+  assert.equal(secondClientPage.status, 200);
+  assert.equal(Number(firstClientPage.headers['x-total-count']), totalClients.rows[0].total);
+  assert.equal(Number(secondClientPage.headers['x-total-count']), totalClients.rows[0].total);
+  assert.equal(firstClientPage.headers['x-page'], '1');
+  assert.equal(secondClientPage.headers['x-page'], '2');
+  assert.equal(firstClientPage.body[0].id, orderedClientIds.rows[0].id);
+  assert.equal(secondClientPage.body[0].id, orderedClientIds.rows[1].id);
+
+  const defaultClientPage = await request(app).get('/api/clients')
+    .set('Authorization', `Bearer ${adminToken}`);
+  assert.equal(defaultClientPage.headers['x-limit'], '50');
+  assert.ok(defaultClientPage.body.length <= 50);
+  const maxClientPage = await request(app).get('/api/clients?limit=200&page=1')
+    .set('Authorization', `Bearer ${adminToken}`);
+  assert.equal(maxClientPage.headers['x-limit'], '200');
+  assert.ok(maxClientPage.body.length <= 200);
+  for (const invalidPath of [
+    '/api/clients?limit=0',
+    '/api/clients?limit=201',
+    '/api/clients?limit=abc',
+    '/api/clients?page=0',
+    '/api/clients?page=abc',
+    '/api/clients?offset=-1',
+    '/api/clients?offset=1.5',
+    '/api/clients?page=1&offset=0'
+  ]) {
+    const invalidPagination = await request(app).get(invalidPath)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(invalidPagination.status, 400, invalidPath);
+    assert.deepEqual(invalidPagination.body, { message: 'Parámetros de paginación inválidos.' });
+  }
 
   const editorLogin = await request(app).post('/api/auth/login').send({
     email: createdEmail,
@@ -277,10 +329,16 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   assert.equal(revokedRequest.status, 401);
 
   const oldAuditEmail = `retention-${Date.now()}@example.cl`;
+  const recentAuditEmail = `retention-recent-${Date.now()}@example.cl`;
   await pool.query(
     `INSERT INTO audit_logs (actor_email, action, entity, details, created_at)
      VALUES ($1, 'update', 'clients', '{}', NOW() - INTERVAL '2 days')`,
     [oldAuditEmail]
+  );
+  await pool.query(
+    `INSERT INTO audit_logs (actor_email, action, entity, details, created_at)
+     VALUES ($1, 'update', 'clients', '{}', NOW())`,
+    [recentAuditEmail]
   );
   const purge = spawnSync(process.execPath, ['scripts/retention-purge.js'], {
     encoding: 'utf8',
@@ -293,6 +351,8 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   assert.equal(purge.status, 0, purge.stderr || purge.stdout);
   const deletedAudit = await pool.query('SELECT id FROM audit_logs WHERE actor_email=$1', [oldAuditEmail]);
   assert.equal(deletedAudit.rowCount, 0);
+  const retainedAudit = await pool.query('SELECT id FROM audit_logs WHERE actor_email=$1', [recentAuditEmail]);
+  assert.equal(retainedAudit.rowCount, 1);
   const purgeAudit = await pool.query(
     `SELECT details FROM audit_logs
      WHERE actor_email='sistema-retencion@atlas.local' AND action='purge'
