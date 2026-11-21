@@ -59,6 +59,36 @@ Valida la salida y los registros restaurados antes de afirmar que el plan de rec
 
 Si modificas la estructura de `db/init.sql` luego de crear el volumen, la inicialización oficial de PostgreSQL no vuelve a ejecutarse sobre una base existente. Para una base de laboratorio descartable puedes detenerla y recrearla con `docker compose down -v` y luego `docker compose up --build -d`.
 
+## TLS para laboratorio
+
+El archivo [`docker-compose.tls.yml`](./docker-compose.tls.yml) levanta una instancia
+aislada llamada `atlas-tls`: Caddy termina TLS con una CA local interna, redirige HTTP
+a HTTPS y agrega HSTS. Solo Caddy publica `127.0.0.1:8080` y `127.0.0.1:8443`; la
+aplicación y PostgreSQL permanecen en la red privada de Compose, sin puertos del host.
+Este certificado autofirmado se debe usar únicamente en laboratorio.
+
+Con los secretos requeridos definidos en `.env`, inicia la pila:
+
+```powershell
+docker compose -f docker-compose.tls.yml up --build -d
+docker compose -f docker-compose.tls.yml ps
+```
+
+Para confiar en el certificado en el perfil actual de Windows, copia la CA raíz local
+desde el volumen de Caddy e impórtala al almacén de certificados raíz del usuario:
+
+```powershell
+docker compose -f docker-compose.tls.yml cp caddy:/data/caddy/pki/authorities/local/root.crt "$env:TEMP\atlas-tls-root.crt"
+certutil -user -addstore Root "$env:TEMP\atlas-tls-root.crt"
+```
+
+Luego abre <https://localhost:8443/api/health>. `npm.cmd run test:tls` verifica el
+estado HTTPS, la redirección HTTP y que app/base de datos no publiquen puertos. Para
+quitar la confianza, elimina el certificado `Caddy Local Authority` del almacén de
+certificados raíz del usuario mediante `certmgr.msc`. Detén la pila con
+`docker compose -f docker-compose.tls.yml down`; no uses `-v` si deseas conservar la CA
+local y los datos de laboratorio.
+
 ## Pruebas unitarias y de integración
 
 Instala dependencias para desarrollo una sola vez:

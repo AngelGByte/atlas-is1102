@@ -1,0 +1,11 @@
+http://localhost {
+	redir https://localhost:8443{uri} 308
+}
+
+https://localhost {
+	tls internal
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	}
+	reverse_proxy app:3000
+}

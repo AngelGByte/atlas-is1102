@@ -12,6 +12,7 @@
     "test:integration": "node --test test/integration/*.test.js",
     "test:vitest": "vitest run --config vitest.config.mjs",
     "test:security": "node test/security/run.js",
+    "test:tls": "node --test test/security/tls.test.js",
     "test:all": "npm run test && npm run test:vitest",
     "test:coverage": "c8 --check-coverage --lines 70 --functions 70 --branches 70 --statements 70 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js",
     "quality": "npm run test:all && npm audit --audit-level=high"

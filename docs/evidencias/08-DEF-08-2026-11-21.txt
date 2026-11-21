@@ -1,0 +1,31 @@
+DEF-08 — TLS local con Caddy
+Fecha: 
+2026-11-21T13:37:02-03:00
+Instancia aislada; secretos y datos únicamente sintéticos.
+
+Comando: npm.cmd run test:tls
+
+> atlas-management-system@1.0.0 test:tls
+> node --test test/security/tls.test.js
+
+✔ la configuración TLS no publica puertos de aplicación o base de datos (173.5131ms)
+✔ HTTPS responde 200 en /api/health y publica HSTS (49.0944ms)
+✔ HTTP redirige a la URL HTTPS de laboratorio (4.798ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 347.7997
+
+Código de salida: 0
+
+Comando: docker compose -p atlas-tls -f docker-compose.tls.yml ps
+NAME                IMAGE                COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+atlas-tls-app-1     atlas-tls-app        "docker-entrypoint.s…"   app       48 seconds ago   Up 41 seconds (healthy)   3000/tcp
+atlas-tls-caddy-1   caddy:2-alpine       "caddy run --config …"   caddy     48 seconds ago   Up 30 seconds             127.0.0.1:8080->80/tcp, 127.0.0.1:8443->443/tcp
+atlas-tls-db-1      postgres:16-alpine   "docker-entrypoint.s…"   db        48 seconds ago   Up 47 seconds (healthy)   5432/tcp
+
+Código de salida: 0

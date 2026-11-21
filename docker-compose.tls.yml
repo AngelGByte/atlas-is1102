@@ -1,0 +1,60 @@
+name: atlas-tls
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: atlas
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD en .env antes de iniciar Atlas TLS}
+    volumes:
+      - atlas-tls-data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas -d atlas"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  app:
+    build: .
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3000
+      DATABASE_URL: postgres://atlas:${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD en .env antes de iniciar Atlas TLS}@db:5432/atlas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD en .env antes de iniciar Atlas TLS}
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET en .env antes de iniciar Atlas TLS}
+      DATA_ENCRYPTION_SECRET: ${DATA_ENCRYPTION_SECRET:?Defina DATA_ENCRYPTION_SECRET en .env antes de iniciar Atlas TLS}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@atlas.cl}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Defina ADMIN_PASSWORD en .env antes de iniciar Atlas TLS}
+    expose:
+      - "3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 4s
+      retries: 10
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "127.0.0.1:8080:80"
+      - "127.0.0.1:8443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - atlas-tls-caddy-data:/data
+      - atlas-tls-caddy-config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  atlas-tls-data:
+  atlas-tls-caddy-data:
+  atlas-tls-caddy-config:
