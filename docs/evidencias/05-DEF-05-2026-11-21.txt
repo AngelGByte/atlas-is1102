@@ -1,0 +1,109 @@
+DEF-05 — modificación determinista del texto cifrado
+Fecha inicio: 
+2026-11-21T13:24:42-03:00
+Comando repetido 300 veces: node --test test/crypto.test.js
+Iteraciones: 300
+Fallos: 0
+Código de salida acumulado: 0
+Fecha fin: 2026-11-21T13:25:38-03:00
+
+Regresión — Comando: npm test
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (2.494ms)
+✔ detects changed encrypted data and a wrong key (0.6536ms)
+✔ requires a sufficiently long encryption secret (0.2802ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:39:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2188.0016ms)
+✔ accepts a valid client and normalizes its email (3.8333ms)
+✔ rejects invalid client emails and oversized values (1.7042ms)
+✔ uses boundary checks for contract values and date order (3.8681ms)
+✔ enforces the documented password composition rules (1.041ms)
+✔ rejects malformed or out-of-range bank account values (0.3232ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2548.3643
+
+Código de salida: 0
+
+Regresión — Comando: npm run test:vitest
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/.copilot/chats/bc161b48-539d-4eb7-be46-d3b2d0e6c2e7/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:25:43
+   Duration  506ms (import 85%, tests 5%, transform 5%, worker 4%)
+
+
+Código de salida: 0
+
+Regresión — Comando: npm run test:coverage
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (3.4473ms)
+✔ detects changed encrypted data and a wrong key (0.9084ms)
+✔ requires a sufficiently long encryption secret (0.2847ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\test\integration\api.test.js:39:21)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:219:14
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\src\server.js:23:69
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:295:15
+    at processParams (C:\Users\rpg72\.copilot\chats\bc161b48-539d-4eb7-be46-d3b2d0e6c2e7\atlas-is1102\node_modules\router\index.js:582:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (2502.9877ms)
+✔ accepts a valid client and normalizes its email (4.9175ms)
+✔ rejects invalid client emails and oversized values (1.9774ms)
+✔ uses boundary checks for contract values and date order (4.0546ms)
+✔ enforces the documented password composition rules (1.025ms)
+✔ rejects malformed or out-of-range bank account values (0.2623ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2909.664
+---------------|---------|----------|---------|---------|-------------------------------------------
+File           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                         
+---------------|---------|----------|---------|---------|-------------------------------------------
+All files      |   79.26 |    76.74 |   84.21 |   79.26 |                                           
+ crypto.js     |   94.87 |    92.85 |     100 |   94.87 | 24-25                                     
+ server.js     |   75.08 |    71.84 |   76.92 |   75.08 | ...35,446-449,496-499,517,535-549,552-556 
+ validation.js |     100 |      100 |     100 |     100 |                                           
+---------------|---------|----------|---------|---------|-------------------------------------------
+
+Código de salida: 0

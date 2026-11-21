@@ -15,7 +15,9 @@ test('encrypts bank data so plaintext is not stored and decrypts with the key', 
 test('detects changed encrypted data and a wrong key', () => {
   const encrypted = encryptValue('001234567890', secret);
   const parts = encrypted.split('.');
-  parts[2] = `${parts[2].slice(0, -1)}A`;
+  const ciphertext = Buffer.from(parts[2], 'base64url');
+  ciphertext[0] ^= 0x01;
+  parts[2] = ciphertext.toString('base64url');
   assert.throws(() => decryptValue(parts.join('.'), secret));
   assert.throws(() => decryptValue(encrypted, 'different-test-key-with-32-chars'));
 });
