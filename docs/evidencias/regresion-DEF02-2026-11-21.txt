@@ -1,0 +1,79 @@
+Regresión después de DEF-02
+Fecha: 
+2026-11-21T13:22:07-03:00
+PostgreSQL: postgres:16-alpine saludable; integración ejecutada, sin omisiones.
+
+Comando: npm test
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (2.6433ms)
+✔ detects changed encrypted data and a wrong key (0.945ms)
+✔ requires a sufficiently long encryption secret (0.329ms)
+✔ API CRUD, roles, data protection and audit trail (2060.8262ms)
+✔ accepts a valid client and normalizes its email (3.8496ms)
+✔ rejects invalid client emails and oversized values (1.7561ms)
+✔ uses boundary checks for contract values and date order (3.7111ms)
+✔ enforces the documented password composition rules (1.5054ms)
+✔ rejects malformed or out-of-range bank account values (0.4711ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2410.3893
+
+Código de salida: 0
+
+Comando: npm run test:vitest
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/.copilot/chats/bc161b48-539d-4eb7-be46-d3b2d0e6c2e7/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:22:11
+   Duration  468ms (import 84%, tests 6%, transform 5%, worker 4%)
+
+
+Código de salida: 0
+
+Comando: npm run test:coverage
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (4.4978ms)
+✔ detects changed encrypted data and a wrong key (0.7087ms)
+✔ requires a sufficiently long encryption secret (0.1758ms)
+✔ API CRUD, roles, data protection and audit trail (2546.5096ms)
+✔ accepts a valid client and normalizes its email (6.2139ms)
+✔ rejects invalid client emails and oversized values (1.7634ms)
+✔ uses boundary checks for contract values and date order (4.2694ms)
+✔ enforces the documented password composition rules (1.0117ms)
+✔ rejects malformed or out-of-range bank account values (0.3ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2985.2158
+---------------|---------|----------|---------|---------|-------------------------------------------
+File           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                         
+---------------|---------|----------|---------|---------|-------------------------------------------
+All files      |   78.71 |    72.17 |   84.21 |   78.71 |                                           
+ crypto.js     |   94.87 |    92.85 |     100 |   94.87 | 24-25                                     
+ server.js     |   74.31 |    65.16 |   76.92 |   74.31 | ...28,439-442,489-492,510,522-536,539-543 
+ validation.js |     100 |      100 |     100 |     100 |                                           
+---------------|---------|----------|---------|---------|-------------------------------------------
+
+Código de salida: 0

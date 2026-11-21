@@ -2,7 +2,7 @@ FROM node:22-alpine
 ENV NODE_ENV=production
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --ignore-scripts
 COPY db ./db
 COPY src ./src
 COPY public ./public
