@@ -1,0 +1,197 @@
+{
+    "fetchedAt":  "2026-11-22 00:23:24 -03:00",
+    "project":  "AngelGByte_atlas-is1102",
+    "branch":  "main",
+    "verificationTask":  "CIERRE-11",
+    "commit":  "2b9c756ddb0f3e7e0f734efe7274316c2e3ac01b",
+    "endpoints":  {
+                      "analyses":  "GET /api/project_analyses/search?project=AngelGByte_atlas-is1102\u0026branch=main\u0026ps=3",
+                      "qualityGate":  "GET /api/qualitygates/project_status?projectKey=AngelGByte_atlas-is1102\u0026branch=main",
+                      "openIssues":  "GET /api/issues/search?componentKeys=AngelGByte_atlas-is1102\u0026statuses=OPEN\u0026ps=100",
+                      "openVulnerabilities":  "GET /api/issues/search?componentKeys=AngelGByte_atlas-is1102\u0026types=VULNERABILITY\u0026statuses=OPEN\u0026ps=100",
+                      "measures":  "GET /api/measures/component?component=AngelGByte_atlas-is1102\u0026metricKeys=alert_status,security_rating,vulnerabilities,security_hotspots"
+                  },
+    "data":  {
+                 "analyses":  {
+                                  "paging":  {
+                                                 "pageIndex":  1,
+                                                 "pageSize":  3,
+                                                 "total":  14
+                                             },
+                                  "analyses":  [
+                                                   {
+                                                       "key":  "9d900eb2-5f98-437e-b6f6-e2293f93686b",
+                                                       "date":  "2026-11-22T03:21:32+0000",
+                                                       "events":  [
+                                                                      {
+                                                                          "key":  "AaIBRlcxpW6TBiJYHYGK",
+                                                                          "category":  "VERSION",
+                                                                          "name":  "not provided"
+                                                                      },
+                                                                      {
+                                                                          "key":  "AaIBRlcvpW6TBiJYHYGJ",
+                                                                          "category":  "QUALITY_GATE",
+                                                                          "name":  "Green (was Red)",
+                                                                          "description":  ""
+                                                                      }
+                                                                  ],
+                                                       "projectVersion":  "not provided",
+                                                       "manualNewCodePeriodBaseline":  false,
+                                                       "revision":  "2b9c756ddb0f3e7e0f734efe7274316c2e3ac01b"
+                                                   },
+                                                   {
+                                                       "key":  "e65d2917-bc67-416e-9cac-987d09cd3725",
+                                                       "date":  "2026-11-22T02:32:08+0000",
+                                                       "events":  [
+
+                                                                  ],
+                                                       "projectVersion":  "not provided",
+                                                       "manualNewCodePeriodBaseline":  false,
+                                                       "revision":  "a97a8c8146a775fbf0282c4acb55d80c19fbc568"
+                                                   },
+                                                   {
+                                                       "key":  "ad0ff26e-c0c9-4b43-812f-e905a7084438",
+                                                       "date":  "2026-11-22T02:28:27+0000",
+                                                       "events":  [
+
+                                                                  ],
+                                                       "projectVersion":  "not provided",
+                                                       "manualNewCodePeriodBaseline":  false,
+                                                       "revision":  "d8d532aed89d3f80e29d2d17a6365136eacb8ff6"
+                                                   }
+                                               ]
+                              },
+                 "qualityGate":  {
+                                     "projectStatus":  {
+                                                           "status":  "OK",
+                                                           "conditions":  [
+                                                                              {
+                                                                                  "status":  "OK",
+                                                                                  "metricKey":  "new_reliability_rating",
+                                                                                  "comparator":  "GT",
+                                                                                  "periodIndex":  1,
+                                                                                  "errorThreshold":  "1",
+                                                                                  "actualValue":  "1"
+                                                                              },
+                                                                              {
+                                                                                  "status":  "OK",
+                                                                                  "metricKey":  "new_security_rating",
+                                                                                  "comparator":  "GT",
+                                                                                  "periodIndex":  1,
+                                                                                  "errorThreshold":  "1",
+                                                                                  "actualValue":  "1"
+                                                                              },
+                                                                              {
+                                                                                  "status":  "OK",
+                                                                                  "metricKey":  "new_maintainability_rating",
+                                                                                  "comparator":  "GT",
+                                                                                  "periodIndex":  1,
+                                                                                  "errorThreshold":  "1",
+                                                                                  "actualValue":  "1"
+                                                                              },
+                                                                              {
+                                                                                  "status":  "OK",
+                                                                                  "metricKey":  "new_duplicated_lines_density",
+                                                                                  "comparator":  "GT",
+                                                                                  "periodIndex":  1,
+                                                                                  "errorThreshold":  "3",
+                                                                                  "actualValue":  "0.0"
+                                                                              },
+                                                                              {
+                                                                                  "status":  "OK",
+                                                                                  "metricKey":  "new_security_hotspots_reviewed",
+                                                                                  "comparator":  "LT",
+                                                                                  "periodIndex":  1,
+                                                                                  "errorThreshold":  "100",
+                                                                                  "actualValue":  "100.0"
+                                                                              }
+                                                                          ],
+                                                           "periods":  [
+                                                                           {
+                                                                               "index":  1,
+                                                                               "mode":  "previous_version",
+                                                                               "date":  "2026-10-29T01:07:56+0000"
+                                                                           }
+                                                                       ],
+                                                           "ignoredConditions":  false
+                                                       }
+                                 },
+                 "openIssues":  {
+                                    "total":  0,
+                                    "p":  1,
+                                    "ps":  100,
+                                    "paging":  {
+                                                   "pageIndex":  1,
+                                                   "pageSize":  100,
+                                                   "total":  0
+                                               },
+                                    "effortTotal":  0,
+                                    "debtTotal":  0,
+                                    "issues":  [
+
+                                               ],
+                                    "components":  [
+
+                                                   ],
+                                    "organizations":  [
+
+                                                      ],
+                                    "facets":  [
+
+                                               ]
+                                },
+                 "openVulnerabilities":  {
+                                             "total":  0,
+                                             "p":  1,
+                                             "ps":  100,
+                                             "paging":  {
+                                                            "pageIndex":  1,
+                                                            "pageSize":  100,
+                                                            "total":  0
+                                                        },
+                                             "effortTotal":  0,
+                                             "debtTotal":  0,
+                                             "issues":  [
+
+                                                        ],
+                                             "components":  [
+
+                                                            ],
+                                             "organizations":  [
+
+                                                               ],
+                                             "facets":  [
+
+                                                        ]
+                                         },
+                 "measures":  {
+                                  "component":  {
+                                                    "id":  "AaGFMuuixoXNQM-X4WsK",
+                                                    "key":  "AngelGByte_atlas-is1102",
+                                                    "name":  "atlas-is1102",
+                                                    "qualifier":  "TRK",
+                                                    "measures":  [
+                                                                     {
+                                                                         "metric":  "alert_status",
+                                                                         "value":  "OK"
+                                                                     },
+                                                                     {
+                                                                         "metric":  "security_rating",
+                                                                         "value":  "1.0",
+                                                                         "bestValue":  true
+                                                                     },
+                                                                     {
+                                                                         "metric":  "vulnerabilities",
+                                                                         "value":  "0",
+                                                                         "bestValue":  true
+                                                                     },
+                                                                     {
+                                                                         "metric":  "security_hotspots",
+                                                                         "value":  "0",
+                                                                         "bestValue":  true
+                                                                     }
+                                                                 ]
+                                                }
+                              }
+             }
+}

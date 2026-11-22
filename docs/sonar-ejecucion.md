@@ -3,28 +3,33 @@
 ## Estado actualizado (2026-11-22)
 
 La organización gratuita `angelgbyte` y el proyecto público `AngelGByte_atlas-is1102`
-ya existen y están vinculados al repositorio GitHub. SonarCloud ejecutó análisis
-automático de `main` para el commit `a97a8c8146a775fbf0282c4acb55d80c19fbc568`
-(2026-11-22T02:32:08Z). El Quality Gate fue `ERROR`, con 7 vulnerabilidades abiertas
-(1 blocker, 3 altas, 2 medias y 1 baja). El reporte real de API y su resumen están en
+ya existen y están vinculados al repositorio GitHub. Tras publicar las correcciones,
+SonarCloud analizó automáticamente `main` para el commit
+`2b9c756ddb0f3e7e0f734efe7274316c2e3ac01b` (2026-11-22T03:21:32Z). El Quality Gate
+terminó `OK`; la API reportó 0 issues abiertos y 0 vulnerabilidades abiertas. El análisis
+anterior de `a97a8c8146a775fbf0282c4acb55d80c19fbc568` había terminado `ERROR` con 7
+vulnerabilidades abiertas, por lo que la nueva revisión confirma que ya no están abiertas
+en la versión publicada. La respuesta completa de API para el commit final está en
+[`evidencias/final/CIERRE-11-sonar-post-2026-11-22.json`](./evidencias/final/CIERRE-11-sonar-post-2026-11-22.json).
+El reporte baseline real y su resumen están en
 [`evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.json`](./evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.json)
 y [`evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.txt`](./evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.txt).
-Las correcciones actuales aún no se han vuelto a analizar; no se declara resuelto el
-Quality Gate hasta obtener el resultado posterior al commit.
 
 La integración automática con GitHub App ya analiza el proyecto y no requiere un
 `SONAR_TOKEN`. El job manual `sonar` del workflow se omite si faltan secretos; su estado
 `success` solo confirma que informó la omisión y no equivale a un Quality Gate. El último
-run de Actions de `main`, commit `a97a8c8`, es
-[#44976541160](https://github.com/AngelGByte/atlas-is1102/actions/runs/44976541160);
-sus pasos manuales de Sonar quedaron omitidos, mientras que SonarCloud produjo el análisis
-automático independiente.
+run de Actions de `main` para el commit final fue
+[#44980251380](https://github.com/AngelGByte/atlas-is1102/actions/runs/44980251380);
+todos sus jobs terminaron `success`. Sus pasos manuales de Sonar quedaron omitidos,
+mientras que SonarCloud produjo el análisis automático independiente con Quality Gate `OK`.
 
 SonarQube local respondió `UP` (26.10.0.133078), pero no se ejecutó SonarScanner local:
 no había token ni credenciales administrativas disponibles y no se probaron contraseñas
 predeterminadas. No se generó token ni se añadieron secretos a GitHub; la vista de tokens
 no ofreció un formulario utilizable en esta sesión. Esto no bloquea el análisis automático
-de SonarCloud, pero sí deja omitido el job manual del workflow.
+de SonarCloud, aunque deja omitido el job manual del workflow. Las reglas originales sobre
+credenciales predeterminadas y `--ignore-scripts` no aparecen entre los issues abiertos del
+commit final; la búsqueda actual de issues abiertos en SonarCloud devolvió 0.
 
 ### Antecedente: análisis del PR #1 (2026-11-21)
 
@@ -115,6 +120,6 @@ permisos del token. No use credenciales de evaluación ni datos reales.
 El workflow de GitHub Actions ya incluye un paso de resumen que muestra `Sonar: OMITIDO`,
 enumera los secretos faltantes y aclara que la omisión no equivale a un Quality Gate
 aprobado (`.github/workflows/ci.yml`, job `sonar`). En este PR el job propio informó la
-omisión, pero SonarCloud ejecutó además su integración automática y publicó un check
-independiente con Quality Gate fallido. Una vez que se complete la nueva revisión de los
-cambios, conserve el enlace real del check y su respuesta API junto con el Quality Gate.
+omisión, pero SonarCloud ejecutó además su integración automática y publicó un análisis
+independiente con Quality Gate aprobado. Conserve el enlace real del run y la respuesta API
+junto con el Quality Gate.

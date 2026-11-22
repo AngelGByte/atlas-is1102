@@ -279,7 +279,8 @@ comandos finalizaron con código 0 contra PostgreSQL 16. `npm audit` y
 `npm audit --omit=dev` reportaron cero vulnerabilidades. Trivy 0.76.2 reportó 0 HIGH,
 0 CRITICAL, 4 LOW y 7 MEDIUM.
 
-El run más reciente de Actions en `main` es
+El run más reciente de Actions en `main` a la fecha de esta revisión histórica
+(2026-11-21) fue
 [44955653856](https://github.com/AngelGByte/atlas-is1102/actions/runs/44955653856),
 commit `32a38b07e05c90add48196ca5e8af99fe788f623`: seguridad, backup-restore, coverage,
 test, accessibility, dependency-audit, TLS y el job condicional de Sonar concluyeron
@@ -311,9 +312,21 @@ Se confirmó en SonarCloud la organización gratuita `angelgbyte` y el proyecto 
 La salida completa de API es
 [`CIERRE-10-sonar-baseline-2026-11-22.json`](./evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.json).
 
-Las correcciones locales para las acciones sin SHA, los secretos sintéticos estáticos de
-prueba y la invocación de Docker mediante `PATH` aún esperan análisis Sonar posterior a su
-publicación; el baseline anterior no se presenta como resultado posterior.
+### Verificación posterior CIERRE-11
+
+El análisis SonarCloud posterior, para el commit publicado
+`2b9c756ddb0f3e7e0f734efe7274316c2e3ac01b`, terminó con Quality Gate `OK` y 0 issues
+abiertos, incluidas 0 vulnerabilidades abiertas. Esto confirma en la revisión actual que
+las reglas previas no aparecen como hallazgos abiertos. Su respuesta API está en
+[`CIERRE-11-sonar-post-2026-11-22.json`](./evidencias/final/CIERRE-11-sonar-post-2026-11-22.json).
+
+El run más reciente de Actions de `main` sobre el commit publicado fue
+[#44980251380](https://github.com/AngelGByte/atlas-is1102/actions/runs/44980251380),
+con conclusión `success`; sus jobs test, security, coverage, dependency-audit, gitleaks,
+accessibility, TLS y backup-restore pasaron. El job `sonar` informó la omisión por falta
+de secretos y sus pasos de scanner fueron `skipped`; el Quality Gate `OK` corresponde al
+análisis automático independiente de SonarCloud. La salida completa está en
+[`CIERRE-11-actions-2026-11-22.txt`](./evidencias/final/CIERRE-11-actions-2026-11-22.txt).
 
 La regresión final ejecutada en PostgreSQL aislado fue Node 9/9 sin omitidas, Vitest 4/4,
 seguridad 19/19, c8 83.87 % líneas/sentencias, 82.27 % ramas y 88.88 % funciones; además,

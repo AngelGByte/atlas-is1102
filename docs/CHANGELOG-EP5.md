@@ -79,7 +79,19 @@ Los valores completos y los archivos de salida nuevos están en
 - Regresión local final: Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19, c8
   83.87/82.27/88.88 % y backup/restauración verificado; todos los comandos finales
   terminaron con código 0.
-- El Quality Gate posterior a estas correcciones queda pendiente de la nueva ejecución
-  automática de SonarCloud; el run manual de Actions que omite Sonar no es un Quality Gate.
+- SonarCloud analizó automáticamente el commit publicado y aprobó el Quality Gate (`OK`),
+  con cero issues abiertos. El job manual de Actions siguió omitido por falta de secretos;
+  su estado verde no se confunde con el resultado independiente de SonarCloud.
 
 La evidencia completa está en [`docs/evidencias/README.md`](./evidencias/README.md).
+
+## 2026-11-22 — CIERRE-11: verificación posterior a publicación
+
+- Se confirmó el run `44980251380` sobre `2b9c756` con todos los jobs de Actions en
+  `success`. El job manual de Sonar informó omisión por falta de secretos; el análisis
+  automático independiente de SonarCloud sí se ejecutó.
+- SonarCloud confirmó Quality Gate `OK` y cero issues abiertos en el commit publicado.
+- Gitleaks volvió a pasar sin hallazgos no suprimidos; sus exclusiones adicionales cubren
+  únicamente seis identificadores públicos del reporte SonarCloud.
+- Las respuestas de API y el resumen del run quedaron guardados en
+  [`docs/evidencias/README.md`](./evidencias/README.md).

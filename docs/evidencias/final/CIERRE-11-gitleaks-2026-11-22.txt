@@ -1,0 +1,16 @@
+Fecha de ejecución: 2026-11-22 00:25:09 -03:00
+Versión: Gitleaks 8.30.1
+
+Comando: gitleaks git --staged --redact --no-banner
+Resultado: no se encontraron fugas en los cambios preparados.
+Código de salida: 0
+
+La primera inspección marcó seis fingerprints generic-api-key en la respuesta pública de
+SonarCloud. Se verificó que correspondían a identificadores de proyecto, análisis e issues,
+no a tokens ni credenciales. Se excluyeron exclusivamente esos fingerprints exactos en
+.gitleaksignore. La ejecución final incluye esta evidencia y volvió a escanear todos los
+cambios staged.
+
+Comando: git grep -Il eyJ -- .
+Resultado: sin coincidencias en archivos versionados.
+Código de salida: 1 (sin coincidencias)

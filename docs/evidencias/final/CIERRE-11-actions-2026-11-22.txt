@@ -1,0 +1,18 @@
+Fecha de consulta: 2026-11-22 00:23:24 -03:00
+Comando: gh run list --repo AngelGByte/atlas-is1102 --branch main --limit 5; gh run view 44980251380 --repo AngelGByte/atlas-is1102 --json status,conclusion,headSha,url,jobs
+URL: https://github.com/AngelGByte/atlas-is1102/actions/runs/44980251380
+Commit: 2b9c756ddb0f3e7e0f734efe7274316c2e3ac01b
+Estado: completed / success
+Job accessibility: success
+Job coverage: success
+Job test: success
+Job gitleaks: success
+Job security: success
+Job backup-restore: success
+Job tls: success
+Job dependency-audit: success
+Job sonar: success
+Sonar step Informar omisión explícita de Sonar: success
+Sonar step Analizar con SonarCloud: skipped
+Sonar step Analizar con SonarQube Server: skipped
+Interpretación: el job sonar informó omisión por falta de secretos; los analizadores manuales quedaron skipped. El Quality Gate automático independiente se registra en CIERRE-11-sonar-post-2026-11-22.json.
