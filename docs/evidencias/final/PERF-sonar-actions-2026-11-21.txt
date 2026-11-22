@@ -36,3 +36,19 @@ Accion requerida:
   si corresponde a SonarCloud, `SONAR_ORGANIZATION` como secretos autorizados.
 - Para validar los cambios locales en GitHub Actions: publicar el commit autorizado y
   esperar la ejecucion nueva; no se hizo push en esta verificacion.
+
+Seguimiento despues de la publicacion:
+- Se envio `d8d532aed89d3f80e29d2d17a6365136eacb8ff6` a `main` mediante push normal,
+  sin force-push.
+- `gh run view 44976243091 --repo AngelGByte/atlas-is1102 --json conclusion,status,headSha,url,jobs`:
+  conclusion `success`, status `completed`, commit `d8d532aed89d3f80e29d2d17a6365136eacb8ff6`;
+  URL https://github.com/AngelGByte/atlas-is1102/actions/runs/44976243091.
+- `coverage`, `dependency-audit`, `security`, `backup-restore`, `tls`, `gitleaks`,
+  `accessibility` y `test`: `success`.
+- `sonar`: `success` solo por omision; los pasos SonarCloud y SonarQube Server fueron
+  `skipped`. El run verde no significa que exista analisis ni Quality Gate.
+- SonarCloud se verifico en el navegador ya autenticado: el filtro de proyectos
+  `atlas-is1102` no muestra coincidencias. La pagina muestra un proyecto `micro-demo`
+  distinto y un aviso de que termino el periodo Team; no se uso ni modifico ese proyecto.
+- No se creo proyecto, token ni secreto: no se obtuvo aprobacion especifica para crear
+  acceso persistente ni para enviar un token a GitHub.
