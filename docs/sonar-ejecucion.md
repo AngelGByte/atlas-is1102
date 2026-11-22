@@ -1,31 +1,41 @@
 # Ejecución de SonarQube / SonarCloud
 
-## Estado de SonarCloud y SonarQube local
+## Estado actualizado (2026-11-22)
 
-No se ejecutó SonarScanner local: el servicio local respondió `UP` (SonarQube
-26.10.0.133078), pero no había token ni credenciales administrativas y no se intentaron
-contraseñas predeterminadas. Sin embargo, la integración automática de SonarCloud sí
-analizó el [PR #1](https://github.com/AngelGByte/atlas-is1102/pull/1), commit
-`52e78543e63c2ca3074d5c0da6eb627e8fea7852`, el 2026-11-21. El check de SonarCloud está en
-<https://sonarcloud.io/dashboard?id=AngelGByte_atlas-is1102&pullRequest=1>.
-El Quality Gate terminó `ERROR`, Security Rating C (valor 3), con cinco hallazgos abiertos
-en código nuevo: tres de severidad media en `.github/workflows/ci.yml` (instalación sin
-`--ignore-scripts` y uso de `npx`) y dos de severidad baja por búsqueda de ejecutables vía
-`PATH` en `scripts/backup-restore-test.js`. El reporte API está en
+La organización gratuita `angelgbyte` y el proyecto público `AngelGByte_atlas-is1102`
+ya existen y están vinculados al repositorio GitHub. SonarCloud ejecutó análisis
+automático de `main` para el commit `a97a8c8146a775fbf0282c4acb55d80c19fbc568`
+(2026-11-22T02:32:08Z). El Quality Gate fue `ERROR`, con 7 vulnerabilidades abiertas
+(1 blocker, 3 altas, 2 medias y 1 baja). El reporte real de API y su resumen están en
+[`evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.json`](./evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.json)
+y [`evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.txt`](./evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.txt).
+Las correcciones actuales aún no se han vuelto a analizar; no se declara resuelto el
+Quality Gate hasta obtener el resultado posterior al commit.
+
+La integración automática con GitHub App ya analiza el proyecto y no requiere un
+`SONAR_TOKEN`. El job manual `sonar` del workflow se omite si faltan secretos; su estado
+`success` solo confirma que informó la omisión y no equivale a un Quality Gate. El último
+run de Actions de `main`, commit `a97a8c8`, es
+[#44976541160](https://github.com/AngelGByte/atlas-is1102/actions/runs/44976541160);
+sus pasos manuales de Sonar quedaron omitidos, mientras que SonarCloud produjo el análisis
+automático independiente.
+
+SonarQube local respondió `UP` (26.10.0.133078), pero no se ejecutó SonarScanner local:
+no había token ni credenciales administrativas disponibles y no se probaron contraseñas
+predeterminadas. No se generó token ni se añadieron secretos a GitHub; la vista de tokens
+no ofreció un formulario utilizable en esta sesión. Esto no bloquea el análisis automático
+de SonarCloud, pero sí deja omitido el job manual del workflow.
+
+### Antecedente: análisis del PR #1 (2026-11-21)
+
+El análisis histórico de
+[#1](https://github.com/AngelGByte/atlas-is1102/pull/1), commit
+`52e78543e63c2ca3074d5c0da6eb627e8fea7852`, terminó `ERROR`, Security Rating C, con cinco
+hallazgos de código nuevo. No encontró credenciales predeterminadas en `docker-compose.yml`
+ni problemas en el `Dockerfile`; sí señaló una instalación `npm ci` sin `--ignore-scripts`
+y dos búsquedas de ejecutables vía `PATH`. El reporte está en
 [`evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json`](./evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json).
-
-En esa revisión del PR no aparecieron hallazgos sobre credenciales predeterminadas en
-`docker-compose.yml` ni sobre el `Dockerfile`; sí se detectó una instalación `npm ci` del
-workflow que no restringía scripts. Se actualizó el workflow para usar `npm ci
---ignore-scripts` y el binario local de Playwright. Los dos hallazgos de `PATH` corresponden
-a nombres de utilidades fijos en un script local de backup, sin control del ejecutable por
-entrada del usuario; se dejó la justificación junto a las llamadas. La reejecución de
-SonarCloud sobre el commit con estas correcciones queda pendiente y no se declara resuelta
-hasta consultar el nuevo resultado.
-
-El workflow de CI incluye un job propio que informa `Sonar: OMITIDO` cuando faltan secretos.
-Ese job verde solo significa que se informó la omisión; no sustituye el check independiente
-de SonarCloud ni su Quality Gate.
+No debe confundirse con el análisis actual de `main`.
 
 ## Configuración requerida
 
@@ -48,7 +58,7 @@ permisos del token. No use credenciales de evaluación ni datos reales.
 1. En SonarQube Server, solicite al responsable del servicio una cuenta autorizada y
    confirme la URL. En SonarCloud, cree o seleccione la organización correspondiente.
    No pruebe credenciales predeterminadas.
-2. Cree el proyecto con la clave `atlas-is1102` (o ajuste `sonar.projectKey` en
+2. Seleccione el proyecto existente con la clave `AngelGByte_atlas-is1102` (o ajuste `sonar.projectKey` en
    `sonar-project.properties` y `SONAR_PROJECT_KEY` en conjunto). El proyecto debe
    permitir analizar la rama y revisión que se va a cerrar.
 3. Desde el perfil autorizado, genere un token de análisis de proyecto. Guárdelo

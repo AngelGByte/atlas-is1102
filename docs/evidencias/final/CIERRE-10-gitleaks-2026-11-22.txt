@@ -1,0 +1,15 @@
+Fecha: 2026-11-22 00:20:31 -03:00
+Versión: Gitleaks 8.30.1
+
+Comando: gitleaks git --staged --redact --no-banner
+Resultado: 0 hallazgos no suprimidos.
+Código de salida: 0
+
+Comando: git grep -Il eyJ -- .
+Resultado: sin coincidencias en archivos versionados.
+Código de salida: 1 (sin coincidencias)
+
+La primera inspección marcó cuatro valores como generic-api-key: la clave pública del
+proyecto SonarCloud y tres identificadores de issues del reporte público de SonarCloud.
+Se verificaron por campo y se agregaron fingerprints exactos a .gitleaksignore. No son
+tokens ni credenciales. La ejecución final volvió a escanear todos los cambios staged.

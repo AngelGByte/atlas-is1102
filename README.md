@@ -140,7 +140,8 @@ las herramientas PostgreSQL locales (`pg_dump`, `pg_restore`, `psql`, `createdb`
 `dropdb`) según disponibilidad. Compara conteos por tabla y un hash de `users` sin
 imprimirlo; elimina la base y el archivo temporales. Configura `PGHOST`, `PGPORT`,
 `PGUSER` y `PGPASSWORD` al usar herramientas locales. Detén las escrituras y no ejecutes
-la prueba contra datos reales o una base compartida.
+la prueba contra datos reales o una base compartida. En instalaciones de Docker no
+estándar, define `DOCKER_PATH` con la ruta absoluta de la CLI.
 
 Para un respaldo manual de la base de prueba en PowerShell:
 

@@ -1,0 +1,14 @@
+﻿Fecha consulta: 2026-11-22T00:12:39.1192774-03:00
+Comando lógico: Invoke-WebRequest GET a api/qualitygates/project_status, api/measures/component y api/issues/search; ver endpoints exactos en el JSON.
+Proyecto: AngelGByte_atlas-is1102; organización: angelgbyte; rama main; referencia de código: a97a8c8146a775fbf0282c4acb55d80c19fbc568.
+HTTP: 200 en 3 endpoints.
+Quality Gate: ERROR. Hallazgos vulnerabilidad abiertos: 7.
+Issues:
+MINOR javascript:S4036 AngelGByte_atlas-is1102:scripts/backup-restore-test.js:34 — Make sure the "PATH" variable only contains fixed, unwriteable directories.
+MAJOR githubactions:S7637 AngelGByte_atlas-is1102:.github/workflows/ci.yml:134 — Use full commit SHA hash for this dependency.
+MAJOR githubactions:S7637 AngelGByte_atlas-is1102:.github/workflows/ci.yml:249 — Use full commit SHA hash for this dependency.
+MAJOR githubactions:S7637 AngelGByte_atlas-is1102:.github/workflows/ci.yml:257 — Use full commit SHA hash for this dependency.
+BLOCKER javascript:S6437 AngelGByte_atlas-is1102:test/security/run.js:93 — Revoke and change this password, as it is compromised.
+MAJOR javascript:S2068 AngelGByte_atlas-is1102:test/security/run.js:204 — Review this potentially hard-coded password.
+MAJOR javascript:S2068 AngelGByte_atlas-is1102:test/security/run.js:210 — Review this potentially hard-coded password.
+Código de salida: 0

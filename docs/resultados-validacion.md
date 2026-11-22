@@ -292,11 +292,32 @@ ni Sonar hayan quedado aprobados en Actions.
 Playwright generó capturas móviles de dashboard, clientes y contratos con datos de
 demostración/sintéticos. Un contrato temporal sintético de presentación se eliminó antes
 del cierre. La carpeta `docs/evidencias/testcase-studio/` no existe; no hay captura TCS.
-Tampoco se produjo una captura/Quality Gate actual de Sonar. La presentación original se
-conserva; la copia completada está en
+En esa revisión del 2026-11-21 tampoco se produjo una captura/Quality Gate actual de Sonar;
+la actualización CIERRE-10 a continuación registra el análisis automático que se obtuvo
+después. La presentación original se conserva; la copia completada está en
 `C:\Users\rpg72\Downloads\Presentacion_Final_EP5_Atlas_completada.pptx`. Se reemplazaron
 12 placeholders y se actualizaron las cifras de carga; quedan vacíos Sonar y TestCase
 Studio por falta de evidencia. La apertura/exportación a PDF no se ejecutó porque no hay
 un renderizador local disponible; la comprobación realizada es estructural, no visual.
 El índice de comandos, fechas, resultados y salidas está en
 [`evidencias/README.md`](./evidencias/README.md).
+
+## Actualización CIERRE-10 — 2026-11-22
+
+Se confirmó en SonarCloud la organización gratuita `angelgbyte` y el proyecto público
+`AngelGByte_atlas-is1102`. El análisis automático de `main` para el commit
+`a97a8c8146a775fbf0282c4acb55d80c19fbc568` finalizó con Quality Gate `ERROR` y
+7 vulnerabilidades abiertas: 1 blocker, 3 de impacto alto, 2 de impacto medio y 1 bajo.
+La salida completa de API es
+[`CIERRE-10-sonar-baseline-2026-11-22.json`](./evidencias/final/CIERRE-10-sonar-baseline-2026-11-22.json).
+
+Las correcciones locales para las acciones sin SHA, los secretos sintéticos estáticos de
+prueba y la invocación de Docker mediante `PATH` aún esperan análisis Sonar posterior a su
+publicación; el baseline anterior no se presenta como resultado posterior.
+
+La regresión final ejecutada en PostgreSQL aislado fue Node 9/9 sin omitidas, Vitest 4/4,
+seguridad 19/19, c8 83.87 % líneas/sentencias, 82.27 % ramas y 88.88 % funciones; además,
+backup/restauración verificó conteos y hash coincidentes. Todos los comandos finales
+terminaron con código 0. La evidencia también conserva los primeros intentos fallidos y
+explica por qué no son el resultado final:
+[`CIERRE-10-regresion-2026-11-22.txt`](./evidencias/final/CIERRE-10-regresion-2026-11-22.txt).

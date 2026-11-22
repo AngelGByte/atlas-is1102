@@ -2,10 +2,17 @@ const { spawnSync } = require('node:child_process');
 const { createHash, randomUUID } = require('node:crypto');
 const { closeSync, openSync, unlinkSync } = require('node:fs');
 const { tmpdir } = require('node:os');
-const { join } = require('node:path');
+const { isAbsolute, join } = require('node:path');
 
 const dbUser = process.env.PGUSER || process.env.POSTGRES_USER || 'atlas';
 const dbName = process.env.PGDATABASE || process.env.POSTGRES_DB || 'atlas';
+const dockerCommand = process.env.DOCKER_PATH
+  || (process.platform === 'win32'
+    ? 'C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe'
+    : '/usr/bin/docker');
+if (!isAbsolute(dockerCommand)) {
+  throw new Error('DOCKER_PATH debe indicar una ruta absoluta.');
+}
 const backupPath = join(tmpdir(), `atlas-backup-${randomUUID()}.dump`);
 let mode = 'local';
 let restoreDatabase;
@@ -31,7 +38,7 @@ function run(command, args, options = {}) {
 }
 
 function dockerComposeDatabase() {
-  const result = spawnSync('docker', ['compose', 'ps', '--status', 'running', '-q', 'db'], {
+  const result = spawnSync(dockerCommand, ['compose', 'ps', '--status', 'running', '-q', 'db'], {
     encoding: 'utf8',
     maxBuffer: 1024 * 1024
   });
@@ -55,10 +62,10 @@ function requireLocalTools() {
 
 function dbTool(command, args, options) {
   if (mode === 'container') {
-    return run('docker', ['exec', '-i', process.env.PG_CONTAINER, command, ...args], options);
+    return run(dockerCommand, ['exec', '-i', process.env.PG_CONTAINER, command, ...args], options);
   }
   if (mode === 'compose') {
-    return run('docker', ['compose', 'exec', '-T', 'db', command, ...args], options);
+    return run(dockerCommand, ['compose', 'exec', '-T', 'db', command, ...args], options);
   }
   return run(command, args, options);
 }
@@ -149,7 +156,7 @@ function cleanup() {
 
 function main() {
   if (process.env.PG_CONTAINER) {
-    const dockerCheck = spawnSync('docker', ['version', '--format', '{{.Server.Version}}'], { // NOSONAR: Docker is a fixed tool name in this local test; no user input selects the executable.
+    const dockerCheck = spawnSync(dockerCommand, ['version', '--format', '{{.Server.Version}}'], {
       encoding: 'utf8',
       maxBuffer: 1024 * 1024
     });

@@ -1,4 +1,5 @@
 const assert = require('node:assert/strict');
+const { randomBytes } = require('node:crypto');
 const { spawn } = require('node:child_process');
 const jwt = require('jsonwebtoken');
 const { once } = require('node:events');
@@ -23,6 +24,8 @@ if (missingEnvironment.length) {
 
 async function runSecurityChecks() {
   const port = Number(process.env.ATLAS_SECURITY_PORT || 3338);
+  const invalidSignatureSecret = randomBytes(32).toString('hex');
+  const invalidLoginPassword = randomBytes(24).toString('base64url');
   const baseUrl = `http://127.0.0.1:${port}`;
   const server = spawn(process.execPath, ['src/server.js'], {
     cwd: process.cwd(),
@@ -90,7 +93,7 @@ async function runSecurityChecks() {
       assert.equal(result.status, 401);
     });
     await check('S-08', 'un JWT con firma falsa responde 401', async () => {
-      const forged = jwt.sign({ id: 1 }, 'firma-sintetica-incorrecta', {
+      const forged = jwt.sign({ id: 1 }, invalidSignatureSecret, {
         issuer: 'atlas',
         audience: 'atlas-web'
       });
@@ -119,12 +122,12 @@ async function runSecurityChecks() {
       assert.equal(result.status, 401);
     });
     await check('S-11', 'la inyección SQL en login no autentica', async () => {
-      const result = await login({ email: "' OR 1=1 --", password: 'no-valida' });
+      const result = await login({ email: "' OR 1=1 --", password: invalidLoginPassword });
       assert.equal(result.status, 401);
       assert.equal((await result.json()).token, undefined);
     });
     await check('S-12', 'un objeto en el correo de login responde 400', async () => {
-      const result = await login({ email: { operador: 'ne' }, password: 'no-valida' });
+      const result = await login({ email: { operador: 'ne' }, password: invalidLoginPassword });
       assert.equal(result.status, 400);
     });
     await check('S-13', 'el JSON malformado responde 400 sin detalles del parser', async () => {
@@ -201,13 +204,13 @@ async function runSecurityChecks() {
       for (let attempt = 0; attempt < 7; attempt += 1) {
         const result = await login({
           email: process.env.ADMIN_EMAIL,
-          password: 'contraseña-sintética-inválida'
+          password: invalidLoginPassword
         });
         assert.equal(result.status, 401, `intento adicional ${attempt + 1}`);
       }
       const limited = await login({
         email: process.env.ADMIN_EMAIL,
-        password: 'contraseña-sintética-inválida'
+        password: invalidLoginPassword
       });
       assert.equal(limited.status, 429);
     });

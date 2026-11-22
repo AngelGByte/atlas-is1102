@@ -1,0 +1,496 @@
+﻿{
+    "retrievedAt":  "2026-11-22T00:12:39.1192774-03:00",
+    "projectKey":  "AngelGByte_atlas-is1102",
+    "organization":  "angelgbyte",
+    "endpoints":  {
+                      "qualityGate":  {
+                                          "statusCode":  200,
+                                          "body":  {
+                                                       "projectStatus":  {
+                                                                             "status":  "ERROR",
+                                                                             "conditions":  [
+                                                                                                {
+                                                                                                    "status":  "OK",
+                                                                                                    "metricKey":  "new_reliability_rating",
+                                                                                                    "comparator":  "GT",
+                                                                                                    "periodIndex":  1,
+                                                                                                    "errorThreshold":  "1",
+                                                                                                    "actualValue":  "1"
+                                                                                                },
+                                                                                                {
+                                                                                                    "status":  "ERROR",
+                                                                                                    "metricKey":  "new_security_rating",
+                                                                                                    "comparator":  "GT",
+                                                                                                    "periodIndex":  1,
+                                                                                                    "errorThreshold":  "1",
+                                                                                                    "actualValue":  "5"
+                                                                                                },
+                                                                                                {
+                                                                                                    "status":  "OK",
+                                                                                                    "metricKey":  "new_maintainability_rating",
+                                                                                                    "comparator":  "GT",
+                                                                                                    "periodIndex":  1,
+                                                                                                    "errorThreshold":  "1",
+                                                                                                    "actualValue":  "1"
+                                                                                                },
+                                                                                                {
+                                                                                                    "status":  "OK",
+                                                                                                    "metricKey":  "new_duplicated_lines_density",
+                                                                                                    "comparator":  "GT",
+                                                                                                    "periodIndex":  1,
+                                                                                                    "errorThreshold":  "3",
+                                                                                                    "actualValue":  "0.0"
+                                                                                                },
+                                                                                                {
+                                                                                                    "status":  "OK",
+                                                                                                    "metricKey":  "new_security_hotspots_reviewed",
+                                                                                                    "comparator":  "LT",
+                                                                                                    "periodIndex":  1,
+                                                                                                    "errorThreshold":  "100",
+                                                                                                    "actualValue":  "100.0"
+                                                                                                }
+                                                                                            ],
+                                                                             "periods":  [
+                                                                                             {
+                                                                                                 "index":  1,
+                                                                                                 "mode":  "previous_version",
+                                                                                                 "date":  "2026-10-29T01:07:56+0000"
+                                                                                             }
+                                                                                         ],
+                                                                             "ignoredConditions":  false
+                                                                         }
+                                                   }
+                                      },
+                      "measures":  {
+                                       "statusCode":  200,
+                                       "body":  {
+                                                    "component":  {
+                                                                      "id":  "AaGFMuuixoXNQM-X4WsK",
+                                                                      "key":  "AngelGByte_atlas-is1102",
+                                                                      "name":  "atlas-is1102",
+                                                                      "qualifier":  "TRK",
+                                                                      "measures":  [
+                                                                                       {
+                                                                                           "metric":  "alert_status",
+                                                                                           "value":  "ERROR"
+                                                                                       },
+                                                                                       {
+                                                                                           "metric":  "duplicated_lines_density",
+                                                                                           "value":  "0.0",
+                                                                                           "bestValue":  true
+                                                                                       },
+                                                                                       {
+                                                                                           "metric":  "security_issues",
+                                                                                           "value":  "{\"total\":7,\"HIGH\":3,\"MEDIUM\":2,\"LOW\":1,\"INFO\":0,\"BLOCKER\":1}"
+                                                                                       },
+                                                                                       {
+                                                                                           "metric":  "security_rating",
+                                                                                           "value":  "5.0",
+                                                                                           "bestValue":  false
+                                                                                       },
+                                                                                       {
+                                                                                           "metric":  "ncloc",
+                                                                                           "value":  "3842"
+                                                                                       },
+                                                                                       {
+                                                                                           "metric":  "vulnerabilities",
+                                                                                           "value":  "7",
+                                                                                           "bestValue":  false
+                                                                                       }
+                                                                                   ]
+                                                                  }
+                                                }
+                                   },
+                      "openVulnerabilities":  {
+                                                  "statusCode":  200,
+                                                  "body":  {
+                                                               "total":  7,
+                                                               "p":  1,
+                                                               "ps":  100,
+                                                               "paging":  {
+                                                                              "pageIndex":  1,
+                                                                              "pageSize":  100,
+                                                                              "total":  7
+                                                                          },
+                                                               "effortTotal":  225,
+                                                               "debtTotal":  225,
+                                                               "issues":  [
+                                                                              {
+                                                                                  "key":  "AaIALOFAMOjdVvYTNhSD",
+                                                                                  "rule":  "javascript:S4036",
+                                                                                  "severity":  "MINOR",
+                                                                                  "component":  "AngelGByte_atlas-is1102:scripts/backup-restore-test.js",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  34,
+                                                                                  "hash":  "4bf65365c1233cff58d0004dc66cc108",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  34,
+                                                                                                    "endLine":  34,
+                                                                                                    "startOffset":  27,
+                                                                                                    "endOffset":  35
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Make sure the \"PATH\" variable only contains fixed, unwriteable directories.",
+                                                                                  "effort":  "15min",
+                                                                                  "debt":  "15min",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "former-hotspot"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T21:24:43+0000",
+                                                                                  "updateDate":  "2026-11-21T21:59:22+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "COMPLETE",
+                                                                                  "cleanCodeAttributeCategory":  "INTENTIONAL",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "LOW"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "c5e92ccf-b3c0-4db9-bca3-dbf4595493bf",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              },
+                                                                              {
+                                                                                  "key":  "AaH_GdH_KGlDiycmeqCg",
+                                                                                  "rule":  "githubactions:S7637",
+                                                                                  "severity":  "MAJOR",
+                                                                                  "component":  "AngelGByte_atlas-is1102:.github/workflows/ci.yml",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  134,
+                                                                                  "hash":  "2187c89ffa49265dde5a590b82f80d93",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  134,
+                                                                                                    "endLine":  134,
+                                                                                                    "startOffset":  14,
+                                                                                                    "endOffset":  41
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Use full commit SHA hash for this dependency.",
+                                                                                  "effort":  "30min",
+                                                                                  "debt":  "30min",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "former-hotspot"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T16:34:41+0000",
+                                                                                  "updateDate":  "2026-11-21T17:13:46+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "TRUSTWORTHY",
+                                                                                  "cleanCodeAttributeCategory":  "RESPONSIBLE",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "HIGH"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "85fb0c98-6c8e-43b2-9121-c7eb263f51f7",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              },
+                                                                              {
+                                                                                  "key":  "AaH_GdH_KGlDiycmeqCh",
+                                                                                  "rule":  "githubactions:S7637",
+                                                                                  "severity":  "MAJOR",
+                                                                                  "component":  "AngelGByte_atlas-is1102:.github/workflows/ci.yml",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  249,
+                                                                                  "hash":  "7ac170b6aaa60722c50d1bd07a27e758",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  249,
+                                                                                                    "endLine":  249,
+                                                                                                    "startOffset":  14,
+                                                                                                    "endOffset":  50
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Use full commit SHA hash for this dependency.",
+                                                                                  "effort":  "30min",
+                                                                                  "debt":  "30min",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "former-hotspot"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T16:34:41+0000",
+                                                                                  "updateDate":  "2026-11-21T17:13:46+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "TRUSTWORTHY",
+                                                                                  "cleanCodeAttributeCategory":  "RESPONSIBLE",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "HIGH"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "c5e92ccf-b3c0-4db9-bca3-dbf4595493bf",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              },
+                                                                              {
+                                                                                  "key":  "AaH_GdH_KGlDiycmeqCi",
+                                                                                  "rule":  "githubactions:S7637",
+                                                                                  "severity":  "MAJOR",
+                                                                                  "component":  "AngelGByte_atlas-is1102:.github/workflows/ci.yml",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  257,
+                                                                                  "hash":  "7ac170b6aaa60722c50d1bd07a27e758",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  257,
+                                                                                                    "endLine":  257,
+                                                                                                    "startOffset":  14,
+                                                                                                    "endOffset":  50
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Use full commit SHA hash for this dependency.",
+                                                                                  "effort":  "30min",
+                                                                                  "debt":  "30min",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "former-hotspot"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T16:34:41+0000",
+                                                                                  "updateDate":  "2026-11-21T17:13:46+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "TRUSTWORTHY",
+                                                                                  "cleanCodeAttributeCategory":  "RESPONSIBLE",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "HIGH"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "c5e92ccf-b3c0-4db9-bca3-dbf4595493bf",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              },
+                                                                              {
+                                                                                  "key":  "AaH_GdGUKGlDiycmeqCa",
+                                                                                  "rule":  "javascript:S6437",
+                                                                                  "severity":  "BLOCKER",
+                                                                                  "component":  "AngelGByte_atlas-is1102:test/security/run.js",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  93,
+                                                                                  "hash":  "ba6f7800de0cc1de2fecdb55da024c3f",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  93,
+                                                                                                    "endLine":  93,
+                                                                                                    "startOffset":  21,
+                                                                                                    "endOffset":  29
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Revoke and change this password, as it is compromised.",
+                                                                                  "effort":  "1h",
+                                                                                  "debt":  "1h",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "secret"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T16:31:50+0000",
+                                                                                  "updateDate":  "2026-11-21T17:13:46+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "TRUSTWORTHY",
+                                                                                  "cleanCodeAttributeCategory":  "RESPONSIBLE",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "BLOCKER"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "85fb0c98-6c8e-43b2-9121-c7eb263f51f7",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              },
+                                                                              {
+                                                                                  "key":  "AaH_GdGUKGlDiycmeqCb",
+                                                                                  "rule":  "javascript:S2068",
+                                                                                  "severity":  "MAJOR",
+                                                                                  "component":  "AngelGByte_atlas-is1102:test/security/run.js",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  204,
+                                                                                  "hash":  "79382e72fa10177f44e14c0fb34f5352",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  204,
+                                                                                                    "endLine":  204,
+                                                                                                    "startOffset":  20,
+                                                                                                    "endOffset":  51
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Review this potentially hard-coded password.",
+                                                                                  "effort":  "30min",
+                                                                                  "debt":  "30min",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "former-hotspot",
+                                                                                               "secret"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T16:31:50+0000",
+                                                                                  "updateDate":  "2026-11-21T17:13:46+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "TRUSTWORTHY",
+                                                                                  "cleanCodeAttributeCategory":  "RESPONSIBLE",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "MEDIUM"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "85fb0c98-6c8e-43b2-9121-c7eb263f51f7",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              },
+                                                                              {
+                                                                                  "key":  "AaH_GdGUKGlDiycmeqCc",
+                                                                                  "rule":  "javascript:S2068",
+                                                                                  "severity":  "MAJOR",
+                                                                                  "component":  "AngelGByte_atlas-is1102:test/security/run.js",
+                                                                                  "project":  "AngelGByte_atlas-is1102",
+                                                                                  "line":  210,
+                                                                                  "hash":  "79382e72fa10177f44e14c0fb34f5352",
+                                                                                  "textRange":  {
+                                                                                                    "startLine":  210,
+                                                                                                    "endLine":  210,
+                                                                                                    "startOffset":  18,
+                                                                                                    "endOffset":  49
+                                                                                                },
+                                                                                  "flows":  [
+
+                                                                                            ],
+                                                                                  "status":  "OPEN",
+                                                                                  "message":  "Review this potentially hard-coded password.",
+                                                                                  "effort":  "30min",
+                                                                                  "debt":  "30min",
+                                                                                  "tags":  [
+                                                                                               "cwe",
+                                                                                               "former-hotspot",
+                                                                                               "secret"
+                                                                                           ],
+                                                                                  "creationDate":  "2026-11-21T16:31:50+0000",
+                                                                                  "updateDate":  "2026-11-21T17:13:46+0000",
+                                                                                  "type":  "VULNERABILITY",
+                                                                                  "organization":  "angelgbyte",
+                                                                                  "cleanCodeAttribute":  "TRUSTWORTHY",
+                                                                                  "cleanCodeAttributeCategory":  "RESPONSIBLE",
+                                                                                  "impacts":  [
+                                                                                                  {
+                                                                                                      "softwareQuality":  "SECURITY",
+                                                                                                      "severity":  "MEDIUM"
+                                                                                                  }
+                                                                                              ],
+                                                                                  "issueStatus":  "OPEN",
+                                                                                  "projectName":  "atlas-is1102",
+                                                                                  "internalTags":  [
+
+                                                                                                   ],
+                                                                                  "lastChangeAnalysisUuid":  "85fb0c98-6c8e-43b2-9121-c7eb263f51f7",
+                                                                                  "lastChangeSource":  "ANALYSIS",
+                                                                                  "producer":  "SCANNER"
+                                                                              }
+                                                                          ],
+                                                               "components":  [
+                                                                                  {
+                                                                                      "organization":  "angelgbyte",
+                                                                                      "key":  "AngelGByte_atlas-is1102:test/security/run.js",
+                                                                                      "uuid":  "AaH_Gc8pKGlDiycmeqCW",
+                                                                                      "enabled":  true,
+                                                                                      "qualifier":  "FIL",
+                                                                                      "name":  "run.js",
+                                                                                      "longName":  "test/security/run.js",
+                                                                                      "path":  "test/security/run.js"
+                                                                                  },
+                                                                                  {
+                                                                                      "organization":  "angelgbyte",
+                                                                                      "key":  "AngelGByte_atlas-is1102:scripts/backup-restore-test.js",
+                                                                                      "uuid":  "AaIALN4FMOjdVvYTNhSC",
+                                                                                      "enabled":  true,
+                                                                                      "qualifier":  "FIL",
+                                                                                      "name":  "backup-restore-test.js",
+                                                                                      "longName":  "scripts/backup-restore-test.js",
+                                                                                      "path":  "scripts/backup-restore-test.js"
+                                                                                  },
+                                                                                  {
+                                                                                      "organization":  "angelgbyte",
+                                                                                      "key":  "AngelGByte_atlas-is1102:.github/workflows/ci.yml",
+                                                                                      "uuid":  "AaH0zvLnSUkFRsCwbHyt",
+                                                                                      "enabled":  true,
+                                                                                      "qualifier":  "FIL",
+                                                                                      "name":  "ci.yml",
+                                                                                      "longName":  ".github/workflows/ci.yml",
+                                                                                      "path":  ".github/workflows/ci.yml"
+                                                                                  },
+                                                                                  {
+                                                                                      "organization":  "angelgbyte",
+                                                                                      "key":  "AngelGByte_atlas-is1102",
+                                                                                      "uuid":  "AaGFMuuixoXNQM-X4WsK",
+                                                                                      "enabled":  true,
+                                                                                      "qualifier":  "TRK",
+                                                                                      "name":  "atlas-is1102",
+                                                                                      "longName":  "atlas-is1102"
+                                                                                  }
+                                                                              ],
+                                                               "organizations":  [
+                                                                                     {
+                                                                                         "key":  "angelgbyte",
+                                                                                         "name":  "AngelGByte"
+                                                                                     }
+                                                                                 ],
+                                                               "facets":  [
+
+                                                                          ]
+                                                           }
+                                              }
+                  }
+}

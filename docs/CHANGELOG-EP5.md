@@ -61,3 +61,25 @@ La evidencia fechada y los comandos completos de CIERRE-05 se listan en
 Los valores completos y los archivos de salida nuevos están en
 [`docs/resultados-validacion.md`](./resultados-validacion.md) y
 [`docs/evidencias/README.md`](./evidencias/README.md).
+
+## 2026-11-22 — CIERRE-10: SonarCloud y hardening del CI
+
+- Se verificó que SonarCloud ya tiene la organización gratuita `angelgbyte` y el proyecto
+  público `AngelGByte_atlas-is1102`, vinculado al repositorio. La integración automática
+  analizó `main` en `a97a8c8`; el Quality Gate fue `ERROR` con 7 vulnerabilidades abiertas.
+- Se fijaron todas las GitHub Actions a los SHA completos consultados en sus tags oficiales.
+- Gitleaks no encontró secretos en los cambios staged; se suprimieron únicamente cuatro
+  fingerprints exactos de identificadores públicos SonarCloud confirmados como falsos
+  positivos.
+- Las pruebas de seguridad ahora generan sus credenciales inválidas de forma aleatoria en
+  tiempo de ejecución, sin literales que parezcan secretos.
+- El test de respaldo invoca Docker por ruta absoluta configurable mediante `DOCKER_PATH`;
+  rechaza rutas relativas y la ruta se documentó en README. La configuración Sonar ahora
+  usa la clave de proyecto y organización correctas.
+- Regresión local final: Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19, c8
+  83.87/82.27/88.88 % y backup/restauración verificado; todos los comandos finales
+  terminaron con código 0.
+- El Quality Gate posterior a estas correcciones queda pendiente de la nueva ejecución
+  automática de SonarCloud; el run manual de Actions que omite Sonar no es un Quality Gate.
+
+La evidencia completa está en [`docs/evidencias/README.md`](./evidencias/README.md).
