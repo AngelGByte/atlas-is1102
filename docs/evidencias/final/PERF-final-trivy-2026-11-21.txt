@@ -1,0 +1,21 @@
+Fecha: 2026-11-21T22:52:27.2216946-03:00
+Imagen: atlas-is1102-perf-final:2026-11-21
+Comando: docker save -o docs\evidencias\final\PERF-final-image-2026-11-21.tar atlas-is1102-perf-final:2026-11-21
+docker save exit code: 0
+Command: docker run --rm -v <repo>:/work -v atlas-trivy-cache:/root/.cache/trivy aquasec/trivy:latest image --scanners vuln --severity HIGH,CRITICAL --exit-code 1 --format json --output /work/docs/evidencias/final/PERF-final-trivy-highcritical-2026-11-21.json --input /work/docs/evidencias/final/PERF-final-image-2026-11-21.tar
+2026-11-22T01:52:33Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-22T01:52:51Z	INFO	Detected OS	family="alpine" version="3.24.4"
+2026-11-22T01:52:51Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=19
+2026-11-22T01:52:52Z	INFO	Number of language-specific files	num=1
+2026-11-22T01:52:52Z	INFO	[node-pkg] Detecting vulnerabilities...
+2026-11-22T01:52:52Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+Trivy HIGH,CRITICAL exit code: 0
+Command: docker run --rm -v <repo>:/work -v atlas-trivy-cache:/root/.cache/trivy aquasec/trivy:latest image --scanners vuln --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --exit-code 0 --format table --output /work/docs/evidencias/final/PERF-final-trivy-all-2026-11-21.txt --input /work/docs/evidencias/final/PERF-final-image-2026-11-21.tar
+2026-11-22T01:52:52Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-22T01:52:58Z	INFO	Detected OS	family="alpine" version="3.24.4"
+2026-11-22T01:52:58Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=19
+2026-11-22T01:52:58Z	INFO	Number of language-specific files	num=1
+2026-11-22T01:52:58Z	INFO	[node-pkg] Detecting vulnerabilities...
+2026-11-22T01:52:58Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+Trivy full report exit code: 0
+Temporary image tar removed after scanning (66238976 bytes).

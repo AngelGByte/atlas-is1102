@@ -1,0 +1,97 @@
+Start: 2026-11-21T22:54:15.4813089-03:00
+Command: node - (Playwright script inline via PowerShell; credentials remain only in process environment).
+Target: optimized app at http://127.0.0.1:3334; only synthetic client data. Output directory: docs\evidencias\final\ui-presentation-2026-11-21.
+
+FALL? captura UI: locator.fill: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByLabel('Correo electr?nico')[22m
+System.Management.Automation.RemoteException
+Exit code: 1
+End: 2026-11-21T22:54:47.4093609-03:00
+
+Retry: selectors use ASCII IDs to avoid PowerShell/native UTF-8 argument conversion; first attempt timed out before login.
+Start: 2026-11-21T22:54:59.9994937-03:00
+PASS: dashboard, clients and synthetic contracts screenshots captured.
+FAIL: UI screenshot capture: locator.click: Error: strict mode violation: getByRole('button', { name: 'Eliminar' }) resolved to 3 elements:
+    1) <button type="button" class="small-action">Eliminar</button> aka getByRole('button', { name: 'Eliminar' }).first()
+    2) <button type="button" class="small-action">Eliminar</button> aka getByRole('button', { name: 'Eliminar' }).nth(1)
+    3) <button type="button" class="small-action">Eliminar</button> aka getByRole('button', { name: 'Eliminar' }).nth(2)
+System.Management.Automation.RemoteException
+Call log:
+[2m  - waiting for getByRole('button', { name: 'Eliminar' })[22m
+System.Management.Automation.RemoteException
+
+Mobile capture command: node - (Playwright script inline; no credentials persisted).
+Start: 2026-11-21T23:03:37.7932500-03:00
+PASS: dashboard, clients, and contracts captured at 390x844 using synthetic/demo test records.
+Exit code: 0
+End: 2026-11-21T23:03:41.2349641-03:00
+
+Mobile retry: menu was left open in the first portrait captures; benchmark app restarted (health HTTP 200, no database changes) and the script now closes the menu before screenshots.
+Start: 2026-11-21T23:04:24.6337936-03:00
+FAIL: mobile screenshot capture: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#menu-button')[22m
+[2m    - locator resolved to <button id="menu-button" aria-label="Abrir menú" class="icon-button mobile-menu">☰</button>[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is visible, enabled and stable[22m
+[2m    - scrolling into view if needed[22m
+[2m    - done scrolling[22m
+[2m    - <span class="brand-dot">.</span> from <aside id="sidebar" class="sidebar open">…</aside> subtree intercepts pointer events[22m
+[2m  - retrying click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is visible, enabled and stable[22m
+[2m    - scrolling into view if needed[22m
+[2m    - done scrolling[22m
+[2m    - <a href="#" class="brand">…</a> from <aside id="sidebar" class="sidebar open">…</aside> subtree intercepts pointer events[22m
+[2m  - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <span aria-hidden="true" class="brand-mark small">A</span> from <aside id="sidebar" class="sidebar open">…</aside> subtree intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is visible, enabled and stable[22m
+[2m       - scrolling into view if needed[22m
+[2m       - done scrolling[22m
+[2m       - <span aria-hidden="true" class="brand-mark small">A</span> from <aside id="sidebar" class="sidebar open">…</aside> subtree intercepts pointer events[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+System.Management.Automation.RemoteException
+Exit code: 1
+End: 2026-11-21T23:04:57.2352619-03:00
+
+Mobile retry 2: drawer overlay intercepts ordinary hamburger click after opening; force-click only the visible app control to close it. No data changes.
+Start: 2026-11-21T23:05:08.7173208-03:00
+PASS: dashboard, clients, and contracts captured at 390x844; drawer closed before each capture.
+Exit code: 0
+End: 2026-11-21T23:05:11.5454090-03:00
+
+Mobile retry 3: screenshots captured after drawer CSS transition completes to avoid a partial overlay.
+Start: 2026-11-21T23:05:32.7797880-03:00
+PASS: 390x844 dashboard, clients and contracts captured after the drawer closed.
+Exit code: 0
+End: 2026-11-21T23:05:36.6278977-03:00
+
+Reproducible script command: node scripts/capture-presentation-ui.js
+Start: 2026-11-21T23:11:05.7039186-03:00
+PASS: dashboard, clients, and contracts captured at 390x844.
+Exit code: 0
+End: 2026-11-21T23:11:10.8567628-03:00
+
+Temporary-data cleanup: after the initial desktop contract capture, the browser delete
+selector was ambiguous among three rows and the wrapper ended with an error. The temporary
+record was removed with this exact SQL in the isolated app container:
+WITH removed AS (
+  DELETE FROM contracts
+  WHERE title = 'Contrato sintetico para presentacion' AND number LIKE 'PPTX-%'
+  RETURNING 1
+)
+SELECT COUNT(*)::int AS removed FROM removed;
+Result: 1 removed; a subsequent query found 0 matching temporary contracts. The validated
+390x844 screenshots do not include that temporary record. See
+`PERF-seed-cleanup-2026-11-21.txt` for synthetic load-data cleanup.

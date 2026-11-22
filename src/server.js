@@ -50,6 +50,18 @@ const safeClient = (row) => ({
   createdAt: row.created_at,
   updatedAt: row.updated_at
 });
+const safeClientListItem = (row) => ({
+  id: row.id,
+  name: decryptValue(row.name_enc),
+  company: decryptValue(row.company_enc),
+  rut: decryptValue(row.rut_enc),
+  email: decryptValue(row.email_enc),
+  phone: decryptValue(row.phone_enc),
+  riskLevel: row.risk_level,
+  status: row.status,
+  bankAccountLast4: row.bank_account_enc ? decryptValue(row.bank_account_enc).slice(-4) : '',
+  blocked: row.blocked
+});
 const safeOpposition = (row) => ({
   id: row.id,
   clientId: row.client_id,
@@ -363,16 +375,17 @@ app.get('/api/clients', asyncRoute(async (req, res) => {
     return res.status(403).json({ message: 'Solo el administrador puede incluir clientes bloqueados.' });
   }
   const clientFilter = includeBlocked ? '' : ' WHERE blocked=FALSE';
-  const totalResult = await pool.query(
-    `SELECT COUNT(*)::int AS total FROM clients${clientFilter}`
-  );
-  const total = totalResult.rows[0].total;
   const result = await pool.query(
-    `SELECT * FROM clients${clientFilter}
+    `SELECT id, name_enc, company_enc, rut_enc, email_enc, phone_enc,
+            risk_level, status, bank_account_enc, blocked, COUNT(*) OVER() AS total_count
+     FROM clients${clientFilter}
      ORDER BY created_at DESC, id DESC
      LIMIT $1 OFFSET $2`,
     [pagination.limit, pagination.offset]
   );
+  const total = result.rows[0]?.total_count ?? (await pool.query(
+    `SELECT COUNT(*)::int AS total FROM clients${clientFilter}`
+  )).rows[0].total;
   const totalPages = Math.ceil(total / pagination.limit);
   res.set({
     'X-Total-Count': String(total),
@@ -381,7 +394,17 @@ app.get('/api/clients', asyncRoute(async (req, res) => {
     'X-Offset': String(pagination.offset),
     'X-Total-Pages': String(totalPages)
   });
-  res.json(result.rows.map(safeClient));
+  res.json(result.rows.map(safeClientListItem));
+}));
+
+app.get('/api/clients/:id', asyncRoute(async (req, res) => {
+  const result = await pool.query(
+    `SELECT * FROM clients
+     WHERE id=$1 AND (blocked=FALSE OR $2='admin')`,
+    [req.params.id, req.auth.role]
+  );
+  if (!result.rowCount) return res.status(404).json({ message: 'Cliente no encontrado.' });
+  res.json(safeClient(result.rows[0]));
 }));
 
 app.get('/api/clients/:id/export', requireAdmin, asyncRoute(async (req, res) => {

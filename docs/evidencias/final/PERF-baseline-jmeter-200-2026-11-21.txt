@@ -1,0 +1,37 @@
+Start: 2026-11-21T22:18:31.6136592-03:00
+Comando: java -jar <JMeter> -n -t jmeter\atlas-load-test.jmx -l docs\evidencias\final\PERF-baseline-jmeter-200-2026-11-21.jtl -JBASE_HOST=127.0.0.1 -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50 -JPAGES=11; TOKEN=<process environment redacted>
+Data: 502 total rows, 500 synthetic; one login HTTP 200, token only in process environment; think time 1 s.
+
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+An error occurred: Unknown arg: .0.0.1
+
+Exit code: 1
+End: 2026-11-21T22:18:33.3203601-03:00
+
+Retry start: 2026-11-21T22:18:42.8205932-03:00
+Retry command: java -jar <JMeter> -n -t jmeter\atlas-load-test.jmx -l docs\evidencias\final\PERF-baseline-jmeter-200-2026-11-21.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=200 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50 -JPAGES=11; TOKEN=<process environment redacted>
+Retry login HTTP status: 200.
+
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 22:18:44 CLST (1795310324871)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +    594 in 00:00:14 =   42,7/s Avg:    12 Min:     7 Max:    80 Err:     0 (0,00%) Active: 93 Started: 93 Finished: 0
+summary +   3796 in 00:00:30 =  126,5/s Avg:   322 Min:     7 Max:  1032 Err:     0 (0,00%) Active: 200 Started: 200 Finished: 0
+summary =   4390 in 00:00:44 =  100,0/s Avg:   280 Min:     7 Max:  1032 Err:     0 (0,00%)
+summary +   3959 in 00:00:30 =  132,0/s Avg:   505 Min:   170 Max:  1144 Err:     0 (0,00%) Active: 200 Started: 200 Finished: 0
+summary =   8349 in 00:01:14 =  113,0/s Avg:   387 Min:     7 Max:  1144 Err:     0 (0,00%)
+summary +   2248 in 00:00:17 =  134,5/s Avg:   485 Min:   213 Max:  1177 Err:     0 (0,00%) Active: 0 Started: 200 Finished: 200
+summary =  10597 in 00:01:31 =  116,9/s Avg:   408 Min:     7 Max:  1177 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 22:20:16 CLST (1795310416717)
+... end of run
+
+Exit code: 0
+End: 2026-11-21T22:20:18.3174279-03:00

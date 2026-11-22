@@ -1,0 +1,9 @@
+Fecha: 2026-11-21T22:27:49.4620396-03:00
+Comando de cierre: docker stop atlas-perf-app-baseline (solo el contenedor temporal de benchmark).
+Resultado stop: atlas-perf-app-baseline; exit code 0
+Comando: docker run --rm -d --name atlas-perf-app-final -p 127.0.0.1:3334:3000 --env DATABASE_URL --env JWT_SECRET --env DATA_ENCRYPTION_SECRET --env ADMIN_EMAIL --env ADMIN_PASSWORD --env PG_POOL_MAX -e PORT=3000 atlas-is1102-perf-final:2026-11-21
+docker run result: b8e98388b145856101c487452c49a78ace6a4615a20a15859e3297d202e9c328; exit code: 0
+Health: ok; exit code: True
+Initial docker stats: name=atlas-perf-app-final cpu=0.00% memory=38.46MiB / 3.699GiB mem_pct=1.02%
+Container resource limits: NanoCpus=0 CpuQuota=0 MemoryBytes=0
+Compose review: app has no cpus/mem_limit entries.

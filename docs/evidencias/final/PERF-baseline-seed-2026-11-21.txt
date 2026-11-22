@@ -1,0 +1,4 @@
+Fecha: 2026-11-21T22:13:37.4530857-03:00
+Comando: node scripts/seed-load-data.js
+OK: creados 500 clientes sintéticos.
+Exit code: 0

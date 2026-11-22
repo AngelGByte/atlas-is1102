@@ -37,3 +37,27 @@ Las salidas, comandos, códigos de salida, diferencias históricas y límites es
 
 La evidencia fechada y los comandos completos de CIERRE-05 se listan en
 [`docs/evidencias/README.md`](./evidencias/README.md).
+
+## 2026-11-21 — optimización adicional del listado y preparación de presentación
+
+- Se redujo el trabajo de `GET /api/clients`: metadatos de total con `COUNT(*) OVER()`,
+  proyección limitada a los campos de tabla y detalle bajo demanda para campos que no
+  muestra la lista. La autenticación y comprobación de cuenta activa siguen por solicitud.
+- Se midió k6/JMeter con 50 y 200 usuarios, 500 clientes sintéticos, token de un único login
+  por corrida y keep-alive en JMeter. Los cuatro conjuntos de medición tuvieron cero errores
+  HTTP/conexión. A 200 usuarios, P95 quedó en 746.95 ms (k6) y 494 ms (JMeter): aún supera
+  el objetivo de 300 ms.
+- k6 pasó dos corridas a 100 VU; a 150 VU hubo una pasada y una repetición fuera del umbral.
+  No se declara capacidad universal ni se atribuye causalidad a GC/pool para el máximo
+  histórico de 4.64 s.
+- La regresión final local obtuvo Node 9/9, Vitest 4/4, seguridad 19/19 y c8 83.87 %
+  líneas/sentencias, 82.27 % ramas y 88.88 % funciones; auditorías npm 0.
+- Trivy 0.76.2 reportó 0 HIGH/CRITICAL, 4 LOW y 7 MEDIUM. El último Actions conocido de
+  `main` (44955653856) falló en Gitleaks; Sonar quedó sin análisis/Quality Gate.
+- Se prepararon capturas móviles de UI con datos sintéticos/de demostración. La presentación
+  se edita como copia; Sonar y TestCase Studio quedan sin rellenar al no existir evidencia
+  actual accesible.
+
+Los valores completos y los archivos de salida nuevos están en
+[`docs/resultados-validacion.md`](./resultados-validacion.md) y
+[`docs/evidencias/README.md`](./evidencias/README.md).

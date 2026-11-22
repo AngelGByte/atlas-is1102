@@ -1,0 +1,693 @@
+Start: 2026-11-21T22:36:40.7896572-03:00
+Command: node --cpu-prof --cpu-prof-dir=docs\evidencias\final --cpu-prof-name=PERF-final-cpu-2026-11-21.cpuprofile --trace-gc scripts\perf-observer.js
+PERF_OBSERVER_SECONDS=180; PORT=3335; PG_POOL_MAX=10; database credentials/token omitted.
+
+Atlas escuchando en el puerto 3335
+{"sampledAt":"2026-11-22T01:36:43.404Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":15,"cpuSystemMs":32,"rssBytes":77119488}
+{"sampledAt":"2026-11-22T01:36:44.403Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":16,"cpuSystemMs":47,"rssBytes":77156352}
+{"sampledAt":"2026-11-22T01:36:45.404Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":16,"cpuSystemMs":31,"rssBytes":77156352}
+{"sampledAt":"2026-11-22T01:36:46.404Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":15,"rssBytes":77164544}
+{"sampledAt":"2026-11-22T01:36:47.405Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":32,"rssBytes":77164544}
+{"sampledAt":"2026-11-22T01:36:48.433Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":187,"cpuSystemMs":140,"rssBytes":79331328}
+{"sampledAt":"2026-11-22T01:36:49.435Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":141,"cpuSystemMs":63,"rssBytes":79831040}
+{"sampledAt":"2026-11-22T01:36:50.436Z","pool":{"total":1,"idle":0,"waiting":0},"cpuUserMs":47,"cpuSystemMs":15,"rssBytes":75702272}
+{"sampledAt":"2026-11-22T01:36:51.436Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":109,"cpuSystemMs":94,"rssBytes":79462400}
+[17644:000001E00DE1F000]      159 ms: Scavenge 6.4 (7.0) -> 5.9 (8.0) MB, pooled: 0 MB, 0.69 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]      206 ms: Scavenge 6.8 (8.3) -> 6.4 (11.0) MB, pooled: 0 MB, 2.33 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]      280 ms: Scavenge 8.9 (12.5) -> 7.5 (12.5) MB, pooled: 0 MB, 0.57 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]      378 ms: Scavenge 9.1 (12.5) -> 8.0 (13.0) MB, pooled: 0 MB, 0.71 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]      495 ms: Scavenge 10.0 (13.0) -> 8.7 (17.8) MB, pooled: 0 MB, 0.81 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]      959 ms: Scavenge 13.0 (18.0) -> 10.4 (19.0) MB, pooled: 0 MB, 1.62 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]     1292 ms: Scavenge 14.7 (19.5) -> 13.2 (21.0) MB, pooled: 0 MB, 1.85 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]     1385 ms: Scavenge 16.3 (21.2) -> 15.1 (31.2) MB, pooled: 0 MB, 2.23 / 0.00 ms  (average mu = 1.000, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]     1429 ms: Mark-Compact 16.6 (31.9) -> 13.7 (31.7) MB, pooled: 0 MB, 5.03 / 0.02 ms  (+ 4.0 ms in 17 steps since start of marking, biggest step 3.0 ms, walltime since start of marking 15 ms) (average mu = 0.994, current mu = 0.994) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]     9312 ms: Scavenge 22.4 (33.4) -> 16.1 (33.4) MB, pooled: 0 MB, 1.76 / 0.80 ms  (average mu = 0.994, current mu = 0.994) task; 
+[17644:000001E00DE1F000]     9526 ms: Mark-Compact (reduce) 17.0 (33.4) -> 15.7 (18.4) MB, pooled: 0 MB, 5.92 / 0.13 ms  (+ 3.9 ms in 87 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 11 ms) (average mu = 0.998, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]     9585 ms: Scavenge 16.6 (18.4) -> 15.8 (21.4) MB, pooled: 0 MB, 0.98 / 0.21 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]     9720 ms: Scavenge 17.5 (21.4) -> 16.0 (21.4) MB, pooled: 0 MB, 1.06 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]     9867 ms: Scavenge 17.5 (21.7) -> 16.0 (21.7) MB, pooled: 0 MB, 0.66 / 0.30 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    10011 ms: Scavenge 17.5 (21.7) -> 16.0 (21.7) MB, pooled: 0 MB, 0.66 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    10199 ms: Scavenge 17.9 (21.7) -> 16.1 (21.7) MB, pooled: 0 MB, 0.54 / 0.21 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    10351 ms: Scavenge 17.8 (21.7) -> 16.0 (21.7) MB, pooled: 0 MB, 0.52 / 0.23 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    10610 ms: Scavenge 18.0 (21.7) -> 16.1 (21.7) MB, pooled: 0 MB, 0.90 / 0.32 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    10664 ms: Scavenge 17.7 (21.7) -> 16.1 (21.7) MB, pooled: 0 MB, 0.87 / 0.30 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    10809 ms: Scavenge 18.0 (21.7) -> 16.1 (21.7) MB, pooled: 0 MB, 0.81 / 0.43 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    10912 ms: Scavenge 17.7 (21.7) -> 16.1 (21.7) MB, pooled: 0 MB, 0.47 / 0.23 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    11063 ms: Scavenge 18.1 (21.7) -> 16.2 (21.7) MB, pooled: 0 MB, 0.62 / 0.23 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    11177 ms: Scavenge 17.7 (21.9) -> 16.1 (21.9) MB, pooled: 0 MB, 0.53 / 0.26 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:36:52.436Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":188,"cpuSystemMs":78,"rssBytes":80437248}
+{"sampledAt":"2026-11-22T01:36:53.437Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":140,"cpuSystemMs":141,"rssBytes":80797696}
+{"sampledAt":"2026-11-22T01:36:54.436Z","pool":{"total":2,"idle":1,"waiting":0},"cpuUserMs":172,"cpuSystemMs":141,"rssBytes":81481728}
+[17644:000001E00DE1F000]    11335 ms: Scavenge 18.1 (21.9) -> 16.2 (21.9) MB, pooled: 0 MB, 0.88 / 0.37 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    11408 ms: Scavenge 17.7 (21.9) -> 16.2 (21.9) MB, pooled: 0 MB, 0.85 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    11559 ms: Scavenge 18.1 (21.9) -> 16.2 (21.9) MB, pooled: 0 MB, 0.57 / 0.25 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    11676 ms: Scavenge 18.2 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 1.09 / 0.28 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    11787 ms: Scavenge 18.2 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 1.11 / 0.39 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    11897 ms: Scavenge 18.2 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 0.93 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12010 ms: Scavenge 18.1 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 0.68 / 0.38 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12120 ms: Scavenge 18.1 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 2.26 / 1.30 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12228 ms: Scavenge 18.1 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 0.60 / 0.29 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12349 ms: Scavenge 18.2 (21.9) -> 16.3 (21.9) MB, pooled: 0 MB, 0.97 / 0.53 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12480 ms: Scavenge 18.2 (22.2) -> 16.3 (22.2) MB, pooled: 0 MB, 1.11 / 0.53 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12575 ms: Scavenge 18.1 (22.2) -> 16.4 (22.2) MB, pooled: 0 MB, 1.01 / 0.47 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12664 ms: Scavenge 18.2 (22.2) -> 16.4 (22.2) MB, pooled: 0 MB, 0.85 / 0.46 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12766 ms: Scavenge 18.2 (22.2) -> 16.4 (22.2) MB, pooled: 0 MB, 1.06 / 0.57 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12837 ms: Scavenge 18.2 (22.2) -> 16.4 (22.2) MB, pooled: 0 MB, 2.54 / 1.57 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    12934 ms: Scavenge 18.4 (22.2) -> 16.5 (22.2) MB, pooled: 0 MB, 0.83 / 0.44 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13025 ms: Scavenge 18.2 (22.2) -> 16.5 (22.2) MB, pooled: 0 MB, 0.94 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13090 ms: Scavenge 18.1 (22.2) -> 16.5 (22.2) MB, pooled: 0 MB, 0.65 / 0.33 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13200 ms: Scavenge 18.1 (22.2) -> 16.5 (22.2) MB, pooled: 0 MB, 0.47 / 0.24 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13283 ms: Scavenge 18.1 (22.2) -> 16.5 (22.2) MB, pooled: 0 MB, 0.61 / 0.35 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13373 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.72 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13493 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.82 / 0.43 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13546 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.64 / 0.33 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13665 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 1.20 / 0.70 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13701 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 1.26 / 0.83 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:36:55.437Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":313,"cpuSystemMs":109,"rssBytes":81932288}
+{"sampledAt":"2026-11-22T01:36:56.436Z","pool":{"total":3,"idle":2,"waiting":0},"cpuUserMs":125,"cpuSystemMs":203,"rssBytes":82268160}
+[17644:000001E00DE1F000]    13793 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.90 / 0.55 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13849 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.63 / 0.40 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    13947 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.85 / 0.42 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14076 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 0.82 / 0.40 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14119 ms: Scavenge 18.2 (22.2) -> 16.6 (22.2) MB, pooled: 0 MB, 1.49 / 0.84 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14177 ms: Scavenge 18.2 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.73 / 0.31 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14227 ms: Scavenge 18.2 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.61 / 0.29 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14295 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.58 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14383 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.71 / 0.39 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14443 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.73 / 0.37 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14532 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.67 / 0.32 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14596 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.58 / 0.27 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14690 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.93 / 0.32 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14747 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.51 / 0.23 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14805 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 1.52 / 0.40 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14863 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.82 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14940 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.73 / 0.36 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    14983 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.52 / 0.23 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15106 ms: Scavenge 18.3 (22.2) -> 16.8 (22.2) MB, pooled: 0 MB, 1.29 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15149 ms: Scavenge 18.3 (22.2) -> 16.8 (22.2) MB, pooled: 0 MB, 0.84 / 0.35 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15178 ms: Scavenge 18.3 (22.2) -> 16.7 (22.2) MB, pooled: 0 MB, 0.80 / 0.40 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15259 ms: Scavenge 18.3 (22.2) -> 16.8 (22.2) MB, pooled: 0 MB, 0.54 / 0.25 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15309 ms: Scavenge 18.4 (22.2) -> 16.8 (22.2) MB, pooled: 0 MB, 0.76 / 0.32 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15389 ms: Scavenge 18.4 (22.2) -> 16.8 (22.2) MB, pooled: 0 MB, 1.08 / 0.60 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15432 ms: Scavenge 18.4 (22.2) -> 16.8 (22.2) MB, pooled: 0 MB, 0.64 / 0.33 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15514 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.69 / 0.38 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15575 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.99 / 0.44 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:36:57.436Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":171,"cpuSystemMs":125,"rssBytes":82878464}
+[17644:000001E00DE1F000]    15628 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.76 / 0.44 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15698 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.68 / 0.30 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15738 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.78 / 0.31 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15807 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.77 / 0.39 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15848 ms: Scavenge 18.4 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.64 / 0.28 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15910 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.52 / 0.24 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    15970 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 1.60 / 0.49 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16034 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.82 / 0.51 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16118 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.91 / 0.49 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16162 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.71 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16190 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.84 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16238 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.68 / 0.32 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16302 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 1.30 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16375 ms: Scavenge 18.5 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 0.47 / 0.23 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16414 ms: Scavenge 18.5 (22.2) -> 16.9 (22.2) MB, pooled: 0 MB, 0.55 / 0.23 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16482 ms: Scavenge 18.5 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 0.76 / 0.37 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16539 ms: Scavenge 18.5 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 0.45 / 0.21 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16586 ms: Scavenge 18.5 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 1.63 / 0.90 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16640 ms: Scavenge 18.5 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 0.90 / 0.49 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16698 ms: Scavenge 18.6 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 0.59 / 0.28 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16740 ms: Scavenge 18.6 (22.2) -> 17.0 (22.2) MB, pooled: 0 MB, 0.84 / 0.35 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16799 ms: Scavenge 18.6 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 0.59 / 0.28 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16838 ms: Scavenge 18.7 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 1.34 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16883 ms: Scavenge 18.7 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 0.79 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16942 ms: Scavenge 18.7 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 0.67 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    16986 ms: Scavenge 18.7 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 1.90 / 0.39 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:36:58.437Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":219,"cpuSystemMs":156,"rssBytes":83533824}
+[17644:000001E00DE1F000]    17092 ms: Scavenge 19.1 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.78 / 0.31 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    17137 ms: Scavenge 18.9 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 1.08 / 0.49 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17174 ms: Scavenge 18.7 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 0.87 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17214 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.50 / 0.22 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17249 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.65 / 0.32 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17307 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.78 / 0.42 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17354 ms: Scavenge 18.7 (22.4) -> 17.1 (22.4) MB, pooled: 0 MB, 1.54 / 0.90 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17412 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.52 / 0.24 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17441 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.80 / 0.47 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17502 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 1.36 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17558 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.54 / 0.26 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17598 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.82 / 0.48 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17650 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.79 / 0.40 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17710 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.70 / 0.43 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17744 ms: Scavenge 18.7 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.85 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17806 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 1.95 / 0.36 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17844 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.58 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17880 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.55 / 0.24 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17915 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.77 / 0.36 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    17986 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.54 / 0.27 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18009 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.54 / 0.24 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18060 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.90 / 0.42 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18139 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.82 / 0.46 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18176 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.48 / 0.24 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18202 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 1.22 / 0.55 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18247 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.50 / 0.22 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:36:59.439Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":203,"cpuSystemMs":157,"rssBytes":83623936}
+{"sampledAt":"2026-11-22T01:37:00.440Z","pool":{"total":3,"idle":2,"waiting":0},"cpuUserMs":438,"cpuSystemMs":156,"rssBytes":87584768}
+[17644:000001E00DE1F000]    18309 ms: Scavenge 19.2 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.59 / 0.28 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    18341 ms: Scavenge 18.9 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.89 / 0.51 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18403 ms: Scavenge 19.2 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 1.39 / 0.42 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    18450 ms: Scavenge 19.0 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.77 / 0.43 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18492 ms: Scavenge 18.8 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 1.13 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18560 ms: Scavenge 19.2 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.61 / 0.26 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    18599 ms: Scavenge 18.9 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.66 / 0.41 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18647 ms: Scavenge 19.2 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.79 / 0.28 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    18700 ms: Scavenge 19.1 (22.4) -> 17.2 (22.4) MB, pooled: 0 MB, 0.58 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18746 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.46 / 0.22 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18773 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.66 / 0.39 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18830 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 1.17 / 0.77 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18867 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.61 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18907 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.69 / 0.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    18946 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.96 / 0.52 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19001 ms: Scavenge 18.8 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 1.14 / 0.63 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19049 ms: Scavenge 19.3 (22.4) -> 17.4 (22.4) MB, pooled: 0 MB, 1.13 / 0.45 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    19108 ms: Scavenge 19.0 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.81 / 0.35 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19163 ms: Scavenge 18.9 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 0.96 / 0.44 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19201 ms: Scavenge 18.9 (22.4) -> 17.3 (22.4) MB, pooled: 0 MB, 1.14 / 0.61 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19243 ms: Scavenge 19.3 (22.4) -> 17.4 (22.4) MB, pooled: 0 MB, 0.74 / 0.32 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    19268 ms: Scavenge 19.1 (22.4) -> 17.3 (26.4) MB, pooled: 0 MB, 1.51 / 0.46 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19355 ms: Scavenge 20.9 (26.4) -> 17.3 (26.4) MB, pooled: 0 MB, 3.40 / 1.57 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19436 ms: Scavenge 20.5 (26.4) -> 17.3 (26.4) MB, pooled: 0 MB, 3.25 / 1.87 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19518 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.22 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19598 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.38 / 0.83 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:01.439Z","pool":{"total":3,"idle":2,"waiting":0},"cpuUserMs":328,"cpuSystemMs":390,"rssBytes":88657920}
+{"sampledAt":"2026-11-22T01:37:02.439Z","pool":{"total":7,"idle":7,"waiting":0},"cpuUserMs":422,"cpuSystemMs":282,"rssBytes":92975104}
+[17644:000001E00DE1F000]    19680 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.28 / 0.74 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19757 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.68 / 0.85 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19843 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.06 / 0.68 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19900 ms: Scavenge 20.6 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.06 / 0.61 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    19983 ms: Scavenge 20.6 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.20 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20067 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.07 / 0.65 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20157 ms: Scavenge 20.6 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.29 / 0.66 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20245 ms: Scavenge 20.6 (26.4) -> 17.5 (26.4) MB, pooled: 0 MB, 1.18 / 0.57 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20295 ms: Scavenge 20.6 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.15 / 0.66 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20359 ms: Scavenge 20.5 (26.4) -> 17.4 (26.4) MB, pooled: 0 MB, 1.05 / 0.60 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20442 ms: Scavenge 20.7 (27.4) -> 17.6 (27.4) MB, pooled: 0 MB, 1.78 / 0.90 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20495 ms: Scavenge 20.9 (27.4) -> 17.8 (27.4) MB, pooled: 0 MB, 1.63 / 0.89 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    20640 ms: Scavenge 21.7 (27.4) -> 17.9 (27.4) MB, pooled: 0 MB, 3.21 / 0.84 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    20741 ms: Scavenge 21.8 (27.4) -> 17.9 (27.7) MB, pooled: 0 MB, 3.36 / 1.78 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    20842 ms: Scavenge 21.8 (27.7) -> 17.9 (27.7) MB, pooled: 0 MB, 1.66 / 0.83 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    20921 ms: Scavenge 21.8 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 3.88 / 1.50 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    20976 ms: Scavenge 21.8 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.41 / 0.70 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    21023 ms: Scavenge 21.3 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.98 / 1.07 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21099 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.27 / 0.76 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21192 ms: Scavenge 21.1 (27.7) -> 17.9 (27.7) MB, pooled: 0 MB, 1.69 / 0.82 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21266 ms: Scavenge 21.5 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.85 / 1.14 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21316 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.66 / 0.97 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21378 ms: Scavenge 21.5 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.75 / 0.77 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21472 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 5.58 / 1.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21519 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.68 / 1.73 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21644 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.53 / 1.09 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:03.441Z","pool":{"total":7,"idle":7,"waiting":0},"cpuUserMs":312,"cpuSystemMs":281,"rssBytes":93077504}
+[17644:000001E00DE1F000]    21717 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.56 / 0.87 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21795 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.16 / 0.61 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21874 ms: Scavenge 21.6 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.34 / 0.74 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21933 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.36 / 0.54 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    21984 ms: Scavenge 21.7 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.89 / 1.01 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22029 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.40 / 0.68 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22090 ms: Scavenge 21.5 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.49 / 0.72 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22170 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.75 / 0.81 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22250 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.78 / 1.16 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22299 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.41 / 0.44 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22355 ms: Scavenge 21.6 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.82 / 1.75 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22424 ms: Scavenge 21.6 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.61 / 0.76 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22503 ms: Scavenge 21.1 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.28 / 1.43 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22558 ms: Scavenge 21.1 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 0.84 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22664 ms: Scavenge 21.1 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.27 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22726 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 1.24 / 0.73 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22819 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.68 / 1.46 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    22907 ms: Scavenge 21.9 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 3.84 / 1.29 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    22981 ms: Scavenge 21.5 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.30 / 1.39 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23047 ms: Scavenge 21.8 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 2.09 / 0.89 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23099 ms: Scavenge 22.0 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.24 / 0.49 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    23134 ms: Scavenge 21.5 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.65 / 0.98 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23175 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 0.92 / 0.54 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23252 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 2.08 / 1.22 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23303 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 2.46 / 0.78 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23346 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.06 / 0.57 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:04.442Z","pool":{"total":8,"idle":8,"waiting":0},"cpuUserMs":360,"cpuSystemMs":406,"rssBytes":94420992}
+{"sampledAt":"2026-11-22T01:37:05.443Z","pool":{"total":8,"idle":8,"waiting":0},"cpuUserMs":500,"cpuSystemMs":250,"rssBytes":95293440}
+[17644:000001E00DE1F000]    23394 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 0.97 / 0.62 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23456 ms: Scavenge 21.2 (27.7) -> 18.0 (27.7) MB, pooled: 0 MB, 2.95 / 1.14 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23533 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.58 / 1.08 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23589 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.45 / 0.81 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23687 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 2.12 / 0.89 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23768 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.74 / 0.97 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23857 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.91 / 0.91 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23929 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.48 / 1.02 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    23992 ms: Scavenge 21.3 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.47 / 0.60 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24051 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.30 / 0.70 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24104 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 3.13 / 1.12 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24152 ms: Scavenge 21.8 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 2.56 / 1.65 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24192 ms: Scavenge 21.3 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.55 / 0.65 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24240 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.32 / 0.78 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24297 ms: Scavenge 21.2 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.41 / 0.79 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24354 ms: Scavenge 21.8 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 3.13 / 1.17 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24406 ms: Scavenge 21.8 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 2.89 / 1.36 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24476 ms: Scavenge 21.7 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.58 / 0.82 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24541 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.18 / 0.77 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24612 ms: Scavenge 22.1 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.50 / 0.83 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    24694 ms: Scavenge 21.6 (27.7) -> 18.1 (27.7) MB, pooled: 0 MB, 1.63 / 0.81 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24763 ms: Scavenge 21.7 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.52 / 0.80 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24843 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.34 / 0.68 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24912 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 0.92 / 0.52 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    24967 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.26 / 0.64 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25022 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.78 / 1.05 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:06.442Z","pool":{"total":8,"idle":7,"waiting":0},"cpuUserMs":453,"cpuSystemMs":313,"rssBytes":95318016}
+[17644:000001E00DE1F000]    25073 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.40 / 0.84 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25116 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 0.87 / 0.49 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25156 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.45 / 0.62 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25197 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.07 / 0.52 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25232 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.13 / 0.58 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25279 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.25 / 0.77 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25327 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.23 / 0.71 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25379 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.02 / 0.63 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25423 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 3.35 / 1.62 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25479 ms: Scavenge 21.7 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.29 / 0.76 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25549 ms: Scavenge 21.8 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.46 / 0.89 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25606 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 0.88 / 0.46 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25663 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.16 / 0.70 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25731 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.21 / 0.69 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25793 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 0.92 / 0.47 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25874 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 0.97 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25932 ms: Scavenge 21.7 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 2.02 / 0.95 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    25994 ms: Scavenge 21.3 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 0.94 / 0.53 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26043 ms: Scavenge 21.3 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 0.96 / 0.49 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26093 ms: Scavenge 21.8 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.37 / 0.94 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26141 ms: Scavenge 21.4 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.51 / 0.87 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26191 ms: Scavenge 21.8 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.79 / 0.84 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26233 ms: Scavenge 22.1 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.21 / 0.58 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    26277 ms: Scavenge 21.6 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.67 / 0.82 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26324 ms: Scavenge 21.8 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.63 / 0.82 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26368 ms: Scavenge 21.4 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.93 / 1.00 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:07.443Z","pool":{"total":8,"idle":7,"waiting":0},"cpuUserMs":406,"cpuSystemMs":265,"rssBytes":96657408}
+{"sampledAt":"2026-11-22T01:37:08.444Z","pool":{"total":8,"idle":8,"waiting":0},"cpuUserMs":406,"cpuSystemMs":375,"rssBytes":96927744}
+[17644:000001E00DE1F000]    26415 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.13 / 0.76 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26460 ms: Scavenge 21.4 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.23 / 0.59 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26514 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.35 / 0.79 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26575 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.14 / 0.64 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26628 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.01 / 0.45 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26700 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.42 / 0.83 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26760 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.25 / 0.78 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26806 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.15 / 0.63 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26881 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 0.99 / 0.60 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26935 ms: Scavenge 21.4 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.88 / 1.09 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    26997 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.30 / 0.77 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27048 ms: Scavenge 21.4 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 1.22 / 0.70 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27094 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.30 / 0.64 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27138 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 2.44 / 0.81 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27188 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 2.37 / 1.51 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27240 ms: Scavenge 22.0 (27.7) -> 18.2 (27.7) MB, pooled: 0 MB, 3.91 / 1.96 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27288 ms: Scavenge 22.2 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 2.09 / 1.12 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    27327 ms: Scavenge 22.1 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.38 / 0.78 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27365 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.31 / 0.76 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27416 ms: Scavenge 21.9 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.24 / 0.59 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27466 ms: Scavenge 21.9 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.01 / 0.55 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27509 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.31 / 0.79 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27566 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.24 / 0.68 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27623 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.62 / 0.88 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27673 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 2.85 / 1.03 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27743 ms: Scavenge 21.9 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 2.17 / 1.40 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:09.450Z","pool":{"total":8,"idle":8,"waiting":0},"cpuUserMs":469,"cpuSystemMs":407,"rssBytes":97251328}
+[17644:000001E00DE1F000]    27798 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.12 / 0.48 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27863 ms: Scavenge 21.8 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.54 / 0.67 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27924 ms: Scavenge 21.4 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.66 / 0.89 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    27983 ms: Scavenge 21.4 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 0.83 / 0.42 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28063 ms: Scavenge 22.0 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 2.21 / 1.16 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28116 ms: Scavenge 21.5 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.47 / 0.68 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28168 ms: Scavenge 22.0 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.91 / 1.12 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28213 ms: Scavenge 21.9 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.12 / 0.57 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28250 ms: Scavenge 22.2 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.67 / 0.88 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    28304 ms: Scavenge 22.2 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 3.82 / 1.50 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    28344 ms: Scavenge 22.2 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.12 / 0.64 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    28383 ms: Scavenge 22.2 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.39 / 0.62 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    28433 ms: Scavenge 21.9 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.44 / 0.77 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28477 ms: Scavenge 22.0 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.07 / 0.62 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28512 ms: Scavenge 21.5 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.04 / 0.53 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28561 ms: Scavenge 22.3 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.59 / 0.90 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    28610 ms: Scavenge 22.1 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.53 / 0.73 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28654 ms: Scavenge 21.5 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 2.75 / 1.15 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28719 ms: Scavenge 21.9 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 2.40 / 1.76 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28768 ms: Scavenge 21.5 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.90 / 1.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28819 ms: Scavenge 21.5 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 2.82 / 0.79 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28885 ms: Scavenge 21.9 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 2.79 / 2.14 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28933 ms: Scavenge 21.5 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.58 / 1.04 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    28996 ms: Scavenge 21.5 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.25 / 0.82 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    29084 ms: Scavenge 22.0 (27.7) -> 18.3 (27.7) MB, pooled: 0 MB, 1.84 / 1.09 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    29168 ms: Scavenge 22.0 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 2.06 / 1.25 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:37:10.467Z","pool":{"total":10,"idle":2,"waiting":0},"cpuUserMs":594,"cpuSystemMs":359,"rssBytes":102862848}
+{"sampledAt":"2026-11-22T01:37:11.481Z","pool":{"total":10,"idle":5,"waiting":0},"cpuUserMs":703,"cpuSystemMs":203,"rssBytes":112439296}
+[17644:000001E00DE1F000]    29230 ms: Scavenge 22.1 (27.7) -> 18.4 (27.7) MB, pooled: 0 MB, 1.43 / 0.74 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    29290 ms: Scavenge 22.4 (27.7) -> 18.6 (27.7) MB, pooled: 0 MB, 2.15 / 0.90 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    29348 ms: Scavenge 22.4 (27.7) -> 18.6 (27.7) MB, pooled: 0 MB, 1.46 / 0.81 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    29409 ms: Scavenge 22.5 (27.7) -> 18.7 (27.7) MB, pooled: 0 MB, 1.91 / 0.99 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    29458 ms: Scavenge 22.5 (27.7) -> 18.7 (27.7) MB, pooled: 0 MB, 1.52 / 0.55 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    29502 ms: Scavenge 22.6 (27.7) -> 18.8 (35.7) MB, pooled: 0 MB, 2.60 / 1.73 ms  (average mu = 0.998, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    29582 ms: Mark-Compact 24.4 (35.7) -> 19.6 (37.2) MB, pooled: 0 MB, 5.31 / 0.58 ms  (+ 2.0 ms in 59 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 58 ms) (average mu = 0.999, current mu = 1.000) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    29678 ms: Scavenge 27.6 (37.2) -> 20.1 (37.2) MB, pooled: 0 MB, 2.85 / 1.65 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    29763 ms: Scavenge 27.6 (37.2) -> 20.1 (37.4) MB, pooled: 0 MB, 3.25 / 2.05 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    29849 ms: Scavenge 27.9 (37.4) -> 20.1 (37.4) MB, pooled: 0 MB, 2.59 / 1.62 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    29950 ms: Scavenge 27.4 (37.4) -> 20.1 (37.4) MB, pooled: 0 MB, 4.07 / 2.58 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30063 ms: Scavenge 26.8 (37.4) -> 20.0 (37.4) MB, pooled: 0 MB, 3.38 / 2.24 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30161 ms: Scavenge 26.5 (37.4) -> 20.1 (37.4) MB, pooled: 0 MB, 4.72 / 2.15 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30293 ms: Scavenge 27.3 (37.4) -> 20.0 (37.4) MB, pooled: 0 MB, 3.46 / 1.54 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30408 ms: Scavenge 27.7 (37.4) -> 20.1 (37.4) MB, pooled: 0 MB, 3.90 / 1.71 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30513 ms: Scavenge 27.9 (37.4) -> 20.1 (37.4) MB, pooled: 0 MB, 4.76 / 3.15 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30643 ms: Scavenge 27.0 (37.4) -> 20.1 (37.4) MB, pooled: 0 MB, 4.38 / 1.88 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    30828 ms: Scavenge 28.0 (37.4) -> 20.2 (37.4) MB, pooled: 0 MB, 4.88 / 2.72 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    30995 ms: Scavenge 28.0 (37.4) -> 20.3 (37.4) MB, pooled: 0 MB, 4.95 / 2.52 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31107 ms: Scavenge 28.0 (37.4) -> 20.4 (37.9) MB, pooled: 0 MB, 3.58 / 1.69 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31224 ms: Scavenge 28.1 (37.9) -> 20.5 (38.2) MB, pooled: 0 MB, 4.67 / 1.96 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31327 ms: Scavenge 27.0 (38.2) -> 20.6 (38.4) MB, pooled: 0 MB, 2.23 / 1.17 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    31432 ms: Scavenge 28.4 (38.4) -> 21.1 (38.4) MB, pooled: 0 MB, 3.59 / 1.62 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31531 ms: Scavenge 28.5 (38.4) -> 21.5 (38.4) MB, pooled: 0 MB, 3.08 / 1.34 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+{"sampledAt":"2026-11-22T01:37:12.508Z","pool":{"total":10,"idle":0,"waiting":22},"cpuUserMs":656,"cpuSystemMs":281,"rssBytes":114307072}
+{"sampledAt":"2026-11-22T01:37:13.580Z","pool":{"total":10,"idle":0,"waiting":20},"cpuUserMs":781,"cpuSystemMs":469,"rssBytes":128643072}
+{"sampledAt":"2026-11-22T01:37:14.591Z","pool":{"total":10,"idle":0,"waiting":6},"cpuUserMs":516,"cpuSystemMs":484,"rssBytes":137805824}
+{"sampledAt":"2026-11-22T01:37:15.592Z","pool":{"total":10,"idle":0,"waiting":4},"cpuUserMs":734,"cpuSystemMs":375,"rssBytes":136708096}
+{"sampledAt":"2026-11-22T01:37:16.619Z","pool":{"total":10,"idle":0,"waiting":21},"cpuUserMs":657,"cpuSystemMs":407,"rssBytes":139984896}
+[17644:000001E00DE1F000]    31641 ms: Scavenge 29.1 (38.4) -> 21.6 (38.9) MB, pooled: 0 MB, 2.68 / 1.28 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31749 ms: Scavenge 29.3 (38.9) -> 21.6 (39.2) MB, pooled: 0 MB, 4.77 / 2.98 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31878 ms: Scavenge 29.4 (39.2) -> 22.0 (39.4) MB, pooled: 0 MB, 3.80 / 2.43 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    31990 ms: Scavenge 29.5 (39.4) -> 22.1 (39.4) MB, pooled: 0 MB, 5.30 / 2.46 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    32107 ms: Scavenge 29.8 (39.4) -> 22.3 (55.4) MB, pooled: 0 MB, 6.43 / 1.86 ms  (average mu = 0.999, current mu = 1.000) allocation failure; 
+[17644:000001E00DE1F000]    32165 ms: Mark-Compact 25.8 (55.4) -> 18.6 (55.2) MB, pooled: 0 MB, 5.65 / 2.36 ms  (+ 1.1 ms in 21 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 28 ms) (average mu = 0.999, current mu = 0.997) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    32434 ms: Scavenge 31.8 (55.2) -> 19.4 (55.2) MB, pooled: 0 MB, 8.21 / 5.19 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    32695 ms: Scavenge 34.6 (55.2) -> 19.4 (55.2) MB, pooled: 0 MB, 6.00 / 3.40 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    32930 ms: Scavenge 35.1 (55.2) -> 20.1 (55.2) MB, pooled: 0 MB, 6.69 / 3.58 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    33161 ms: Scavenge 35.1 (55.2) -> 20.1 (55.2) MB, pooled: 0 MB, 6.63 / 3.67 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    33381 ms: Scavenge 35.8 (55.2) -> 20.7 (55.2) MB, pooled: 0 MB, 5.20 / 3.17 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    33578 ms: Scavenge 35.9 (55.2) -> 20.6 (55.2) MB, pooled: 0 MB, 6.07 / 3.10 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    33758 ms: Scavenge 35.8 (55.2) -> 20.6 (55.2) MB, pooled: 0 MB, 6.40 / 3.14 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    33965 ms: Scavenge 36.3 (55.2) -> 20.5 (55.2) MB, pooled: 0 MB, 5.52 / 3.35 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    34165 ms: Scavenge 36.4 (55.2) -> 20.5 (55.2) MB, pooled: 0 MB, 4.65 / 2.56 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    34352 ms: Scavenge 34.9 (55.2) -> 20.5 (55.2) MB, pooled: 0 MB, 5.97 / 3.07 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    34527 ms: Scavenge 34.5 (55.2) -> 20.6 (55.2) MB, pooled: 0 MB, 5.97 / 2.41 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    34732 ms: Scavenge 35.5 (55.2) -> 20.6 (55.2) MB, pooled: 0 MB, 5.11 / 2.55 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    34924 ms: Scavenge 35.0 (55.2) -> 20.6 (55.2) MB, pooled: 0 MB, 8.01 / 4.49 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    35113 ms: Scavenge 35.5 (55.2) -> 20.6 (55.2) MB, pooled: 0 MB, 4.55 / 2.44 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    35313 ms: Scavenge 36.1 (55.2) -> 21.0 (55.2) MB, pooled: 0 MB, 5.31 / 3.27 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    35563 ms: Scavenge 36.4 (55.2) -> 21.1 (55.2) MB, pooled: 0 MB, 8.74 / 4.09 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    35827 ms: Scavenge 36.8 (55.2) -> 21.2 (55.2) MB, pooled: 0 MB, 5.63 / 2.81 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    36127 ms: Scavenge 34.7 (55.2) -> 21.3 (55.2) MB, pooled: 0 MB, 7.56 / 3.50 ms  (average mu = 0.999, current mu = 0.997) task; 
+{"sampledAt":"2026-11-22T01:37:17.738Z","pool":{"total":10,"idle":0,"waiting":37},"cpuUserMs":578,"cpuSystemMs":422,"rssBytes":138473472}
+{"sampledAt":"2026-11-22T01:37:18.744Z","pool":{"total":10,"idle":0,"waiting":21},"cpuUserMs":672,"cpuSystemMs":296,"rssBytes":139665408}
+{"sampledAt":"2026-11-22T01:37:19.754Z","pool":{"total":10,"idle":0,"waiting":33},"cpuUserMs":718,"cpuSystemMs":391,"rssBytes":141094912}
+{"sampledAt":"2026-11-22T01:37:20.785Z","pool":{"total":10,"idle":0,"waiting":30},"cpuUserMs":688,"cpuSystemMs":469,"rssBytes":163119104}
+{"sampledAt":"2026-11-22T01:37:21.813Z","pool":{"total":10,"idle":0,"waiting":44},"cpuUserMs":719,"cpuSystemMs":359,"rssBytes":178679808}
+{"sampledAt":"2026-11-22T01:37:22.814Z","pool":{"total":10,"idle":0,"waiting":70},"cpuUserMs":687,"cpuSystemMs":281,"rssBytes":180703232}
+{"sampledAt":"2026-11-22T01:37:23.835Z","pool":{"total":10,"idle":0,"waiting":23},"cpuUserMs":610,"cpuSystemMs":469,"rssBytes":187109376}
+[17644:000001E00DE1F000]    36368 ms: Scavenge 36.9 (55.2) -> 21.5 (55.2) MB, pooled: 0 MB, 6.07 / 3.49 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    36584 ms: Scavenge 37.1 (55.2) -> 21.7 (55.2) MB, pooled: 0 MB, 5.50 / 2.83 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    36749 ms: Scavenge 35.0 (55.2) -> 22.1 (55.2) MB, pooled: 0 MB, 3.88 / 1.93 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    36987 ms: Scavenge 37.5 (55.2) -> 22.3 (55.7) MB, pooled: 0 MB, 6.18 / 3.84 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    37183 ms: Scavenge 35.8 (55.7) -> 22.6 (55.7) MB, pooled: 0 MB, 7.53 / 2.75 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    37348 ms: Scavenge 35.7 (55.7) -> 22.8 (56.2) MB, pooled: 0 MB, 4.69 / 2.41 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    37565 ms: Scavenge 38.4 (56.2) -> 22.8 (56.2) MB, pooled: 0 MB, 6.62 / 3.68 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    37747 ms: Scavenge 36.5 (56.2) -> 23.1 (56.4) MB, pooled: 0 MB, 4.14 / 2.30 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    37942 ms: Scavenge 38.4 (56.4) -> 23.1 (56.7) MB, pooled: 0 MB, 6.18 / 2.95 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    38132 ms: Scavenge 38.8 (56.7) -> 23.2 (56.7) MB, pooled: 0 MB, 4.51 / 2.61 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    38361 ms: Scavenge 38.4 (56.7) -> 23.4 (56.7) MB, pooled: 0 MB, 4.91 / 2.44 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    38574 ms: Scavenge 39.0 (56.7) -> 23.4 (56.9) MB, pooled: 0 MB, 7.96 / 3.78 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    38764 ms: Scavenge 39.1 (56.9) -> 23.6 (56.9) MB, pooled: 0 MB, 4.43 / 2.41 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    38964 ms: Scavenge 39.2 (56.9) -> 23.7 (56.9) MB, pooled: 0 MB, 5.23 / 2.78 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    39140 ms: Scavenge 36.9 (56.9) -> 23.8 (56.9) MB, pooled: 0 MB, 8.27 / 3.31 ms  (average mu = 0.999, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    39339 ms: Scavenge 39.4 (56.9) -> 23.9 (89.2) MB, pooled: 0 MB, 8.78 / 5.56 ms  (average mu = 0.999, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    39429 ms: Mark-Compact 30.1 (89.2) -> 19.9 (89.2) MB, pooled: 0 MB, 3.99 / 0.93 ms  (+ 2.0 ms in 55 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 55 ms) (average mu = 0.999, current mu = 0.999) finalize incremental marking via stack guard; GC in old space requested
+[17644:000001E00DE1F000]    39902 ms: Scavenge 51.9 (89.2) -> 21.6 (89.2) MB, pooled: 0 MB, 10.62 / 6.91 ms  (average mu = 0.999, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    40244 ms: Scavenge 47.8 (89.2) -> 21.6 (89.2) MB, pooled: 0 MB, 11.40 / 4.78 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    40584 ms: Scavenge 49.0 (89.2) -> 21.5 (89.2) MB, pooled: 0 MB, 9.60 / 6.08 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    41310 ms: Scavenge 50.4 (89.2) -> 22.4 (89.2) MB, pooled: 0 MB, 17.15 / 10.49 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    41734 ms: Scavenge 50.1 (89.2) -> 22.8 (89.2) MB, pooled: 0 MB, 9.02 / 5.60 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    42155 ms: Scavenge 53.9 (89.2) -> 22.8 (89.2) MB, pooled: 0 MB, 13.03 / 8.35 ms  (average mu = 0.999, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    42576 ms: Scavenge 54.4 (89.2) -> 23.4 (89.2) MB, pooled: 0 MB, 12.31 / 6.77 ms  (average mu = 0.999, current mu = 0.999) allocation failure; 
+{"sampledAt":"2026-11-22T01:37:24.838Z","pool":{"total":10,"idle":0,"waiting":18},"cpuUserMs":640,"cpuSystemMs":438,"rssBytes":186269696}
+{"sampledAt":"2026-11-22T01:37:25.843Z","pool":{"total":10,"idle":0,"waiting":5},"cpuUserMs":797,"cpuSystemMs":234,"rssBytes":187072512}
+{"sampledAt":"2026-11-22T01:37:26.952Z","pool":{"total":10,"idle":0,"waiting":32},"cpuUserMs":797,"cpuSystemMs":391,"rssBytes":189403136}
+{"sampledAt":"2026-11-22T01:37:27.953Z","pool":{"total":10,"idle":0,"waiting":39},"cpuUserMs":656,"cpuSystemMs":500,"rssBytes":186957824}
+{"sampledAt":"2026-11-22T01:37:28.983Z","pool":{"total":10,"idle":0,"waiting":26},"cpuUserMs":625,"cpuSystemMs":500,"rssBytes":187424768}
+{"sampledAt":"2026-11-22T01:37:30.017Z","pool":{"total":10,"idle":0,"waiting":19},"cpuUserMs":641,"cpuSystemMs":375,"rssBytes":190959616}
+{"sampledAt":"2026-11-22T01:37:31.070Z","pool":{"total":10,"idle":0,"waiting":8},"cpuUserMs":609,"cpuSystemMs":500,"rssBytes":196546560}
+{"sampledAt":"2026-11-22T01:37:32.184Z","pool":{"total":10,"idle":0,"waiting":33},"cpuUserMs":766,"cpuSystemMs":312,"rssBytes":192827392}
+{"sampledAt":"2026-11-22T01:37:33.199Z","pool":{"total":10,"idle":0,"waiting":15},"cpuUserMs":625,"cpuSystemMs":422,"rssBytes":192032768}
+[17644:000001E00DE1F000]    42995 ms: Scavenge 50.2 (89.2) -> 23.8 (89.2) MB, pooled: 0 MB, 13.62 / 7.10 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    43441 ms: Scavenge 55.0 (89.2) -> 23.8 (89.2) MB, pooled: 0 MB, 16.11 / 10.49 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    43843 ms: Scavenge 55.4 (89.2) -> 23.9 (89.2) MB, pooled: 0 MB, 11.96 / 6.68 ms  (average mu = 0.999, current mu = 0.999) allocation failure; 
+[17644:000001E00DE1F000]    44217 ms: Scavenge 54.5 (89.2) -> 24.3 (89.2) MB, pooled: 0 MB, 9.80 / 6.00 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    44565 ms: Scavenge 53.7 (89.2) -> 24.2 (89.4) MB, pooled: 0 MB, 11.79 / 5.66 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    44907 ms: Scavenge 52.9 (89.4) -> 24.3 (89.7) MB, pooled: 0 MB, 11.62 / 7.43 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    45309 ms: Scavenge 53.2 (89.7) -> 24.3 (89.7) MB, pooled: 0 MB, 11.36 / 7.42 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    45748 ms: Mark-Compact 55.6 (89.7) -> 18.5 (88.7) MB, pooled: 0 MB, 15.39 / 7.03 ms  (+ 2.1 ms in 57 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 65 ms) (average mu = 0.998, current mu = 0.997) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    46116 ms: Scavenge 46.8 (88.7) -> 20.6 (88.7) MB, pooled: 0 MB, 9.09 / 4.63 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    46465 ms: Scavenge 49.9 (88.7) -> 20.5 (88.7) MB, pooled: 0 MB, 10.90 / 5.79 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    46895 ms: Scavenge 49.2 (88.7) -> 20.5 (88.7) MB, pooled: 0 MB, 12.92 / 6.43 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    47340 ms: Scavenge 52.0 (88.7) -> 21.1 (88.7) MB, pooled: 0 MB, 12.05 / 7.83 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    47729 ms: Scavenge 51.4 (88.7) -> 21.1 (88.7) MB, pooled: 0 MB, 13.46 / 5.86 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    48110 ms: Scavenge 49.4 (88.7) -> 21.0 (88.7) MB, pooled: 0 MB, 13.28 / 8.19 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    48499 ms: Scavenge 49.7 (88.7) -> 21.0 (88.7) MB, pooled: 0 MB, 10.45 / 6.76 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    48893 ms: Scavenge 52.6 (88.7) -> 21.0 (88.7) MB, pooled: 0 MB, 11.44 / 6.86 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    49258 ms: Scavenge 51.2 (88.7) -> 21.4 (88.7) MB, pooled: 0 MB, 10.91 / 6.65 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    49621 ms: Scavenge 52.7 (88.7) -> 21.3 (88.7) MB, pooled: 0 MB, 10.37 / 6.81 ms  (average mu = 0.998, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    49984 ms: Scavenge 47.1 (88.7) -> 21.4 (88.7) MB, pooled: 0 MB, 9.62 / 4.92 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    50390 ms: Scavenge 49.2 (88.7) -> 21.5 (88.7) MB, pooled: 0 MB, 10.49 / 7.24 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    50886 ms: Scavenge 50.0 (88.7) -> 21.6 (88.7) MB, pooled: 0 MB, 15.52 / 9.71 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    51324 ms: Scavenge 53.1 (88.7) -> 22.2 (88.7) MB, pooled: 0 MB, 12.30 / 8.06 ms  (average mu = 0.998, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    51669 ms: Scavenge 51.2 (88.7) -> 22.2 (88.7) MB, pooled: 0 MB, 9.75 / 5.69 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    51983 ms: Scavenge 50.0 (88.7) -> 22.1 (88.7) MB, pooled: 0 MB, 9.21 / 6.23 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    52500 ms: Scavenge 51.1 (88.7) -> 22.4 (88.7) MB, pooled: 0 MB, 16.25 / 7.59 ms  (average mu = 0.998, current mu = 0.997) task; 
+{"sampledAt":"2026-11-22T01:37:34.352Z","pool":{"total":10,"idle":0,"waiting":47},"cpuUserMs":734,"cpuSystemMs":391,"rssBytes":195940352}
+{"sampledAt":"2026-11-22T01:37:35.359Z","pool":{"total":10,"idle":0,"waiting":41},"cpuUserMs":594,"cpuSystemMs":453,"rssBytes":196739072}
+{"sampledAt":"2026-11-22T01:37:36.438Z","pool":{"total":10,"idle":0,"waiting":8},"cpuUserMs":766,"cpuSystemMs":437,"rssBytes":198017024}
+{"sampledAt":"2026-11-22T01:37:37.467Z","pool":{"total":10,"idle":0,"waiting":23},"cpuUserMs":796,"cpuSystemMs":469,"rssBytes":220446720}
+{"sampledAt":"2026-11-22T01:37:38.534Z","pool":{"total":10,"idle":0,"waiting":21},"cpuUserMs":797,"cpuSystemMs":453,"rssBytes":257855488}
+{"sampledAt":"2026-11-22T01:37:39.539Z","pool":{"total":10,"idle":0,"waiting":80},"cpuUserMs":563,"cpuSystemMs":469,"rssBytes":260427776}
+{"sampledAt":"2026-11-22T01:37:40.572Z","pool":{"total":10,"idle":0,"waiting":33},"cpuUserMs":672,"cpuSystemMs":406,"rssBytes":248967168}
+{"sampledAt":"2026-11-22T01:37:41.608Z","pool":{"total":10,"idle":0,"waiting":18},"cpuUserMs":562,"cpuSystemMs":406,"rssBytes":269623296}
+{"sampledAt":"2026-11-22T01:37:42.681Z","pool":{"total":10,"idle":0,"waiting":68},"cpuUserMs":719,"cpuSystemMs":250,"rssBytes":263946240}
+{"sampledAt":"2026-11-22T01:37:43.713Z","pool":{"total":10,"idle":0,"waiting":15},"cpuUserMs":672,"cpuSystemMs":422,"rssBytes":265945088}
+{"sampledAt":"2026-11-22T01:37:44.731Z","pool":{"total":10,"idle":0,"waiting":43},"cpuUserMs":656,"cpuSystemMs":375,"rssBytes":250707968}
+{"sampledAt":"2026-11-22T01:37:45.738Z","pool":{"total":10,"idle":0,"waiting":25},"cpuUserMs":594,"cpuSystemMs":453,"rssBytes":262950912}
+[17644:000001E00DE1F000]    52947 ms: Scavenge 50.9 (88.7) -> 22.6 (88.7) MB, pooled: 0 MB, 8.84 / 5.38 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    53327 ms: Scavenge 49.2 (88.7) -> 22.7 (88.7) MB, pooled: 0 MB, 12.59 / 7.11 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    53806 ms: Scavenge 54.2 (88.7) -> 22.7 (88.7) MB, pooled: 0 MB, 11.78 / 8.43 ms  (average mu = 0.998, current mu = 0.997) allocation failure; 
+[17644:000001E00DE1F000]    54239 ms: Scavenge 51.8 (88.7) -> 22.9 (88.7) MB, pooled: 0 MB, 13.19 / 8.16 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    54628 ms: Scavenge 54.0 (88.7) -> 22.9 (88.7) MB, pooled: 0 MB, 12.10 / 5.35 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    54965 ms: Scavenge 50.7 (88.7) -> 22.8 (88.7) MB, pooled: 0 MB, 8.52 / 4.82 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    55320 ms: Scavenge 51.1 (88.7) -> 22.8 (88.7) MB, pooled: 0 MB, 11.04 / 7.82 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    55715 ms: Scavenge 52.8 (88.7) -> 22.7 (152.7) MB, pooled: 0 MB, 13.61 / 5.80 ms  (average mu = 0.998, current mu = 0.997) task; 
+[17644:000001E00DE1F000]    55773 ms: Mark-Compact 25.8 (152.7) -> 17.8 (152.9) MB, pooled: 0 MB, 8.45 / 1.56 ms  (+ 1.4 ms in 45 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 48 ms) (average mu = 0.999, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    56478 ms: Scavenge 73.3 (152.9) -> 19.7 (152.9) MB, pooled: 0 MB, 29.72 / 17.25 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    57110 ms: Scavenge 71.3 (152.9) -> 19.7 (152.9) MB, pooled: 0 MB, 21.16 / 12.43 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    57815 ms: Mark-Compact 72.3 (152.9) -> 18.0 (149.2) MB, pooled: 4 MB, 23.77 / 15.91 ms  (+ 1.8 ms in 55 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 75 ms) (average mu = 0.997, current mu = 0.988) finalize incremental marking via stack guard; GC in old space requested
+[17644:000001E00DE1F000]    58939 ms: Scavenge 69.6 (149.2) -> 20.0 (149.2) MB, pooled: 4 MB, 23.92 / 13.28 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    59612 ms: Scavenge 76.9 (149.2) -> 19.7 (149.7) MB, pooled: 3 MB, 17.09 / 8.28 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    60297 ms: Scavenge 74.2 (149.7) -> 19.5 (149.7) MB, pooled: 3 MB, 19.90 / 13.05 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    61325 ms: Scavenge 73.5 (149.7) -> 20.0 (149.7) MB, pooled: 3 MB, 17.93 / 12.07 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    62034 ms: Scavenge 71.0 (149.7) -> 19.9 (149.7) MB, pooled: 3 MB, 15.75 / 8.70 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    62695 ms: Scavenge 77.3 (149.7) -> 19.7 (149.7) MB, pooled: 3 MB, 19.21 / 11.43 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    63459 ms: Scavenge 75.2 (149.7) -> 19.8 (149.7) MB, pooled: 3 MB, 20.53 / 14.42 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    64307 ms: Scavenge 72.2 (149.7) -> 20.1 (149.9) MB, pooled: 3 MB, 15.59 / 10.19 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    64922 ms: Scavenge 72.6 (149.9) -> 19.9 (149.9) MB, pooled: 3 MB, 15.48 / 10.60 ms  (average mu = 0.997, current mu = 0.988) task; 
+[17644:000001E00DE1F000]    65658 ms: Scavenge 74.7 (149.9) -> 20.0 (149.9) MB, pooled: 3 MB, 16.45 / 10.97 ms  (average mu = 0.997, current mu = 0.988) task; 
+{"sampledAt":"2026-11-22T01:37:46.773Z","pool":{"total":10,"idle":0,"waiting":20},"cpuUserMs":672,"cpuSystemMs":422,"rssBytes":263254016}
+{"sampledAt":"2026-11-22T01:37:47.788Z","pool":{"total":10,"idle":0,"waiting":13},"cpuUserMs":609,"cpuSystemMs":391,"rssBytes":261951488}
+{"sampledAt":"2026-11-22T01:37:48.800Z","pool":{"total":10,"idle":0,"waiting":17},"cpuUserMs":578,"cpuSystemMs":500,"rssBytes":265420800}
+{"sampledAt":"2026-11-22T01:37:49.817Z","pool":{"total":10,"idle":0,"waiting":15},"cpuUserMs":703,"cpuSystemMs":344,"rssBytes":265805824}
+{"sampledAt":"2026-11-22T01:37:50.828Z","pool":{"total":10,"idle":0,"waiting":59},"cpuUserMs":610,"cpuSystemMs":437,"rssBytes":269377536}
+{"sampledAt":"2026-11-22T01:37:51.844Z","pool":{"total":10,"idle":0,"waiting":46},"cpuUserMs":672,"cpuSystemMs":281,"rssBytes":269611008}
+{"sampledAt":"2026-11-22T01:37:52.907Z","pool":{"total":10,"idle":0,"waiting":2},"cpuUserMs":656,"cpuSystemMs":469,"rssBytes":269680640}
+{"sampledAt":"2026-11-22T01:37:53.947Z","pool":{"total":10,"idle":0,"waiting":17},"cpuUserMs":625,"cpuSystemMs":500,"rssBytes":268423168}
+{"sampledAt":"2026-11-22T01:37:54.967Z","pool":{"total":10,"idle":0,"waiting":21},"cpuUserMs":734,"cpuSystemMs":391,"rssBytes":269021184}
+{"sampledAt":"2026-11-22T01:37:55.986Z","pool":{"total":10,"idle":0,"waiting":71},"cpuUserMs":656,"cpuSystemMs":390,"rssBytes":269901824}
+{"sampledAt":"2026-11-22T01:37:56.994Z","pool":{"total":10,"idle":0,"waiting":30},"cpuUserMs":641,"cpuSystemMs":407,"rssBytes":269418496}
+{"sampledAt":"2026-11-22T01:37:58.008Z","pool":{"total":10,"idle":0,"waiting":5},"cpuUserMs":656,"cpuSystemMs":484,"rssBytes":271192064}
+{"sampledAt":"2026-11-22T01:37:59.022Z","pool":{"total":10,"idle":0,"waiting":5},"cpuUserMs":625,"cpuSystemMs":391,"rssBytes":272060416}
+{"sampledAt":"2026-11-22T01:38:00.030Z","pool":{"total":10,"idle":0,"waiting":28},"cpuUserMs":657,"cpuSystemMs":437,"rssBytes":272080896}
+{"sampledAt":"2026-11-22T01:38:01.030Z","pool":{"total":10,"idle":0,"waiting":32},"cpuUserMs":640,"cpuSystemMs":391,"rssBytes":272125952}
+{"sampledAt":"2026-11-22T01:38:02.194Z","pool":{"total":10,"idle":0,"waiting":57},"cpuUserMs":672,"cpuSystemMs":359,"rssBytes":272191488}
+{"sampledAt":"2026-11-22T01:38:03.218Z","pool":{"total":10,"idle":0,"waiting":32},"cpuUserMs":688,"cpuSystemMs":266,"rssBytes":272175104}
+[17644:000001E00DE1F000]    65690 ms: Mark-Compact 21.9 (149.9) -> 17.2 (149.7) MB, pooled: 3 MB, 4.94 / 0.91 ms  (+ 0.7 ms in 27 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 27 ms) (average mu = 0.998, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    66340 ms: Scavenge 72.9 (149.7) -> 18.2 (149.7) MB, pooled: 3 MB, 18.99 / 13.03 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    66947 ms: Scavenge 69.3 (149.7) -> 18.2 (149.7) MB, pooled: 3 MB, 16.54 / 9.14 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    67602 ms: Scavenge 72.2 (149.7) -> 18.4 (149.7) MB, pooled: 3 MB, 19.65 / 11.34 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    68240 ms: Scavenge 71.6 (149.7) -> 18.4 (149.7) MB, pooled: 3 MB, 15.09 / 10.43 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    68904 ms: Scavenge 72.5 (149.7) -> 18.4 (149.7) MB, pooled: 3 MB, 15.24 / 10.78 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    69859 ms: Scavenge 77.0 (149.7) -> 18.6 (149.7) MB, pooled: 3 MB, 21.01 / 15.28 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    70567 ms: Scavenge 72.9 (149.7) -> 18.6 (149.7) MB, pooled: 3 MB, 21.87 / 14.13 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    71440 ms: Scavenge 73.0 (149.7) -> 18.8 (149.7) MB, pooled: 3 MB, 17.50 / 11.64 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    72087 ms: Scavenge 71.6 (149.7) -> 18.5 (149.7) MB, pooled: 3 MB, 16.43 / 10.74 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    72805 ms: Scavenge 75.3 (149.7) -> 18.7 (149.7) MB, pooled: 3 MB, 16.11 / 11.17 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    73448 ms: Scavenge 72.2 (149.7) -> 18.7 (149.7) MB, pooled: 3 MB, 19.05 / 10.64 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    73507 ms: Mark-Compact 22.7 (149.7) -> 18.2 (148.9) MB, pooled: 4 MB, 5.35 / 0.50 ms  (+ 1.9 ms in 65 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 57 ms) (average mu = 0.999, current mu = 0.999) finalize incremental marking via stack guard; GC in old space requested
+[17644:000001E00DE1F000]    74215 ms: Scavenge 71.7 (148.9) -> 18.9 (148.9) MB, pooled: 4 MB, 19.10 / 8.72 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    75074 ms: Scavenge 70.6 (148.9) -> 19.1 (148.9) MB, pooled: 4 MB, 19.78 / 11.95 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    75878 ms: Scavenge 73.5 (148.9) -> 19.1 (148.9) MB, pooled: 4 MB, 16.66 / 9.67 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    76541 ms: Scavenge 75.7 (148.9) -> 18.7 (148.9) MB, pooled: 4 MB, 17.23 / 11.46 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    77195 ms: Scavenge 73.5 (148.9) -> 18.9 (148.9) MB, pooled: 4 MB, 16.79 / 9.92 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    77823 ms: Scavenge 74.2 (148.9) -> 18.9 (148.9) MB, pooled: 4 MB, 16.51 / 10.98 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    78463 ms: Scavenge 72.7 (148.9) -> 18.9 (148.9) MB, pooled: 4 MB, 18.79 / 11.65 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    79136 ms: Scavenge 74.5 (148.9) -> 18.9 (148.9) MB, pooled: 4 MB, 20.58 / 13.04 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    79816 ms: Scavenge 70.6 (148.9) -> 19.0 (148.9) MB, pooled: 4 MB, 21.17 / 14.46 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    80652 ms: Scavenge 72.2 (148.9) -> 19.1 (148.9) MB, pooled: 4 MB, 28.26 / 17.34 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    81668 ms: Scavenge 72.8 (148.9) -> 19.4 (148.9) MB, pooled: 4 MB, 15.70 / 8.99 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    82394 ms: Scavenge 72.9 (148.9) -> 19.1 (148.9) MB, pooled: 4 MB, 16.41 / 10.20 ms  (average mu = 0.999, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:38:04.267Z","pool":{"total":10,"idle":0,"waiting":24},"cpuUserMs":734,"cpuSystemMs":344,"rssBytes":272961536}
+{"sampledAt":"2026-11-22T01:38:05.297Z","pool":{"total":10,"idle":0,"waiting":20},"cpuUserMs":672,"cpuSystemMs":359,"rssBytes":272973824}
+{"sampledAt":"2026-11-22T01:38:06.320Z","pool":{"total":10,"idle":0,"waiting":19},"cpuUserMs":765,"cpuSystemMs":312,"rssBytes":271925248}
+{"sampledAt":"2026-11-22T01:38:07.329Z","pool":{"total":10,"idle":0,"waiting":35},"cpuUserMs":657,"cpuSystemMs":360,"rssBytes":271941632}
+{"sampledAt":"2026-11-22T01:38:08.366Z","pool":{"total":10,"idle":0,"waiting":27},"cpuUserMs":672,"cpuSystemMs":375,"rssBytes":276066304}
+{"sampledAt":"2026-11-22T01:38:09.381Z","pool":{"total":10,"idle":0,"waiting":4},"cpuUserMs":562,"cpuSystemMs":437,"rssBytes":276271104}
+{"sampledAt":"2026-11-22T01:38:10.391Z","pool":{"total":10,"idle":0,"waiting":4},"cpuUserMs":734,"cpuSystemMs":328,"rssBytes":275173376}
+{"sampledAt":"2026-11-22T01:38:11.409Z","pool":{"total":10,"idle":0,"waiting":23},"cpuUserMs":563,"cpuSystemMs":469,"rssBytes":275341312}
+{"sampledAt":"2026-11-22T01:38:12.557Z","pool":{"total":10,"idle":0,"waiting":48},"cpuUserMs":656,"cpuSystemMs":453,"rssBytes":277909504}
+{"sampledAt":"2026-11-22T01:38:13.586Z","pool":{"total":10,"idle":0,"waiting":61},"cpuUserMs":735,"cpuSystemMs":391,"rssBytes":277737472}
+{"sampledAt":"2026-11-22T01:38:14.607Z","pool":{"total":10,"idle":0,"waiting":22},"cpuUserMs":765,"cpuSystemMs":422,"rssBytes":277086208}
+{"sampledAt":"2026-11-22T01:38:15.618Z","pool":{"total":10,"idle":0,"waiting":18},"cpuUserMs":703,"cpuSystemMs":328,"rssBytes":278794240}
+{"sampledAt":"2026-11-22T01:38:16.676Z","pool":{"total":10,"idle":0,"waiting":15},"cpuUserMs":657,"cpuSystemMs":437,"rssBytes":280375296}
+{"sampledAt":"2026-11-22T01:38:17.694Z","pool":{"total":10,"idle":0,"waiting":11},"cpuUserMs":687,"cpuSystemMs":375,"rssBytes":280928256}
+[17644:000001E00DE1F000]    83009 ms: Scavenge 70.8 (148.9) -> 19.2 (148.9) MB, pooled: 4 MB, 17.23 / 10.97 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    83703 ms: Scavenge 72.1 (148.9) -> 19.3 (148.9) MB, pooled: 4 MB, 19.49 / 10.21 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    84407 ms: Scavenge 72.2 (148.9) -> 19.3 (148.9) MB, pooled: 4 MB, 16.95 / 11.39 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    85077 ms: Scavenge 74.1 (148.9) -> 19.3 (148.9) MB, pooled: 4 MB, 18.11 / 12.27 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    85797 ms: Scavenge 75.4 (148.9) -> 19.3 (148.9) MB, pooled: 4 MB, 17.72 / 8.79 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    86664 ms: Scavenge 79.7 (148.9) -> 19.3 (148.9) MB, pooled: 4 MB, 17.68 / 9.69 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    87341 ms: Scavenge 72.1 (148.9) -> 19.4 (148.9) MB, pooled: 4 MB, 18.03 / 11.76 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    87365 ms: Mark-Compact 20.3 (148.9) -> 16.8 (149.2) MB, pooled: 4 MB, 3.86 / 1.18 ms  (+ 0.3 ms in 11 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 19 ms) (average mu = 0.999, current mu = 1.000) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    88042 ms: Scavenge 73.2 (149.2) -> 18.6 (149.2) MB, pooled: 4 MB, 18.20 / 11.46 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    88693 ms: Scavenge 73.4 (149.2) -> 18.6 (149.2) MB, pooled: 4 MB, 17.27 / 11.08 ms  (average mu = 0.999, current mu = 1.000) task; 
+[17644:000001E00DE1F000]    89287 ms: Mark-Compact 69.0 (149.2) -> 16.5 (148.2) MB, pooled: 5 MB, 18.23 / 11.72 ms  (+ 0.3 ms in 9 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 28 ms) (average mu = 0.998, current mu = 0.990) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    90040 ms: Scavenge 69.1 (148.2) -> 17.7 (148.2) MB, pooled: 5 MB, 14.80 / 10.44 ms  (average mu = 0.998, current mu = 0.990) task; 
+[17644:000001E00DE1F000]    90925 ms: Scavenge 77.1 (148.2) -> 17.5 (148.2) MB, pooled: 5 MB, 31.85 / 18.32 ms  (average mu = 0.998, current mu = 0.990) task; 
+[17644:000001E00DE1F000]    91763 ms: Scavenge 70.9 (148.2) -> 18.3 (148.2) MB, pooled: 5 MB, 23.59 / 14.82 ms  (average mu = 0.998, current mu = 0.990) task; 
+[17644:000001E00DE1F000]    91780 ms: Mark-Compact 18.7 (148.2) -> 16.9 (148.7) MB, pooled: 4 MB, 3.15 / 0.06 ms  (+ 0.3 ms in 7 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 15 ms) (average mu = 0.998, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    92593 ms: Scavenge 70.9 (148.7) -> 18.8 (148.7) MB, pooled: 4 MB, 16.18 / 10.31 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    93330 ms: Scavenge 72.2 (148.9) -> 18.8 (148.9) MB, pooled: 4 MB, 18.32 / 10.36 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]    94048 ms: Mark-Compact 73.6 (148.9) -> 18.5 (149.2) MB, pooled: 4 MB, 20.20 / 9.48 ms  (+ 2.1 ms in 65 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 72 ms) (average mu = 0.995, current mu = 0.990) finalize incremental marking via stack guard; GC in old space requested
+[17644:000001E00DE1F000]    94860 ms: Scavenge 72.0 (149.2) -> 20.1 (149.2) MB, pooled: 4 MB, 21.69 / 14.18 ms  (average mu = 0.995, current mu = 0.990) task; 
+[17644:000001E00DE1F000]    95549 ms: Scavenge 73.0 (149.2) -> 20.1 (149.9) MB, pooled: 3 MB, 15.11 / 8.61 ms  (average mu = 0.995, current mu = 0.990) task; 
+[17644:000001E00DE1F000]    96219 ms: Scavenge 74.1 (149.9) -> 20.0 (149.9) MB, pooled: 3 MB, 15.55 / 10.12 ms  (average mu = 0.995, current mu = 0.990) task; 
+{"sampledAt":"2026-11-22T01:38:18.721Z","pool":{"total":10,"idle":0,"waiting":29},"cpuUserMs":719,"cpuSystemMs":469,"rssBytes":279224320}
+{"sampledAt":"2026-11-22T01:38:19.763Z","pool":{"total":10,"idle":0,"waiting":28},"cpuUserMs":594,"cpuSystemMs":391,"rssBytes":280707072}
+{"sampledAt":"2026-11-22T01:38:20.783Z","pool":{"total":10,"idle":0,"waiting":16},"cpuUserMs":609,"cpuSystemMs":390,"rssBytes":281677824}
+{"sampledAt":"2026-11-22T01:38:21.825Z","pool":{"total":10,"idle":0,"waiting":26},"cpuUserMs":703,"cpuSystemMs":375,"rssBytes":281743360}
+{"sampledAt":"2026-11-22T01:38:22.844Z","pool":{"total":10,"idle":1,"waiting":0},"cpuUserMs":625,"cpuSystemMs":407,"rssBytes":281821184}
+{"sampledAt":"2026-11-22T01:38:23.849Z","pool":{"total":10,"idle":0,"waiting":7},"cpuUserMs":656,"cpuSystemMs":359,"rssBytes":281894912}
+{"sampledAt":"2026-11-22T01:38:24.862Z","pool":{"total":10,"idle":0,"waiting":18},"cpuUserMs":625,"cpuSystemMs":375,"rssBytes":282345472}
+{"sampledAt":"2026-11-22T01:38:25.868Z","pool":{"total":10,"idle":0,"waiting":5},"cpuUserMs":641,"cpuSystemMs":266,"rssBytes":281911296}
+{"sampledAt":"2026-11-22T01:38:26.868Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":578,"cpuSystemMs":468,"rssBytes":282578944}
+{"sampledAt":"2026-11-22T01:38:27.869Z","pool":{"total":10,"idle":9,"waiting":0},"cpuUserMs":531,"cpuSystemMs":360,"rssBytes":282652672}
+{"sampledAt":"2026-11-22T01:38:28.869Z","pool":{"total":10,"idle":9,"waiting":0},"cpuUserMs":485,"cpuSystemMs":312,"rssBytes":282738688}
+{"sampledAt":"2026-11-22T01:38:29.875Z","pool":{"total":10,"idle":9,"waiting":0},"cpuUserMs":468,"cpuSystemMs":344,"rssBytes":282820608}
+{"sampledAt":"2026-11-22T01:38:30.875Z","pool":{"total":10,"idle":8,"waiting":0},"cpuUserMs":329,"cpuSystemMs":328,"rssBytes":282824704}
+{"sampledAt":"2026-11-22T01:38:31.891Z","pool":{"total":10,"idle":7,"waiting":0},"cpuUserMs":562,"cpuSystemMs":297,"rssBytes":282824704}
+{"sampledAt":"2026-11-22T01:38:32.895Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":422,"cpuSystemMs":250,"rssBytes":282853376}
+{"sampledAt":"2026-11-22T01:38:33.896Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":391,"cpuSystemMs":313,"rssBytes":282861568}
+[17644:000001E00DE1F000]    96922 ms: Mark-Compact 75.8 (149.9) -> 17.9 (149.4) MB, pooled: 4 MB, 20.96 / 12.68 ms  (+ 1.3 ms in 47 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 61 ms) (average mu = 0.994, current mu = 0.992) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]    97696 ms: Scavenge 72.3 (149.4) -> 19.2 (149.4) MB, pooled: 4 MB, 18.08 / 9.17 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]    98389 ms: Scavenge 70.9 (149.4) -> 19.3 (149.4) MB, pooled: 4 MB, 16.20 / 10.06 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]    99131 ms: Scavenge 77.1 (149.4) -> 19.1 (149.4) MB, pooled: 4 MB, 17.51 / 9.31 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]    99811 ms: Scavenge 72.4 (149.4) -> 19.3 (149.4) MB, pooled: 4 MB, 15.71 / 9.29 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   100526 ms: Scavenge 72.1 (149.4) -> 19.3 (149.4) MB, pooled: 4 MB, 16.69 / 11.75 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   101442 ms: Scavenge 76.0 (149.4) -> 19.4 (149.4) MB, pooled: 4 MB, 19.11 / 12.78 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   102115 ms: Scavenge 72.0 (149.4) -> 19.2 (149.4) MB, pooled: 4 MB, 18.31 / 10.91 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   102814 ms: Scavenge 71.6 (149.4) -> 19.2 (149.4) MB, pooled: 4 MB, 19.71 / 11.44 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   103791 ms: Scavenge 76.3 (149.4) -> 19.3 (149.4) MB, pooled: 4 MB, 17.08 / 11.33 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   104389 ms: Scavenge 71.9 (149.4) -> 19.1 (149.4) MB, pooled: 4 MB, 16.02 / 10.44 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   105227 ms: Scavenge 75.1 (149.4) -> 19.1 (149.4) MB, pooled: 4 MB, 16.66 / 11.55 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   105879 ms: Scavenge 70.3 (149.4) -> 19.1 (149.4) MB, pooled: 4 MB, 14.85 / 7.92 ms  (average mu = 0.994, current mu = 0.992) task; 
+[17644:000001E00DE1F000]   105893 ms: Mark-Compact 19.2 (149.4) -> 16.4 (149.4) MB, pooled: 4 MB, 3.28 / 0.73 ms  (+ 2.2 ms in 24 steps since start of marking, biggest step 0.4 ms, walltime since start of marking 13 ms) (average mu = 0.998, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]   106589 ms: Scavenge 69.3 (149.4) -> 16.7 (149.4) MB, pooled: 4 MB, 16.48 / 11.19 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   107331 ms: Scavenge 68.1 (149.4) -> 16.6 (149.4) MB, pooled: 4 MB, 14.56 / 7.71 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   108061 ms: Scavenge 68.1 (149.4) -> 16.7 (149.4) MB, pooled: 4 MB, 15.25 / 7.97 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   108831 ms: Scavenge 68.2 (149.4) -> 16.7 (149.4) MB, pooled: 4 MB, 13.52 / 7.36 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   109609 ms: Scavenge 68.2 (149.4) -> 16.7 (149.4) MB, pooled: 4 MB, 14.38 / 8.86 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   109623 ms: Mark-Compact 16.9 (149.4) -> 16.4 (147.7) MB, pooled: 6 MB, 3.43 / 0.01 ms  (+ 1.8 ms in 41 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 12 ms) (average mu = 0.998, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]   110432 ms: Scavenge 67.7 (147.7) -> 16.6 (147.7) MB, pooled: 6 MB, 14.42 / 8.67 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   111330 ms: Scavenge 68.2 (147.7) -> 16.6 (147.7) MB, pooled: 6 MB, 15.47 / 8.48 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   112296 ms: Scavenge 68.1 (147.7) -> 16.6 (147.7) MB, pooled: 6 MB, 16.62 / 9.52 ms  (average mu = 0.998, current mu = 0.999) task; 
+{"sampledAt":"2026-11-22T01:38:34.899Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":281,"cpuSystemMs":156,"rssBytes":282886144}
+{"sampledAt":"2026-11-22T01:38:35.900Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":234,"cpuSystemMs":250,"rssBytes":283119616}
+{"sampledAt":"2026-11-22T01:38:36.899Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":313,"cpuSystemMs":172,"rssBytes":283541504}
+{"sampledAt":"2026-11-22T01:38:37.902Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":281,"cpuSystemMs":187,"rssBytes":283299840}
+{"sampledAt":"2026-11-22T01:38:38.902Z","pool":{"total":10,"idle":9,"waiting":0},"cpuUserMs":156,"cpuSystemMs":141,"rssBytes":283275264}
+{"sampledAt":"2026-11-22T01:38:39.901Z","pool":{"total":10,"idle":9,"waiting":0},"cpuUserMs":266,"cpuSystemMs":156,"rssBytes":285732864}
+{"sampledAt":"2026-11-22T01:38:40.902Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":156,"cpuSystemMs":188,"rssBytes":285712384}
+{"sampledAt":"2026-11-22T01:38:41.903Z","pool":{"total":10,"idle":10,"waiting":0},"cpuUserMs":172,"cpuSystemMs":156,"rssBytes":285782016}
+{"sampledAt":"2026-11-22T01:38:42.906Z","pool":{"total":7,"idle":7,"waiting":0},"cpuUserMs":187,"cpuSystemMs":140,"rssBytes":286572544}
+{"sampledAt":"2026-11-22T01:38:43.906Z","pool":{"total":6,"idle":6,"waiting":0},"cpuUserMs":157,"cpuSystemMs":157,"rssBytes":286584832}
+{"sampledAt":"2026-11-22T01:38:44.907Z","pool":{"total":6,"idle":6,"waiting":0},"cpuUserMs":78,"cpuSystemMs":78,"rssBytes":286658560}
+{"sampledAt":"2026-11-22T01:38:45.907Z","pool":{"total":6,"idle":6,"waiting":0},"cpuUserMs":94,"cpuSystemMs":78,"rssBytes":285474816}
+{"sampledAt":"2026-11-22T01:38:46.908Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":46,"cpuSystemMs":94,"rssBytes":285478912}
+{"sampledAt":"2026-11-22T01:38:47.911Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":16,"cpuSystemMs":31,"rssBytes":285483008}
+{"sampledAt":"2026-11-22T01:38:48.911Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":0,"cpuSystemMs":62,"rssBytes":285483008}
+{"sampledAt":"2026-11-22T01:38:49.911Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":0,"cpuSystemMs":63,"rssBytes":285487104}
+{"sampledAt":"2026-11-22T01:38:50.912Z","pool":{"total":3,"idle":3,"waiting":0},"cpuUserMs":16,"cpuSystemMs":47,"rssBytes":285548544}
+{"sampledAt":"2026-11-22T01:38:51.913Z","pool":{"total":2,"idle":2,"waiting":0},"cpuUserMs":15,"cpuSystemMs":62,"rssBytes":285548544}
+{"sampledAt":"2026-11-22T01:38:52.913Z","pool":{"total":2,"idle":2,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":285134848}
+{"sampledAt":"2026-11-22T01:38:53.915Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":285134848}
+{"sampledAt":"2026-11-22T01:38:54.917Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":46,"rssBytes":285245440}
+{"sampledAt":"2026-11-22T01:38:55.918Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":285245440}
+{"sampledAt":"2026-11-22T01:38:56.918Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":78,"rssBytes":285245440}
+{"sampledAt":"2026-11-22T01:38:57.918Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":285245440}
+{"sampledAt":"2026-11-22T01:38:58.919Z","pool":{"total":1,"idle":1,"waiting":0},"cpuUserMs":16,"cpuSystemMs":47,"rssBytes":285245440}
+{"sampledAt":"2026-11-22T01:38:59.920Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":63,"rssBytes":284856320}
+{"sampledAt":"2026-11-22T01:39:00.921Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":109,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:01.921Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":16,"cpuSystemMs":47,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:02.921Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":15,"cpuSystemMs":31,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:03.922Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":0,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:04.923Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":16,"cpuSystemMs":63,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:05.923Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":15,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:06.923Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:07.923Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:08.923Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":31,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:09.924Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:10.925Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:11.926Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":15,"rssBytes":277590016}
+{"sampledAt":"2026-11-22T01:39:12.926Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":94,"rssBytes":274243584}
+{"sampledAt":"2026-11-22T01:39:13.926Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":274243584}
+{"sampledAt":"2026-11-22T01:39:14.927Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":62,"rssBytes":274243584}
+{"sampledAt":"2026-11-22T01:39:15.931Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":31,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:16.931Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":78,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:17.933Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:18.933Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":78,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:19.933Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:20.934Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:21.934Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":31,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:22.935Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":15,"cpuSystemMs":109,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:23.935Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:24.936Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":31,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:25.937Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:26.937Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":63,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:27.938Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":15,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:28.938Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":32,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:29.939Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":16,"cpuSystemMs":15,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:30.940Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:31.941Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":78,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:32.942Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":78,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:33.942Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:34.942Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":78,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:35.942Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:36.942Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":47,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:37.943Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":62,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:38.943Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":0,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:39.944Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":16,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:40.945Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":0,"cpuSystemMs":63,"rssBytes":273133568}
+{"sampledAt":"2026-11-22T01:39:41.946Z","pool":{"total":0,"idle":0,"waiting":0},"cpuUserMs":31,"cpuSystemMs":62,"rssBytes":273133568}
+[17644:000001E00DE1F000]   113268 ms: Scavenge 68.0 (147.7) -> 16.7 (147.7) MB, pooled: 6 MB, 16.58 / 9.56 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   114322 ms: Scavenge 68.1 (147.7) -> 16.7 (147.7) MB, pooled: 6 MB, 16.04 / 10.96 ms  (average mu = 0.998, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   114331 ms: Mark-Compact 16.8 (147.7) -> 16.3 (147.7) MB, pooled: 6 MB, 2.22 / 0.01 ms  (+ 2.7 ms in 59 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 8 ms) (average mu = 0.999, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]   115447 ms: Scavenge 68.2 (147.7) -> 16.5 (147.7) MB, pooled: 6 MB, 16.77 / 8.71 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   116588 ms: Scavenge 68.5 (147.7) -> 16.5 (147.7) MB, pooled: 6 MB, 16.04 / 10.43 ms  (average mu = 0.999, current mu = 0.999) task; 
+[17644:000001E00DE1F000]   116595 ms: Mark-Compact 16.6 (147.7) -> 16.2 (147.7) MB, pooled: 6 MB, 1.94 / 0.01 ms  (+ 2.4 ms in 80 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 6 ms) (average mu = 0.998, current mu = 0.998) finalize incremental marking via task; GC in old space requested
+[17644:000001E00DE1F000]   118086 ms: Scavenge 67.6 (147.7) -> 16.4 (147.7) MB, pooled: 6 MB, 14.87 / 10.14 ms  (average mu = 0.998, current mu = 0.998) task; 
+[17644:000001E00DE1F000]   119576 ms: Scavenge 67.8 (147.7) -> 16.4 (147.7) MB, pooled: 6 MB, 14.23 / 7.95 ms  (average mu = 0.998, current mu = 0.998) task; 
+[17644:000001E00DE1F000]   121556 ms: Scavenge 67.9 (147.7) -> 16.4 (147.7) MB, pooled: 6 MB, 14.47 / 10.01 ms  (average mu = 0.998, current mu = 0.998) task; 
+[17644:000001E00DE1F000]   124275 ms: Scavenge 68.0 (147.7) -> 16.4 (147.7) MB, pooled: 6 MB, 15.19 / 10.47 ms  (average mu = 0.998, current mu = 0.998) task; 
+[17644:000001E00DE1F000]   124284 ms: Mark-Compact 16.5 (147.7) -> 16.0 (147.4) MB, pooled: 6 MB, 3.20 / 0.01 ms  (+ 2.6 ms in 71 steps since start of marking, biggest step 0.2 ms, walltime since start of marking 8 ms) (average mu = 0.999, current mu = 0.999) finalize incremental marking via task; GC in old space requested
+
+Exit code: 0
+End: 2026-11-21T22:39:42.8665551-03:00

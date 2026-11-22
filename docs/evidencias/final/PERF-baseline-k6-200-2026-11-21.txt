@@ -1,0 +1,40 @@
+Start: 2026-11-21T22:15:49.8546408-03:00
+Comando: docker run --rm --env BASE_URL --env VUS --env HOLD_DURATION --env LIST_MODE --env LIMIT --env TOKEN -v <repo>:/work -w /work grafana/k6:0.54.0 run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js
+Configuration: BASE_URL=http://host.docker.internal:3334; VUS=200; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; token=<process environment redacted>
+Data: 502 total rows, including 500 synthetic clients; one successful login; the test uses 1s think time, 30s ramp-up and 60s hold.
+Login HTTP status: 200; token not persisted.
+
+time="2026-11-22T01:15:50Z" level=error msg="accepts 1 arg(s), received 4: arg should either be \"-\", if reading script from stdin, or a path to a script file"
+
+Exit code: 255
+End: 2026-11-21T22:15:50.8085927-03:00
+
+Retry start: 2026-11-21T22:16:15.1592726-03:00
+Command: docker run --rm --env BASE_URL --env VUS --env HOLD_DURATION --env LIST_MODE --env LIMIT --env TOKEN -v <repo>:/work -w /work grafana/k6:0.54.0 run --quiet --no-color --summary-trend-stats "avg,min,med,max,p(90),p(95),p(99)" cp08-clients.js
+Retry login HTTP status: 200; token not persisted.
+
+
+     ✓ respuesta HTTP 200
+
+   ✓ checks.........................: 100.00% 10865 out of 10865
+     data_received..................: 249 MB  2.1 MB/s
+     data_sent......................: 4.1 MB  34 kB/s
+     http_req_blocked...............: avg=73.21µs  min=3.22µs   med=9.43µs   max=20.16ms  p(90)=14.74µs p(95)=32.6µs   p(99)=2.43ms  
+     http_req_connecting............: avg=57.15µs  min=0s       med=0s       max=20.01ms  p(90)=0s      p(95)=0s       p(99)=2.22ms  
+   ✗ http_req_duration..............: avg=667.61ms min=8.29ms   med=730.73ms max=1.85s    p(90)=1.07s   p(95)=1.15s    p(99)=1.68s   
+       { expected_response:true }...: avg=667.61ms min=8.29ms   med=730.73ms max=1.85s    p(90)=1.07s   p(95)=1.15s    p(99)=1.68s   
+   ✓ http_req_failed................: 0.00%   0 out of 10865
+     http_req_receiving.............: avg=1.84ms   min=294.66µs med=1.42ms   max=120.57ms p(90)=2.92ms  p(95)=3.7ms    p(99)=6.45ms  
+     http_req_sending...............: avg=55.47µs  min=7.23µs   med=43.06µs  max=22.01ms  p(90)=86.04µs p(95)=114.45µs p(99)=217.43µs
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s      p(95)=0s       p(99)=0s      
+     http_req_waiting...............: avg=665.71ms min=7.24ms   med=728.68ms max=1.85s    p(90)=1.07s   p(95)=1.15s    p(99)=1.68s   
+     http_reqs......................: 10865   90.056223/s
+     iteration_duration.............: avg=1.66s    min=1s       med=1.73s    max=2.85s    p(90)=2.07s   p(95)=2.16s    p(99)=2.68s   
+     iterations.....................: 10865   90.056223/s
+     vus............................: 5       min=5              max=200
+     vus_max........................: 200     min=200            max=200
+
+time="2026-11-22T01:18:16Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+
+Exit code: 99
+End: 2026-11-21T22:18:16.9972127-03:00

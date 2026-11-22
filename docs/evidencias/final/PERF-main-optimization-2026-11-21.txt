@@ -1,0 +1,82 @@
+EP5: optimizacion del listado paginado y presentacion
+Fecha local: 2026-11-21
+Rama base: main, commit 32a38b07e05c90add48196ca5e8af99fe788f623.
+Estado: cambios locales; antes de publicarse.
+
+Todos los resultados siguientes corresponden a archivos de evidencia generados en esta
+sesion. Los comandos completos, fechas y codigos de salida individuales constan en los
+archivos citados. Los tokens de carga se proporcionaron solo por variables efimeras.
+Dataset de carga: 500 clientes sinteticos y 2 registros de demostracion (502 en total).
+
+Comparacion de las ultimas cifras publicadas en CIERRE-05 con esta ejecucion:
+
+Herramienta | Usuarios | P95 anterior | P99 anterior | P95 nuevo | P99 nuevo | Errores HTTP nuevos | Throughput nuevo | CPU media Docker
+k6 | 50 VU | 56.09 ms | 108.32 ms | 24.40 ms | 57.91 ms | 0 | 37.12 req/s | 32.1 %
+k6 | 200 VU | 1.73 s | 2.07 s | 746.95 ms | 930.60 ms | 0 | 112.52 req/s | 47.6 %
+JMeter | 50 | 63 ms | 266 ms | 16 ms | 33 ms | 0 | 40.8 req/s | 32.1 %
+JMeter | 200 | 1,104 ms | 1,391 ms | 494 ms | 598 ms | 0 | 141.2 req/s | 47.6 %
+
+Las corridas nuevas usaron limit=50, un login por corrida, 1 s de espera y JMeter no GUI con
+HttpClient4/keep-alive. k6: rampa 30 s y carga 60 s; JMeter: rampa 30 s y 90 s totales.
+Los percentiles JMeter se calcularon desde los JTL por rango mas cercano. k6 a 200 VU salio
+con codigo 99 solo por cruzar su umbral P95; sus errores HTTP fueron cero. JMeter final a
+200 VU no registro BindException ni otro error de conexion.
+
+Comparacion adicional de la imagen baseline y la imagen optimizada en esta sesion:
+
+Herramienta | Usuarios | P95 baseline | P99 baseline | P95 optimizado | P99 optimizado
+k6 | 50 VU | 27.97 ms | 73.12 ms | 24.40 ms | 57.91 ms
+k6 | 200 VU | 1.15 s | 1.68 s | 746.95 ms | 930.60 ms
+JMeter | 50 | 25 ms | 63 ms | 16 ms | 33 ms
+JMeter | 200 | 931 ms | 1,074 ms | 494 ms | 598 ms
+
+Las dos comparaciones son ejecuciones distintas y no deben combinarse en una sola base.
+La mediana tampoco sustituye el objetivo: a 200 usuarios el P95 sigue por encima de
+300 ms en ambas herramientas. k6 a 100 VU paso dos veces (P95 97.98 y 89.06 ms); a 150 VU
+obtuvo 294.16 y 338.65 ms, una pasada y una falla. El mayor nivel probado repetidamente
+que cumple es 100 VU, no una capacidad universal.
+
+Docker stats, promediado sobre la ventana de carga de cada nivel:
+- 50 VU: CPU media/maxima 32.1/108.2 %, RAM media/maxima 75.0/94.1 MiB.
+- 200 VU: CPU media/maxima 47.6/105.5 %, RAM media/maxima 82.2/96.4 MiB.
+- Baseline 50 VU: CPU 23.6/74.7 %, RAM 83.8/94.7 MiB.
+- Baseline 200 VU: CPU 52.4/118.8 %, RAM 87.2/106.2 MiB.
+Los porcentajes CPU pueden superar 100 % porque Docker expresa consumo de mas de un nucleo.
+
+Perfil y decisiones:
+- Una pagina de 50 filas: 13,114 bytes frente a 19,251 bytes de la muestra previa (-31.9 %).
+- Muestras unicas SQL/descifrado/JSON actuales: 7.539/10.087/1.409 ms. Frente a la
+  muestra anterior 4.064/8.158/1.504 ms, SQL y descifrado variaron al alza; no se atribuye
+  la mejora del P95 exclusivamente a una etapa.
+- EXPLAIN ANALYZE sobre 502 filas midio 1.349 ms para la consulta; el plan incluyo Seq Scan,
+  WindowAgg y sort top-N. No se agrego indice por no observar beneficio medible en este
+  volumen. PG_POOL_MAX se mantuvo en 10.
+- Perfil instrumentado: pool total maximo 10, waitingCount maximo 80, pausas GC hasta
+  31.85 ms y RSS maximo aproximado 273.38 MiB. Incluyo intervalos sin carga; no prueba
+  causalidad para el P95 ni para el maximo historico de 4.64 s. Este ultimo sigue
+  indeterminado.
+- La autenticacion sigue verificando la cuenta activa por solicitud (`src/server.js`);
+  no se agrego cache. JMeter y k6 compartieron token temporal, think time y pagina, pero
+  difieren en modelo del cliente y throughput; no se aislo causalmente cada diferencia.
+- No se cambio compresion HTTP ni limite CPU/RAM. La app container no tiene limites
+  configurados. No se aumento el pool.
+
+Calidad:
+- Regresion: Node 9/9, cero omitidas; Vitest 4/4; seguridad 19/19; c8 83.87 % lineas/
+  sentencias, 82.27 % ramas y 88.88 % funciones. Codigos 0.
+- npm audit y npm audit --omit=dev: cero vulnerabilidades; codigos 0.
+- Trivy 0.76.2: cero HIGH/CRITICAL, 4 LOW y 7 MEDIUM.
+- Gitleaks 8.30.1 sobre la copia temporal de archivos versionados/no ignorados: cero
+  hallazgos, codigo 0. El escaneo de todo el directorio tambien detecto cuatro valores en
+  .env local ignorado por Git y dos identificadores de proyecto Sonar; los valores se
+  redactaron, el archivo .env no se versiona y solo los fingerprints exactos de los dos
+  identificadores se permiten.
+- Actions mas reciente de main, run 44955653856 / commit 32a38b0: fallo Gitleaks; test,
+  security, coverage, dependency-audit, accessibility, backup-restore y TLS pasaron. El job
+  Sonar quedo omitido/success, sin analisis ni Quality Gate.
+
+Se eliminaron los 500 clientes sinteticos mediante `node scripts/seed-load-data.js --clean`.
+Verificacion posterior: empresa de carga 0, clientes restantes 2 y contratos de demostracion
+2. La evidencia de ejecucion y codigos es `PERF-seed-cleanup-2026-11-21.txt`.
+Capturas Playwright de dashboard, clientes y contratos: 390x844, script
+`node scripts/capture-presentation-ui.js`, codigo 0. Evidencia: `PERF-ui-screenshots-2026-11-21.txt`.

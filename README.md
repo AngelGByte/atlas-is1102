@@ -14,14 +14,19 @@ Aplicación web de demostración para la gestión de clientes, contratos, refere
 
 ## Listado paginado de clientes
 
-`GET /api/clients` conserva el cuerpo JSON como arreglo para clientes existentes, pero ahora
-devuelve 50 registros por defecto para acotar descifrado y tamaño de respuesta. Use
-`?limit=50&page=1` para paginar; el máximo es 200. También se admite `offset` en lugar de
-`page`, pero ambos parámetros no se pueden combinar. Los valores inválidos responden 400.
-La respuesta expone `X-Total-Count`, `X-Page`, `X-Limit`, `X-Offset` y `X-Total-Pages`.
-Los consumidores que necesiten todos los registros deben recorrer las páginas; la interfaz
-lo hace automáticamente donde requiere el conjunto completo. `PG_POOL_MAX` configura el pool
-de PostgreSQL (predeterminado 10, rango 1–100).
+`GET /api/clients` conserva el cuerpo JSON como arreglo y devuelve 50 registros por defecto
+(máximo 200). Use `?limit=50&page=1` o `?limit=50&offset=0`; `page` y `offset` no se combinan.
+Los valores inválidos responden 400. La respuesta expone `X-Total-Count`, `X-Page`,
+`X-Limit`, `X-Offset` y `X-Total-Pages`.
+
+El listado contiene solo los campos de su vista (`id`, `name`, `company`, `rut`, `email`,
+`phone`, `riskLevel`, `status`, `bankAccountLast4` y `blocked`); `notes` y las fechas ya no
+se incluyen para evitar descifrado y transferencia de datos que no usa la tabla. Para obtener
+el registro completo, incluidos `notes` y fechas, use `GET /api/clients/:id`. Los clientes
+bloqueados solo son visibles por identificador para administradores. La interfaz solicita el
+detalle al abrir el formulario de edición. El listado calcula el total con `COUNT(*) OVER()`;
+una página vacía fuera del rango conserva el total mediante una consulta de respaldo.
+`PG_POOL_MAX` configura el pool de PostgreSQL (predeterminado 10, rango 1–100).
 
 ## Cierre EP5 - última verificación local (2026-11-21)
 
@@ -66,6 +71,38 @@ Los comandos, salidas, fechas, códigos de salida, límites históricos y eviden
 [`docs/evidencias/README.md`](./docs/evidencias/README.md),
 [`docs/resultados-validacion.md`](./docs/resultados-validacion.md) y
 [`docs/CHANGELOG-EP5.md`](./docs/CHANGELOG-EP5.md).
+
+## Optimización adicional del listado (2026-11-21)
+
+En una ejecución local basada en `main` (`32a38b0`), se redujo el trabajo del listado:
+`GET /api/clients` obtiene los metadatos de total junto con la página, limita su proyección
+a los campos de la tabla y deja las notas cifradas para el endpoint de detalle. La
+autenticación continúa comprobando el estado del usuario en cada solicitud. La respuesta
+JSON de una página de 50 filas bajó de 19,251 a 13,114 bytes en perfiles de muestra; las
+mediciones unitarias de SQL/descifrado fluctuaron y no se usan como prueba de causalidad.
+
+| Herramienta | Usuarios | P95 previo | P95 actual | P99 actual | Errores HTTP | Throughput actual | CPU promedio (ventana Docker) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| k6 | 50 VU | 56.09 ms | 24.40 ms | 57.91 ms | 0 | 37.12 req/s | 32.1 % |
+| k6 | 200 VU | 1.73 s | 746.95 ms | 930.60 ms | 0 | 112.52 req/s | 47.6 % |
+| JMeter | 50 | 63 ms | 16 ms | 33 ms | 0 | 40.8 req/s | 32.1 % |
+| JMeter | 200 | 1,104 ms | 494 ms | 598 ms | 0 | 141.2 req/s | 47.6 % |
+
+Las corridas se hicieron contra 502 registros (500 sintéticos), con una página de 50 filas,
+un login y token temporal por corrida y 1 s de espera. JMeter terminó sin `BindException`.
+La CPU de cada nivel es un agregado de su ventana de `docker stats`, compartida por ambas
+herramientas.
+El umbral P95 <300 ms todavía se incumple a 200 usuarios; 100 VU fue el nivel más alto
+comprobado dos veces bajo el umbral (P95 97.98 y 89.06 ms). A 150 VU una repetición pasó
+(294.16 ms) y otra no (338.65 ms), por lo que no se declara estable ni se extrapola una
+capacidad universal.
+
+La regresión final local fue Node 9/9 sin omitidas, Vitest 4/4, seguridad 19/19 y c8
+83.87 % líneas/sentencias, 82.27 % ramas y 88.88 % funciones. `npm audit` y
+`npm audit --omit=dev` reportaron cero vulnerabilidades; Trivy reportó 0 HIGH/CRITICAL
+(4 LOW, 7 MEDIUM). El run más reciente de Actions sobre `main` (`44955653856`) falló en
+Gitleaks; el escaneo de Sonar no se ejecutó y no hay Quality Gate reciente. Los detalles,
+códigos de salida y límites están en [`docs/resultados-validacion.md`](./docs/resultados-validacion.md).
 
 ## Requisitos para ejecutar
 

@@ -1,0 +1,245 @@
+Fecha: 2026-11-21T22:21:19.9433519-03:00
+Rama/commit: main / 32a38b0
+PostgreSQL: contenedores de laboratorio activos; URL y secretos omitidos.
+
+===== npm test =====
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (10.2794ms)
+✔ detects changed encrypted data and a wrong key (1.1666ms)
+✔ requires a sufficiently long encryption secret (0.2242ms)
+﹣ API CRUD, roles, data protection and audit trail (0.7569ms) # SKIP
+✔ accepts a valid client and normalizes its email (6.2438ms)
+✔ rejects invalid client emails and oversized values (1.8738ms)
+✔ uses boundary checks for contract values and date order (3.7591ms)
+✔ enforces the documented password composition rules (1.0709ms)
+✔ rejects malformed or out-of-range bank account values (0.3552ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 587.1054
+Exit code: 0
+
+===== npm run test:vitest =====
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  22:21:24
+   Duration  561ms (import 83%, transform 6%, tests 6%, worker 6%)
+
+Exit code: 0
+
+===== npm run test:security =====
+
+> atlas-management-system@1.0.0 test:security
+> node test/security/run.js
+
+Faltan variables requeridas para la prueba de seguridad: DATABASE_URL, JWT_SECRET, DATA_ENCRYPTION_SECRET, ADMIN_EMAIL, ADMIN_PASSWORD
+Exit code: 1
+
+===== Reejecución con PostgreSQL y variables locales (valores omitidos) =====
+Fecha: 2026-11-21T22:21:38.8189888-03:00
+DATABASE_URL/TEST_DATABASE_URL apuntan a atlas-cierre-postgres:15434/atlas_test; secretos omitidos.
+
+===== npm test =====
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (3.5875ms)
+✔ detects changed encrypted data and a wrong key (1.9201ms)
+✔ requires a sufficiently long encryption secret (0.425ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:64:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:304:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:32:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✖ API CRUD, roles, data protection and audit trail (3031.0334ms)
+✔ accepts a valid client and normalizes its email (7.6657ms)
+✔ rejects invalid client emails and oversized values (1.6184ms)
+✔ uses boundary checks for contract values and date order (4.0703ms)
+✔ enforces the documented password composition rules (1.4896ms)
+✔ rejects malformed or out-of-range bank account values (0.4314ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3446.8129
+
+✖ failing tests:
+
+test at test\integration\api.test.js:15:1
+✖ API CRUD, roles, data protection and audit trail (3031.0334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:424:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+Exit code: 1
+
+===== Reejecución tras preservar bandera blocked =====
+Fecha: 2026-11-21T22:22:06.8892218-03:00
+PostgreSQL: atlas-cierre-postgres:15434/atlas_test; variables temporales, valores omitidos.
+
+===== npm test =====
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (13.7779ms)
+✔ detects changed encrypted data and a wrong key (3.8303ms)
+✔ requires a sufficiently long encryption secret (0.5872ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:64:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:305:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:32:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (3752.4813ms)
+✔ accepts a valid client and normalizes its email (7.5355ms)
+✔ rejects invalid client emails and oversized values (3.1046ms)
+✔ uses boundary checks for contract values and date order (6.2992ms)
+✔ enforces the documented password composition rules (2.0895ms)
+✔ rejects malformed or out-of-range bank account values (1.3604ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4494.0012
+Exit code: 0
+
+===== npm run test:vitest =====
+
+> atlas-management-system@1.0.0 test:vitest
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v5.1.1 C:/Users/rpg72/atlas-is1102
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  22:22:13
+   Duration  562ms (import 84%, transform 6%, tests 5%, worker 5%)
+
+Exit code: 0
+
+===== npm run test:security =====
+
+> atlas-management-system@1.0.0 test:security
+> node test/security/run.js
+
+APROBADO S-00: el endpoint de salud responde 200
+APROBADO S-01: X-Content-Type-Options es nosniff
+APROBADO S-02: la política CSP está presente
+APROBADO S-03: la respuesta no expone X-Powered-By
+APROBADO S-04: X-Frame-Options es SAMEORIGIN
+APROBADO S-05: Strict-Transport-Security está presente
+APROBADO S-06: una solicitud protegida sin token responde 401
+APROBADO S-07: un token malformado responde 401
+APROBADO S-08: un JWT con firma falsa responde 401
+APROBADO S-09: un JWT con algoritmo none responde 401
+APROBADO S-10: un JWT expirado responde 401
+APROBADO S-11: la inyección SQL en login no autentica
+APROBADO S-12: un objeto en el correo de login responde 400
+APROBADO S-13: el JSON malformado responde 400 sin detalles del parser
+APROBADO S-14: un cuerpo de 150 KB responde 413 sin detalles internos
+APROBADO S-15: un valor SQL en un parámetro de ruta responde 4xx
+APROBADO S-16: el payload XSS se conserva como texto y la cuenta se enmascara
+APROBADO S-17: la API declara application/json
+APROBADO S-18: el límite de login rechaza el intento 11 con 429
+Resumen: 19/19 verificaciones aprobadas; 0 fallidas.
+Exit code: 0
+
+===== npm run test:coverage =====
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --check-coverage --lines 70 --functions 70 --branches 70 --statements 70 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (11.2707ms)
+✔ detects changed encrypted data and a wrong key (3.1385ms)
+✔ requires a sufficiently long encryption secret (1.4198ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:64:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:305:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:32:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (3767.9423ms)
+✔ accepts a valid client and normalizes its email (6.1269ms)
+✔ rejects invalid client emails and oversized values (2.6616ms)
+✔ uses boundary checks for contract values and date order (7.1136ms)
+✔ enforces the documented password composition rules (1.2297ms)
+✔ rejects malformed or out-of-range bank account values (0.3622ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4599.4869
+---------------------|---------|----------|---------|---------|-------------------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                   
+---------------------|---------|----------|---------|---------|-------------------------------------
+All files            |   83.87 |    82.19 |   88.88 |   83.87 |                                     
+ scripts             |   82.69 |    42.85 |     100 |   82.69 |                                     
+  retention-purge.js |   82.69 |    42.85 |     100 |   82.69 | 6-8,17-18,40-41,49-50               
+ src                 |   83.93 |    83.49 |   88.46 |   83.93 |                                     
+  crypto.js          |   94.87 |    92.85 |     100 |   94.87 | 24-25                               
+  server.js          |   81.49 |    81.72 |      85 |   81.49 | ...,714-717,764-767,805-818,821-825 
+  validation.js      |     100 |      100 |     100 |     100 |                                     
+---------------------|---------|----------|---------|---------|-------------------------------------
+Exit code: 0
+

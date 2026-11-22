@@ -1,0 +1,122 @@
+Fecha: 2026-11-21T22:28:09.8519064-03:00
+Comando: node scripts/profile-clients.js --full
+DATABASE_URL: atlas-cierre-postgres/atlas_test; secretos omitidos.
+
+{
+  "measuredAt": "2026-11-22T01:28:10.226Z",
+  "rows": 502,
+  "total": "502",
+  "queryMs": 12.231,
+  "decryptMs": 60.066,
+  "serializeMs": 0.575,
+  "responseBytes": 131447,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 70.81,
+      "Total Cost": 72.07,
+      "Plan Rows": 502,
+      "Plan Width": 430,
+      "Actual Startup Time": 1.47,
+      "Actual Total Time": 1.487,
+      "Actual Rows": 502,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "created_at DESC",
+        "id DESC"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 240,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 43,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "WindowAgg",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 0,
+          "Total Cost": 48.3,
+          "Plan Rows": 502,
+          "Plan Width": 430,
+          "Actual Startup Time": 0.756,
+          "Actual Total Time": 0.851,
+          "Actual Rows": 502,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 37,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "clients",
+              "Alias": "clients",
+              "Startup Cost": 0,
+              "Total Cost": 42.02,
+              "Plan Rows": 502,
+              "Plan Width": 422,
+              "Actual Startup Time": 0.012,
+              "Actual Total Time": 0.381,
+              "Actual Rows": 502,
+              "Actual Loops": 1,
+              "Filter": "(NOT blocked)",
+              "Rows Removed by Filter": 0,
+              "Shared Hit Blocks": 37,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 160,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 2.678,
+    "Triggers": [],
+    "Execution Time": 1.861
+  }
+}
+Exit code: 0

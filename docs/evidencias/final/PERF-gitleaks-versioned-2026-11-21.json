@@ -1,0 +1,42 @@
+[
+ {
+  "RuleID": "generic-api-key",
+  "Description": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations.",
+  "StartLine": 245,
+  "EndLine": 245,
+  "StartColumn": 11,
+  "EndColumn": 41,
+  "Match": "key\": \"REDACTED\"",
+  "Secret": "REDACTED",
+  "File": "C:/Users/rpg72/.copilot/session-state/10268df0-44e9-468f-8475-a60280e07e09/files/gitleaks-source-tree/docs/evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json",
+  "SymlinkFile": "",
+  "Commit": "",
+  "Entropy": 4.001823,
+  "Author": "",
+  "Email": "",
+  "Date": "",
+  "Message": "",
+  "Tags": [],
+  "Fingerprint": "C:/Users/rpg72/.copilot/session-state/10268df0-44e9-468f-8475-a60280e07e09/files/gitleaks-source-tree/docs/evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json:generic-api-key:245"
+ },
+ {
+  "RuleID": "generic-api-key",
+  "Description": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations.",
+  "StartLine": 276,
+  "EndLine": 276,
+  "StartColumn": 9,
+  "EndColumn": 39,
+  "Match": "key\": \"REDACTED\"",
+  "Secret": "REDACTED",
+  "File": "C:/Users/rpg72/.copilot/session-state/10268df0-44e9-468f-8475-a60280e07e09/files/gitleaks-source-tree/docs/evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json",
+  "SymlinkFile": "",
+  "Commit": "",
+  "Entropy": 4.001823,
+  "Author": "",
+  "Email": "",
+  "Date": "",
+  "Message": "",
+  "Tags": [],
+  "Fingerprint": "C:/Users/rpg72/.copilot/session-state/10268df0-44e9-468f-8475-a60280e07e09/files/gitleaks-source-tree/docs/evidencias/cierre/CIERRE-02-sonar-pr-1-pre-correccion-2026-11-21.json:generic-api-key:276"
+ }
+]

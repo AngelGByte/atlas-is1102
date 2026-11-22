@@ -1,0 +1,9 @@
+Fecha: 2026-11-21T22:52:27.2083014-03:00
+===== npm audit --audit-level=high =====
+found 0 vulnerabilities
+Exit code: 0
+
+===== npm audit --omit=dev --audit-level=high =====
+found 0 vulnerabilities
+Exit code: 0
+

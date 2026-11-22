@@ -5,9 +5,12 @@ const { Pool } = require('pg');
 const { decryptValue } = require('../src/crypto');
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const query = process.argv.includes('--full')
-  ? 'SELECT * FROM clients ORDER BY created_at DESC'
-  : 'SELECT * FROM clients ORDER BY created_at DESC, id DESC LIMIT $1 OFFSET $2';
+const fullList = process.argv.includes('--full');
+const query = `SELECT id, name_enc, company_enc, rut_enc, email_enc, phone_enc,
+                      risk_level, status, bank_account_enc, blocked,
+                      COUNT(*) OVER() AS total_count
+               FROM clients WHERE blocked=FALSE
+               ORDER BY created_at DESC, id DESC${fullList ? '' : ' LIMIT $1 OFFSET $2'}`;
 const limit = Number(process.env.CLIENTS_LIMIT || 50);
 const offset = Number(process.env.CLIENTS_OFFSET || 0);
 
@@ -21,12 +24,10 @@ function mapClient(row) {
     phone: decryptValue(row.phone_enc),
     riskLevel: row.risk_level,
     status: row.status,
-    notes: decryptValue(row.notes_enc) || '',
     bankAccountLast4: row.bank_account_enc
       ? decryptValue(row.bank_account_enc).slice(-4)
       : '',
-    createdAt: row.created_at,
-    updatedAt: row.updated_at
+    blocked: row.blocked
   };
 }
 
@@ -35,12 +36,12 @@ async function main() {
 
   const plan = await pool.query(
     `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) ${query}`,
-    process.argv.includes('--full') ? [] : [limit, offset]
+    fullList ? [] : [limit, offset]
   );
   const queryStarted = performance.now();
   const result = await pool.query(
     query,
-    process.argv.includes('--full') ? [] : [limit, offset]
+    fullList ? [] : [limit, offset]
   );
   const queryMs = performance.now() - queryStarted;
 
@@ -55,6 +56,7 @@ async function main() {
   console.log(JSON.stringify({
     measuredAt: new Date().toISOString(),
     rows: result.rowCount,
+    total: result.rows[0]?.total_count ?? 0,
     queryMs: Number(queryMs.toFixed(3)),
     decryptMs: Number(decryptMs.toFixed(3)),
     serializeMs: Number(serializeMs.toFixed(3)),

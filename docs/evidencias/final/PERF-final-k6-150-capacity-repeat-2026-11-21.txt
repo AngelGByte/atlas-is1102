@@ -1,0 +1,30 @@
+Start: 2026-11-21T22:47:14.9032485-03:00
+Command: docker run --rm --env BASE_URL --env VUS --env HOLD_DURATION --env LIST_MODE --env LIMIT --env TOKEN -v <repo>:/work -w /work grafana/k6:0.54.0 run --quiet --no-color --summary-trend-stats "avg,min,med,max,p(90),p(95),p(99)" cp08-clients.js
+Configuration: BASE_URL=http://host.docker.internal:3334; VUS=150; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; one login HTTP 200; token not persisted.
+Purpose: repeat the near-threshold 150-VU capacity measurement.
+
+
+     ✓ respuesta HTTP 200
+
+   ✓ checks.........................: 100.00% 12492 out of 12492
+     data_received..................: 176 MB  1.5 MB/s
+     data_sent......................: 4.7 MB  39 kB/s
+     http_req_blocked...............: avg=43.7µs   min=4.02µs  med=8.9µs    max=16.9ms   p(90)=13.52µs  p(95)=21.08µs  p(99)=1.88ms  
+     http_req_connecting............: avg=31.06µs  min=0s      med=0s       max=16.69ms  p(90)=0s       p(95)=0s       p(99)=1.74ms  
+   ✗ http_req_duration..............: avg=87.1ms   min=6.5ms   med=32.75ms  max=617.67ms p(90)=262.87ms p(95)=338.65ms p(99)=484.52ms
+       { expected_response:true }...: avg=87.1ms   min=6.5ms   med=32.75ms  max=617.67ms p(90)=262.87ms p(95)=338.65ms p(99)=484.52ms
+   ✓ http_req_failed................: 0.00%   0 out of 12492
+     http_req_receiving.............: avg=757.68µs min=82.67µs med=529.12µs max=51.13ms  p(90)=1.47ms   p(95)=1.98ms   p(99)=3.76ms  
+     http_req_sending...............: avg=44.82µs  min=11.5µs  med=31.18µs  max=2.98ms   p(90)=75.4µs   p(95)=99.58µs  p(99)=186µs   
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s       p(90)=0s       p(95)=0s       p(99)=0s      
+     http_req_waiting...............: avg=86.3ms   min=6.32ms  med=32ms     max=616.32ms p(90)=261.97ms p(95)=338.18ms p(99)=483.62ms
+     http_reqs......................: 12492   103.24786/s
+     iteration_duration.............: avg=1.08s    min=1s      med=1.03s    max=1.61s    p(90)=1.26s    p(95)=1.33s    p(99)=1.48s   
+     iterations.....................: 12492   103.24786/s
+     vus............................: 1       min=1              max=150
+     vus_max........................: 150     min=150            max=150
+
+time="2026-11-22T01:49:16Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+
+Exit code: 99
+End: 2026-11-21T22:49:16.8258356-03:00

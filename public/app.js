@@ -327,7 +327,9 @@ function renderTable(kind, records) {
         const rowActions = add(td, 'div', 'row-actions');
         const edit = add(rowActions, 'button', 'small-action', 'Editar');
         edit.type = 'button';
-        edit.addEventListener('click', () => openForm(kind, record));
+        edit.addEventListener('click', () => {
+          openForm(kind, record).catch((error) => showNotice(error.message, true));
+        });
         if (kind === 'users') {
           const toggle = add(rowActions, 'button', 'small-action', record.active ? 'Desactivar' : 'Activar');
           toggle.type = 'button';
@@ -399,6 +401,9 @@ function formatDateTime(value) {
 
 async function openForm(kind, record = null) {
   if (state.user.role !== 'admin') return;
+  if (kind === 'clients' && record) {
+    record = await api(`${routes.clients}/${record.id}`);
+  }
   state.editingId = record?.id || null;
   const dialog = $('#record-dialog');
   const form = $('#record-form');

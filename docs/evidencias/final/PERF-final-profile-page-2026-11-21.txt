@@ -1,0 +1,148 @@
+Fecha: 2026-11-21T22:28:09.8642218-03:00
+Comando: node scripts/profile-clients.js
+DATABASE_URL: atlas-cierre-postgres/atlas_test; secretos omitidos.
+
+{
+  "measuredAt": "2026-11-22T01:28:10.172Z",
+  "rows": 50,
+  "total": "502",
+  "queryMs": 7.539,
+  "decryptMs": 10.087,
+  "serializeMs": 1.409,
+  "responseBytes": 13114,
+  "pool": {
+    "total": 1,
+    "idle": 1,
+    "waiting": 0
+  },
+  "explainAnalyze": {
+    "Plan": {
+      "Node Type": "Limit",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 64.97,
+      "Total Cost": 65.1,
+      "Plan Rows": 50,
+      "Plan Width": 430,
+      "Actual Startup Time": 1.343,
+      "Actual Total Time": 1.349,
+      "Actual Rows": 50,
+      "Actual Loops": 1,
+      "Shared Hit Blocks": 43,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Sort",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 64.97,
+          "Total Cost": 66.23,
+          "Plan Rows": 502,
+          "Plan Width": 430,
+          "Actual Startup Time": 1.342,
+          "Actual Total Time": 1.344,
+          "Actual Rows": 50,
+          "Actual Loops": 1,
+          "Sort Key": [
+            "created_at DESC",
+            "id DESC"
+          ],
+          "Sort Method": "top-N heapsort",
+          "Sort Space Used": 76,
+          "Sort Space Type": "Memory",
+          "Shared Hit Blocks": 43,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "WindowAgg",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Startup Cost": 0,
+              "Total Cost": 48.3,
+              "Plan Rows": 502,
+              "Plan Width": 430,
+              "Actual Startup Time": 0.784,
+              "Actual Total Time": 0.879,
+              "Actual Rows": 502,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 37,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Seq Scan",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Relation Name": "clients",
+                  "Alias": "clients",
+                  "Startup Cost": 0,
+                  "Total Cost": 42.02,
+                  "Plan Rows": 502,
+                  "Plan Width": 422,
+                  "Actual Startup Time": 0.009,
+                  "Actual Total Time": 0.402,
+                  "Actual Rows": 502,
+                  "Actual Loops": 1,
+                  "Filter": "(NOT blocked)",
+                  "Rows Removed by Filter": 0,
+                  "Shared Hit Blocks": 37,
+                  "Shared Read Blocks": 0,
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Written Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Dirtied Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 160,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 2.688,
+    "Triggers": [],
+    "Execution Time": 1.656
+  }
+}
+Exit code: 0

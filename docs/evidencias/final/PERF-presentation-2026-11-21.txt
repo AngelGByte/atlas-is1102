@@ -1,0 +1,28 @@
+Presentacion EP5: completada como copia separada
+Fecha: 2026-11-21 23:15-23:17 -03:00
+Entrada: C:\Users\rpg72\Downloads\Presentacion_Final_EP5_Atlas.pptx
+Salida: C:\Users\rpg72\Downloads\Presentacion_Final_EP5_Atlas_completada.pptx
+
+Generacion:
+- Accion: edicion del archivo con python-pptx 1.0.2 y Pillow 13.0.0; salida del proceso: codigo 0.
+- Se reemplazaron 12 placeholders con tarjetas basadas en evidencias existentes y capturas Playwright.
+- Se insertaron imagenes en sus recuadros con aspecto preservado y centradas.
+- Se actualizaron los resultados de DEF-09 en la diapositiva de rendimiento.
+- PH_SONAR y PH_TCS quedaron intencionalmente sin reemplazar: no hay Quality Gate reciente
+  ni archivos TestCase Studio en el repositorio.
+- No se modifico el archivo de entrada.
+
+Validacion estructural:
+- Comando: python - (script de validacion multilinea con python-pptx y Pillow).
+- Fecha: 2026-11-21 23:17 -03:00.
+- Resultado: 15 diapositivas, 15 imagenes en total, 12 placeholders previstos reemplazados,
+  solo PH_SONAR y PH_TCS restantes; texto de carga actualizado.
+- Ajuste estimado del texto de rendimiento: 11 lineas en 355 px disponibles.
+- Codigo de salida: 0.
+- SHA-256 de la copia: A5A7F0552EB95124AF4010012B1AECA832FAE63CDB8DCCB641C481290A354F20.
+
+Renderizado PDF:
+- No ejecutado: no se encontro soffice, libreoffice, POWERPNT, mutool, pdftoppm ni gswin64c
+  en PATH. No se afirma que la presentacion se haya revisado visualmente en PDF.
+- Accion humana pendiente: abrir la copia en PowerPoint/LibreOffice, revisar visualmente
+  que no haya desbordes y exportar a PDF.

@@ -1,7 +1,7 @@
 # Resultados de validación técnica EP5
 
 **Fecha de revisión:** 2026-11-21  
-**Rama:** `ep5-cierre-final`  
+**Rama de referencia:** `main` (`32a38b0`; optimización local aún no publicada)  
 **Entorno:** Node.js 22, PostgreSQL 16 de laboratorio, 500 clientes sintéticos más 2 clientes
 de demostración. No se usaron datos personales reales.
 
@@ -227,3 +227,76 @@ statements/lines, 82.15 % branches y 88.46 % functions. Evidencia completa:
 El detalle de carga, los perfiles, EXPLAIN y limpieza está en
 [`cierre/CIERRE-05-resumen-2026-11-21.txt`](./evidencias/cierre/CIERRE-05-resumen-2026-11-21.txt)
 y el índice actualizado en [`evidencias/README.md`](./evidencias/README.md).
+
+## Addendum — optimización de listado y presentación (2026-11-21)
+
+Esta ejecución parte del `main` local `32a38b0`; los cambios de código y evidencias aún no
+están publicados. Las mediciones de este addendum son nuevas y prevalecen para evaluar la
+optimización local. No reemplazan ni reescriben los informes históricos.
+
+| Herramienta | Usuarios | Muestras | Errores | Throughput | P95 | P99 | CPU promedio/máximo app (ventana Docker) | Código |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| k6 | 50 VU | 4,480 | 0 | 37.12 req/s | 24.40 ms | 57.91 ms | 32.1/108.2 % | 0 |
+| k6 | 200 VU | 13,589 | 0 | 112.52 req/s | 746.95 ms | 930.60 ms | 47.6/105.5 % | 99 (umbral P95) |
+| JMeter | 50 | 3,678 | 0 | 40.8 req/s | 16 ms | 33 ms | 32.1/108.2 % | 0 |
+| JMeter | 200 | 12,747 | 0 | 141.2 req/s | 494 ms | 598 ms | 47.6/105.5 % | 0 |
+
+Todas las corridas usaron `limit=50`, 502 registros (500 sintéticos más 2 de demostración),
+un login y un token temporal por corrida y 1 s de espera. k6 usó rampa de 30 s y 60 s de
+carga sostenida; JMeter fue no GUI, HttpClient4 con keep-alive, rampa de 30 s y 90 s totales.
+Los errores de conexión fueron cero. El código 99 de k6 a 200 VU indica que se cruzó el
+umbral de latencia configurado, no errores HTTP. El objetivo P95 <300 ms no se cumple a 200.
+100 VU pasó dos corridas (P95 97.98 y 89.06 ms); 150 VU pasó una (294.16 ms) y falló la
+repetición (338.65 ms). Se identifica 100 VU como el nivel máximo probado repetidamente
+que cumple el umbral, no como una capacidad universal.
+
+Respecto de las últimas cifras documentadas de CIERRE-05 (k6 56.09 ms/1.73 s y JMeter
+63 ms/1,104 ms a 50/200 usuarios), los P95 nuevos disminuyeron en 56.5 %, 56.8 %, 74.6 %
+y 55.3 %, respectivamente. Una medición baseline adicional en la misma sesión obtuvo
+k6 27.97 ms/1.15 s y JMeter 25/931 ms; frente a esa línea base, los P95 optimizados
+fueron 24.40 ms/746.95 ms y 16/494 ms. Estas series son ejecuciones separadas, no se
+mezclan en una única línea base.
+
+`docker stats` promedió 32.1 % de un núcleo a 50 usuarios y 47.6 % a 200; el máximo
+observado fue 108.2 % y 105.5 %. A 200, memoria promedió 82.2 MiB y alcanzó 96.4 MiB.
+El pool `pg` permaneció en `PG_POOL_MAX=10`; el perfil instrumentado observó
+`waitingCount` máximo 80 y pausas GC de hasta 31.85 ms, pero incluyó intervalos sin carga
+y no explica causalmente picos de latencia. `EXPLAIN ANALYZE` sobre 502 filas midió 1.349 ms
+para la consulta de página y mostró `Seq Scan`, `WindowAgg` y orden top-N; no se añadió un
+índice por falta de beneficio medible en este volumen. No hay límites CPU/memoria en el
+contenedor app. Se mantuvo la consulta de autenticación de usuario en cada solicitud para
+preservar revocación inmediata.
+
+Una muestra del perfil de página bajó de 19,251 a 13,114 bytes (31.9 %). En esas muestras
+SQL/descifrado variaron de 4.064/8.158 ms a 7.539/10.087 ms y serialización de 1.504 a
+1.409 ms; son observaciones únicas y no prueban una mejora de cada etapa por separado. El
+máximo histórico de 4.64 s no se reprodujo en las corridas optimizadas (máximo k6 1.04 s) y
+su causa continúa indeterminada.
+
+La regresión medida tras la optimización fue Node 9/9 sin omitidas, Vitest 4/4, seguridad
+19/19 y c8 83.87 % líneas/sentencias, 82.27 % ramas y 88.88 % funciones; los cuatro
+comandos finalizaron con código 0 contra PostgreSQL 16. `npm audit` y
+`npm audit --omit=dev` reportaron cero vulnerabilidades. Trivy 0.76.2 reportó 0 HIGH,
+0 CRITICAL, 4 LOW y 7 MEDIUM.
+
+El run más reciente de Actions en `main` es
+[44955653856](https://github.com/AngelGByte/atlas-is1102/actions/runs/44955653856),
+commit `32a38b07e05c90add48196ca5e8af99fe788f623`: seguridad, backup-restore, coverage,
+test, accessibility, dependency-audit, TLS y el job condicional de Sonar concluyeron
+`success`; Gitleaks concluyó `failure` por coincidencias históricas en el reporte Sonar.
+El job de Sonar no ejecutó análisis ni Quality Gate. Un escaneo local completo también
+detectó los valores del `.env` local ignorado por Git y dos identificadores de proyecto
+Sonar; el informe está redactado y no se versionan credenciales. No se afirma que Gitleaks
+ni Sonar hayan quedado aprobados en Actions.
+
+Playwright generó capturas móviles de dashboard, clientes y contratos con datos de
+demostración/sintéticos. Un contrato temporal sintético de presentación se eliminó antes
+del cierre. La carpeta `docs/evidencias/testcase-studio/` no existe; no hay captura TCS.
+Tampoco se produjo una captura/Quality Gate actual de Sonar. La presentación original se
+conserva; la copia completada está en
+`C:\Users\rpg72\Downloads\Presentacion_Final_EP5_Atlas_completada.pptx`. Se reemplazaron
+12 placeholders y se actualizaron las cifras de carga; quedan vacíos Sonar y TestCase
+Studio por falta de evidencia. La apertura/exportación a PDF no se ejecutó porque no hay
+un renderizador local disponible; la comprobación realizada es estructural, no visual.
+El índice de comandos, fechas, resultados y salidas está en
+[`evidencias/README.md`](./evidencias/README.md).

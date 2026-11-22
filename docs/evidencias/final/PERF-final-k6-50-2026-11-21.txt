@@ -1,0 +1,29 @@
+Start: 2026-11-21T22:28:30.6862775-03:00
+Command: docker run --rm --env BASE_URL --env VUS --env HOLD_DURATION --env LIST_MODE --env LIMIT --env TOKEN -v <repo>:/work -w /work grafana/k6:0.54.0 run --quiet --no-color --summary-trend-stats "avg,min,med,max,p(90),p(95),p(99)" cp08-clients.js
+Configuration: BASE_URL=http://host.docker.internal:3334; VUS=50; HOLD_DURATION=1m; LIST_MODE=page; LIMIT=50; token=<process environment redacted>
+Data: 502 total rows, 500 synthetic; one login HTTP 200; think time 1s, ramp-up 30s and hold 60s.
+
+
+     ✓ respuesta HTTP 200
+
+   ✓ checks.........................: 100.00% 4480 out of 4480
+     data_received..................: 63 MB   522 kB/s
+     data_sent......................: 1.7 MB  14 kB/s
+     http_req_blocked...............: avg=45.48µs  min=4.11µs  med=7.19µs  max=12.48ms  p(90)=11.91µs p(95)=20.25µs p(99)=1.81ms  
+     http_req_connecting............: avg=31.71µs  min=0s      med=0s      max=12.39ms  p(90)=0s      p(95)=0s      p(99)=1.66ms  
+   ✓ http_req_duration..............: avg=12.38ms  min=6.59ms  med=10.18ms max=177.97ms p(90)=16.84ms p(95)=24.4ms  p(99)=57.91ms 
+       { expected_response:true }...: avg=12.38ms  min=6.59ms  med=10.18ms max=177.97ms p(90)=16.84ms p(95)=24.4ms  p(99)=57.91ms 
+   ✓ http_req_failed................: 0.00%   0 out of 4480
+     http_req_receiving.............: avg=575.17µs min=79.76µs med=378.7µs max=19.5ms   p(90)=1.15ms  p(95)=1.53ms  p(99)=2.88ms  
+     http_req_sending...............: avg=43.09µs  min=11.77µs med=40.27µs max=1.12ms   p(90)=70.49µs p(95)=94.7µs  p(99)=194.69µs
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s      max=0s       p(90)=0s      p(95)=0s      p(99)=0s      
+     http_req_waiting...............: avg=11.76ms  min=6.27ms  med=9.71ms  max=177.68ms p(90)=16.23ms p(95)=23.28ms p(99)=56.1ms  
+     http_reqs......................: 4480    37.123099/s
+     iteration_duration.............: avg=1.01s    min=1s      med=1.01s   max=1.17s    p(90)=1.01s   p(95)=1.02s   p(99)=1.05s   
+     iterations.....................: 4480    37.123099/s
+     vus............................: 2       min=2            max=50
+     vus_max........................: 50      min=50           max=50
+
+
+Exit code: 0
+End: 2026-11-21T22:30:33.6266667-03:00

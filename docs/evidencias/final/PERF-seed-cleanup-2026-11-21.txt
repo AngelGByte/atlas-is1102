@@ -1,0 +1,15 @@
+Start: 2026-11-21T23:11:26.9562984-03:00
+Target: isolated benchmark app/container network; no credentials printed.
+Command: docker cp scripts\seed-load-data.js atlas-perf-app-final:/app/scripts/seed-load-data.js; docker exec atlas-perf-app-final node scripts/seed-load-data.js --clean
+mkdir: can't create directory '/app/scripts': Permission denied
+
+Retry: initial mkdir without root failed with permission denied before any data change. Retry with docker exec --user 0:0 for the temporary script directory.
+Retry start: 2026-11-21T23:11:43.3753954-03:00
+OK: eliminados 500 clientes sintéticos.
+Verification: load companies=0; clients remaining=2; demo contracts=2.
+Exit code: 0
+End: 2026-11-21T23:11:44.8049250-03:00
+
+Nota: la consola de PowerShell mostró con codificación incorrecta el acento del mensaje de
+la aplicación; el conteo de 500 eliminados y la verificación numérica posterior son legibles
+y no dependen de esa representación: compañía de carga 0, clientes 2 y contratos 2.

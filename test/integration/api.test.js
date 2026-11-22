@@ -78,6 +78,7 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
 
   const invalidIdRoutes = [
     ['get', '/api/empresas/invalid/clients'],
+    ['get', '/api/clients/invalid'],
     ['put', '/api/clients/invalid', {}],
     ['delete', '/api/clients/invalid'],
     ['post', '/api/clients/invalid/opposition', {}],
@@ -149,6 +150,7 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
       company: 'Prueba automatizada',
       email: `client-${Date.now()}@example.cl`,
       bankAccount: '001234567890',
+      notes: 'Observaciones privadas de integración.',
       riskLevel: 'bajo'
     });
   assert.equal(createClient.status, 201);
@@ -237,6 +239,20 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   assert.equal(secondClientPage.headers['x-page'], '2');
   assert.equal(firstClientPage.body[0].id, orderedClientIds.rows[0].id);
   assert.equal(secondClientPage.body[0].id, orderedClientIds.rows[1].id);
+  assert.equal(Object.hasOwn(firstClientPage.body[0], 'notes'), false);
+  assert.equal(firstClientPage.body[0].bankAccountLast4, '7890');
+  const clientDetail = await request(app).get(`/api/clients/${clientId}`)
+    .set('Authorization', `Bearer ${adminToken}`);
+  assert.equal(clientDetail.status, 200);
+  assert.equal(clientDetail.body.notes, 'Observaciones privadas de integración.');
+  const missingClientDetail = await request(app).get('/api/clients/999999999999999999')
+    .set('Authorization', `Bearer ${adminToken}`);
+  assert.equal(missingClientDetail.status, 404);
+  const emptyClientPage = await request(app).get('/api/clients?limit=1&page=999999')
+    .set('Authorization', `Bearer ${adminToken}`);
+  assert.equal(emptyClientPage.status, 200);
+  assert.equal(emptyClientPage.body.length, 0);
+  assert.equal(Number(emptyClientPage.headers['x-total-count']), totalClients.rows[0].total);
 
   const defaultClientPage = await request(app).get('/api/clients')
     .set('Authorization', `Bearer ${adminToken}`);
@@ -410,6 +426,9 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     const editorIncludeBlocked = await request(app).get('/api/clients?includeBlocked=true')
       .set('Authorization', `Bearer ${editorLogin.body.token}`);
     assert.equal(editorIncludeBlocked.status, 403);
+    const editorBlockedDetail = await request(app).get(`/api/clients/${clientId}`)
+      .set('Authorization', `Bearer ${editorLogin.body.token}`);
+    assert.equal(editorBlockedDetail.status, 404);
     const invalidIncludeBlocked = await request(app).get('/api/clients?includeBlocked=yes')
       .set('Authorization', `Bearer ${adminToken}`);
     assert.equal(invalidIncludeBlocked.status, 400);

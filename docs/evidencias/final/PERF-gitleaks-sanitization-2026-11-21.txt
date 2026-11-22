@@ -1,0 +1,5 @@
+Fecha: 2026-11-21T22:41:51.0759581-03:00
+Acción: inspección del job Gitleaks del run 44955653856 (commit 32a38b0).
+Hallazgo real: 7 alertas generic-api-key dentro del campo [0mSonar issues[].key[0m del reporte SonarCloud; esos valores son identificadores internos de issues, no tokens/credenciales.
+Mitigación: se quitaron los IDs del reporte JSON actual y se añadieron únicamente los fingerprints históricos de esas líneas en .gitleaksignore para evitar reescritura del historial. No se suprimió ninguna coincidencia de otros archivos/reglas.
+Comprobación de contenido: JSON parseable; IDs de issues retirados. Escaneo completo pendiente del nuevo run de GitHub Actions tras el push.

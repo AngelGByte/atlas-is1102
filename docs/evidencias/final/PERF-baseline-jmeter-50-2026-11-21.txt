@@ -1,0 +1,24 @@
+Start: 2026-11-21T22:25:25.4504448-03:00
+Command: java -jar <JMeter> -n -t jmeter\atlas-load-test.jmx -l docs\evidencias\final\PERF-baseline-jmeter-50-2026-11-21.jtl -JBASE_HOST=localhost -JBASE_PORT=3334 -JUSERS=50 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50 -JPAGES=11; TOKEN=<process environment redacted>
+Data: 502 total rows, 500 synthetic; one login HTTP 200; think time 1s.
+
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using jmeter\atlas-load-test.jmx
+Starting standalone test @ 2026 Nov 21 22:25:27 CLST (1795310727483)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +      1 in 00:00:02 =    0,7/s Avg:    96 Min:    96 Max:    96 Err:     0 (0,00%) Active: 3 Started: 3 Finished: 0
+summary +    786 in 00:00:30 =   26,5/s Avg:    10 Min:     7 Max:    43 Err:     0 (0,00%) Active: 50 Started: 50 Finished: 0
+summary =    787 in 00:00:31 =   25,2/s Avg:    10 Min:     7 Max:    96 Err:     0 (0,00%)
+summary +   1471 in 00:00:30 =   49,0/s Avg:    13 Min:     7 Max:    86 Err:     0 (0,00%) Active: 50 Started: 50 Finished: 0
+summary =   2258 in 00:01:01 =   36,9/s Avg:    12 Min:     7 Max:    96 Err:     0 (0,00%)
+summary +   1413 in 00:00:29 =   49,0/s Avg:    14 Min:     7 Max:   281 Err:     0 (0,00%) Active: 0 Started: 50 Finished: 50
+summary =   3671 in 00:01:30 =   40,8/s Avg:    13 Min:     7 Max:   281 Err:     0 (0,00%)
+Tidying up ...    @ 2026 Nov 21 22:26:58 CLST (1795310818858)
+... end of run
+
+Exit code: 0
+End: 2026-11-21T22:27:00.4247740-03:00

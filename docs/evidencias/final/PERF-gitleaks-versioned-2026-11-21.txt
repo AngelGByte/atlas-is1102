@@ -1,0 +1,6 @@
+Start: 2026-11-21T23:09:51.0388707-03:00
+Command: gitleaks v8.30.1 dir --no-banner --redact --no-color --log-level warn --report-format json --report-path docs\evidencias\final\PERF-gitleaks-versioned-2026-11-21.json --exit-code 1 <temporary copy of git ls-files --cached --others --exclude-standard>
+Scope: current tracked/unignored working-tree files; local ignored .env and node_modules excluded; scan values redacted.
+11:09PM WRN leaks found: 2
+Exit code: 1
+End: 2026-11-21T23:09:53.4736168-03:00

@@ -1,0 +1,38 @@
+Verificacion de SonarQube y GitHub Actions
+Fecha: 2026-11-21 23:20 -03:00
+
+Acceso al entorno:
+- Computer Use no pudo activarse en esta sesion desatendida; no se opero el escritorio.
+- `gh auth status --hostname github.com`: autenticado; codigo 0. No se registra ningun token.
+- `Get-ChildItem Env: | Where-Object { $_.Name -match '^(SONAR_|GH_|GITHUB_)' } | Select-Object -ExpandProperty Name`:
+  no devolvio nombres de variables Sonar ni GitHub.
+- `gh secret list --repo AngelGByte/atlas-is1102`: salida vacia; codigo 0.
+
+SonarQube local:
+- `docker ps --format '{{.Names}} {{.Status}}'`: `atlas-system-sonarqube-1` estaba activo.
+- `curl.exe -sS --max-time 8 http://127.0.0.1:9000/api/system/status`:
+  respondio `UP`, version 26.10.0.133078; codigo 0.
+- `curl.exe -sS --max-time 8 http://127.0.0.1:9000/api/authentication/validate`:
+  respondio `{"valid":false}` sin credenciales; codigo 0.
+- `Get-Command sonar-scanner` y `Get-Command act`: ambos no disponibles.
+- Resultado: no se ejecuto analisis Sonar ni se genero Quality Gate. Faltan credenciales
+  autorizadas y no hay scanner local; no se probaron contrasenas ni se buscaron secretos.
+
+GitHub Actions:
+- `gh run list --repo AngelGByte/atlas-is1102 --branch main --limit 5 --json databaseId,headSha,status,conclusion,event,createdAt,url,workflowName`:
+  codigo 0. El run mas reciente fue 44955653856, commit
+  32a38b07e05c90add48196ca5e8af99fe788f623, conclusion `failure`.
+- `gh run view 44955653856 --repo AngelGByte/atlas-is1102 --json databaseId,headSha,status,conclusion,url,jobs`:
+  codigo 0. `gitleaks` fallo; `security`, `backup-restore`, `coverage`, `test`,
+  `accessibility`, `dependency-audit` y `tls` pasaron.
+- El job `sonar` termino `success` solo porque informo la omision explicita; los pasos de
+  SonarCloud y SonarQube Server fueron `skipped`. No existe Quality Gate para este commit.
+- No se disparo una corrida nueva: la version local tiene cambios sin publicar y el
+  workflow no ofrece `workflow_dispatch`. Repetir el run existente solo probaria el mismo
+  commit remoto, no los cambios locales.
+
+Accion requerida:
+- Para Sonar: configurar `SONAR_TOKEN`, `SONAR_HOST_URL`, `SONAR_PROJECT_KEY` y,
+  si corresponde a SonarCloud, `SONAR_ORGANIZATION` como secretos autorizados.
+- Para validar los cambios locales en GitHub Actions: publicar el commit autorizado y
+  esperar la ejecucion nueva; no se hizo push en esta verificacion.

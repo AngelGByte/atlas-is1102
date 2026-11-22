@@ -1,0 +1,6 @@
+Start: 2026-11-21T23:07:14.6475280-03:00
+Command: gitleaks v8.30.1 dir --no-banner --redact --no-color --log-level warn --report-format json --report-path docs\evidencias\final\PERF-gitleaks-local-2026-11-21.json --exit-code 1 .
+Scope: current working tree only; report and stdout redact secret values. GitHub Actions history is a separate result.
+11:07PM WRN leaks found: 6
+Exit code: 1
+End: 2026-11-21T23:07:16.5007859-03:00

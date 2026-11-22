@@ -1,0 +1,6 @@
+Fecha: 2026-11-21T22:15:17.1675381-03:00
+Comando: docker run --rm -d --name atlas-perf-app-baseline -p 127.0.0.1:3334:3000 --env DATABASE_URL --env JWT_SECRET --env DATA_ENCRYPTION_SECRET --env ADMIN_EMAIL --env ADMIN_PASSWORD --env PG_POOL_MAX -e PORT=3000 atlas-is1102-perf-baseline:2026-11-21
+0b940ac2d23d3f734c316728b3affceee3c8e9bb7d2a3cf9d8652e6b4f0e3c8c
+Health status: ok
+Container: running image=atlas-is1102-perf-baseline:2026-11-21
+Initial docker stats: name=atlas-perf-app-baseline cpu=0.00% memory=42.96MiB / 3.699GiB mem_pct=1.13%
