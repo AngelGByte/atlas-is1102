@@ -1,0 +1,15 @@
+﻿Fecha: 2026-11-23 22:27:26 -03:00
+Comando: docker run --cpus=2 --memory=1g --env WEB_CONCURRENCY=2 --env PG_POOL_MAX=10 ... (secretos redactados)
+Imagen: atlas-is1102:ep5-rendimiento-20261123
+Health: ok
+CPU visibles en contenedor: 2
+PostgreSQL max_connections: 100
+Workers × pool max: 2 × 10 = 20 (máximo 100)
+Contenedor: atlas-ep5-perf-20261123-app Up 2 seconds
+Logs de inicio:
+Iniciando 2 workers (CPU disponibles: 2).
+Worker 1 iniciado (pid 18).
+Worker 2 iniciado (pid 19).
+Atlas escuchando en el puerto 3000 (worker 1)
+Atlas escuchando en el puerto 3000 (worker 2)
+Código de salida: 0

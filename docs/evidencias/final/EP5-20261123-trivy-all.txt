@@ -1,0 +1,10 @@
+﻿Fecha: 2026-11-23 22:59:02 -03:00
+Comando: docker run --rm -v <repo>:/work -v atlas-trivy-cache:/root/.cache/trivy aquasec/trivy:0.76.2 image --scanners vuln --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --exit-code 0 --format json --output /work/docs/evidencias/final/EP5-20261123-trivy-all.json --input /work/docs/evidencias/final/EP5-20261123-image.tar
+2026-11-24T01:59:03Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-24T01:59:09Z	INFO	Detected OS	family="alpine" version="3.24.4"
+2026-11-24T01:59:09Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=19
+2026-11-24T01:59:09Z	INFO	Number of language-specific files	num=1
+2026-11-24T01:59:09Z	INFO	[node-pkg] Detecting vulnerabilities...
+2026-11-24T01:59:09Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+Código Trivy informe completo: 0
+Informe JSON: EP5-20261123-trivy-all.json

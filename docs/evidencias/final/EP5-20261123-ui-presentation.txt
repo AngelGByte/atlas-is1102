@@ -1,0 +1,8 @@
+﻿Fecha captura: 2026-11-23 23:00:04 -03:00
+Comando: node - (Playwright inline; login con variables del .env, sin persistir credenciales)
+URL local: http://127.0.0.1:3334; viewport=390x844; cuenta de demostración.
+Datos verificados: {"clients":2,"contracts":2}
+Salidas:
+docs/evidencias/ui/dashboard-20261123-390x844.png
+docs/evidencias/ui/clientes-20261123-390x844.png
+docs/evidencias/ui/contratos-20261123-390x844.png

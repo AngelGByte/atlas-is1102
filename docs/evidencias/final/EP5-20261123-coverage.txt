@@ -1,0 +1,51 @@
+Fecha UTC: 2026-11-24T02:06:41.737Z
+Comando: node -e dotenv.config(); npm.cmd run test:coverage
+
+
+> atlas-management-system@1.0.0 test:coverage
+> c8 --check-coverage --lines 70 --functions 70 --branches 70 --statements 70 --reporter=text --reporter=lcov --reports-dir=coverage node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (4.6317ms)
+✔ detects changed encrypted data and a wrong key (1.1426ms)
+✔ requires a sufficiently long encryption secret (0.2746ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:98:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:309:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:36:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (3440.2951ms)
+✔ accepts a valid client and normalizes its email (5.9667ms)
+✔ rejects invalid client emails and oversized values (3.0011ms)
+✔ uses boundary checks for contract values and date order (6.0426ms)
+✔ enforces the documented password composition rules (1.4165ms)
+✔ rejects malformed or out-of-range bank account values (0.4024ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3995.1631
+-------------------------------|---------|----------|---------|---------|---------------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------------|---------|----------|---------|---------|---------------------------
+All files                      |   76.06 |    81.81 |   81.08 |   76.06 |
+ scripts                       |   82.69 |    42.85 |     100 |   82.69 |
+  retention-purge.js           |   82.69 |    42.85 |     100 |   82.69 | 6-8,17-18,40-41,49-50
+ src                           |   75.76 |    83.03 |   80.55 |   75.76 |
+  crypto.js                    |   94.87 |    92.85 |     100 |   94.87 | 24-25
+  postgres-rate-limit-store.js |   94.59 |    88.88 |   85.71 |   94.59 | 44-45,66-67
+  server.js                    |   71.04 |    80.95 |   73.91 |   71.04 | ...46-915,917-937,940-958
+  validation.js                |     100 |      100 |     100 |     100 |
+-------------------------------|---------|----------|---------|---------|---------------------------
+
+Exit code: 0

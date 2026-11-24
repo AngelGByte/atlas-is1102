@@ -1,0 +1,7 @@
+﻿Fecha: 2026-11-23 22:57:07 -03:00
+Comando limpieza: docker exec atlas-ep5-perf-20261123-app node /app/scripts/seed-load-data.js --clean
+OK: eliminados 500 clientes sintéticos.
+Verificacion: SELECT count(*) de clients, contracts, companies y login_rate_limits
+{"clients":2,"contracts":2,"companies":1,"rate_entries":2}
+Código limpieza: 0
+Resultado: los 500 clientes sintéticos se retiraron con la comprobación de contratos del script; conteos restantes consignados arriba.

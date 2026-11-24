@@ -1,0 +1,4 @@
+﻿Fecha: 2026-11-23 22:59:15 -03:00
+Comando limpieza: Remove-Item -LiteralPath docs\evidencias\final\EP5-20261123-image.tar
+Bytes del temporal retirado: 66240512
+Resultado: ambos escaneos terminaron; se conservaron los informes JSON y TXT.

@@ -1,0 +1,37 @@
+Resumen documental de ejecuciones reales; no es una nueva ejecución ni una fuente adicional de métricas.
+Fecha de compilación: 2026-11-23.
+Entorno de pruebas: Windows, Node.js 24 y PostgreSQL 16 aislado.
+
+Comando: npm.cmd test
+Fecha de ejecución final: 2026-11-23 23:05:52 -03:00 (2026-11-24T02:05:52Z)
+Resultado: 9 pruebas aprobadas, 0 fallidas, 0 omitidas; código final 0.
+Fuente: EP5-20261123-npm-test.txt
+
+Comando: npm.cmd run test:vitest
+Fecha de ejecución final: 2026-11-23 23:06:06 -03:00 (2026-11-24T02:06:06Z)
+Resultado: 4/4; código final 0.
+Fuente: EP5-20261123-vitest.txt
+
+Comando: npm.cmd run test:security (WEB_CONCURRENCY=2; PostgreSQL 16 aislado)
+Primer intento: 2026-11-23 23:06:12 -03:00, código 1 por entorno no cargado.
+Reejecución final con dotenv y WEB_CONCURRENCY=2: 2026-11-23 23:06:24 -03:00 (2026-11-24T02:06:24Z)
+Resultado: 19/19 verificaciones; incluye S-18, HTTP 429 en el intento fallido 11 entre dos procesos; código final 0.
+Fuente: EP5-20261123-security.txt
+
+Comando: npm.cmd run test:coverage
+Fecha de ejecución final: 2026-11-23 23:06:41 -03:00 (2026-11-24T02:06:41Z)
+Resultado: c8 76.06 % líneas/sentencias, 81.81 % ramas y 81.08 % funciones; umbral 70 %; código 0.
+Fuente: EP5-20261123-coverage.txt
+
+Comando: npm.cmd audit
+Fecha de ejecución: 2026-11-23 23:06:41 -03:00 (2026-11-24T02:06:41Z)
+Resultado: 0 vulnerabilidades; código 0.
+Fuente: EP5-20261123-npm-audit.txt
+
+Comando: npm.cmd run test:accessibility
+Fecha de ejecución: 2026-11-23 22:24:07 -03:00
+Resultado: Playwright/axe 9/9 en viewports 1280x800, 390x844 y 320x700; código 0.
+Fuente: EP5-20261123-accessibility.txt
+
+`EP5-20261123-security.txt` conserva un primer intento fallido por no cargar el entorno y la
+reejecución aprobada con dotenv. La salida de `npm test` documenta la ejecución final aprobada.

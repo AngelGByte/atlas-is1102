@@ -1,9 +1,9 @@
 # Resultados de validación técnica EP5
 
-**Fecha de revisión:** 2026-11-21  
-**Rama de referencia:** `main` (`32a38b0`; optimización local aún no publicada)  
-**Entorno:** Node.js 22, PostgreSQL 16 de laboratorio, 500 clientes sintéticos más 2 clientes
-de demostración. No se usaron datos personales reales.
+**Fecha de revisión más reciente:** 2026-11-23
+
+**Rama de referencia:** `ep5-rendimiento-200`, derivada de `main` en `c6dbe5d`; implementación `c11d9c8`.
+**Entorno:** Node.js 24, PostgreSQL 16 aislado, 2 workers/2 CPU, 500 clientes sintéticos durante carga y 2 clientes de demostración. No se usaron datos personales reales.
 
 Los resultados de esta revisión se separan de los históricos. Cada comando, salida y código
 de salida reproducible se conserva bajo [`evidencias/README.md`](./evidencias/README.md).
@@ -334,3 +334,107 @@ backup/restauración verificó conteos y hash coincidentes. Todos los comandos f
 terminaron con código 0. La evidencia también conserva los primeros intentos fallidos y
 explica por qué no son el resultado final:
 [`CIERRE-10-regresion-2026-11-22.txt`](./evidencias/final/CIERRE-10-regresion-2026-11-22.txt).
+
+## EP5 — escalado horizontal, carga y evidencias (2026-11-23)
+
+Esta ejecución parte de `main` en `c6dbe5d` y añade el commit de implementación `c11d9c8`.
+Se eligió `node:cluster`: el diagnóstico previo había observado una instancia de Node con
+un núcleo saturado, mientras que aumentar el pool de PostgreSQL no había mejorado la latencia.
+`WEB_CONCURRENCY` permite configurar los workers y se limita a los CPU disponibles; Compose
+asigna 2 CPU y ejecutó 2 workers. El contenedor se cerró con código 0 y los workers
+terminaron ordenadamente; al señalizar dos workers, el supervisor los reemplazó y `/api/health`
+respondió 200. La evidencia de inicio, reinicio y cierre está en
+[`EP5-20261123-cluster-start.txt`](./evidencias/final/EP5-20261123-cluster-start.txt),
+[`EP5-20261123-cluster-restart.txt`](./evidencias/final/EP5-20261123-cluster-restart.txt) y
+[`EP5-20261123-cluster-shutdown.txt`](./evidencias/final/EP5-20261123-cluster-shutdown.txt).
+
+El rate limit conserva 10 intentos por 15 minutos, compartidos mediante una operación
+atómica en PostgreSQL, en lugar de multiplicarse por proceso. La prueba S-18 ejecutó dos
+procesos con `WEB_CONCURRENCY=2` y confirmó que el intento fallido 11 recibe HTTP 429. El
+pool máximo se mantuvo en 10: `2 workers × 10 = 20` conexiones, por debajo de
+`max_connections=100` del PostgreSQL de prueba.
+
+### Regresión ejecutada
+
+| Comando | Resultado | Evidencia |
+|---|---|---|
+| `npm test` | 9/9, 0 fallidas y 0 omitidas; código final 0 | [`EP5-20261123-npm-test.txt`](./evidencias/final/EP5-20261123-npm-test.txt) |
+| `npm run test:vitest` | 4/4; código final 0 | [`EP5-20261123-vitest.txt`](./evidencias/final/EP5-20261123-vitest.txt) |
+| `npm run test:security` | 19/19, incluye S-18 entre procesos; código final 0 | [`EP5-20261123-security.txt`](./evidencias/final/EP5-20261123-security.txt) |
+| `npm run test:coverage` | c8: 76.06 % líneas/sentencias, 81.81 % ramas y 81.08 % funciones; umbral 70 % y código 0 | [`EP5-20261123-coverage.txt`](./evidencias/final/EP5-20261123-coverage.txt) |
+| `npm audit` | 0 vulnerabilidades; código 0 | [`EP5-20261123-npm-audit.txt`](./evidencias/final/EP5-20261123-npm-audit.txt) |
+| `npm run test:accessibility` | Playwright/axe 9/9 en 1280×800, 390×844 y 320×700; código 0 | [`EP5-20261123-accessibility.txt`](./evidencias/final/EP5-20261123-accessibility.txt); [capturas](./evidencias/final/EP5-20261123-accessibility/) |
+
+Los registros identifican las ejecuciones finales. El archivo de seguridad también conserva
+el primer intento fallido por entorno no cargado y la reejecución aprobada; no se presenta el
+intento fallido como aprobado.
+
+### Rendimiento medido
+
+Todas las corridas utilizaron `limit=50`, un login por corrida, 1 s de espera y 500 clientes
+sintéticos. Las corridas k6 duraron 90 s con 30 s de rampa y 60 s de carga sostenida; JMeter
+fue no GUI con 30 s de rampa y 90 s totales. No hubo errores HTTP ni de conexión. Los P95/P99
+de k6 son los reportados por k6; los percentiles JMeter se calcularon desde JTL por rango más
+cercano y el throughput desde las marcas temporales de sus muestras. CPU es promedio/máximo
+observado por `docker stats` para app, PostgreSQL y generador, como porcentaje de un núcleo.
+
+| Herramienta | Usuarios | Corrida | Muestras | Errores | Req/s | P95 ms | P99 ms | CPU app prom./máx. | CPU DB prom./máx. | CPU generador prom./máx. |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| k6 | 50 | 1 | 4,490 | 0 | 37.28 | 19.63 | 30.62 | 32.94/56.87 % | 7.33/12.60 % | 5.52/10.33 % |
+| JMeter | 50 | 1 | 3,701 | 0 | 41.74 | 19 | 31 | 31.44/60.78 % | 7.73/13.01 % | 10.20/13.67 % |
+| k6 | 100 | 1 | 8,932 | 0 | 74.05 | 36.41 | 98.66 | 67.13/146.31 % | 15.12/29.91 % | 10.27/18.77 % |
+| k6 | 100 | 2 | 8,957 | 0 | 74.24 | 30.22 | 61.57 | 59.33/158.82 % | 15.11/39.87 % | 9.66/18.24 % |
+| JMeter | 100 | 1 | 7,378 | 0 | 82.97 | 31 | 59 | 66.72/114.56 % | 18.86/39.11 % | 19.92/45.64 % |
+| k6 | 150 | 1 | 13,055 | 0 | 108.49 | 226.34 | 408.08 | 101.43/206.11 % | 26.00/46.50 % | 14.35/30.24 % |
+| k6 | 150 | 2 | 13,407 | 0 | 111.23 | 41.36 | 121.95 | 74.10/139.32 % | 20.79/52.09 % | 11.37/18.61 % |
+| JMeter | 150 | 1 | 10,932 | 0 | 122.93 | 111 | 253 | 95.16/179.36 % | 28.66/58.11 % | 45.87/237.91 % |
+| JMeter | 150 | 2 | 11,034 | 0 | 124.08 | 22 | 256 | 91.92/199.90 % | 23.24/42.28 % | 51.17/234.23 % |
+| k6 | 200 | 1 | 16,838 | 0 | 139.68 | 419.92 | 710.15 | 120.29/200.05 % | 30.94/51.96 % | 18.28/31.29 % |
+| JMeter | 200 | 1 | 14,466 | 0 | 162.69 | 154 | 394 | 110.63/170.45 % | 29.36/44.96 % | 24.29/78.76 % |
+
+### Comparación con la última medición previa documentada
+
+La columna anterior corresponde a `PERF-final` del 2026-11-21, la referencia más reciente
+en el repositorio antes de esta rama. No se mezcla con la serie previa del mismo informe que
+registró P95 de 97.86/53 ms a 50 usuarios.
+
+| Herramienta | Usuarios | P95 previo → actual | P99 previo → actual | Req/s previo → actual | Errores previo → actual | CPU app previo → actual |
+|---|---:|---:|---:|---:|---:|---:|
+| k6 | 50 | 24.40 → 19.63 ms | 57.91 → 30.62 ms | 37.12 → 37.28 | 0 → 0 | 32.1/108.2 → 32.94/56.87 % |
+| JMeter | 50 | 16 → 19 ms | 33 → 31 ms | 40.8 → 41.74 | 0 → 0 | 32.1/108.2 → 31.44/60.78 % |
+| k6 | 200 | 746.95 → 419.92 ms | 930.60 → 710.15 ms | 112.52 → 139.68 | 0 → 0 | 47.6/105.5 → 120.29/200.05 % |
+| JMeter | 200 | 494 → 154 ms | 598 → 394 ms | 141.2 → 162.69 | 0 → 0 | 47.6/105.5 → 110.63/170.45 % |
+
+En la referencia previa no se guardó CPU de PostgreSQL ni del generador en la misma tabla;
+por ello no se atribuye una comparación de esos contenedores. El escalado permitió utilizar
+los dos CPU observados (máximo app cercano a 200 %), y las métricas a 200 mejoraron frente a
+la referencia de `PERF-final`, pero el objetivo P95 <300 ms **no se cumple de forma
+consistente**: k6 a 200 midió 419.92 ms, aunque JMeter midió 154 ms. El mayor nivel probado
+repetidamente que cumple en ambas herramientas es 150 usuarios: sus cuatro corridas tuvieron
+P95 <300 ms y cero errores. No es una afirmación de capacidad universal.
+
+El resumen normalizado y las salidas de cada carga/JTL/CPU están en
+[`EP5-20261123-performance-results.csv`](./evidencias/final/EP5-20261123-performance-results.csv)
+y los archivos `EP5-20261123-223010-*` / `EP5-20261123-225059-*` de
+[`evidencias/final/`](./evidencias/final/). La limpieza comprobó que quedaron 2 clientes,
+2 contratos y 1 compañía, sin fixtures sintéticos; evidencia en
+[`EP5-20261123-seed-cleanup.txt`](./evidencias/final/EP5-20261123-seed-cleanup.txt).
+Los wrappers de las diez corridas de la matriz no preservaron el código de salida del proceso;
+los registros lo indican como no capturado. La repetición JMeter a 150 sí registró código 0.
+No se infiere un código de salida a partir del conteo de errores.
+
+### Controles externos y presentación
+
+SonarCloud público reportó Quality Gate `OK`, 0 issues y 0 vulnerabilidades abiertas para
+el último análisis de `main`, commit `c6dbe5d`; no es un análisis de esta rama. El run más
+reciente de GitHub Actions en `main`, `44980586480`, también terminó `success` para ese
+commit. Gitleaks staged terminó con código 0 tras verificar y excluir cuatro falsos positivos
+de identificadores públicos de SonarCloud por línea exacta; no se detectaron secretos no
+suprimidos. Trivy 0.76.2 sobre la imagen reconstruida reportó 0 HIGH/CRITICAL, 4 LOW y 7 MEDIUM.
+Las evidencias y límites se detallan en [`evidencias/README.md`](./evidencias/README.md).
+
+Playwright capturó dashboard, clientes y contratos en viewport 390×844 con datos de
+demostración: 2 clientes y 2 contratos. TestCase Studio no está en el repositorio, por lo
+que no hay capturas ni código generado para esa herramienta y sus espacios de presentación
+se mantienen pendientes. La presentación y su estado de exportación se documentan en el
+índice de evidencias.

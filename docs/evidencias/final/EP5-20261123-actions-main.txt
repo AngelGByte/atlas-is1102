@@ -1,0 +1,9 @@
+﻿Fecha consulta: 2026-11-23 22:33:15 -03:00
+Comando: curl.exe -fsS -H Accept:application/vnd.github+json https://api.github.com/repos/AngelGByte/atlas-is1102/actions/runs?branch=main&per_page=5
+Rama: main
+Run: 44980586480 https://github.com/AngelGByte/atlas-is1102/actions/runs/44980586480
+Commit: c6dbe5dc2d07001bfd12e18db1ef2294c158e632
+Estado: completed / success
+Inicio: 2026-11-22T03:25:47Z
+JSON: EP5-20261123-actions-main.json
+Codigo curl: 0
