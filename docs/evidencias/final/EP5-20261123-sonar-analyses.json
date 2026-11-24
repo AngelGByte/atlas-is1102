@@ -1,0 +1,46 @@
+{
+  "paging": {
+    "pageIndex": 1,
+    "pageSize": 3,
+    "total": 15
+  },
+  "analyses": [
+    {
+      "key": "8d148c41-4128-41cb-87ff-d9bc18f9bfdb",
+      "date": "2026-11-22T03:25:51+0000",
+      "events": [
+        {
+          "key": "AaIBSkDCKGlDiycm56Ab",
+          "category": "VERSION",
+          "name": "not provided"
+        }
+      ],
+      "projectVersion": "not provided",
+      "manualNewCodePeriodBaseline": false,
+      "revision": "c6dbe5dc2d07001bfd12e18db1ef2294c158e632"
+    },
+    {
+      "key": "9d900eb2-5f98-437e-b6f6-e2293f93686b",
+      "date": "2026-11-22T03:21:32+0000",
+      "events": [
+        {
+          "key": "AaIBRlcvpW6TBiJYHYGJ",
+          "category": "QUALITY_GATE",
+          "name": "Green (was Red)",
+          "description": ""
+        }
+      ],
+      "projectVersion": "not provided",
+      "manualNewCodePeriodBaseline": false,
+      "revision": "2b9c756ddb0f3e7e0f734efe7274316c2e3ac01b"
+    },
+    {
+      "key": "e65d2917-bc67-416e-9cac-987d09cd3725",
+      "date": "2026-11-22T02:32:08+0000",
+      "events": [],
+      "projectVersion": "not provided",
+      "manualNewCodePeriodBaseline": false,
+      "revision": "a97a8c8146a775fbf0282c4acb55d80c19fbc568"
+    }
+  ]
+}

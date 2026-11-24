@@ -1,0 +1,52 @@
+﻿Fecha inicio: 2026-11-23 22:37:42 -03:00
+Comando: docker run --rm --network atlas-ep5-perf-20261123-net --env TOKEN --env BASE_URL --env VUS --env HOLD_DURATION=1m --env LIST_MODE=page --env LIMIT=50 -v <repo>:/work -w /work grafana/k6:latest run --quiet --no-color --summary-trend-stats avg,min,med,max,p(90),p(95),p(99) cp08-clients.js
+Usuarios concurrentes: 150
+Datos: 500 clientes sinteticos + 2 de demostracion; limit=50; un login por corrida; espera=1 s.
+Token: no persistido; credenciales omitidas.
+docker stats durante la corrida: EP5-20261123-223010-k6-150-docker-stats.csv
+
+Salida del comando:
+
+
+
+  █ THRESHOLDS
+
+    checks
+    ✓ 'rate>0.99' rate=100.00%
+
+    http_req_duration
+    ✓ 'p(95)<300' p(95)=226.34ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS
+
+    checks_total.......: 13055   108.494566/s
+    checks_succeeded...: 100.00% 13055 out of 13055
+    checks_failed......: 0.00%   0 out of 13055
+
+    ✓ respuesta HTTP 200
+
+    HTTP
+    http_req_duration..............: avg=40.28ms min=5.4ms med=9.1ms max=915.57ms p(90)=122.99ms p(95)=226.34ms p(99)=408.08ms
+      { expected_response:true }...: avg=40.28ms min=5.4ms med=9.1ms max=915.57ms p(90)=122.99ms p(95)=226.34ms p(99)=408.08ms
+    http_req_failed................: 0.00%  0 out of 13055
+    http_reqs......................: 13055  108.494566/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.04s   min=1s    med=1s    max=1.91s    p(90)=1.12s    p(95)=1.22s    p(99)=1.4s
+    iterations.....................: 13055  108.494566/s
+    vus............................: 2      min=2          max=150
+    vus_max........................: 150    min=150        max=150
+
+    NETWORK
+    data_received..................: 184 MB 1.5 MB/s
+    data_sent......................: 4.9 MB 41 kB/s
+
+
+
+
+Fin: 2026-11-23 22:39:49 -03:00
+Código de salida:

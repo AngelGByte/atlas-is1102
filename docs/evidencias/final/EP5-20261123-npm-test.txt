@@ -1,0 +1,39 @@
+Fecha: 2026-11-24T02:05:52.206Z
+Comando: npm.cmd test
+
+
+> atlas-management-system@1.0.0 test
+> node --test test/crypto.test.js test/validation.test.js test/integration/api.test.js
+
+✔ encrypts bank data so plaintext is not stored and decrypts with the key (14.6441ms)
+✔ detects changed encrypted data and a wrong key (1.3984ms)
+✔ requires a sufficiently long encryption secret (0.2874ms)
+Error: detalle interno simulado
+    at pool.query (C:\Users\rpg72\atlas-is1102\test\integration\api.test.js:98:21)
+    at C:\Users\rpg72\atlas-is1102\src\server.js:309:14
+    at C:\Users\rpg72\atlas-is1102\src\server.js:36:69
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at next (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:163:13)
+    at Route.dispatch (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\route.js:123:3)
+    at handle (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:449:11)
+    at Layer.handleRequest (C:\Users\rpg72\atlas-is1102\node_modules\router\lib\layer.js:169:33)
+    at C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:309:15
+    at processParams (C:\Users\rpg72\atlas-is1102\node_modules\router\index.js:619:12) {
+  code: 'XX000'
+}
+✔ API CRUD, roles, data protection and audit trail (3244.115ms)
+✔ accepts a valid client and normalizes its email (6.3767ms)
+✔ rejects invalid client emails and oversized values (2.3236ms)
+✔ uses boundary checks for contract values and date order (6.4241ms)
+✔ enforces the documented password composition rules (2.2847ms)
+✔ rejects malformed or out-of-range bank account values (1.1725ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3916.2198
+
+Exit code: 0

@@ -1,0 +1,7 @@
+Fecha: 2026-11-23 22:27:34 -03:00
+Comando: node scripts/seed-load-data.js (PostgreSQL 16 aislado).
+
+OK: creados 500 clientes sintÃ©ticos.
+Filas totales en clients: 502; sintéticas de carga: 500
+Limpieza aislada de contadores de login: DELETE 7
+Código de salida: 0

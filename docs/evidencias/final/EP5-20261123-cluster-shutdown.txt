@@ -1,0 +1,23 @@
+﻿Fecha: 2026-11-23 22:57:16 -03:00
+Comando: docker stop --time 15 atlas-ep5-perf-20261123-app
+Salida de docker stop:
+Flag --time has been deprecated, use --timeout instead
+atlas-ep5-perf-20261123-app
+Código docker stop: 0
+docker inspect (exit code; error; finished):
+0;;2026-11-24T01:57:29.099981791Z
+Logs de cierre:
+Worker 1 finalizó (SIGTERM); reinicio en 1000 ms.
+Worker 1 iniciado (pid 18).
+Worker 2 finalizó (SIGTERM); reinicio en 1000 ms.
+Worker 2 iniciado (pid 19).
+Worker 3 iniciado (pid 108).
+Worker 4 iniciado (pid 162).
+Todos los workers finalizaron correctamente.
+Verificación adicional: 2026-11-23 23:00:33 -03:00
+Comando: docker stop --timeout 15 atlas-ep5-perf-20261123-app
+Salida: atlas-ep5-perf-20261123-app
+Código docker stop: 0
+docker inspect: 0;;2026-11-24T02:00:45.517131567Z
+Todos los workers finalizaron correctamente.
+Todos los workers finalizaron correctamente.

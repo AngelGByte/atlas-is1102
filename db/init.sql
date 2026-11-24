@@ -8,6 +8,15 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS login_rate_limits (
+  rate_key CHAR(64) PRIMARY KEY,
+  total_hits BIGINT NOT NULL CHECK (total_hits >= 0),
+  reset_at TIMESTAMPTZ NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_login_rate_limits_reset_at
+  ON login_rate_limits(reset_at);
+
 CREATE TABLE IF NOT EXISTS companies (
   id BIGSERIAL PRIMARY KEY,
   name VARCHAR(180) NOT NULL UNIQUE,

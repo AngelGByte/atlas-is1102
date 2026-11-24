@@ -1,0 +1,28 @@
+Gitleaks 8.30.1, ejecución staged redactada. Se documentan ambas pasadas; no se conservan valores secretos.
+
+Primera pasada:
+Fecha: 2026-11-23 23:07:24 -03:00
+Comando: docker run --rm -v <repo>:/repo zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner
+Resultado: código 1; 4 alertas `generic-api-key` en el JSON de análisis público de SonarCloud.
+Clasificación: las cuatro cadenas son IDs públicos de análisis/evento devueltos sin autenticación por `api/project_analyses/search`, no credenciales. Se conservó su ubicación exacta en las líneas 13, 23, 27 y 38 después de formatear el JSON sin cambiar sus datos.
+Corrección: `.gitleaksignore` excluye únicamente `generic-api-key` en esas cuatro líneas del archivo indicado.
+
+Verificación staged posterior a la exclusión exacta:
+Fecha: 2026-11-23 23:09:07 -03:00
+Comando: docker run --rm -v <repo>:/repo zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner
+Salida observada: `no leaks found`
+Exit code: 0
+
+Verificación staged después de incorporar este registro:
+Fecha: 2026-11-23 23:09:51 -03:00
+Comando: docker run --rm -v <repo>:/repo zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner
+Resultado: `no leaks found`
+Exit code: 0
+
+Verificación final antes del commit:
+Fecha: 2026-11-23 23:11:33 -03:00
+Comando: docker run --rm -v <repo>:/repo zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner
+Resultado: `no leaks found`
+Exit code: 0
+
+Revisión adicional: `git grep -Il eyJ -- .` devolvió solo los nombres de cuatro archivos. El comando no imprimió valores; las coincidencias son menciones documentales del prefijo JWT, no tokens.

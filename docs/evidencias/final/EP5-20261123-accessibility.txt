@@ -1,0 +1,23 @@
+Fecha: 2026-11-23 22:24:07 -03:00
+Comando: npm.cmd run test:accessibility (PostgreSQL 16 aislado).
+
+
+> atlas-management-system@1.0.0 test:accessibility
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+  ok 1 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en escritorio 1280x800 › inicio de sesión: etiquetas, contraste y foco (3.0s)
+  ok 2 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en escritorio 1280x800 › listado de clientes: tabla legible y navegación por teclado (2.3s)
+  ok 3 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en escritorio 1280x800 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.5s)
+  ok 4 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil 390x844 › inicio de sesión: etiquetas, contraste y foco (1.0s)
+  ok 5 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil 390x844 › listado de clientes: tabla legible y navegación por teclado (2.2s)
+  ok 6 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil 390x844 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.3s)
+  ok 7 test\e2e\accessibility.spec.js:56:5 › Accesibilidad en móvil estrecho 320x700 › inicio de sesión: etiquetas, contraste y foco (904ms)
+  ok 8 test\e2e\accessibility.spec.js:67:5 › Accesibilidad en móvil estrecho 320x700 › listado de clientes: tabla legible y navegación por teclado (2.1s)
+  ok 9 test\e2e\accessibility.spec.js:91:5 › Accesibilidad en móvil estrecho 320x700 › formulario de cliente: campos etiquetados, foco visible y adaptación (2.4s)
+
+  9 passed (22.8s)
+
+C�digo de salida: 0

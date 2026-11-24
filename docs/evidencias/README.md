@@ -1,7 +1,8 @@
 # Índice de evidencias EP5
 
 Este índice combina ejecuciones históricas de `ep5-cierre-final` y nuevas mediciones locales
-basadas en `main`, fechadas el 2026-11-21. Cada bloque identifica su origen; las métricas
+basadas en `main`, fechadas el 2026-11-21, con la ejecución posterior de la rama
+`ep5-rendimiento-200` del 2026-11-23. Cada bloque identifica su origen; las métricas
 históricas no se reutilizan como resultados nuevos. Las salidas k6/JMeter y los JTL revisados
 no contienen tokens; no se encontró el prefijo característico de un JWT.
 
@@ -62,6 +63,44 @@ solicitudes (código 1) y no se usan como corridas válidas.
 La salida completa final de regresión se registra en
 `CIERRE-05-regresion-reintento-2026-11-21.txt`; las capturas intermedias de configuración
 fallida no se consideran resultados ni se incluyen en el índice.
+
+## Evidencias EP5 — rama `ep5-rendimiento-200` (2026-11-23)
+
+La implementación parte de `main` en `c6dbe5d`; el commit de código es `c11d9c8`. Los
+comandos se ejecutaron localmente contra PostgreSQL 16 aislado. Las credenciales se tomaron
+del entorno y no se escribieron en las evidencias.
+
+| Tarea | Comando / acción | Fecha | Resultado | Archivo |
+|---|---|---|---|---|
+| Inicio y conexiones | Contenedor con `--cpus=2`, `WEB_CONCURRENCY=2`, `PG_POOL_MAX=10`; consulta de `max_connections` | 2026-11-23 22:27 | Health OK; 2 workers; 2 × 10 = 20 conexiones frente a máximo PostgreSQL 100 | [`EP5-20261123-cluster-start.txt`](./final/EP5-20261123-cluster-start.txt) |
+| Reinicio de workers | SIGTERM controlado a dos workers y sonda `/api/health` | 2026-11-23 22:56 | Ambos sustituidos; 2 workers activos; HTTP 200 | [`EP5-20261123-cluster-restart.txt`](./final/EP5-20261123-cluster-restart.txt) |
+| Cierre ordenado | `docker stop --timeout 15 atlas-ep5-perf-20261123-app` | 2026-11-23 23:00 | Código 0; `docker inspect` exit code 0; todos los workers finalizaron correctamente | [`EP5-20261123-cluster-shutdown.txt`](./final/EP5-20261123-cluster-shutdown.txt) |
+| Regresión Node | `npm.cmd test` | 2026-11-23 23:05:52 -03:00 | Final: 9/9, 0 omitidas/fallidas, código 0 | [`EP5-20261123-npm-test.txt`](./final/EP5-20261123-npm-test.txt) |
+| Vitest | `npm.cmd run test:vitest` | 2026-11-23 23:06:06 -03:00 | Final: 4/4, código 0 | [`EP5-20261123-vitest.txt`](./final/EP5-20261123-vitest.txt) |
+| Seguridad S-00–S-18 | Entorno con dotenv y `WEB_CONCURRENCY=2`; `npm.cmd run test:security` | 2026-11-23 23:06:24 -03:00 | Final: 19/19; S-18 demuestra 429 en el intento 11 entre procesos; código 0. El archivo también registra un primer intento sin entorno (código 1) y su corrección | [`EP5-20261123-security.txt`](./final/EP5-20261123-security.txt) |
+| Cobertura c8 | Entorno con dotenv; `npm.cmd run test:coverage`, umbral 70 % | 2026-11-23 23:06:41 -03:00 | 76.06 % líneas/sentencias, 81.81 % ramas, 81.08 % funciones; código 0 | [`EP5-20261123-coverage.txt`](./final/EP5-20261123-coverage.txt) |
+| Auditoría npm | `npm.cmd audit` | 2026-11-23 23:06:41 -03:00 | 0 vulnerabilidades; código 0 | [`EP5-20261123-npm-audit.txt`](./final/EP5-20261123-npm-audit.txt) |
+| Gitleaks staged final | `docker run --rm ... zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner` | 2026-11-23 23:11:33 -03:00 | Código 0, sin hallazgos no suprimidos. La primera pasada detectó 4 campos `key` del JSON público de SonarCloud; se verificaron como IDs de análisis/evento no secretos y se ignoraron solo las cuatro líneas exactas. `git grep -Il eyJ -- .` devolvió nombres de cuatro archivos, sin imprimir valores; revisión sin credenciales | [`EP5-20261123-gitleaks-final.txt`](./final/EP5-20261123-gitleaks-final.txt) |
+| Accesibilidad | `npm.cmd run test:accessibility`; Playwright/axe en 1280×800, 390×844, 320×700 | 2026-11-23 22:24:07 | 9/9; código 0; capturas archivadas por viewport | [`EP5-20261123-accessibility.txt`](./final/EP5-20261123-accessibility.txt), [PNG](./final/EP5-20261123-accessibility/) |
+| Gitleaks inicial | `gitleaks git --staged --redact --no-banner`, imagen 8.30.1 | 2026-11-23 22:36:58 | Sin hallazgos; código 0. Es una ejecución inicial del código; la validación del conjunto final staged está en la fila posterior | [`EP5-20261123-gitleaks-precommit.txt`](./final/EP5-20261123-gitleaks-precommit.txt) |
+| k6/JMeter y CPU | `cp08-clients.js`, plan JMeter, 500 clientes, login único/corrida, `limit=50`, 1 s de espera; `docker stats` durante carga | 2026-11-23 22:30–22:51 | 11 corridas a 50/100/150/200; 0 errores en todas. A 150, dos corridas por herramienta tuvieron P95 <300 ms; k6 a 200 P95 419.92 ms y JMeter 154 ms | [CSV normalizado](./final/EP5-20261123-performance-results.csv); salidas y CPU enumeradas abajo |
+| Limpieza de datos | `node /app/scripts/seed-load-data.js --clean`; consulta de conteos | 2026-11-23 22:57 | 500 sintéticos eliminados; quedan 2 clientes, 2 contratos y 1 compañía | [`EP5-20261123-seed-cleanup.txt`](./final/EP5-20261123-seed-cleanup.txt) |
+| UI presentación | Playwright login local y capturas a 390×844; `SELECT count(*)` de clientes y contratos | 2026-11-23 23:00 | Dashboard, clientes, contratos; base con 2 clientes/2 contratos | [`EP5-20261123-ui-presentation.txt`](./final/EP5-20261123-ui-presentation.txt); [dashboard](./ui/dashboard-20261123-390x844.png), [clientes](./ui/clientes-20261123-390x844.png), [contratos](./ui/contratos-20261123-390x844.png) |
+| SonarCloud público | `curl.exe` a análisis, Quality Gate e issues del proyecto | 2026-11-23 22:33 | `main`/`c6dbe5d`; Gate `OK`, 0 issues y 0 vulnerabilidades abiertas; no corresponde a esta rama | [`EP5-20261123-sonar.txt`](./final/EP5-20261123-sonar.txt), [análisis](./final/EP5-20261123-sonar-analyses.json), [gate](./final/EP5-20261123-sonar-qualitygate.json), [issues](./final/EP5-20261123-sonar-open-issues.json) |
+| Actions en `main` | `curl.exe` a GitHub Actions API | 2026-11-23 22:33 | Run `44980586480`, commit `c6dbe5d`, `completed/success`; no valida esta rama aún | [`EP5-20261123-actions-main.txt`](./final/EP5-20261123-actions-main.txt), [JSON](./final/EP5-20261123-actions-main.json), [run](https://github.com/AngelGByte/atlas-is1102/actions/runs/44980586480) |
+| Build Docker y Trivy | Build de imagen; Trivy 0.76.2 `--severity HIGH,CRITICAL` y scan completo | 2026-11-23 22:57 | 0 HIGH, 0 CRITICAL, 4 LOW y 7 MEDIUM; auditoría npm 0. La imagen TAR temporal fue eliminada tras escanear | [`EP5-20261123-docker-build.txt`](./final/EP5-20261123-docker-build.txt), [Trivy HIGH/CRITICAL](./final/EP5-20261123-trivy-highcritical.txt), [JSON](./final/EP5-20261123-trivy-highcritical.json), [informe completo](./final/EP5-20261123-trivy-all.txt), [JSON](./final/EP5-20261123-trivy-all.json) |
+| Presentación final | Python-pptx 1.0.2; PowerPoint COM: `Export(..., 'PNG', 1600, 900)` y `SaveAs(..., 32)` | 2026-11-23 23:20 -03:00 | 15 diapositivas; 12 marcadores reemplazados; 15 PNG inspeccionados sin desbordamientos. Se conservaron PH_TCS/PH_UIAUTO porque falta la carpeta TestCase Studio | [registro](./final/EP5-20261123-presentacion.txt), [PPTX](../Presentacion_Final_EP5_Atlas_completada.pptx), [PDF](../Presentacion_Final_EP5_Atlas_completada.pdf), [tarjetas](./final/EP5-20261123-capturas/) |
+
+Las corridas de carga están individualizadas; para cada registro se conserva log de consola y
+CSV de `docker stats`; JMeter conserva además el JTL. Los nombres se corresponden con la
+columna `log`, `jtl` y `stats` del CSV consolidado:
+
+| Nivel | Logs k6 | Logs/JTL JMeter |
+|---:|---|---|
+| 50 | [`k6-50`](./final/EP5-20261123-223010-k6-50.txt) | [`JMeter-50`](./final/EP5-20261123-223010-jmeter-50.txt), [JTL](./final/EP5-20261123-223010-jmeter-50.jtl) |
+| 100 | [`k6-100`](./final/EP5-20261123-223010-k6-100.txt), [repetición](./final/EP5-20261123-223010-k6-100-repeat.txt) | [`JMeter-100`](./final/EP5-20261123-223010-jmeter-100.txt), [JTL](./final/EP5-20261123-223010-jmeter-100.jtl) |
+| 150 | [`k6-150`](./final/EP5-20261123-223010-k6-150.txt), [repetición](./final/EP5-20261123-223010-k6-150-repeat.txt) | [`JMeter-150`](./final/EP5-20261123-223010-jmeter-150.txt), [JTL](./final/EP5-20261123-223010-jmeter-150.jtl); [repetición](./final/EP5-20261123-225059-jmeter-150-repeat.txt), [JTL](./final/EP5-20261123-225059-jmeter-150-repeat.jtl) |
+| 200 | [`k6-200`](./final/EP5-20261123-223010-k6-200.txt) | [`JMeter-200`](./final/EP5-20261123-223010-jmeter-200.txt), [JTL](./final/EP5-20261123-223010-jmeter-200.jtl) |
 
 ## Evidencia posterior — optimización local basada en main (2026-11-21)
 

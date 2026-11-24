@@ -1,0 +1,4 @@
+﻿Fecha: 2026-11-23 22:57:45 -03:00
+Comando: docker save -o docs\evidencias\final\EP5-20261123-image.tar atlas-is1102:ep5-rendimiento-20261123
+Código de salida: 0
+Temporal para Trivy: docs\evidencias\final\EP5-20261123-image.tar

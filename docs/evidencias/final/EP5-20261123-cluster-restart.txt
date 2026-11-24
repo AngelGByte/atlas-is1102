@@ -1,0 +1,14 @@
+﻿Fecha de verificacion: 2026-11-23 22:56:30 -03:00
+Contenedor: atlas-ep5-perf-20261123-app
+Workers activos al terminar: 108, 162
+Comandos controlados: docker exec atlas-ep5-perf-20261123-app sh -c 'kill -TERM 18'; docker exec atlas-ep5-perf-20261123-app sh -c 'kill -TERM 19'
+Eventos de salida:
+Worker 1 finalizó (SIGTERM); reinicio en 1000 ms.
+Worker 2 finalizó (SIGTERM); reinicio en 1000 ms.
+Workers reemplazantes:
+Worker 3 iniciado (pid 108).
+Worker 4 iniciado (pid 162).
+Health check:
+docker exec atlas-ep5-perf-20261123-app node -e <fetch /api/health>
+HTTP 200
+Resultado: ambos workers señalados finalizaron y el supervisor lanzó sustitutos; quedaron 2 workers activos y HTTP 200.

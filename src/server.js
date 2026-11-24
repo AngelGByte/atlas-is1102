@@ -1,6 +1,8 @@
 require('dotenv').config();
 
+const cluster = require('node:cluster');
 const fs = require('node:fs/promises');
+const os = require('node:os');
 const path = require('node:path');
 const bcrypt = require('bcryptjs');
 const express = require('express');
@@ -9,6 +11,7 @@ const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const { decryptValue, encryptValue, getEncryptionKey } = require('./crypto');
+const { PostgresRateLimitStore } = require('./postgres-rate-limit-store');
 const DEFAULT_CLIENTS_LIMIT = 50;
 const MAX_CLIENTS_LIMIT = 200;
 const databasePoolMax = Number(process.env.PG_POOL_MAX || 10);
@@ -28,6 +31,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   max: databasePoolMax
 });
+const loginRateLimitStore = new PostgresRateLimitStore(pool, process.env.JWT_SECRET || '');
 const app = express();
 const asyncRoute = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
 const safeUser = ({ id, name, email, role, active, created_at }) => ({
@@ -311,6 +315,7 @@ app.post('/api/auth/login', rateLimit({
   limit: 10,
   standardHeaders: 'draft-7',
   legacyHeaders: false,
+  store: loginRateLimitStore,
   message: { message: 'Demasiados intentos. Espera 15 minutos e inténtalo nuevamente.' }
 }), asyncRoute(async (req, res) => {
   const email = typeof req.body?.email === 'string' ? req.body.email.trim().toLowerCase() : '';
@@ -812,16 +817,144 @@ async function start() {
        process.env.POSTGRES_PASSWORD === 'atlas-local-only')) {
     throw new Error('Production requires unique JWT_SECRET and DATA_ENCRYPTION_SECRET values.');
   }
-  await initializeDatabase();
+  if (!cluster.isWorker) await initializeDatabase();
   const port = Number(process.env.PORT || 3000);
-  return app.listen(port, '0.0.0.0', () => console.log(`Atlas escuchando en el puerto ${port}`));
+  return app.listen(port, '0.0.0.0', () => {
+    const workerId = cluster.isWorker ? cluster.worker.id : 0;
+    console.log(`Atlas escuchando en el puerto ${port} (worker ${workerId})`);
+  });
+}
+
+function getWorkerCount() {
+  const availableCpus = Math.max(1, os.availableParallelism());
+  const requestedValue = process.env.WEB_CONCURRENCY;
+  if (requestedValue !== undefined && !/^[1-9]\d*$/.test(requestedValue)) {
+    throw new Error('WEB_CONCURRENCY debe ser un entero positivo.');
+  }
+  const requestedWorkers = requestedValue === undefined
+    ? Math.min(4, availableCpus)
+    : Number(requestedValue);
+  const workers = Math.min(requestedWorkers, availableCpus);
+  if (workers !== requestedWorkers) {
+    console.warn(
+      `WEB_CONCURRENCY=${requestedWorkers} supera los ${availableCpus} CPU disponibles; se usarán ${workers} workers.`
+    );
+  }
+  return workers;
+}
+
+async function startCluster(workerCount) {
+  requireConfiguration();
+  await initializeDatabase();
+  await pool.end();
+
+  let stopping = false;
+  let restartCount = 0;
+  const workers = new Map();
+  const restartTimers = new Set();
+  let shutdownTimer;
+
+  const forkWorker = () => {
+    if (stopping) return;
+    const worker = cluster.fork();
+    workers.set(worker.id, Date.now());
+  };
+
+  cluster.on('online', (worker) => {
+    console.log(`Worker ${worker.id} iniciado (pid ${worker.process.pid}).`);
+  });
+
+  cluster.on('exit', (worker, code, signal) => {
+    const startedAt = workers.get(worker.id);
+    workers.delete(worker.id);
+    if (stopping) {
+      if (workers.size === 0) {
+        clearTimeout(shutdownTimer);
+        console.log('Todos los workers finalizaron correctamente.');
+        process.exit(0);
+      }
+      return;
+    }
+
+    if (startedAt && Date.now() - startedAt >= 60000) restartCount = 0;
+    restartCount += 1;
+    const delay = Math.min(1000 * (2 ** Math.min(restartCount - 1, 5)), 30000);
+    console.error(
+      `Worker ${worker.id} finalizó (${signal || code}); reinicio en ${delay} ms.`
+    );
+    const timer = setTimeout(() => {
+      restartTimers.delete(timer);
+      forkWorker();
+    }, delay);
+    restartTimers.add(timer);
+  });
+
+  const shutdown = () => {
+    if (stopping) return;
+    stopping = true;
+    for (const timer of restartTimers) clearTimeout(timer);
+    restartTimers.clear();
+    const activeWorkers = Object.values(cluster.workers).filter(Boolean);
+    if (!activeWorkers.length) {
+      process.exit(0);
+      return;
+    }
+    shutdownTimer = setTimeout(() => {
+      for (const worker of Object.values(cluster.workers).filter(Boolean)) {
+        worker.kill('SIGKILL');
+      }
+    }, 12000);
+    shutdownTimer.unref();
+    for (const worker of activeWorkers) worker.kill('SIGTERM');
+  };
+
+  process.once('SIGTERM', shutdown);
+  process.once('SIGINT', shutdown);
+  console.log(`Iniciando ${workerCount} workers (CPU disponibles: ${os.availableParallelism()}).`);
+  for (let index = 0; index < workerCount; index += 1) forkWorker();
+}
+
+function handleWorkerShutdown(server) {
+  let closing = false;
+  const shutdown = () => {
+    if (closing) return;
+    closing = true;
+    server.close(async (error) => {
+      if (error) {
+        console.error('No fue posible cerrar el servidor HTTP ordenadamente:', error.message);
+        process.exitCode = 1;
+      }
+      try {
+        await pool.end();
+      } catch (poolError) {
+        console.error('No fue posible cerrar el pool PostgreSQL:', poolError.message);
+        process.exitCode = 1;
+      }
+    });
+  };
+  process.once('SIGTERM', shutdown);
+  process.once('SIGINT', shutdown);
 }
 
 if (require.main === module) {
-  start().catch((error) => {
+  try {
+    if (cluster.isPrimary) {
+      startCluster(getWorkerCount()).catch((error) => {
+        console.error('No fue posible iniciar Atlas:', error.message);
+        process.exitCode = 1;
+      });
+    } else {
+      start()
+        .then(handleWorkerShutdown)
+        .catch((error) => {
+          console.error('No fue posible iniciar Atlas:', error.message);
+          process.exitCode = 1;
+        });
+    }
+  } catch (error) {
     console.error('No fue posible iniciar Atlas:', error.message);
     process.exitCode = 1;
-  });
+  }
 }
 
 module.exports = { app, initializeDatabase, pool, start };

@@ -1,7 +1,9 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { randomBytes } = require('node:crypto');
 const { spawnSync } = require('node:child_process');
 const request = require('supertest');
+const { PostgresRateLimitStore } = require('../../src/postgres-rate-limit-store');
 require('dotenv').config();
 
 const configured = Boolean(process.env.TEST_DATABASE_URL);
@@ -21,6 +23,8 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
 
   const { app, initializeDatabase, pool } = require('../../src/server');
   await initializeDatabase();
+  app.set('trust proxy', 'loopback');
+  const rateLimitClientIp = `10.250.${randomBytes(2).readUInt8(0)}.${randomBytes(2).readUInt8(1)}`;
   const homepage = await request(app).get('/');
   assert.equal(homepage.status, 200);
   assert.match(homepage.headers['content-type'], /text\/html/);
@@ -28,12 +32,42 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   const frontendRoute = await request(app).get('/clients');
   assert.equal(frontendRoute.status, 200);
   assert.match(frontendRoute.headers['content-type'], /text\/html/);
-  const adminLogin = await request(app).post('/api/auth/login').send({
+  const adminLogin = await request(app).post('/api/auth/login')
+    .set('X-Forwarded-For', rateLimitClientIp)
+    .send({
     email: process.env.ADMIN_EMAIL,
     password: process.env.ADMIN_PASSWORD
   });
   assert.equal(adminLogin.status, 200);
   const adminToken = adminLogin.body.token;
+  const rateLimitStore = new PostgresRateLimitStore(pool, process.env.JWT_SECRET);
+  rateLimitStore.init({ windowMs: 60 * 1000 });
+  const rateLimitTestKey = `integration-${Date.now()}`;
+  const rateLimitTestHash = rateLimitStore.hashKey(rateLimitTestKey);
+  const concurrentHits = await Promise.all(
+    Array.from({ length: 10 }, () => rateLimitStore.increment(rateLimitTestKey))
+  );
+  assert.deepEqual(
+    concurrentHits.map(({ totalHits }) => totalHits).sort((left, right) => left - right),
+    Array.from({ length: 10 }, (_, index) => index + 1)
+  );
+  await pool.query(
+    'UPDATE login_rate_limits SET reset_at = statement_timestamp() - INTERVAL \'1 second\' WHERE rate_key = $1',
+    [rateLimitTestHash]
+  );
+  assert.equal((await rateLimitStore.increment(rateLimitTestKey)).totalHits, 1);
+  await rateLimitStore.decrement(rateLimitTestKey);
+  assert.equal((await pool.query(
+    'SELECT total_hits FROM login_rate_limits WHERE rate_key = $1',
+    [rateLimitTestHash]
+  )).rows[0].total_hits, '0');
+  rateLimitStore.operations = 255;
+  await rateLimitStore.increment(rateLimitTestKey);
+  await rateLimitStore.resetKey(rateLimitTestKey);
+  assert.equal((await pool.query(
+    'SELECT rate_key FROM login_rate_limits WHERE rate_key = $1',
+    [rateLimitTestHash]
+  )).rowCount, 0);
   const storedAdmin = await pool.query(
     'SELECT password_hash FROM users WHERE email=$1',
     [process.env.ADMIN_EMAIL]
@@ -101,8 +135,10 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
   }
 
   const invalidPassword = await request(app).post('/api/auth/login')
+    .set('X-Forwarded-For', rateLimitClientIp)
     .send({ email: process.env.ADMIN_EMAIL, password: 'incorrecta' });
   const unknownAccount = await request(app).post('/api/auth/login')
+    .set('X-Forwarded-For', rateLimitClientIp)
     .send({ email: 'ausente@example.cl', password: 'incorrecta' });
   assert.equal(invalidPassword.status, 401);
   assert.equal(unknownAccount.status, 401);
@@ -278,7 +314,9 @@ test('API CRUD, roles, data protection and audit trail', { skip: !configured }, 
     assert.deepEqual(invalidPagination.body, { message: 'Parámetros de paginación inválidos.' });
   }
 
-  const editorLogin = await request(app).post('/api/auth/login').send({
+  const editorLogin = await request(app).post('/api/auth/login')
+    .set('X-Forwarded-For', rateLimitClientIp)
+    .send({
     email: createdEmail,
     password: 'Integration2026!'
   });

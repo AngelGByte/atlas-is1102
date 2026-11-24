@@ -1,0 +1,23 @@
+﻿Fecha: 2026-11-23 22:36:58 -03:00
+Comando: docker run --rm -v "C:\Users\rpg72\atlas-is1102:/repo" -w /repo zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner
+Unable to find image 'zricethezav/gitleaks:v8.30.1' locally
+v8.30.1: Pulling from zricethezav/gitleaks
+d49a2dee86fb: Pulling fs layer
+d92b655ae8e2: Pulling fs layer
+61fdfd7c0175: Pulling fs layer
+a43ab0c74cc4: Pulling fs layer
+a43ab0c74cc4: Download complete
+d49a2dee86fb: Download complete
+d92b655ae8e2: Download complete
+cc89e3f50cd2: Download complete
+d49a2dee86fb: Pull complete
+d92b655ae8e2: Pull complete
+61fdfd7c0175: Download complete
+a43ab0c74cc4: Pull complete
+61fdfd7c0175: Pull complete
+Digest: sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
+Status: Downloaded newer image for zricethezav/gitleaks:v8.30.1
+[90m1:37AM[0m [32mINF[0m [1m0 commits scanned.[0m
+[90m1:37AM[0m [32mINF[0m [1mscanned ~13218 bytes (13.22 KB) in 329ms[0m
+[90m1:37AM[0m [32mINF[0m [1mno leaks found[0m
+Código de salida: 0

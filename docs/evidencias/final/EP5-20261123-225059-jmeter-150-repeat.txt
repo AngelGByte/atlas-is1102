@@ -1,0 +1,35 @@
+Fecha inicio: 2026-11-23 22:50:59 -0300
+Comando: docker run --rm --network atlas-ep5-perf-20261123-net --env TOKEN -v <repo>:/work -w /work justb4/jmeter:latest -n -t jmeter/atlas-load-test.jmx -l docs/evidencias/final/EP5-20261123-225059-jmeter-150-repeat.jtl -JBASE_HOST=atlas-ep5-perf-20261123-app -JBASE_PORT=3000 -JUSERS=150 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50
+Usuarios: 150; datos: 500 clientes sinteticos + 2 de demostracion; espera=1 s; login unico; limit=50.
+Token y credenciales: no persistidos.
+docker stats cada 5 s; archivo: EP5-20261123-225059-jmeter-150-repeat-docker-stats.csv
+
+Salida de JMeter:
+START Running Jmeter on Tue Nov 24 02:51:00 CET 2026
+JVM_ARGS=-Xmn1378m -Xms5512m -Xmx5512m
+jmeter args=-n -t jmeter/atlas-load-test.jmx -l docs/evidencias/final/EP5-20261123-225059-jmeter-150-repeat.jtl -JBASE_HOST=atlas-ep5-perf-20261123-app -JBASE_PORT=3000 -JUSERS=150 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50
+jmeter ALL ARGS=-Dlog4j2.formatMsgNoLookups=true -n -t jmeter/atlas-load-test.jmx -l docs/evidencias/final/EP5-20261123-225059-jmeter-150-repeat.jtl -JBASE_HOST=atlas-ep5-perf-20261123-app -JBASE_PORT=3000 -JUSERS=150 -JRAMP_UP=30 -JDURATION=90 -JTHINK_TIME_MS=1000 -JLIST_MODE=page -JLIMIT=50
+Creating summariser <summary>
+Created the tree successfully using jmeter/atlas-load-test.jmx
+Starting standalone test @ November 24, 2026 2:51:02 AM CET (1795485062712)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +      1 in 00:00:01 =    0.7/s Avg:    65 Min:    65 Max:    65 Err:     0 (0.00%) Active: 7 Started: 7 Finished: 0
+summary +   1586 in 00:00:25 =   64.3/s Avg:    11 Min:     5 Max:   321 Err:     0 (0.00%) Active: 130 Started: 130 Finished: 0
+summary =   1587 in 00:00:26 =   60.8/s Avg:    11 Min:     5 Max:   321 Err:     0 (0.00%)
+summary +   4381 in 00:00:30 =  146.1/s Avg:    20 Min:     5 Max:  1172 Err:     0 (0.00%) Active: 150 Started: 150 Finished: 0
+summary =   5968 in 00:00:56 =  106.4/s Avg:    18 Min:     5 Max:  1172 Err:     0 (0.00%)
+summary +   4463 in 00:00:30 =  148.7/s Avg:     9 Min:     5 Max:   190 Err:     0 (0.00%) Active: 150 Started: 150 Finished: 0
+summary =  10431 in 00:01:26 =  121.1/s Avg:    14 Min:     5 Max:  1172 Err:     0 (0.00%)
+summary +    603 in 00:00:04 =  148.3/s Avg:     9 Min:     5 Max:   106 Err:     0 (0.00%) Active: 0 Started: 150 Finished: 150
+summary =  11034 in 00:01:30 =  122.4/s Avg:    14 Min:     5 Max:  1172 Err:     0 (0.00%)
+Tidying up ...    @ November 24, 2026 2:52:34 AM CET (1795485154082)
+... end of run
+END Running Jmeter on Tue Nov 24 02:52:34 CET 2026
+
+
+Salida de avisos:
+Nov 24, 2026 2:51:01 AM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+
+Fin: 2026-11-23 22:52:38 -0300
+Codigo de salida: 0

@@ -1,0 +1,46 @@
+Evidencia de presentación EP5
+Fecha: 2026-11-23 (hora local -03:00)
+
+Fuente:
+  C:\Users\rpg72\Downloads\Presentacion_Final_EP5_Atlas.pptx
+
+Edicion:
+  Invocación: script Python con python-pptx 1.0.2 canalizado desde un here-string de
+  PowerShell a:
+    C:\Users\rpg72\.copilot\session-state\2a276011-d1f0-42e7-b71b-27607e72f60e\files\python-ep5\Scripts\python.exe -
+  El script se ejecutó en línea y no se guardó como archivo.
+  Se abrió una copia de la fuente con python-pptx 1.0.2.
+  Se reemplazaron 12 marcadores PH_ con las tarjetas y capturas vigentes, ajustando
+  cada imagen a su caja sin deformación. Se actualizó la cifra de cobertura de la
+  diapositiva 4 a 76,06 %, se corrigió la descripción TLS del diagrama de arquitectura
+  para reflejar Caddy en Compose, y se sustituyeron los resultados de rendimiento y
+  DEF-09 por los resultados reales de esta rama.
+  Se comprobó que el campo Docente y las observaciones del profesor permanecieran
+  sin cambios.
+
+Validacion estructural:
+  python-pptx: 15 diapositivas; 12 imágenes reemplazadas; relación de aspecto validada.
+  Placeholders conservados: PH_TCS y PH_UIAUTO.
+  Test-Path docs\evidencias\testcase-studio -> False; no se recibieron capturas ni
+  código de TestCase Studio, por lo que ambos recuadros quedan pendientes.
+
+Renderizado y revision visual:
+  Microsoft PowerPoint mediante automatizacion COM.
+  Comandos ejecutados:
+    $presentation.Export($render, 'PNG', 1600, 900)
+    $presentation.SaveAs($pdf, 32)
+  Se exportaron 15 imágenes PNG para inspección visual y se revisaron las 15
+  diapositivas; no se observó texto fuera de los límites.
+  PPTX: docs\Presentacion_Final_EP5_Atlas_completada.pptx
+  PDF:  docs\Presentacion_Final_EP5_Atlas_completada.pdf
+  Exportación PDF: 2026-11-23 23:20:57 -03:00; 969295 bytes.
+  PPTX al cierre: 2035955 bytes. Conteo de diapositivas PowerPoint: 15.
+  Las imágenes PNG de revisión se guardaron temporalmente en el directorio de sesión,
+  no se incorporaron al repositorio.
+
+Control de secretos staged previo al commit de presentación:
+  Fecha: 2026-11-23 23:23 -03:00
+  Comando: docker run --rm -v <repo>:/repo -w /repo
+    zricethezav/gitleaks:v8.30.1 git --staged --redact --no-banner
+  Salida: no leaks found; código 0. Se inspeccionaron aproximadamente 3944 bytes.
+  git grep -Il eyJ -- . mostró únicamente nombres de cuatro archivos; no imprimió valores.

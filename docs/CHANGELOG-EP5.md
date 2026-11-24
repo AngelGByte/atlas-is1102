@@ -95,3 +95,52 @@ La evidencia completa está en [`docs/evidencias/README.md`](./evidencias/README
   únicamente seis identificadores públicos del reporte SonarCloud.
 - Las respuestas de API y el resumen del run quedaron guardados en
   [`docs/evidencias/README.md`](./evidencias/README.md).
+
+## 2026-11-23 — escalado para 200 usuarios y evidencias EP5
+
+- Se implementó `node:cluster`, con `WEB_CONCURRENCY` configurable y acotado por los CPU
+  asignados. Compose configura 2 CPU y 2 workers. Se verificaron reemplazo de workers caídos,
+  health HTTP 200 y cierre ordenado por SIGTERM.
+- El rate limit de login (10 intentos/15 min) se trasladó a un almacén PostgreSQL compartido
+  y atómico. La prueba S-18, ejecutada con dos procesos, confirma HTTP 429 en el intento 11.
+  El pool se mantuvo en 10; 2 workers × 10 = 20, frente a `max_connections=100`.
+- La regresión final fue `npm test` 9/9, Vitest 4/4, seguridad 19/19, cobertura c8
+  76.06/81.81/81.08 % (líneas/sentencias, ramas, funciones), `npm audit` 0 y
+  Playwright/axe 9/9.
+- Se midió k6 y JMeter a 50, 100, 150 y 200 usuarios, con `limit=50`, 500 clientes
+  sintéticos, un login por corrida y 1 s de espera. Todas las 11 corridas registraron cero
+  errores. A 200, k6 P95 419.92 ms y JMeter 154 ms; el objetivo <300 ms no se cumple de forma
+  consistente. A 150, dos corridas por instrumento quedaron bajo 300 ms; es el máximo probado
+  repetidamente que cumple, no una capacidad universal.
+- Se guardaron las métricas P95/P99, throughput y CPU promedio/máxima de app, PostgreSQL y
+  generador; el resumen y las salidas están en
+  [`EP5-20261123-performance-results.csv`](./evidencias/final/EP5-20261123-performance-results.csv)
+  y en [`evidencias/README.md`](./evidencias/README.md).
+- SonarCloud y Actions se consultaron sin credenciales: ambos reportaban `OK/success` para
+  `main` en `c6dbe5d`; no constituyen una validación de la rama actual. Trivy 0.76.2 reportó
+  0 HIGH/CRITICAL, 4 LOW, 7 MEDIUM; `npm audit` reportó 0.
+- Gitleaks staged no encontró secretos no suprimidos. Cuatro alertas iniciales correspondían
+  a IDs públicos de análisis/evento SonarCloud comprobados sin autenticación; se añadieron
+  exclusiones por línea exacta y se volvió a escanear.
+- Se capturaron dashboard, clientes y contratos con Playwright a 390×844. No existe
+  `docs/evidencias/testcase-studio/`; los espacios TCS/código generado de la presentación
+  quedan deliberadamente sin completar.
+- Se actualizaron resultados de validación, DEF-09 e índice de evidencias. La presentación
+  completa se registra con su propio commit y sus propias evidencias.
+
+## 2026-11-23 — presentación final y render PDF
+
+- Se completaron 12 marcadores visuales con evidencias de la rama. El diagrama de
+  arquitectura y la cobertura destacada también se actualizaron para reflejar Caddy/TLS
+  configurado y la cobertura medida de 76,06 %.
+- La diapositiva de rendimiento informa las corridas reales k6/JMeter y la diapositiva
+  DEF-09 refleja el resultado a 200 usuarios. Se preservaron el campo del docente y las
+  observaciones del profesor.
+- Se generaron el PPTX y el PDF finales con 15 diapositivas. Se revisaron las 15
+  diapositivas renderizadas a PNG (1600×900); no se observaron desbordamientos de texto.
+- PH_TCS y PH_UIAUTO permanecen como recuadros pendientes: no existe
+  `docs/evidencias/testcase-studio/`.
+- El comando, fecha, tamaños y validación están en
+  [`EP5-20261123-presentacion.txt`](./evidencias/final/EP5-20261123-presentacion.txt);
+  el índice enlaza el [PPTX](./Presentacion_Final_EP5_Atlas_completada.pptx) y el
+  [PDF](./Presentacion_Final_EP5_Atlas_completada.pdf).
