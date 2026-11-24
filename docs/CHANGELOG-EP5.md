@@ -127,3 +127,20 @@ La evidencia completa está en [`docs/evidencias/README.md`](./evidencias/README
   quedan deliberadamente sin completar.
 - Se actualizaron resultados de validación, DEF-09 e índice de evidencias. La presentación
   completa se registra con su propio commit y sus propias evidencias.
+
+## 2026-11-23 — presentación final y render PDF
+
+- Se completaron 12 marcadores visuales con evidencias de la rama. El diagrama de
+  arquitectura y la cobertura destacada también se actualizaron para reflejar Caddy/TLS
+  configurado y la cobertura medida de 76,06 %.
+- La diapositiva de rendimiento informa las corridas reales k6/JMeter y la diapositiva
+  DEF-09 refleja el resultado a 200 usuarios. Se preservaron el campo del docente y las
+  observaciones del profesor.
+- Se generaron el PPTX y el PDF finales con 15 diapositivas. Se revisaron las 15
+  diapositivas renderizadas a PNG (1600×900); no se observaron desbordamientos de texto.
+- PH_TCS y PH_UIAUTO permanecen como recuadros pendientes: no existe
+  `docs/evidencias/testcase-studio/`.
+- El comando, fecha, tamaños y validación están en
+  [`EP5-20261123-presentacion.txt`](./evidencias/final/EP5-20261123-presentacion.txt);
+  el índice enlaza el [PPTX](./Presentacion_Final_EP5_Atlas_completada.pptx) y el
+  [PDF](./Presentacion_Final_EP5_Atlas_completada.pdf).
